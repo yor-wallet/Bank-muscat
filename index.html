@@ -2,8 +2,8 @@
 <html lang="en" dir="ltr" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#F4FAF9">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<meta name="theme-color" content="#F4F6F5">
 <meta name="apple-mobile-web-app-title" content="Friendly Pay">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="description" content="Friendly Pay — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
@@ -69,7 +69,7 @@
 <script>
 /* last theme used on this phone, applied before the first paint (the app confirms it once the account is known) */
 (function(){try{var t=localStorage.getItem('fp_theme'),d=document.documentElement;
-  if(t==='dark'||(t==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#061110');}
+  if(t==='dark'||(t==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#050C0B');}
 }catch(e){}})();
 </script>
 <meta name="mobile-web-app-capable" content="yes">
@@ -119,7 +119,7 @@
 <link rel="stylesheet" href="css/wallet-connect.css">
 <link rel="stylesheet" href="css/opening.css">
 <link rel="stylesheet" href="css/resilience.css">
-<link rel="stylesheet" href="css/pagelock.css">
+<link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/card-metal.css">
 </head>
 <body>
@@ -194,6 +194,8 @@
 <script src="js/screens/register.js" defer></script>
 <script src="js/ui/uikit.js" defer></script>
 <script src="js/features/push.js" defer></script>
+<script src="js/features/premium.js" defer></script>
+<script src="js/features/v13.js" defer></script>
 <script src="js/wire.js" defer></script>
 <script src="js/layout/sidebar.js" defer></script>
 <script src="js/layout/viewport.js" defer></script>

@@ -1,7 +1,7 @@
 'use strict';
 /* ============================================================
    V12 — cards, home and navigation (YOR identity), design system 12.4.0.
-   Cards are drawn in CSS: metal finish, EMV chip, contactless symbol and Visa mark (12.14.0); never a security code.
+   Cards are drawn in CSS: metal finish, EMV chip, contactless symbol and Visa mark (15.0.0); never a security code.
    A card is a "preview" until the card data says a real issuer issued it.
    ============================================================ */
 const V12 = (() => {
@@ -72,11 +72,12 @@ const V12 = (() => {
     try { await UserDataEngine.writeSub(UserContext.requireCtx().uid, 'cards', c.id, c); return true; }
     catch(e){ Object.assign(c, old); toast(vt('failed'), 'error'); return false; }
   }
-  /* ---------- card face (12.14.0: metal finish, EMV chip, contactless symbol and the Visa network mark; never a CVV) ---------- */
+  /* ---------- card face (CSS-drawn: no network mark, no chip, no NFC symbol, no CVV) ---------- */
   /* 12.9.0: no "preview / not issued" wording is shown on cards; a label appears only for Frozen and Active */
   const stateLbl = s => (s === 'frozen' ? vt('frozen') : s === 'active' ? vt('active') : '');
   function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : ''; }
-  /* 12.14.0: every Friendly Pay card is a Visa card (partnership). Light finishes take the blue mark, dark ones the silver mark. */
+  /* Slot for the card network. It stays EMPTY until the card data itself carries a real network AND a real issuer. */
+  /* 15.0.0: card network mark (Visa, per the partnership). Light finishes take the blue mark, dark ones the silver mark. */
   const LIGHT_TH = ['minimal', 'metal', 'gold'];
   function netSlot(c){ return '<img class="rv-visa" src="assets/brand/network/visa-' + (LIGHT_TH.indexOf(themeOf(c)) >= 0 ? 'blue' : 'white') + '.svg" alt="Visa">'; }
   function faceHTML(c){
@@ -338,13 +339,13 @@ const V12 = (() => {
   function tilt(host){
     if (reduced()) return;
     let raf = 0, tx = 0, ty = 0, mx = 30, my = 0;
-    /* 12.14.0: the card follows the finger through a damped spring (no jumps), and the light angle --ang drives the metal sheen */
+    /* 15.0.0: the card follows the finger through a damped spring (no jumps); --ang drives the metal sheen */
     const cur = { tx: 0, ty: 0, mx: 30, my: 0 };
     const el = () => host.querySelector('.rv-card');
     const apply = () => {
       raf = 0; const c = el(); if (!c) return;
-      const k = 0.18; let moving = false;
-      ['tx', 'ty', 'mx', 'my'].forEach(n => { const tgt = n === 'tx' ? tx : n === 'ty' ? ty : n === 'mx' ? mx : my; const d = tgt - cur[n]; if (Math.abs(d) > 0.05){ cur[n] += d * k; moving = true; } else cur[n] = tgt; });
+      let moving = false;
+      ['tx', 'ty', 'mx', 'my'].forEach(n => { const tgt = n === 'tx' ? tx : n === 'ty' ? ty : n === 'mx' ? mx : my; const d = tgt - cur[n]; if (Math.abs(d) > 0.05){ cur[n] += d * 0.18; moving = true; } else cur[n] = tgt; });
       c.style.setProperty('--tx', cur.tx.toFixed(2) + 'deg'); c.style.setProperty('--ty', cur.ty.toFixed(2) + 'deg');
       c.style.setProperty('--mx', cur.mx.toFixed(1) + '%'); c.style.setProperty('--my', cur.my.toFixed(1) + '%');
       c.style.setProperty('--ang', (cur.ty * 6 - cur.tx * 4).toFixed(1) + 'deg');
@@ -432,5 +433,5 @@ const V12 = (() => {
     });
     document.addEventListener('visibilitychange', () => { if (document.hidden) hideDetails(); });
   }
-  return { vt, init, onScreen, renderCardsV12, renderCardSettings, renderCardsAddV12, renderHomeV12, buildNav };
+  return { vt, init, onScreen, renderCardsV12, renderCardSettings, renderCardsAddV12, renderHomeV12, buildNav, netSlot };
 })();

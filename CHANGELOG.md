@@ -1,34 +1,96 @@
-# Friendly Pay 12.14.0 — carte Visa en métal, animations de carte
+# Friendly Pay 15.0.0 — carte métal Visa (sur la base 13.0.0)
 
 ## Ajouté
-- **Marque Visa** sur chaque carte (partenariat Visa) : `assets/brand/network/visa-white.svg` (finitions sombres) et `visa-blue.svg` (finitions claires : Minimal, Métal, Or). Visible sur la carte et sur les mini-cartes de l'accueil.
+- **Marque Visa** sur chaque carte (face avant, dos, mini-cartes de l'accueil) : `assets/brand/network/visa-white.svg` (finitions sombres) et `visa-blue.svg` (Minimal, Métal, Or). Dessinée à la main, ce n'est PAS le fichier officiel Visa : à remplacer par le fichier fourni dans le cadre de l'accord avec Visa. Remplace l'emplacement vide de la 13.0.0, qui ne s'affichait que pour un vrai émetteur.
 - **Puce EMV et symbole sans contact** sur la face avant.
-- **Deux nouvelles finitions** : Titane et Or (FR / EN / AR).
-- `netlify.toml` (publication du dossier racine, page 404).
+- **Finitions Titane et Or** (FR / EN / AR).
+- `netlify.toml`.
 
 ## Amélioré
-- **Matière métal** (`css/card-metal.css`, chargé en dernier) : acier brossé à stries fines, bandes de lumière, tranche biseautée lumineuse, reflet métallique qui tourne avec l'inclinaison (`--ang`) et un reflet de repos lent ; toutes les finitions existantes passent en métal / anodisé.
-- **Animations** : entrée de la carte en 3D avec balayage de lumière, puce et logo qui apparaissent, retournement plus ample avec soulèvement, suivi du doigt / du gyroscope amorti par ressort (`tilt()` dans `js/features/v12.js`), pastilles de design qui brillent à la sélection, mini-cartes qui réagissent au toucher. Tout est coupé en mouvement réduit et à l'impression.
-- Version `12.14.0`, cache `fp-shell-v12.14.0`.
+- **Matière métal** (`css/card-metal.css`, chargé après `premium.css`) : acier brossé, bandes de lumière, tranche biseautée lumineuse, reflet qui tourne avec l'inclinaison (`--ang`), reflet de repos lent.
+- **Animations de la carte** : entrée 3D avec balayage de lumière, puce et logo qui apparaissent, retournement plus ample, suivi du doigt / gyroscope amorti par ressort, pastilles de design qui brillent, mini-cartes réactives. Coupées en mouvement réduit et à l'impression.
+- Version `15.0.0`, cache `fp-shell-v15.0.0`.
+
+## NON EXÉCUTÉ
+- Pas essayé sur un vrai iPhone. Les tests `tests/ui/*` de la 13.0.0 ne sont pas dans le zip.
 
 ---
 
-# Friendly Pay 12.13.1 — page fixe : plus aucun déplacement latéral, plus de bouton qui dépasse
+# Friendly Pay 13.0.0
 
-## Corrigé
-- **La page glissait de côté à chaque changement d'écran** : l'écran qui arrivait partait de 22 px à droite (à gauche en arrière, et l'inverse en arabe), avec un léger zoom (×0,985) et du flou, pendant que l'ancien écran glissait de l'autre côté. Résultat : deux pages côte à côte un instant, puis un saut. Maintenant un écran **apparaît et disparaît en fondu, sans aucune transformation** (`css/base.css`, `css/motion.css`, `css/friendly.css` : même animation `screenFade` partout, plus de `translateX`, d'échelle ni de flou sur l'écran). Les blocs de l'accueil montent de 8 px sans zoom ni flou (`elementReveal`).
-- **Un champ qui prend le focus, un `scrollIntoView`, la fermeture du clavier iPhone ou un geste à deux doigts pouvaient laisser un conteneur décalé** (un conteneur qui « cache » son débordement peut quand même être poussé par script, et il n'y avait aucun moyen de le ramener). Nouveau `PageLock` (`js/layout/viewport.js`) : tout décalage horizontal d'un conteneur non défilable est remis à 0 dans l'instant ; la page est recalée quand le clavier se ferme, quand l'écran tourne et quand l'application revient au premier plan ; le défilement lié au focus est vertical seulement. Les bandeaux voulus (publicités, chips, étapes) restent défilables.
-- **Zoom refusé** : balise viewport `maximum-scale=1, user-scalable=no`, geste de pincement bloqué (`gesturestart/change/end`), `touch-action: pan-x pan-y` sur la page et `pan-y` sur les écrans (pas de zoom au double toucher, pas de tirage latéral). Les champs de saisie font déjà ≥ 16 px (l'iPhone ne zoome donc pas tout seul quand on touche un champ). Le mode « Bureau » (préférence) garde son propre zoom.
-- **Rien n'est plus large que le cadre** : balayage de 19 écrans en 320 / 360 / 390 px, FR / EN / AR, sans élément hors cadre. `css/pagelock.css` (chargé en dernier) ne change aucune mise en page : il retire seulement les mouvements et verrouille le débordement (`overflow: clip`).
-- Version `12.13.1`, cache `fp-shell-v12.13.1`, nouveau fichier `css/pagelock.css` ajouté au service worker.
+## Corrigé — « la page part vers la gauche et reste bloquée »
+- Cause : les écrans cachés étaient gardés décalés de 22 px vers la droite (préparation de leur glissement d'entrée, `base.css`). La zone des écrans faisait donc 412 px sur un téléphone de 390 px. Le moindre défilement automatique (carrousel, champ qui prend le focus, clavier iOS) poussait tout vers la gauche, et comme cette zone ne se fait pas défiler à la main, on ne pouvait plus revenir.
+- Correction : les écrans cachés restent dans le cadre (l'entrée se fait désormais verticalement) ; `#screens`, `#main`, `#app`, `body` ne défilent jamais de côté ; une garde remet aussitôt à 0 tout décalage horizontal (défilement, focus, redimensionnement). Vérifié : 390 px sur tous les écrans, décalage forcé remis à 0.
+
+## Ajouté
+- **Ce mois-ci** (accueil) : envoyé / reçu / nombre d'opérations — uniquement les opérations CONFIRMÉES du mois, dans la devise du compte ; masqué avec le solde.
+- **Tirer pour actualiser** (accueil, historique, notifications) : recharge vraiment depuis le serveur ; hors ligne, le dit et n'invente rien.
+- **Bénéficiaires récents** sur l'écran d'envoi : les numéros réellement utilisés dans l'historique (sans doublon) ; un toucher remplit le numéro (la personne vérifie et continue).
+- **Centre de notifications** : regroupé par jour, pastille « non lue », titre traduit selon le type (envoyé / reçu / dépôt), montant et référence tirés des données du serveur ; un toucher ouvre le reçu et marque l'alerte lue sur le serveur.
+
+## Non fait (volontairement)
+- **Logo Visa** : non ajouté. Ces cartes ne sont pas émises par un émetteur agréé Visa ; afficher la marque Visa serait trompeur et interdit sans licence. L'emplacement du réseau existe déjà et ne s'affiche que si les données de la carte indiquent un vrai émetteur et un vrai réseau.
 
 ## Tests
-- `tests/ui/page-lock.test.mjs` (10 tests) : mesure **chaque image** de la transition (position gauche / droite et transformation de tous les écrans, EN et AR, en avant et en arrière) ; décalage forcé + focus d'un champ très décalé + fermeture du clavier ; bandeaux toujours défilables ; zoom refusé ; glissement tactile horizontal sur tout l'écran (événements tactiles réels via CDP) ; balayage de 19 écrans × 5 tailles / langues. Le test de transition **échoue sur 12.13.0** (écran décalé de 22 px, transformation ×0,985) et passe sur 12.13.1.
+- `tests/ui/v13.test.mjs` (5 tests). NON EXÉCUTÉ : vrai iPhone.
 
-## NON EXÉCUTÉ
-- **Pas testé sur un vrai iPhone / Safari** : les mesures sont faites dans Chromium (écran mobile émulé, événements tactiles réels). Safari a ses propres comportements (barre d'adresse, clavier, rebond élastique) ; le blocage du zoom par pincement repose sur l'événement `gesturestart` de Safari, que Chromium n'a pas (simulé par un événement de même nom).
-- Bloquer le zoom réduit l'accessibilité pour les personnes qui agrandissent l'écran avec les doigts : c'est le choix demandé (page qui reste en place). Les réglages d'agrandissement du texte du téléphone restent respectés.
-- Pas de déploiement Netlify (zip à déposer). Les alertes push de 12.13.0 n'ont toujours pas été vues sur un vrai iPhone.
+---
+
+# Friendly Pay 12.15.0 — Face ID OU le code pour les transferts
+
+## Changé
+- **Transferts : Face ID suffit.** Avant : Face ID PUIS le code à 6 chiffres. Maintenant : Face ID confirmé → aucun code à taper ; Face ID annulé, échoué ou indisponible → le code à 6 chiffres.
+- Comment, sans affaiblir le serveur : le serveur n'autorise toujours un transfert qu'après avoir vérifié le code (`verify_pin`, 5 essais puis blocage 15 min). Après un transfert confirmé avec le code et Face ID, le code est gardé sur CET appareil, chiffré (AES-GCM 256) avec une clé que l'iPhone ne libère qu'après Face ID (extension WebAuthn PRF). Ensuite, Face ID déchiffre le code et l'application le transmet elle-même à `verify_pin`. Le code n'est jamais stocké en clair.
+- La copie chiffrée est effacée : à la déconnexion, après un changement de code, et dès que le serveur la refuse (une seule tentative silencieuse, jamais répétée).
+- Exige iOS 18+ (PRF). Sur un appareil sans PRF, le code reste demandé à chaque transfert. Une clé Face ID créée avant 12.15.0 est remplacée une seule fois (un Face ID supplémentaire) pour activer PRF.
+- Ouverture de l'application : inchangée (Face ID, sinon le code). La session reste mémorisée (`persistSession`) : on ne se reconnecte qu'après « Se déconnecter », ou une fois par adresse de site / une fois dans l'app installée (Safari et l'icône n'ont pas la même mémoire sur iPhone).
+- Aucun changement côté serveur / base de données.
+
+## Tests
+- `tests/ui/faceid-pin-1215.test.mjs` (6 tests, Face ID simulé, chiffrement réel de Chromium). NON EXÉCUTÉ : vrai Face ID sur un vrai iPhone.
+
+---
+
+# Friendly Pay 12.14.0 — refonte premium (étape 1 : animations, écrans, installation iPhone sans App Store)
+
+## Ajouté
+- **Identité visuelle premium** (`css/premium.css`, chargée en dernier) : encre pétrole profonde + teal Friendly + filet champagne discret, carte de solde avec lignes guillochées fines et reflet lumineux unique à l'ouverture. Ombres douces, rayons cohérents, boutons tactiles ≥ 44 px.
+- **Polices auto-hébergées** (`assets/fonts/`, licence SIL OFL, 304 Ko) : Manrope (interface, titres, montants en chiffres tabulaires), Inter (textes fonctionnels), IBM Plex Sans Arabic (arabe). Aucune police externe : la CSP (`font-src 'self'`) est inchangée. Repli système si une police manque.
+- **Accueil refait** (`js/features/premium.js`) : avatar → profil, salutation selon l'heure, recherche, cloche avec compteur réel ; carte « Solde disponible » avec état réel du compte, œil masquer/afficher, identifiant, accès Historique ; actions Envoyer / Recevoir / Historique / Plus ; activité récente avec statut réel. Le solde s'anime (comptage + halo) **uniquement** quand la valeur lue au serveur change ; le texte final est toujours la valeur exacte.
+- **Recevoir** : Friendly ID et numéro (copier / partager), argent reçu (réel). Explique honnêtement qu'un transfert vers un numéro ne crédite pas un solde Friendly Pay. Pas de bouton « Ajouter de l'argent » : la fonction n'existe pas.
+- **Recherche globale** : opérations (nom, numéro, référence FRD-/YOR-, montant), bénéficiaires (ouvre l'envoi pré-rempli), écrans et réglages. Données déjà chargées uniquement.
+- **Historique** : recherche, filtres période (aujourd'hui / 7 j / 30 j / ce mois) et sens (reçues / envoyées), combinés aux filtres de statut existants.
+- **Profil refait** : en-tête (avatar, nom, numéro masqué `+968 •••• 1234`, e-mail masqué, Friendly ID copiable, statut de vérification RÉEL — « Vérifié » seulement si le serveur le dit), sections Informations personnelles, Vérification, Sécurité, Préférences, Assistance.
+- **Modifier le profil** : prénom et nom seulement, écrits dans `profiles` (droits par colonne du serveur, RLS sur sa propre ligne). Numéro et pays en lecture seule (le numéro identifie le compte et les SMS).
+- **Modifier le code personnel** : fonction serveur existante `change_pin` (l'ancien code est d'abord vérifié par `verify_pin` : même compteur d'essais et même blocage que pour un transfert).
+- **Réglages par catégories** : Apparence, Notifications (in-app / alertes du téléphone / SMS clairement distingués), Sécurité et confidentialité, Préférences financières, Compte, Informations et assistance. Toutes les commandes précédentes conservées.
+- **Installation sans App Store** : carte d'accueil + ligne des Réglages, seulement si l'app n'est pas déjà installée. iPhone/iPad Safari : les 3 vraies étapes (Partager → « Sur l'écran d'accueil » → ouvrir depuis l'icône) ; autre navigateur iOS : « ouvrez dans Safari » ; Android / ordinateur : invite native du navigateur. « Plus tard » = 14 jours.
+- **Reçu** : titre « Confirmation de transaction », numéro de l'expéditeur formaté, actions dans l'ordre Télécharger PDF / Enregistrer l'image / Partager / Copier la référence / Imprimer, puis Nouvelle opération et Retour à l'accueil. Le doublon de nom masqué a été retiré.
+
+## Sécurité des transferts (important)
+- **État « à vérifier »** : une requête sans réponse lisible (réseau coupé, délai de 30 s, passerelle 5xx) n'est plus affichée comme « échec ». Écran « Statut à vérifier » : jamais « confirmé », **jamais renvoyée automatiquement**.
+- **Vérifier le statut** : relit le résultat de LA MÊME requête (même clé d'idempotence) **sans autorisation PIN** : le serveur rejoue la clé avant de consommer une autorisation, et sans autorisation il répond `pin_required` — cette vérification ne peut donc jamais créer de transfert. Enregistré → vrai reçu (référence du serveur) ; non enregistré → « Réessayer » proposé seulement à ce moment.
+- **Refus certain** (erreur SQL : opération annulée) : écran « Transfert non abouti » avec la raison, Réessayer / Modifier le montant / Accueil (avant : retour silencieux à l'accueil).
+- **Hors ligne** : le transfert n'est pas tenté et la personne en est informée.
+- Animation d'envoi en **4 étapes visibles** : Vérifié → Envoyé → Réponse du serveur (« En attente de la réponse du serveur… » après 1,6 s) → Confirmé / non abouti / à vérifier.
+
+## Corrigé
+- **Tous les écrans étaient décalés de ~18 px vers la gauche** après quelques secondes sur l'accueil (déjà en 12.13.0) : le carrousel utilisait `scrollIntoView`, qui faisait défiler `#screens` (et parfois la page verticalement). Seule la piste défile maintenant ; `#screens` ne peut plus défiler de côté.
+- Barre du haut transparente qui chevauchait le contenu au défilement (Réglages) : fond lisible dès que l'écran défile.
+- Transition d'écran avec `filter: blur(6px)` plein écran (coûteuse sur iPhone) remplacée par opacité + translation.
+- Carte de solde : l'ancienne règle `friendly.css` (grille à 2 colonnes, `!important`) est remplacée.
+- Liste des opérations : un numéro stocké comme nom s'affiche formaté (`+968 9123 4567`).
+
+## PWA
+- Version `12.14.0`, cache `fp-shell-v12.14.0` ; `premium.css`, `premium.js` et les 7 polices sont précachés. Couleurs de thème mises à jour (manifeste, `theme-color`). Raccourci « Receive money ». Le service worker ne met toujours **aucune** donnée Supabase en cache.
+
+## Tests
+- Nouveau `tests/ui/premium-1214.test.mjs` (15 tests). Mis à jour : version 12.14.0 (3 fichiers) ; `transfer-simple` : après un refus, l'écran « Transfer not completed » au lieu du retour à l'accueil.
+
+## NON EXÉCUTÉ / à faire (étape 2, demain)
+- Aucun test sur un vrai iPhone / Safari (Chromium seulement), aucune alerte push réelle, aucun SMS réel, pas de déploiement Netlify.
+- Étude publique des notifications des banques d'Oman et nouveaux modèles de notifications (en attente, échec, remboursement, dépôt, sécurité) : non commencés.
+- Le serveur n'a PAS été modifié (aucune migration, aucune fonction redéployée) ; seules des lectures du schéma ont été faites.
 
 ---
 

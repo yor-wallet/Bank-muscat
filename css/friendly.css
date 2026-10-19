@@ -153,8 +153,8 @@ button:active svg.ic .d2,a:active svg.ic .d2,.fk-key:active svg.ic .d2{transform
 .fid-row.is-on .tile{background:var(--accent-soft);color:var(--accent)}
 
 /* ---------- 8. motion ---------- */
-/* 12.13.1 : l'écran qui s'ouvre apparaît en fondu, sans glisser, sans zoom (.985) ni flou — voir css/base.css et css/pagelock.css */
-.screen.active{animation:screenFade 180ms ease-out both!important}
+.screen.active{animation:frdScreen .5s cubic-bezier(.2,.9,.2,1) backwards!important}
+@keyframes frdScreen{0%{opacity:0;transform:translateY(16px) scale(.985);filter:blur(6px)}100%{opacity:1;transform:none;filter:none}}
 .ds-home>*{animation:frdRise .65s cubic-bezier(.2,.9,.2,1) backwards}
 .ds-home>:nth-child(2){animation-delay:.05s}.ds-home>:nth-child(3){animation-delay:.1s}.ds-home>:nth-child(4){animation-delay:.2s}
 .ds-home>:nth-child(5){animation-delay:.27s}.ds-home>:nth-child(6){animation-delay:.34s}.ds-home>:nth-child(7){animation-delay:.41s}

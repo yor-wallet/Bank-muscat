@@ -80,7 +80,11 @@ const Promos = (() => {
   function goTo(root, idx, smooth) {
     const s = slidesOf(root)[idx];
     if (!s) return;
-    try { s.scrollIntoView({ behavior: smooth && !reduceMotion() ? 'smooth' : 'auto', block: 'nearest', inline: 'start' }); } catch (e) { s.scrollIntoView(); }
+    /* 12.14.0: only the track scrolls. scrollIntoView() also scrolled every parent (#screens moved sideways by ~18 px and every later
+       screen was drawn shifted; the page could jump vertically while being read). Works left-to-right and right-to-left. */
+    const t = s.parentElement, s0 = slidesOf(root)[0]; if (!t || !s0) return;
+    const left = s.offsetLeft - s0.offsetLeft;      /* absolute position (negative in right-to-left, as browsers expect) */
+    try { t.scrollTo({ left, behavior: smooth && !reduceMotion() ? 'smooth' : 'auto' }); } catch (e) { t.scrollLeft = left; }
   }
 
   let timer = null, raf = 0;

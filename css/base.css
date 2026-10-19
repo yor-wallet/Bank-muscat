@@ -56,11 +56,12 @@ img,svg{display:block;max-width:100%}
 #ambient::after{width:520px;height:520px;bottom:-180px;right:-120px;background:radial-gradient(circle,rgba(59,130,246,.28),transparent 65%);animation:ambientFloat2 28s ease-in-out infinite}
 @keyframes ambientFloat1{0%,100%{transform:translate(0,0)}50%{transform:translate(60px,40px)}}
 @keyframes ambientFloat2{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,-30px)}}
-/* 12.13.1 — PAGE FIXE : un écran qui arrive ou qui part ne se déplace JAMAIS de côté (avant : glissement de 22 px, zoom et flou à chaque changement d'écran, qui laissait deux pages côte à côte).
-   Il apparaît et disparaît en fondu, sans transformation. Le bloc « PAGE FIXE » de css/pagelock.css complète (zoom, glissement). */
-.screen{position:absolute;inset:0;z-index:var(--z-content);display:flex;flex-direction:column;background:transparent;opacity:0;visibility:hidden;pointer-events:none;transform:none;transition:opacity 140ms ease,visibility 0s linear 140ms;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;will-change:opacity;max-width:100%}
-.screen.active{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition-delay:0s;z-index:var(--z-content);animation:screenFade 180ms ease-out both}
-@keyframes screenFade{0%{opacity:0}100%{opacity:1}}
+.screen{position:absolute;inset:0;z-index:var(--z-content);display:flex;flex-direction:column;background:transparent;opacity:0;visibility:hidden;--enter-x:22px;transform:translateX(var(--enter-x));transition:opacity 260ms var(--ease),transform 260ms var(--ease),visibility 0s linear 260ms;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;will-change:transform,opacity}
+html[dir="rtl"] .screen{--enter-x:-22px}
+.screen.from-back{--enter-x:-22px}
+html[dir="rtl"] .screen.from-back{--enter-x:22px}
+.screen.active{opacity:1;visibility:visible;transform:translateX(0);transition-delay:0s;z-index:var(--z-content);animation:screenClipIn 300ms cubic-bezier(.16,1,.3,1) both}
+@keyframes screenClipIn{0%{clip-path:inset(0 0 100% 0 round 24px);opacity:0;transform:translateX(var(--enter-x)) translateY(6px) scale(.995)}100%{clip-path:inset(0 0 0 0 round 0);opacity:1;transform:none}}
 .screen-body{padding:var(--sp-4) var(--sp-5) var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4);flex:1}
 .topbar{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);padding:calc(env(safe-area-inset-top,0px) + var(--sp-3)) var(--sp-5) var(--sp-3);min-height:calc(60px*var(--ui));position:sticky;top:0;z-index:var(--z-sticky);background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 88%,transparent),transparent);backdrop-filter:blur(var(--blur-sm));-webkit-backdrop-filter:blur(var(--blur-sm))}
 .topbar-title{font-size:calc(16px*var(--ui));font-weight:600;letter-spacing:-.01em;flex:1;text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -82,7 +83,7 @@ html[dir="rtl"] .dir-flip{transform:scaleX(-1)}
 .glass{background:var(--glass-2);backdrop-filter:blur(var(--blur-md)) saturate(180%);-webkit-backdrop-filter:blur(var(--blur-md)) saturate(180%);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:inset 0 1px 0 var(--glass-hl),0 8px 24px rgba(0,0,0,.24)}
 .glass-elevated{background:var(--glass-3);backdrop-filter:blur(var(--blur-lg)) saturate(200%);-webkit-backdrop-filter:blur(var(--blur-lg)) saturate(200%);border:1px solid var(--border-2);border-radius:var(--r-xl);box-shadow:inset 0 1px 0 var(--glass-hl),0 24px 60px rgba(0,0,0,.44)}
 .glass,.glass-elevated,.select-item,.item,.contact-card,.country-row,.service-pill{animation:elementReveal 420ms cubic-bezier(.2,1,.4,1) both}
-@keyframes elementReveal{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}   /* 12.13.1 : sans zoom ni flou (les bords ne bougent plus) */
+@keyframes elementReveal{0%{opacity:0;transform:translateY(10px) scale(.985);filter:blur(4px)}100%{opacity:1;transform:none;filter:blur(0)}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:calc(8px*var(--ui));min-height:calc(52px*var(--ui));padding:0 var(--sp-5);border-radius:var(--r-md);font-size:calc(15px*var(--ui));font-weight:600;letter-spacing:-.005em;user-select:none;position:relative;overflow:hidden;transition:transform var(--t-fast) var(--ease),background var(--t-fast),opacity var(--t-fast),box-shadow var(--t-normal);width:100%}
 .btn:active:not(:disabled){transform:scale(.97)}
 .btn:disabled{opacity:.4;pointer-events:none}
