@@ -53,6 +53,7 @@ function wire(id){
   const _wireRoot = document.getElementById(id) || document;
   try { V12.onScreen(id); } catch(e){ console.error(e); }
   try { if (typeof Premium !== 'undefined') Premium.onScreen(id, _wireRoot); } catch(e){ console.error(e); }
+  try { if (typeof LiveX !== 'undefined') LiveX.onScreen(id, _wireRoot); } catch(e){ console.error(e); }       /* 16.0.0 : console admin, transfert international, téléphone */
   if (id === 'chain' && typeof wireChain === 'function'){ try { wireChain(_wireRoot); } catch(e){ console.error(e); } }
 
   _wireRoot.querySelectorAll('[data-action]').forEach(el => {
@@ -82,6 +83,12 @@ function wire(id){
         const uid = UserContext.requireCtx().uid;
         await UserDataEngine.writeDoc(uid, 'preferences', Object.assign({}, Runtime.settings, { notifications: next }));
         Runtime.settings.notifications = next;
+      });
+      else if (a === 'settings-toggle-sounds') await settingsSwitch(el, () => Runtime.settings.sounds !== false, async (next) => {
+        const uid = UserContext.requireCtx().uid;
+        await UserDataEngine.writeDoc(uid, 'preferences', Object.assign({}, Runtime.settings, { sounds: next }));
+        Runtime.settings.sounds = next;
+        try { Sfx.set(next); } catch(e){ /* rien */ }
       });
       else if (a === 'settings-toggle-vibration') await settingsSwitch(el, () => Runtime.settings.vibration !== false, async (next) => {
         const uid = UserContext.requireCtx().uid;
@@ -568,7 +575,7 @@ function wire(id){
             shown = CurrencyEngine.formatCrypto(got, sym);
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: got, currency:'OMR', asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: Number(d.fiatAmount), costOMR: true,
-              beneficiary: { name, networkName:'Friendly Pay' }, network:'Friendly Pay', reference: ref, createdAt: Date.now() };
+              beneficiary: { name, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
           } else if (p.kind === 'SEND'){
             /* server result is authoritative: CONFIRMED = internal YOR transfer, PENDING = awaiting blockchain validation */
             const internal = !!row.internal; const pending = row.status === 'PENDING';
@@ -585,7 +592,7 @@ function wire(id){
             shown = CurrencyEngine.format(got, 'OMR');
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: Number(row.amount != null ? row.amount : d.amount), currency:'OMR', asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: got, costOMR: true,
-              beneficiary: { name, networkName:'Friendly Pay' }, network:'Friendly Pay', reference: ref, createdAt: Date.now() };
+              beneficiary: { name, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
           } else {
             const to = d.toAssetObj ? d.toAssetObj.symbol : '';
             const got = Number(row.destination_amount != null ? row.destination_amount : d.destinationAmount);
@@ -594,7 +601,7 @@ function wire(id){
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: amt, currency: sym, asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: amt,
               destinationAmount: got, destinationCurrency: to, exchangeRate: amt > 0 ? got / amt : null,
-              beneficiary: { name: d.toAssetObj ? d.toAssetObj.name : to, networkName:'Friendly Pay' }, network:'Friendly Pay', reference: ref, createdAt: Date.now() };
+              beneficiary: { name: d.toAssetObj ? d.toAssetObj.name : to, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
           }
           try { await recordLocalReceipt(receipt); } catch(e){ console.error(e); }
           resetCryptoFlow();

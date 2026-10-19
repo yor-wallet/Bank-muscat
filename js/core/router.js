@@ -8,7 +8,7 @@ const R = (() => {
   const stack = [], overlays = [], SCREENS = {};
   const LOCKED = ['processing','tx-network-validation','tx-confirmation','boot'];
   const PUBLIC_SCREENS = ['login','signup','reset'];
-  const ADMIN_SCREENS = ['chain'];     /* écrans réservés au rôle admin (masquage d'interface) */
+  const ADMIN_SCREENS = ['chain','admin','admin-user'];     /* écrans réservés au rôle admin (masquage d'interface) */
   const PARENT = {
     'services':'home', 'chain':'services', 'settings':'home', 'banks':'home', 'banks-add':'banks', 'contact-add':'settings',
     'cards':'home', 'cards-add':'cards', 'card-settings':'cards', 'notifications':'home', 'profile':'home',
@@ -20,13 +20,13 @@ const R = (() => {
     'crypto-review':'crypto', 'crypto-receive':'crypto', 'crypto-receive-address':'crypto-receive',
     'crypto-to-bank':'crypto', 'crypto-to-bank-account':'crypto-to-bank',
     'crypto-to-bank-amount':'crypto-to-bank-account', 'crypto-bank-review':'crypto-to-bank-amount',
-    'country-select':'home',
+    'country-select':'home', 'intl':'services', 'intl-method':'intl', 'intl-details':'intl-method', 'intl-amount':'intl-details', 'intl-review':'intl-amount', 'intl-result':'intl-review', 'admin':'services', 'admin-user':'admin',
     'tx-amount':'country-select', 'tx-review':'tx-amount', 'receipt':'home',
     'receive':'home', 'profile-edit':'profile', 'tx-result':'home',
     'devices':'settings', 'sessions':'settings', 'privacy':'settings', 'help':'settings', 'about':'settings', 'history':'home'
   };
   const NAV_KEYS = {
-    'home':'home','services':'services','chain':'services','history':'history','cards':'cards','cards-add':'cards','card-settings':'cards','country-select':'country-select','service-select':'country-select','identifier-input':'country-select','tx-amount':'country-select','tx-review':'country-select','profile':'profile','settings':'settings','banks':'services','banks-add':'services','privacy':'settings','help':'settings','about':'settings',
+    'home':'home','services':'services','chain':'services','intl':'services','intl-method':'services','intl-details':'services','intl-amount':'services','intl-review':'services','intl-result':'services','admin':'services','admin-user':'services','history':'history','cards':'cards','cards-add':'cards','card-settings':'cards','country-select':'country-select','service-select':'country-select','identifier-input':'country-select','tx-amount':'country-select','tx-review':'country-select','profile':'profile','settings':'settings','banks':'services','banks-add':'services','privacy':'settings','help':'settings','about':'settings',
     'notifications':'notifications','crypto':'crypto','crypto-market':'crypto-market','crypto-networks':'crypto-market','crypto-spot':'crypto-market',
     'crypto-buy':'crypto','crypto-buy-amount':'crypto','crypto-sell':'crypto','crypto-sell-amount':'crypto',
     'crypto-swap':'crypto','crypto-swap-to':'crypto','crypto-swap-amount':'crypto',

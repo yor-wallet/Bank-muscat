@@ -20,10 +20,11 @@ function bootFails(delta){
 /* Raccourcis de l'icône (« Envoyer », « Cartes », « Historique ») : le lien d'ouverture est lu AVANT que le routeur ne réécrive l'adresse ;
    l'écran demandé s'ouvre une fois le compte ouvert (et le code saisi), par-dessus l'accueil. Liste blanche : jamais d'écran sensible ou d'étape au milieu d'un parcours. */
 const LAUNCH_HASH = (() => { try { return location.hash || ''; } catch(e){ return ''; } })();
-const DEEP_OK = ['cards', 'country-select', 'receive', 'history', 'notifications', 'profile', 'settings', 'services'].concat(FEATURES.crypto ? ['crypto'] : []);
+const DEEP_OK = ['cards', 'country-select', 'receive', 'history', 'notifications', 'profile', 'settings', 'services', 'admin', 'intl'].concat(FEATURES.crypto ? ['crypto'] : []);
 let _deepUsed = false;
 function openHome(){
   R.go('home', { reset:true, force:true });
+  setTimeout(() => { try { Reward.check(); } catch(e){ /* rien */ } try { LiveX.afterHome(); } catch(e){ /* rien */ } }, 700);     /* 16.0.0 : récompense de bienvenue réellement créditée par le serveur → célébration */
   if (_deepUsed || !LAUNCH_HASH) return;
   _deepUsed = true;
   try {
@@ -144,7 +145,7 @@ function boot(){
       resetRuntime();
       LANG = DeviceLang.get();                 /* the previous user's language does not survive; the device language is used */
       applyI18n();
-      applyTheme('light');
+      applyTheme('dark');
       renderSidebar();
       R.go('login', { reset:true, force:true });
     }

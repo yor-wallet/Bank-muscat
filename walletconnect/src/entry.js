@@ -1,4 +1,4 @@
-/* Friendly Pay — enveloppe Reown AppKit (WalletConnect), TRON Nile uniquement.
+/* Live X Digitale — enveloppe Reown AppKit (WalletConnect), TRON Nile uniquement.
    Expose window.NexAppKit. Connexion SEULEMENT : aucune transaction, aucune signature n'est demandee d'ici.
    Aucune cle privee / phrase de recuperation : le portefeuille de l'utilisateur garde ses cles. */
 import { createAppKit } from '@reown/appkit';

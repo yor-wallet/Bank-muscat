@@ -91,26 +91,26 @@ function flag(iso){ return FLAGS[iso] || FLAGS.US; }
 const isArabicUi = () => typeof LANG === 'string' && LANG === 'ar';
 function logoMark(size){
   size = size || 48;
-  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'فرندي باي' : 'Friendly Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
+  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'لايف إكس ديجيتال' : 'Live X Digitale') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
 }
 function logoLockup(size){
   size = size || 48;
-  /* arabe : mot-symbole « فرندي باي » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
+  /* arabe : mot-symbole « لايف إكس ديجيتال » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
   const word = isArabicUi()
-    ? '<span class="logo-name logo-name-ar">فرندي</span><span class="logo-sub logo-sub-ar">باي</span>'
-    : '<span class="logo-name">Friendly</span><span class="logo-sub">PAY</span>';
+    ? '<span class="logo-name logo-name-ar">لايف إكس</span><span class="logo-sub logo-sub-ar">ديجيتال</span>'
+    : '<span class="logo-name">Live X</span><span class="logo-sub">DIGITALE</span>';
   return '<div class="logo-lockup">' + logoMark(size) + '<div class="logo-word">' + word + '</div></div>';
 }
 const ASSET_INITIALS = { BTC:'₿', ETH:'Ξ', USDT:'₮', USDC:'$', BNB:'BNB', SOL:'SOL', XRP:'XRP', LTC:'Ł' };
 function assetLogo(symbol, size, tint){
   size = size || 40;
-  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#0D9488' }).tint;
+  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#8a630b' }).tint;
   const init = ASSET_INITIALS[symbol] || symbol.slice(0, 2);
   return '<div class="asset-coin" style="width:' + size + 'px;height:' + size + 'px;background:' + bg + '">' + init + '</div>';
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#0D9488';
+  const tint = net.tint || '#8a630b';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }
@@ -275,3 +275,24 @@ const FRIENDLY_ICONS = (() => {
   };
 })();
 Object.assign(IC, FRIENDLY_ICONS);
+
+/* 16.0.0 : icônes ajoutées (récompense, sons, adresse, clé, actualiser, administration) — même grille 24 px, trait 1,8 */
+const LX_ICONS = (() => {
+  const s2 = (d) => '<path class="d2" d="' + d + '"/>';
+  const p = (d) => '<path d="' + d + '"/>';
+  const c = (cx, cy, r) => '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '"/>';
+  const r2 = (x, y, w, h, r) => '<rect class="d2" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '"/>';
+  const r = (x, y, w, h, rx) => '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + rx + '"/>';
+  return {
+    gift: r2(4, 9.5, 16, 10.5, 2.4) + r(4, 9.5, 16, 10.5, 2.4) + p('M12 9.5V20M3.2 9.5h17.6v3.3H3.2z') + p('M12 9.5C10.4 5 6 5.6 7 8.4c.3.9 2.2 1.1 5 1.1zM12 9.5c1.6-4.5 6-3.9 5-1.1-.3.9-2.2 1.1-5 1.1z'),
+    volume: p('M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z') + p('M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11'),
+    volumeOff: p('M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z') + p('M16 9.5l5 5M21 9.5l-5 5'),
+    map: s2('M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z') + p('M12 21s6.5-5.8 6.5-11A6.5 6.5 0 0 0 5.5 10c0 5.2 6.5 11 6.5 11z') + c(12, 10, 2.4),
+    key: c(8, 14, 3.8) + p('M10.8 11.3 20 2.5M16.5 6l2.5 2.5M14 8.5l2 2'),
+    refresh: p('M4.5 12a7.5 7.5 0 0 1 13-5M19.5 4v4h-4M19.5 12a7.5 7.5 0 0 1-13 5M4.5 20v-4h4'),
+    users: c(9, 8.5, 3.4) + p('M2.8 19.5c.7-3.4 3-5 6.2-5s5.500 1.600 6.200 5') + c(17, 9.500, 2.500) + p('M17.500 14.500c2.200.2 3.700 1.600 4.200 4'),
+    admin: s2('M12 3.4 19.6 6.2v5.5c0 4.3-3 7.5-7.6 9.1-4.6-1.6-7.6-4.8-7.6-9.1V6.2z') + p('M12 3.4 19.6 6.2v5.5c0 4.3-3 7.5-7.6 9.1-4.6-1.6-7.6-4.8-7.6-9.1V6.2z') + p('M12 8.200v4.400M12 15h.01'),
+    trophy: p('M8 4h8v5a4 4 0 0 1-8 0zM8 6H5v1.500A3 3 0 0 0 8 10.500M16 6h3v1.500a3 3 0 0 1-3 3M12 13v4M8.500 20h7M10 17h4'),
+  };
+})();
+Object.assign(IC, LX_ICONS);

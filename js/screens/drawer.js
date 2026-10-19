@@ -8,7 +8,7 @@ const YorDrawer = (() => {
   function open(){
     if (el) return;
     const p = Runtime.profile || {};
-    const name = [p.firstName, p.lastName].filter(Boolean).join(' ') || p.displayName || 'Friendly';
+    const name = [p.firstName, p.lastName].filter(Boolean).join(' ') || p.displayName || 'Live X';
     const items = [['profile','user','profile'],['notifications','bell','notifications'],['history','history','history'],['cards','cards','cards'],['banks','bank','banks'],['crypto-market','chart','markets'],['crypto-networks','network','networks'],['settings','settings','settings']].filter(i => FEATURES.crypto || !CRYPTO_SCREEN_RE.test(i[0]));
     el = document.createElement('div'); el.className = 'yd';
     el.innerHTML = '<div class="yd-bg" data-yd-close></div><aside class="yd-p" role="dialog" aria-modal="true">' +

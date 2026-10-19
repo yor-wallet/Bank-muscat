@@ -8,7 +8,7 @@ function mainAccount(){
 }
 
 function renderLogin(){
-  return '<div class="topbar"><span class="topbar-title">Friendly Pay</span><span style="width:calc(44px*var(--ui))"></span></div>' +
+  return '<div class="topbar"><span class="topbar-title">Live X Digitale</span><span style="width:calc(44px*var(--ui))"></span></div>' +
     '<div class="screen-body" style="padding-top:var(--sp-4);max-width:calc(460px*var(--ui));margin:0 auto;width:100%">' +
       '<div style="display:flex;justify-content:center;padding:var(--sp-4) 0">' + logoLockup(56) + '</div>' +
       '<div class="field"><label class="field-label" for="au-email">' + t('auth.username') + '</label><div class="field-box"><input type="email" id="au-email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="ltr"></div></div>' +
@@ -33,6 +33,7 @@ function renderSignup(){
   return '<div class="topbar"><button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button><span class="topbar-title">' + t('auth.signupTitle') + '</span><span style="width:calc(44px*var(--ui))"></span></div>' +
     '<div class="screen-body" style="padding-top:var(--sp-4);max-width:calc(460px*var(--ui));margin:0 auto;width:100%">' +
       '<div style="display:flex;justify-content:center;padding:var(--sp-2) 0">' + logoLockup(48) + '</div>' +
+      '<div class="su-gift" role="note"><span class="su-gift-i">' + icon('gift', 22) + '</span><span class="su-gift-t"><b>' + t('lx.su.gift').replace('{a}', '10 OMR') + '</b><small>' + t('lx.su.gift2') + '</small></span></div>' +
       '<div class="field"><label class="field-label" for="su-first">' + t('auth.firstName') + '</label><div class="field-box"><input type="text" id="su-first" autocomplete="given-name"></div></div>' +
       '<div class="field"><label class="field-label" for="su-last">' + t('auth.lastName') + '</label><div class="field-box"><input type="text" id="su-last" autocomplete="family-name"></div></div>' +
       '<div class="field"><label class="field-label" for="su-email">' + t('auth.username') + '</label><div class="field-box"><input type="email" id="su-email" autocomplete="email" autocapitalize="off" spellcheck="false" class="ltr"></div></div>' +

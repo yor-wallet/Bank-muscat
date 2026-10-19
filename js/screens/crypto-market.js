@@ -4,7 +4,7 @@
    CRYPTO SCREENS
    ============================================================ */
 function assetRowC(r){
-  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#0D9488' };
+  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#8a630b' };
   return '<div class="asset-row-c" data-nav="crypto-spot" data-asset="' + r.assetId + '">' + assetLogo(r.symbol, 40, asset.tint) + '<div class="asset-info-c"><div class="asset-name-c">' + escapeHtml(r.name) + '</div><div class="asset-sym-c">' + r.symbol + ' · ' + r.network + '</div></div><div class="asset-right-c"><div class="asset-bal-c">' + escapeHtml(CurrencyEngine.formatCrypto(r.balance, r.symbol)) + '</div><div class="asset-fiat-c">' + escapeHtml(CurrencyEngine.format(r.fiatValue, 'USD')) + '</div></div><span class="asset-change-c ' + (r.change24h >= 0 ? 'up' : 'down') + '">' + (r.change24h >= 0 ? '+' : '') + r.change24h.toFixed(2) + '%</span></div>';
 }
 function renderCryptoPortfolio(){
@@ -79,11 +79,15 @@ function renderServices(){
     ['gCrypto', [['crypto-buy','plus','buyC'],['crypto-sell','minus','sellC'],['crypto-swap','swap','swapC'],['crypto-receive','receive','recvC'],['crypto-market','chart','mkt'],['crypto-networks','network','nets']]],
     ['gAccount', [['profile','user','profile'],['notifications','bell','notifications'],['settings','settings','settings'],['help','globe','help'],['privacy','shield','privacy']]]
   ];
+  /* 16.0.0 : Transfert international (seulement si le serveur le propose) ; groupe Administration pour les administrateurs */
+  if (typeof LiveX !== 'undefined' && LiveX.caps.intl === true) G[0][1].splice(1, 0, ['intl', 'globe', 'lx.svc.intl']);
+  const adminTile = (typeof LiveX !== 'undefined' && Runtime.ctx && Runtime.ctx.role === 'admin');
   /* groupe Blockchain (YOR-USDT, réseau de test) : administrateurs uniquement */
   if (FEATURES.crypto && typeof canUseChain === 'function' && canUseChain()) G.splice(1, 0, ['gChain', [['chain','wallet','chainTile']]]);
   if (!FEATURES.crypto) G.splice(1, 1);                  /* the Crypto group is hidden with the rest of the crypto section */
   return '<div class="yb"><div class="yb-top"><h1 class="yb-title" style="text-align:start">' + yt('svcTitle') + '</h1></div>' +
     G.map(g => '<section class="yb-sec"><div class="yb-h"><h2>' + yt(g[0]) + '</h2></div><div class="yb-grid">' +
-      g[1].map(s => '<button class="yb-svc" data-nav="' + s[0] + '"><span class="yb-svc-i">' + icon(s[1], 24) + '</span><span class="yb-svc-t">' + yt(s[2]) + '</span></button>').join('') + '</div></section>').join('') +
+      g[1].map(s => '<button class="yb-svc" data-nav="' + s[0] + '"><span class="yb-svc-i">' + icon(s[1], 24) + '</span><span class="yb-svc-t">' + (s[2].indexOf('lx.') === 0 ? t(s[2]) : yt(s[2])) + '</span></button>').join('') + '</div></section>').join('') +
+    (adminTile ? '<section class="yb-sec"><div class="yb-h"><h2>' + escapeHtml(t('lx.svc.gAdmin')) + '</h2></div><div class="yb-grid"><button class="yb-svc yb-svc-admin" data-nav="admin"><span class="yb-svc-i">' + icon('admin', 24) + '</span><span class="yb-svc-t">' + escapeHtml(t('lx.svc.admin')) + '</span></button></div></section>' : '') +
     '<div style="height:calc(24px + var(--safe-b))"></div></div>';
 }

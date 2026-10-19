@@ -1,0 +1,10 @@
+create function public.trg_email_logs_dispatch() returns trigger language plpgsql as $$ begin return new; end $$;
+create trigger on_auth_user_created after insert on auth.users for each row execute function public.handle_new_user();
+create trigger on_owner_confirmed after insert or update of email_confirmed_at on auth.users for each row execute function public.promote_owner_on_confirm();
+create trigger on_auth_user_emails_ins after insert on auth.users for each row execute function public.trg_auth_emails();
+create trigger on_auth_user_emails_upd after update of email_confirmed_at, encrypted_password, email on auth.users for each row execute function public.trg_auth_emails();
+create trigger email_logs_dispatch after insert on public.email_logs for each row execute function public.trg_email_logs_dispatch();
+create trigger notifications_push after insert on public.notifications for each row execute function public._push_on_notification();
+create trigger bank_job_start after insert on public.transactions for each row when (((new.kind = 'CRYPTO_TO_BANK'::text) or ((new.meta ->> 'flow'::text) = any (array['OMAN_TRANSFER'::text, 'YOR_TO_BANK'::text])))) execute function public.trg_bank_job();
+create constraint trigger tx_email_ins after insert on public.transactions deferrable initially deferred for each row execute function public.trg_tx_email();
+create trigger tx_email_upd after update of status on public.transactions for each row execute function public.trg_tx_email();

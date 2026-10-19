@@ -245,7 +245,7 @@ function renderReceipt(){
     '</div>';
 
   return '<div class="receipt-view rc rc-' + state + '">' +
-    '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Friendly Pay</small></div>' +
+    '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Live X Digitale</small></div>' +
       '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 18) + '</button>' +
     '</div>' +
     '<section class="receipt-hero">' + rcBadge(state) +

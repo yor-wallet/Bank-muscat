@@ -40,6 +40,6 @@ npx vercel --prod
 ## Netlify (12.11.0)
 - Le dossier se dépose tel quel (glisser-déposer du zip décompressé, ou « Deploy manually ») : `_headers` porte la CSP et le cache (`sw.js` et `index.html` jamais mis en cache) ; `404.html` est servi par Netlify pour les liens inconnus.
 - Après la mise en ligne : ouvrir le site, attendre le premier chargement complet (le service worker garde alors une copie hors-ligne de l'application), puis couper le réseau et rouvrir l'application : l'écran « hors ligne » ou l'application doit s'afficher, jamais une page blanche.
-- Reown / WalletConnect : ajouter `https://yor-wallet.netlify.app` aux domaines autorisés du projet Reown (dashboard). Réseau **Nile (test)** uniquement. Sur iPhone, ouvrir le site depuis le navigateur intégré de TronLink.
+- Reown / WalletConnect : ajouter `https://taupe-cocada-442156.netlify.app` aux domaines autorisés du projet Reown (dashboard). Réseau **Nile (test)** uniquement. Sur iPhone, ouvrir le site depuis le navigateur intégré de TronLink.
 - iPhone : « Ajouter à l'écran d'accueil » depuis Safari ; les écrans de démarrage (`assets/splash/`) ne s'affichent qu'après une réinstallation de l'icône.
 - 12.11.1 : si le téléphone était resté sur la 12.11.0 (« Connexion impossible »), la première ouverture après la mise en ligne se répare toute seule (une seule fois) ; sinon, fermer l'application complètement et la rouvrir.

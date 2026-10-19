@@ -123,7 +123,7 @@ const Push = (() => {
   function openFromPush(url){
     try {
       if (!AuthEngine.hasValidContext()) return;
-      R.go(/^#\/settings/.test(String(url || '')) ? 'settings' : 'notifications');
+      R.go(/^#\/settings/.test(String(url || '')) ? 'settings' : /^#\/admin/.test(String(url || '')) ? 'admin' : 'notifications');
     } catch(e){}
   }
   function listen(){

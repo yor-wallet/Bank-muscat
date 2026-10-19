@@ -58,11 +58,11 @@ function applyI18n(){
 function savedThemeMode(){
   const s = (typeof Runtime !== 'undefined' && Runtime) ? Runtime.settings : null;
   const m = s && s.theme;
-  return (m === 'dark' || m === 'light' || m === 'system') ? m : 'light';
+  return (m === 'dark' || m === 'light' || m === 'system') ? m : 'dark';
 }
-let _themeMode = 'light', _themeMq = null;
+let _themeMode = 'dark', _themeMq = null;
 function applyTheme(mode){
-  mode = (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'light';
+  mode = (mode === 'dark' || mode === 'light' || mode === 'system') ? mode : 'dark';
   _themeMode = mode;
   try { localStorage.setItem('fp_theme', mode); } catch(e){ /* rien */ }
   let dark = false;
@@ -70,7 +70,7 @@ function applyTheme(mode){
   const eff = dark ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', eff);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', eff === 'dark' ? '#050C0B' : '#F4F6F5');
+  if (meta) meta.setAttribute('content', eff === 'dark' ? '#0A0A0B' : '#F5F4F1');
   /* « Système » suit le téléphone en direct (nuit / jour), sans recharger */
   if (!_themeMq && window.matchMedia){
     try {

@@ -12,20 +12,23 @@ const Onboarding = (() => {
   const KEY = 'yor_onboarded';
   const S = {
     en:{ skip:'Skip', next:'Next', create:'Create my account', have:'I already have an account', lang:'Language', page:(a, b) => 'Page ' + a + ' of ' + b, slides:[
-      { title:'Welcome to Friendly Pay', text:'Your money, simple and secure, all in one place.' },
-      { title:'Send money in seconds', text:'Enter an Omani mobile number and the amount. That is all it takes.' },
-      { title:'A receipt for every transfer', text:'Keep, share or print the receipt of each transfer you make.' },
-      { title:'Protected by your PIN and Face ID', text:'Your 6-digit code and Face ID lock your account every time you reopen the app.' } ] },
+      { l1:'WELCOME TO', l2:'LIVE X DIGITALE', k:'Your money, simple & secure' },
+      { l1:'GET 10 OMR', l2:'ON US', k:'A welcome reward for every new account' },
+      { l1:'SEND MONEY', l2:'ACROSS THE WORLD', k:'Gulf · Africa · USA · Canada' },
+      { l1:'A METAL CARD', l2:'WITH VISA', k:'Tap, shop and pay online' },
+      { l1:'PROTECTED BY', l2:'FACE ID & PIN', k:'Your money stays yours' } ] },
     fr:{ skip:'Passer', next:'Suivant', create:'Créer mon compte', have:'J\'ai déjà un compte', lang:'Langue', page:(a, b) => 'Page ' + a + ' sur ' + b, slides:[
-      { title:'Bienvenue sur Friendly Pay', text:'Votre argent, simple et sécurisé, au même endroit.' },
-      { title:'Envoyez de l\'argent en quelques secondes', text:'Saisissez un numéro de mobile omanais et le montant. C\'est tout.' },
-      { title:'Un reçu pour chaque transfert', text:'Conservez, partagez ou imprimez le reçu de chaque transfert effectué.' },
-      { title:'Protégé par votre code et Face ID', text:'Votre code à 6 chiffres et Face ID verrouillent votre compte à chaque réouverture de l\'application.' } ] },
+      { l1:'BIENVENUE CHEZ', l2:'LIVE X DIGITALE', k:'Votre argent, simple et sécurisé' },
+      { l1:'GAGNEZ 10 OMR', l2:'OFFERTS', k:'Une récompense pour chaque nouveau compte' },
+      { l1:'ENVOYEZ DE L’ARGENT', l2:'DANS LE MONDE ENTIER', k:'Golfe · Afrique · USA · Canada' },
+      { l1:'UNE CARTE EN MÉTAL', l2:'AVEC VISA', k:'Payez en magasin et en ligne' },
+      { l1:'PROTÉGÉ PAR', l2:'FACE ID ET CODE', k:'Votre argent reste le vôtre' } ] },
     ar:{ skip:'تخطّي', next:'التالي', create:'إنشاء حسابي', have:'لدي حساب بالفعل', lang:'اللغة', page:(a, b) => 'الصفحة ' + a + ' من ' + b, slides:[
-      { title:'مرحباً بك في فرندي باي', text:'أموالك بشكل بسيط وآمن في مكان واحد.' },
-      { title:'أرسل الأموال في ثوانٍ', text:'أدخل رقم هاتف عُماني والمبلغ، وهذا كل ما في الأمر.' },
-      { title:'إيصال لكل تحويل', text:'احتفظ بإيصال كل تحويل تجريه أو شاركه أو اطبعه.' },
-      { title:'محمي برمز PIN وFace ID', text:'يقفل رمزك المكوّن من 6 أرقام وFace ID حسابك في كل مرة تعيد فيها فتح التطبيق.' } ] }
+      { l1:'مرحباً بك في', l2:'لايف إكس ديجيتال', k:'أموالك بشكل بسيط وآمن' },
+      { l1:'احصل على 10 ريال', l2:'هدية منّا', k:'مكافأة ترحيب لكل حساب جديد' },
+      { l1:'أرسل الأموال', l2:'إلى أي مكان في العالم', k:'الخليج · أفريقيا · أمريكا · كندا' },
+      { l1:'بطاقة معدنية', l2:'من فيزا', k:'ادفع في المتاجر وعبر الإنترنت' },
+      { l1:'محمي بواسطة', l2:'Face ID ورمز PIN', k:'أموالك تبقى ملكك' } ] }
   };
   const LANGS = [['en', 'EN'], ['fr', 'FR'], ['ar', 'عربي']];
   const NAMES = { en:'English', fr:'Français', ar:'العربية' };
@@ -36,7 +39,7 @@ const Onboarding = (() => {
   const arrow = () => (typeof icon === 'function' ? icon('arrowRight', 20) : '→');
 
   function show(done){
-    const n = OpeningArt.count;
+    const n = PhoneArt.count;
     let i = 0, lang = (S[LANG] ? LANG : 'en'), drag = null, closing = false;
     const prevFocus = document.activeElement;
     const el = document.createElement('div');
@@ -48,8 +51,8 @@ const Onboarding = (() => {
     function build(){
       const T = S[lang], rtl = lang === 'ar';
       el.setAttribute('dir', rtl ? 'rtl' : 'ltr'); el.setAttribute('lang', lang);
-      el.setAttribute('aria-label', rtl ? 'فرندي باي' : 'Friendly Pay');
-      el.innerHTML = OpeningArt.DEFS +
+      el.setAttribute('aria-label', rtl ? 'لايف إكس ديجيتال' : 'Live X Digitale');
+      el.innerHTML =
         '<div class="ob-top">' +
           '<div class="ob-lang" role="group" aria-label="' + escapeHtml(T.lang) + '">' +
             LANGS.map(([c, label]) => '<button type="button" class="ob-lang-b" data-ob-lang="' + c + '" lang="' + c + '" aria-label="' + NAMES[c] + '" aria-pressed="' + (c === lang) + '">' + label + '</button>').join('') +
@@ -59,8 +62,8 @@ const Onboarding = (() => {
         '<div class="ob-stage" id="ob-stage"><div class="ob-track" id="ob-track">' +
           T.slides.map((s, k) =>
             '<section class="ob-slide" data-k="' + k + '" role="group" aria-roledescription="slide" aria-label="' + escapeHtml(T.page(k + 1, n)) + '">' +
-              '<div class="ob-hero">' + OpeningArt.hero(k) + '</div>' +
-              '<div class="ob-copy"><h1 class="ob-h">' + escapeHtml(s.title) + '</h1><p class="ob-p">' + escapeHtml(s.text) + '</p></div>' +
+              '<div class="ob-copy"><h1 class="ob-h"><span class="l1">' + escapeHtml(s.l1) + '</span><span class="l2">' + escapeHtml(s.l2) + '</span></h1><p class="ob-p">' + escapeHtml(s.k) + '</p></div>' +
+              '<div class="ob-hero">' + PhoneArt.slide(k, lang) + '</div>' +
             '</section>').join('') +
         '</div></div>' +
         '<div class="ob-bottom">' +
@@ -96,7 +99,7 @@ const Onboarding = (() => {
       el.classList.toggle('is-last', last);
       const skip = $('#ob-skip'); if (skip){ skip.style.visibility = last ? 'hidden' : 'visible'; skip.tabIndex = last ? -1 : 0; }
       const have = $('#ob-have'); if (have){ have.tabIndex = last ? 0 : -1; have.setAttribute('aria-hidden', last ? 'false' : 'true'); }
-      const live = $('#ob-live'); if (live && !first) live.textContent = T.slides[i].title;
+      const live = $('#ob-live'); if (live && !first) live.textContent = T.slides[i].l1 + ' ' + T.slides[i].l2;
       place(0, !first && !reduced());
     }
 
@@ -104,8 +107,9 @@ const Onboarding = (() => {
       const j = i + d;
       if (j < 0 || j >= n){ place(0, !reduced()); return; }
       i = j; paint(false);
+      try { Sfx.play('swipe'); } catch(e){ /* rien */ }
     }
-    function goTo(k){ if (k >= 0 && k < n && k !== i){ i = k; paint(false); } }
+    function goTo(k){ if (k >= 0 && k < n && k !== i){ i = k; paint(false); try { Sfx.play('swipe'); } catch(e){ /* rien */ } } }
 
     function teardown(){
       document.removeEventListener('keydown', onKey, true);
@@ -182,11 +186,12 @@ const Onboarding = (() => {
       if (e.shiftKey && (ae === first || !el.contains(ae))){ e.preventDefault(); last.focus(); }
       else if (!e.shiftKey && (ae === last || !el.contains(ae))){ e.preventDefault(); first.focus(); }
     }
-    function onResize(){ if (!closing) place(0, false); }
+    function fit(){ el.style.setProperty('--ob-h', (window.innerHeight || 800) + 'px'); }
+    function onResize(){ if (!closing){ fit(); place(0, false); } }
     document.addEventListener('keydown', onKey, true);
     window.addEventListener('resize', onResize);
 
-    build();
+    fit(); build();
     el.tabIndex = -1;
     requestAnimationFrame(() => { el.classList.add('is-in'); try { el.focus({ preventScroll:true }); } catch(e){ /* rien */ } });
     return el;

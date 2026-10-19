@@ -2,7 +2,7 @@
    YOR DESIGN SYSTEM 12.4.0 — one layer, loaded last.
    1 tokens  2 type  3 controls (buttons, fields, chips)  4 lists + status pills  5 loading + empty states
    6 navigation  7 dashboard  8 virtual cards  9 receipt  10 sheets + toasts  11 forms  12 print  13 reduced motion
-   Identity: Friendly Pay teal green on white (light, default) or deep teal-black (dark); green / amber / red are used ONLY for transaction status.
+   Identity: Live X Digitale teal green on white (light, default) or deep teal-black (dark); green / amber / red are used ONLY for transaction status.
    Nothing here imitates another brand: no third-party logo, name, or screen is drawn.
    ========================================================================== */
 
@@ -18,7 +18,7 @@
   --st-bad:#FB7185;--st-bad-bg:rgba(251,113,133,.14);
   --ease-ds:cubic-bezier(.2,.8,.2,1);
   --t-ds-1:140ms;--t-ds-2:240ms;--t-ds-3:420ms;
-  --text-3:#8DA09D;
+  --text-3:#b0a17d;
 }
 :root[data-theme="light"]{
   --el-1:0 1px 2px rgba(20,20,20,.08);
@@ -27,27 +27,27 @@
   --st-ok:#0F7B4A;--st-ok-bg:rgba(15,123,74,.1);
   --st-wait:#8A5300;--st-wait-bg:rgba(245,158,11,.16);
   --st-bad:#B42318;--st-bad-bg:rgba(220,38,38,.1);
-  --text-3:#5C706D;
+  --text-3:#7e6f4e;
 }
-/* ---------- 1b. Friendly Pay palette (12.8.0): teal green / white — own identity, nothing copied ----------
-   Light (default) = white surfaces + teal accent (#0B7F75, 4.9:1 on white) + deep-teal text. White text on the teal button.
-   Dark = deep teal-black surfaces + bright turquoise accent (#2DD4BF) + near-black text ON the accent (9.6:1).
+/* ---------- 1b. Live X Digitale palette (12.8.0): teal green / white — own identity, nothing copied ----------
+   Light (default) = white surfaces + teal accent (#6b4c08, 4.9:1 on white) + deep-teal text. White text on the teal button.
+   Dark = deep teal-black surfaces + bright turquoise accent (#e9aa1c) + near-black text ON the accent (9.6:1).
    --btn-grad / --on-accent are the single source for the primary button, so both themes keep readable contrast. */
 :root{
-  --on-accent:#031B19;
-  --accent:#2DD4BF;--accent-600:#14B8A6;
-  --yor-violet:#14B8A6;--yor-deep:#042F2E;--yor-glow:#5EEAD4;--yor-mist:#CCFBF1;
-  --brand-grad:linear-gradient(135deg,#061110 0%,#115E59 46%,#14B8A6 100%);
-  --btn-grad:linear-gradient(180deg,#5EEAD4,#2DD4BF 62%,#14B8A6);
-  --btn-glow:rgba(20,184,166,.6);
+  --on-accent:#0f0e0c;
+  --accent:#e9aa1c;--accent-600:#be860f;
+  --yor-violet:#be860f;--yor-deep:#1a1815;--yor-glow:#ffc84a;--yor-mist:#ffefc6;
+  --brand-grad:linear-gradient(135deg,#0c0b0a 0%,#463306 46%,#be860f 100%);
+  --btn-grad:linear-gradient(180deg,#ffc84a,#e9aa1c 62%,#be860f);
+  --btn-glow:rgba(190,134,15,.6);
 }
 :root[data-theme="light"]{
   --on-accent:#FFFFFF;
-  --accent:#0B7F75;--accent-600:#09665E;
-  --yor-violet:#0B7F75;--yor-deep:#134E4A;
-  --brand-grad:linear-gradient(135deg,#0B3B38 0%,#0B7F75 52%,#14B8A6 100%);
-  --btn-grad:linear-gradient(180deg,#0C8579,#0B7F75 55%,#09665E);
-  --btn-glow:rgba(11,127,117,.5);
+  --accent:#6b4c08;--accent-600:#463306;
+  --yor-violet:#6b4c08;--yor-deep:#312e28;
+  --brand-grad:linear-gradient(135deg,#23211d 0%,#6b4c08 52%,#be860f 100%);
+  --btn-grad:linear-gradient(180deg,#755309,#6b4c08 55%,#463306);
+  --btn-glow:rgba(107,76,8,.5);
 }
 html,body{font-feature-settings:"kern","liga"}
 .ltr,.item-amount,.rc-amt,.ds-bal-amt,.receipt-row-value,.receipt-line-value,.rv-big,.rv-tile b{font-variant-numeric:tabular-nums}
@@ -151,9 +151,9 @@ html,body{font-feature-settings:"kern","liga"}
 .rv-circ{background:var(--surf-2);border:1px solid var(--line)}
 .rv-bdg{background:var(--st-bad);color:#fff;border-color:var(--bg)}
 .ds-balance{position:relative;isolation:isolate;overflow:hidden;color:#fff;border-radius:var(--r-2xl);padding:calc(22px*var(--ui)) calc(22px*var(--ui)) calc(24px*var(--ui));
-  background:radial-gradient(90% 120% at 100% 0%,rgba(94,234,212,.34),transparent 58%),radial-gradient(70% 90% at 0% 110%,rgba(4,47,46,.55),transparent 62%),linear-gradient(160deg,#0E7C73 0%,#0A5C55 55%,#063F3B 100%);
+  background:radial-gradient(90% 120% at 100% 0%,rgba(255,200,74,.34),transparent 58%),radial-gradient(70% 90% at 0% 110%,rgba(26,24,21,.55),transparent 62%),linear-gradient(160deg,#6b4c08 0%,#3a2a05 55%,#23211d 100%);
   border:1px solid rgba(255,255,255,.14);
-  box-shadow:var(--el-2),0 0 0 1px rgba(20,184,166,.18),inset 0 1px 0 rgba(255,255,255,.2)}
+  box-shadow:var(--el-2),0 0 0 1px rgba(190,134,15,.18),inset 0 1px 0 rgba(255,255,255,.2)}
 .ds-balance::before{content:"";position:absolute;inset:-30% -60%;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.1) 50%,transparent 58%);transform:translateX(-30%);animation:dsSheen 7s ease-in-out 1.2s infinite}
 @keyframes dsSheen{0%,55%{transform:translateX(-30%)}85%,100%{transform:translateX(30%)}}
 .ds-bal-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -190,19 +190,19 @@ html,body{font-feature-settings:"kern","liga"}
 }
 
 /* ---------- 8. virtual cards (drawn in CSS; a "preview" until a real issuer issues them) ---------- */
-.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(190,235,228,.34),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(20,184,166,.30),transparent 62%),repeating-linear-gradient(128deg,rgba(190,235,228,.075) 0 1px,transparent 1px 6px),linear-gradient(155deg,#17141D 0%,#0A090E 52%,#040405 100%);--cfg:#E6F8F5;--cline:rgba(190,235,228,.4);--cchip:rgba(190,235,228,.13)}
+.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(254,230,172,.34),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(190,134,15,.30),transparent 62%),repeating-linear-gradient(128deg,rgba(254,230,172,.075) 0 1px,transparent 1px 6px),linear-gradient(155deg,#17141D 0%,#0A090E 52%,#040405 100%);--cfg:#fff5d8;--cline:rgba(254,230,172,.4);--cchip:rgba(254,230,172,.13)}
 .th-obsidian .rv-wm{filter:sepia(.35) saturate(1.3) brightness(1.08)}
-.th-midnight{--cbg:radial-gradient(120% 90% at 100% 0%,rgba(20,184,166,.55),transparent 56%),linear-gradient(150deg,#0F1E1C 0%,#091514 60%,#07060F 100%);--cfg:#fff;--cline:rgba(255,255,255,.13);--cchip:rgba(255,255,255,.14)}
+.th-midnight{--cbg:radial-gradient(120% 90% at 100% 0%,rgba(190,134,15,.55),transparent 56%),linear-gradient(150deg,#171513 0%,#0f0e0c 60%,#07060F 100%);--cfg:#fff;--cline:rgba(255,255,255,.13);--cchip:rgba(255,255,255,.14)}
 .th-graphite{--cbg:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.075) 50%,transparent 62%),linear-gradient(150deg,#2D2D33 0%,#17171B 55%,#0B0B0D 100%);--cfg:#fff;--cline:rgba(255,255,255,.12);--cchip:rgba(255,255,255,.12)}
-.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.22),transparent 56%),linear-gradient(140deg,#134E4A 0%,#14B8A6 55%,#5EEAD4 100%);--cfg:#fff;--cline:rgba(255,255,255,.22);--cchip:rgba(255,255,255,.18)}
-.th-aurora{--cbg:radial-gradient(90% 90% at 0% 100%,rgba(45,212,191,.55),transparent 58%),radial-gradient(90% 80% at 100% 0%,rgba(94,234,212,.66),transparent 60%),linear-gradient(145deg,#0B2523,#0F3B37);--cfg:#fff;--cline:rgba(255,255,255,.2);--cchip:rgba(255,255,255,.16)}
+.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.22),transparent 56%),linear-gradient(140deg,#312e28 0%,#be860f 55%,#ffc84a 100%);--cfg:#fff;--cline:rgba(255,255,255,.22);--cchip:rgba(255,255,255,.18)}
+.th-aurora{--cbg:radial-gradient(90% 90% at 0% 100%,rgba(233,170,28,.55),transparent 58%),radial-gradient(90% 80% at 100% 0%,rgba(255,200,74,.66),transparent 60%),linear-gradient(145deg,#181714,#25231f);--cfg:#fff;--cline:rgba(255,255,255,.2);--cchip:rgba(255,255,255,.16)}
 .th-minimal{--cbg:linear-gradient(145deg,#FFFFFF 0%,#EDEDED 100%);--cfg:#111111;--cline:rgba(20,20,20,.16);--cchip:rgba(20,20,20,.07)}
 .th-metal{--cbg:linear-gradient(115deg,rgba(255,255,255,.5) 0%,transparent 26%,rgba(255,255,255,.34) 46%,transparent 64%,rgba(255,255,255,.4) 100%),linear-gradient(135deg,#8C909C,#D8DAE1 36%,#A3A7B3 60%,#E7E8EE 82%,#8A8E9A);--cfg:#17171C;--cline:rgba(23,23,28,.18);--cchip:rgba(23,23,28,.09)}
 .rv-face,.rv-swatch,.rv-mini{background:var(--cbg);background-size:100% 100%;color:var(--cfg,#fff)}
 .rv-face{box-shadow:inset 0 0 0 1px var(--cline,rgba(255,255,255,.12))}
 .th-minimal .rv-wm,.th-metal .rv-wm{filter:invert(1)}
 .rv-card{filter:drop-shadow(0 20px 26px rgba(0,0,0,.42))}
-:root[data-theme="light"] .rv-card{filter:drop-shadow(0 14px 18px rgba(8,45,42,.26))}
+:root[data-theme="light"] .rv-card{filter:drop-shadow(0 14px 18px rgba(27,25,22,.26))}
 .rv-card:active{transform:rotateX(var(--tx)) rotateY(var(--ty)) scale(.985)}
 .rv-state{font-size:calc(10.5px*var(--ui));font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--cchip,rgba(255,255,255,.14));box-shadow:inset 0 0 0 1px var(--cline,rgba(255,255,255,.14));white-space:nowrap}
 .rv-name{font-size:calc(15px*var(--ui));font-weight:600;opacity:.92;letter-spacing:.01em}
@@ -336,7 +336,7 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
   .ds-balance::before{animation:none}
 }
 
-/* ---------- 14. Friendly Pay colour pass (12.8.0): text on teal surfaces ---------- */
+/* ---------- 14. Live X Digitale colour pass (12.8.0): text on teal surfaces ---------- */
 ::selection{background:var(--accent);color:var(--on-accent)}
 .btn-primary,.tile-solid,.chip[aria-pressed="true"],.chip[aria-pressed=true],.nav-cta .nav-cta-tile,.nav-item.nav-cta .nav-cta-tile,
 .progress-step.current .progress-step-dot,.select-check,.contact-avatar,.swipe-thumb,.receipt-row.total .receipt-row-icon,
@@ -356,7 +356,7 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
    finger / the phone's tilt. It stays a PREVIEW: no payment-network logo, no chip, no CVV, no full number. */
 .rv-card{--shx:0px;filter:drop-shadow(var(--shx) 22px 24px rgba(0,0,0,.5)) drop-shadow(0 4px 6px rgba(0,0,0,.32));
   transition:transform .28s cubic-bezier(.2,.9,.2,1),filter .5s ease}
-:root[data-theme="light"] .rv-card{filter:drop-shadow(var(--shx) 20px 22px rgba(8,45,42,.3)) drop-shadow(0 3px 5px rgba(8,45,42,.18))}
+:root[data-theme="light"] .rv-card{filter:drop-shadow(var(--shx) 20px 22px rgba(27,25,22,.3)) drop-shadow(0 3px 5px rgba(27,25,22,.18))}
 .rv-face{border-radius:calc(22px*var(--ui));
   box-shadow:inset 0 0 0 1px var(--cline,rgba(255,255,255,.12)),inset 0 1.5px 0 rgba(255,255,255,.34),inset 0 -2px 3px rgba(0,0,0,.4),inset 0 0 46px rgba(0,0,0,.22)}
 .th-minimal .rv-face,.th-metal .rv-face{box-shadow:inset 0 0 0 1px var(--cline),inset 0 1.5px 0 rgba(255,255,255,.9),inset 0 -2px 3px rgba(0,0,0,.16),inset 0 0 40px rgba(0,0,0,.06)}
@@ -370,7 +370,7 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .th-minimal .rv-grain{opacity:.28}
 /* foil band: its position follows --mx/--my (finger or phone tilt) */
 .rv-foil{z-index:1;mix-blend-mode:screen;opacity:calc(var(--sh,.5)*.62);overflow:hidden;
-  background:linear-gradient(112deg,transparent 34%,rgba(94,234,212,.26) 42%,rgba(255,255,255,.34) 50%,rgba(186,230,253,.2) 57%,transparent 66%) var(--mx,30%) var(--my,0%)/260% 260% no-repeat}
+  background:linear-gradient(112deg,transparent 34%,rgba(255,200,74,.26) 42%,rgba(255,255,255,.34) 50%,rgba(186,230,253,.2) 57%,transparent 66%) var(--mx,30%) var(--my,0%)/260% 260% no-repeat}
 .th-minimal .rv-foil,.th-metal .rv-foil{mix-blend-mode:soft-light;opacity:calc(var(--sh,.5)*.9)}
 .rv-foil::before{content:"";position:absolute;inset:-20% -60%;background:linear-gradient(105deg,transparent 44%,rgba(255,255,255,.5) 50%,transparent 56%);transform:translateX(-70%);opacity:0}
 .rv-card.rv-enter .rv-foil::before{animation:rvSweep 1.5s .55s cubic-bezier(.3,.6,.2,1) both}
@@ -391,10 +391,10 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .rv-wm{filter:drop-shadow(0 1px 0 rgba(0,0,0,.4))}
 .rv-state{backdrop-filter:blur(6px) saturate(1.3);-webkit-backdrop-filter:blur(6px) saturate(1.3)}
 /* richer materials per design */
-.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(190,235,228,.4),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(20,184,166,.34),transparent 62%),repeating-linear-gradient(128deg,rgba(190,235,228,.07) 0 1px,transparent 1px 6px),linear-gradient(155deg,#1B1822 0%,#0B0A0A 50%,#030304 100%)}
+.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(254,230,172,.4),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(190,134,15,.34),transparent 62%),repeating-linear-gradient(128deg,rgba(254,230,172,.07) 0 1px,transparent 1px 6px),linear-gradient(155deg,#1B1822 0%,#0B0A0A 50%,#030304 100%)}
 .th-metal{--cbg:linear-gradient(100deg,rgba(255,255,255,.62) 0%,transparent 22%,rgba(255,255,255,.4) 44%,transparent 62%,rgba(255,255,255,.5) 84%,rgba(255,255,255,.1) 100%),linear-gradient(135deg,#8A8E9B,#DADCE3 34%,#9CA0AD 58%,#EBECF1 80%,#868A97)}
 .th-graphite{--cbg:linear-gradient(115deg,transparent 36%,rgba(255,255,255,.1) 50%,transparent 64%),linear-gradient(150deg,#34343B 0%,#1A1A1F 52%,#0A0A0C 100%)}
-.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.3),transparent 56%),radial-gradient(80% 70% at 100% 100%,rgba(3,27,25,.45),transparent 62%),linear-gradient(140deg,#115E59 0%,#14B8A6 52%,#5EEAD4 100%)}
+.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.3),transparent 56%),radial-gradient(80% 70% at 100% 100%,rgba(15,14,12,.45),transparent 62%),linear-gradient(140deg,#463306 0%,#be860f 52%,#ffc84a 100%)}
 /* back face: same finish */
 .rv-back{box-shadow:inset 0 0 0 1px var(--cline,rgba(255,255,255,.12)),inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -2px 3px rgba(0,0,0,.4)}
 .rv-back::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:overlay;opacity:.45;background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 3px)}
@@ -422,8 +422,8 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .rc-badge.st-success::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid currentColor;opacity:0;pointer-events:none;animation:rcRing .9s .5s ease-out}
 @keyframes rcRing{0%{opacity:.85;transform:scale(.8)}100%{opacity:0;transform:scale(1.9)}}
 .rc-badge.st-success::after{content:"";position:absolute;inset:-34%;border-radius:50%;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 50% 5%,currentColor 0 3px,transparent 3.6px),radial-gradient(circle at 88% 22%,#14B8A6 0 2.6px,transparent 3.2px),radial-gradient(circle at 95% 68%,currentColor 0 2.2px,transparent 2.8px),
-    radial-gradient(circle at 70% 95%,#14B8A6 0 3px,transparent 3.6px),radial-gradient(circle at 24% 92%,currentColor 0 2.4px,transparent 3px),radial-gradient(circle at 5% 62%,#14B8A6 0 2.6px,transparent 3.2px),radial-gradient(circle at 14% 18%,currentColor 0 2.2px,transparent 2.8px);
+  background:radial-gradient(circle at 50% 5%,currentColor 0 3px,transparent 3.6px),radial-gradient(circle at 88% 22%,#be860f 0 2.6px,transparent 3.2px),radial-gradient(circle at 95% 68%,currentColor 0 2.2px,transparent 2.8px),
+    radial-gradient(circle at 70% 95%,#be860f 0 3px,transparent 3.6px),radial-gradient(circle at 24% 92%,currentColor 0 2.4px,transparent 3px),radial-gradient(circle at 5% 62%,#be860f 0 2.6px,transparent 3.2px),radial-gradient(circle at 14% 18%,currentColor 0 2.2px,transparent 2.8px);
   animation:rcBurst 1s .55s ease-out}
 @keyframes rcBurst{0%{opacity:0;transform:scale(.45)}30%{opacity:1}100%{opacity:0;transform:scale(1.12)}}
 .rc-badge.st-failed{animation:rcShake .55s .6s ease-in-out}
@@ -436,6 +436,6 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
   .rc-badge.st-success::before,.rc-badge.st-success::after{display:none}
 }
 
-/* ---------- 17. Friendly Pay 12.8.0: light splash (the default theme is now light), logo lockup ---------- */
+/* ---------- 17. Live X Digitale 12.8.0: light splash (the default theme is now light), logo lockup ---------- */
 .logo-name{letter-spacing:-.025em}
 .logo-sub{letter-spacing:.4em;color:var(--accent)}

@@ -5,7 +5,7 @@ const TransferEngine = (() => {
   /* find_user_by_yor_id() : returns only YOR ID / display name / country / photo */
   async function resolveYorId(yorId){
     if (!supabaseReady) return null;
-    const key = normId(yorId);          /* FRD-… / FRIENDLY-… / YOR-… all find the same account */
+    const key = normId(yorId);          /* LXD-… / FRD-… / FRIENDLY-… / YOR-… all find the same account */
     if (!key) return null;
     const { data, error } = await sb.rpc('find_user_by_yor_id', { p_yor_id: key });
     const r = Array.isArray(data) ? data[0] : data;

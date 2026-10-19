@@ -72,15 +72,31 @@ const AuthEngine = (() => {
     } catch(e){ console.warn('realtime unavailable', e); }
   }
   function onLive(n){
-    if (n && (n.type === 'TRANSFER_RECEIVED' || n.type === 'DEPOSIT') && Runtime.settings && Runtime.settings.notifications !== false){
-      InAppNotif.showCall({ title: n.title, message: n.message, status:'success' });
+    const notifOn = !(Runtime.settings && Runtime.settings.notifications === false);
+    if (n && notifOn){
+      const d = n.data || {};
+      if (n.type === 'TRANSFER_RECEIVED' || n.type === 'DEPOSIT'){
+        InAppNotif.showCall({ title: n.title, message: n.message, status:'success' });
+        try { Sfx.play('money'); } catch(e){ /* rien */ }
+      } else if (n.type === 'REWARD'){
+        try { Reward.celebrate({ id: n.id, amount: d.amount, currency: d.currency }); } catch(e){ /* rien */ }       /* 16.0.0 : la récompense réelle (écrite par le serveur) s'affiche en grand, avec son */
+      } else if (n.type === 'NEW_USER'){
+        try { Admin.onNewUser(); } catch(e){ /* rien */ }
+        InAppNotif.showCall({ title: t('lx.n.NEW_USER'), message: n.message, status:'success' });                      /* administrateurs : un nouvel inscrit vient d'arriver */
+        try { Sfx.play('newUser'); } catch(e){ /* rien */ }
+      } else if (n.type === 'TRANSFER_STATUS'){
+        InAppNotif.show({ icon:'globe', title: n.title, message: n.message, status:'success' });
+        try { Sfx.play('notify'); } catch(e){ /* rien */ }
+      } else if (n.type !== 'TRANSFER_SENT'){
+        try { Sfx.play('notify'); } catch(e){ /* rien */ }
+      }
     }
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(async () => {
       try {
         await hydrateRuntime();
         const cur = R.current();
-        if (['home','history','notifications'].indexOf(cur) !== -1) R.go(cur, { force:true });
+        if (['home','history','notifications'].indexOf(cur) !== -1) R.go(cur, { force:true });      /* l'écran admin se rafraîchit lui-même (Admin.onNewUser) */
       } catch(e){}
     }, 350);
   }

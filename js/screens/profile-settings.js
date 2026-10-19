@@ -85,15 +85,15 @@ function faceIdRow(){
    nothing here is decorative: a row either changes a stored preference, opens a screen, or states a fact read from the device. */
 Object.assign(TR.en, { 'set.c.look':'Appearance', 'set.c.lookD':'Theme, language and display on this device', 'set.c.notif':'Notifications', 'set.c.notifD':'Three different channels — choose each one',
   'set.c.sec':'Security and privacy', 'set.c.secD':'Personal code, biometrics, devices and sessions', 'set.c.fin':'Money preferences', 'set.c.finD':'Display only: your operations keep their own currency',
-  'set.c.acc':'Account', 'set.c.info':'Information and help', 'set.chan':'In-app notifications appear in Friendly Pay. Phone alerts (push) reach this phone even when the app is closed. SMS are text messages sent by the server to your number.',
+  'set.c.acc':'Account', 'set.c.info':'Information and help', 'set.chan':'In-app notifications appear in Live X Digitale. Phone alerts (push) reach this phone even when the app is closed. SMS are text messages sent by the server to your number.',
   'set.inapp':'In-app notifications', 'set.inappD':'Money and security alerts in the app (also controls phone alerts)', 'set.sms':'SMS confirmations', 'set.curNote':'Balances are converted with the indicated rate; transfers, receipts and history are never converted.' });
 Object.assign(TR.fr, { 'set.c.look':'Apparence', 'set.c.lookD':'Thème, langue et affichage sur cet appareil', 'set.c.notif':'Notifications', 'set.c.notifD':'Trois canaux différents — à choisir un par un',
   'set.c.sec':'Sécurité et confidentialité', 'set.c.secD':'Code personnel, biométrie, appareils et sessions', 'set.c.fin':'Préférences financières', 'set.c.finD':'Affichage seulement : vos opérations gardent leur devise',
-  'set.c.acc':'Compte', 'set.c.info':'Informations et assistance', 'set.chan':'Les notifications dans l’application s’affichent dans Friendly Pay. Les alertes sur le téléphone (push) arrivent même application fermée. Les SMS sont des messages texte envoyés par le serveur à votre numéro.',
+  'set.c.acc':'Compte', 'set.c.info':'Informations et assistance', 'set.chan':'Les notifications dans l’application s’affichent dans Live X Digitale. Les alertes sur le téléphone (push) arrivent même application fermée. Les SMS sont des messages texte envoyés par le serveur à votre numéro.',
   'set.inapp':'Notifications dans l’application', 'set.inappD':'Alertes d’argent et de sécurité dans l’application (commande aussi les alertes du téléphone)', 'set.sms':'Confirmations par SMS', 'set.curNote':'Les soldes sont convertis au taux indiqué ; les transferts, reçus et l’historique ne sont jamais convertis.' });
 Object.assign(TR.ar, { 'set.c.look':'المظهر', 'set.c.lookD':'المظهر واللغة والعرض على هذا الجهاز', 'set.c.notif':'الإشعارات', 'set.c.notifD':'ثلاث قنوات مختلفة — اختر كل واحدة',
   'set.c.sec':'الأمان والخصوصية', 'set.c.secD':'الرمز الشخصي والقياسات الحيوية والأجهزة والجلسات', 'set.c.fin':'التفضيلات المالية', 'set.c.finD':'للعرض فقط: تحتفظ عملياتك بعملتها',
-  'set.c.acc':'الحساب', 'set.c.info':'المعلومات والمساعدة', 'set.chan':'إشعارات التطبيق تظهر داخل فرندي باي. تنبيهات الهاتف (Push) تصل حتى والتطبيق مغلق. الرسائل النصية يرسلها الخادم إلى رقمك.',
+  'set.c.acc':'الحساب', 'set.c.info':'المعلومات والمساعدة', 'set.chan':'إشعارات التطبيق تظهر داخل لايف إكس ديجيتال. تنبيهات الهاتف (Push) تصل حتى والتطبيق مغلق. الرسائل النصية يرسلها الخادم إلى رقمك.',
   'set.inapp':'الإشعارات داخل التطبيق', 'set.inappD':'تنبيهات الأموال والأمان داخل التطبيق (تتحكم أيضاً في تنبيهات الهاتف)', 'set.sms':'التأكيد برسالة نصية', 'set.curNote':'تُحوَّل الأرصدة بالسعر المذكور؛ ولا تُحوَّل التحويلات والإيصالات والسجل أبداً.' });
 function setCat(ic, title, desc){
   return '<div class="set-cat"><span class="set-cat-ic">' + icon(ic, 18) + '</span><div><h2>' + escapeHtml(title) + '</h2>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '</div></div>';
@@ -119,10 +119,12 @@ function renderSettings(){
     '</div>' +
     '<div class="screen-body set-body" style="padding-top:var(--sp-2)">';
 
+  /* 16.0.0 : la console admin est SÉPARÉE des réglages utilisateur (autre aspect, autre écran) ; ici seulement un accès pour les administrateurs */
+  if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
   /* account summary -> profile */
   html += '<button class="set-me" type="button" data-nav="profile">' + (typeof pxAvatar === 'function' ? pxAvatar(p) : '') +
     '<span class="set-me-body"><b>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</b><small class="ltr" dir="ltr">' + escapeHtml(yid) + '</small></span>' +
-    (isAdmin ? '<span class="badge badge-accent">ADMIN</span>' : '') + '<span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
+    (isAdmin ? '<span class="badge badge-admin">ADMIN</span>' : '') + '<span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
 
   /* 1. Appearance */
   html += setCat('sparkle', t('set.c.look'), t('set.c.lookD'));
@@ -132,6 +134,7 @@ function renderSettings(){
     '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('globe', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.language') + '</div><div class="settings-row-sub">' + t('settings.languages_list') + '</div></div></div>' +
     chipRow('<div class="chips" style="padding-top:2px">' + ['en','fr','ar'].map(l => '<button class="chip" data-lang="' + l + '" ' + (LANG === l ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + (l === 'fr' ? 'Français' : l === 'en' ? 'English' : 'العربية') + '</button>').join('') + '</div>') +
     settingsToggleRow({ icon:'vibrate', title:t('settings.vibration'), sub:t('settings.vibrationDesc'), checked:vibOn, action:'settings-toggle-vibration' }) +
+    settingsToggleRow({ icon:'volume', title:t('lx.set.sounds'), sub:t('lx.set.soundsD'), checked:setts.sounds !== false, action:'settings-toggle-sounds' }) +
     settingsToggleRow({ icon:'device', title:t('settings.desktopMode'), sub:t('settings.desktopModeDesc'), checked:LayoutMode.isDesktop(), action:'layout-toggle' }) +
     (typeof PxInstall !== 'undefined' ? PxInstall.settingsRow() : '') +
   '</div>';

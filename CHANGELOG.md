@@ -1,3 +1,32 @@
+# Live X Digitale 16.0.0 — nouvelle identité, récompense de bienvenue, transfert international, console admin
+
+## Nouveau
+- **Marque** : « Live X Digitale » (FR / EN / AR), noir & or (jetons dans `css/livex.css`, thème sombre par défaut), monogramme LX, icônes, écrans de démarrage iOS, images de partage. Identifiants de compte `LXD-…`.
+- **Accueil / présentation** : 5 diapositives façon vitrine App Store (grand titre, accent or, téléphone réaliste avec écrans : accueil, récompense, transfert international, carte Visa métal, PIN / Face ID) — `js/ui/phone-art.js`, `css/welcome.css`.
+- **Récompense de bienvenue 10 OMR** par nouveau compte, versée à la confirmation du compte ; une seule par compte ET par numéro de téléphone ; non rétroactive ; montant réglable par un admin (`admin_set_signup_bonus`). Célébration (confettis, compteur, ≈ USD) à la première ouverture.
+- **Téléphone obligatoire** à l'inscription ; les anciens comptes sans numéro reçoivent une fenêtre bloquante une seule fois (`set_my_phone`). Numéro complet affiché dans tous les profils.
+- **Sons** de notification synthétisés (WebAudio, aucun fichier) : tap, navigation, succès, argent reçu, récompense, nouveau membre…; réglage « Sons » dans Paramètres.
+- **Transfert international** : 61 pays (Golfe, Afrique du Nord / de l'Ouest / centrale / de l'Est / australe, États-Unis, Canada), moyens de retrait propres à chaque pays, délai 48 h à 72 h (`js/data/intl-catalog.js`, `js/screens/intl.js`, RPC `intl_send`, table `intl_countries`). Taux de change uniquement ceux configurés (`fx_rates`), jamais inventés.
+- **Console admin séparée** (`#/admin`) : thème marine / or distinct, bandeau ADMIN, indicateurs (`admin_stats`), nouveaux membres en direct (`admin_recent_users`), fiche membre, dépôt, réglage de la récompense. Chaque admin est alerté (son + notification + e-mail + push) à chaque inscription.
+- **Devise** : dollar (USD) par défaut pour les nouveaux comptes, changement possible dans les réglages.
+
+## Changé
+- Un seul e-mail « OK » : l'e-mail « l'argent n'a pas été versé » destiné à l'expéditeur n'est plus créé ; les transactions SIGNUP_BONUS n'envoient pas d'e-mail séparé (récompense incluse dans l'e-mail de bienvenue).
+- Le compte « Afrique de l'Ouest » n'est plus affiché à l'accueil ni créé pour les nouveaux comptes.
+
+## Fichiers serveur (NON appliqués en production tant que non validés)
+- `supabase/migrations/20261019_live_x_core.sql`, `20261019_live_x_admin_intl.sql` (le second est généré par `node scripts/dev/gen-intl-sql.mjs`).
+- `supabase/functions/send-email` (verify_jwt = false) et `push-send` (verify_jwt = true).
+- Tests sur une réplique PostgreSQL locale : `supabase/tests/` → « ALL TESTS PASSED ».
+
+## NON EXÉCUTÉ / limites
+- Le transfert international s'appuie sur le moteur de démonstration existant (aucun vrai réseau de paiement) ; les e-mails portent la mention de simulation.
+- Le logo Visa dessiné est une imitation, pas le logo officiel.
+- Sans vérification OTP du téléphone, la récompense peut être abusée (limitée à un compte par numéro) — piste : OTP Supabase + Twilio.
+- Mesures de chargement : 1re visite ≈ 346 Ko, visites suivantes 0 octet (Chromium simulé).
+
+---
+
 # Friendly Pay 15.1.0 — chargement ultra rapide
 
 ## Mesuré (Chromium, réseau « 3G rapide » 1,6 Mbit/s + 150 ms, processeur ralenti ×4, téléphone 390 px)

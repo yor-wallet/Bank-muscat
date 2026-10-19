@@ -35,9 +35,9 @@ const Resilience = (() => {
     const safeId = String(id || '').replace(/[^a-z0-9-]/gi, '');
     const isHome = safeId === 'home';
     return '<div class="res-screen" role="alert">' +
-      '<div class="res-art" aria-hidden="true"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="resg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0B7F75"/></linearGradient></defs>' +
+      '<div class="res-art" aria-hidden="true"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="resg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9aa1c"/><stop offset="1" stop-color="#6b4c08"/></linearGradient></defs>' +
         '<circle cx="60" cy="60" r="52" fill="url(#resg)" opacity=".14"/><circle cx="60" cy="60" r="38" fill="url(#resg)" opacity=".22"/>' +
-        '<g fill="none" stroke="#0B7F75" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M60 38v26"/></g><circle cx="60" cy="82" r="5" fill="#0B7F75"/></svg></div>' +
+        '<g fill="none" stroke="#6b4c08" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M60 38v26"/></g><circle cx="60" cy="82" r="5" fill="#6b4c08"/></svg></div>' +
       '<h1 class="res-title">' + esc(t('res.title')) + '</h1>' +
       '<p class="res-body">' + esc(t('res.body')) + '</p>' +
       '<div class="res-actions">' +

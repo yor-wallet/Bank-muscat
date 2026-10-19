@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Friendly Pay 15.1.0
+   Live X Digitale 16.0.0
    - « Ce mois-ci » : sums of CONFIRMED operations of the current month, read from Runtime.transactions (never estimated).
    - Pull to refresh (home, history, notifications): reloads the account from the server (AuthEngine.hydrateRuntime).
    - Recent recipients on the transfer screen: numbers the person really sent to (their own history), one tap fills the field.
@@ -121,13 +121,13 @@ const V13 = (() => {
   }
 
   /* ---------- notification centre ---------- */
-  const NC_ICON = { TRANSFER_SENT:'send', TRANSFER_RECEIVED:'receive', DEPOSIT:'banknote' };
+  const NC_ICON = { TRANSFER_SENT:'send', TRANSFER_RECEIVED:'receive', DEPOSIT:'banknote', REWARD:'gift', NEW_USER:'users', TRANSFER_STATUS:'globe' };
   function ncText(n){
     const d = n.data || {}, type = String(n.type || '').toUpperCase();
-    const title = TR.en['v13.nc.' + type] ? t('v13.nc.' + type) : (n.title || '');
+    const title = TR.en['v13.nc.' + type] ? t('v13.nc.' + type) : TR.en['lx.n.' + type] ? t('lx.n.' + type) : (n.title || '');
     const amt = d.amount != null && isFinite(Number(d.amount)) ? CurrencyEngine.format(Number(d.amount), d.currency || 'OMR') : '';
     const who = d.to ? formatPhoneIntl(String(d.to)) : d.from ? formatPhoneIntl(String(d.from)) : '';
-    const line = type === 'TRANSFER_SENT' && who ? tf('v13.nc.to', { who }) : (type === 'TRANSFER_RECEIVED' && who) ? tf('v13.nc.from', { who }) : (TR.en['v13.nc.' + type] ? '' : (n.message || ''));
+    const line = type === 'REWARD' ? t('lx.rw.p') : type === 'TRANSFER_SENT' && who ? tf('v13.nc.to', { who }) : (type === 'TRANSFER_RECEIVED' && who) ? tf('v13.nc.from', { who }) : (type === 'NEW_USER' ? (n.message || '') : TR.en['v13.nc.' + type] ? '' : (n.message || ''));
     return { title, amt, line, ref: d.reference ? dispId(String(d.reference)) : '', icon: NC_ICON[type] || 'bell' };
   }
   function renderNotifications(){

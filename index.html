@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
+<html lang="en" dir="ltr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#F4F6F5">
-<meta name="apple-mobile-web-app-title" content="Friendly Pay">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="apple-mobile-web-app-title" content="Live X Digitale">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://gebjmguoauvutiqvoswl.supabase.co" crossorigin>
-<meta name="description" content="Friendly Pay — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
+<meta name="description" content="Live X Digitale — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-<meta name="application-name" content="Friendly Pay">
+<meta name="application-name" content="Live X Digitale">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Friendly Pay">
-<meta property="og:title" content="Friendly Pay">
+<meta property="og:site_name" content="Live X Digitale">
+<meta property="og:title" content="Live X Digitale">
 <meta property="og:description" content="Send money to a mobile number in Oman and manage your cards. Simple and secure.">
-<meta property="og:url" content="https://yor-wallet.netlify.app/">
-<meta property="og:image" content="https://yor-wallet.netlify.app/assets/share/og-en.png">
+<meta property="og:url" content="https://taupe-cocada-442156.netlify.app/">
+<meta property="og:image" content="https://taupe-cocada-442156.netlify.app/assets/share/og-en.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="fr_FR">
 <meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Friendly Pay">
+<meta name="twitter:title" content="Live X Digitale">
 <meta name="twitter:description" content="Send money to a mobile number in Oman and manage your cards. Simple and secure.">
-<meta name="twitter:image" content="https://yor-wallet.netlify.app/assets/share/og-en.png">
-<link rel="alternate" hreflang="fr" href="https://yor-wallet.netlify.app/?lang=fr">
-<link rel="alternate" hreflang="ar" href="https://yor-wallet.netlify.app/?lang=ar">
+<meta name="twitter:image" content="https://taupe-cocada-442156.netlify.app/assets/share/og-en.png">
+<link rel="alternate" hreflang="fr" href="https://taupe-cocada-442156.netlify.app/?lang=fr">
+<link rel="alternate" hreflang="ar" href="https://taupe-cocada-442156.netlify.app/?lang=ar">
 <link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" href="assets/splash/ios-1320x2868-light.jpg">
 <link rel="apple-touch-startup-image" media="(device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: dark)" href="assets/splash/ios-1320x2868-dark.jpg">
 <link rel="apple-touch-startup-image" media="(device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait) and (prefers-color-scheme: light)" href="assets/splash/ios-1206x2622-light.jpg">
@@ -70,13 +70,13 @@
 <script>
 /* last theme used on this phone, applied before the first paint (the app confirms it once the account is known) */
 (function(){try{var t=localStorage.getItem('fp_theme'),d=document.documentElement;
-  if(t==='dark'||(t==='system'&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','dark');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#050C0B');}
+  if(t==='light'||(t==='system'&&window.matchMedia&&!window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F5F4F1');}
 }catch(e){}})();
 </script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Friendly Pay</title>
+<title>Live X Digitale</title>
 <script>
 /* YOR responsive engine: computes --ui (global scale) + breakpoint/orientation/aspect flags */
 (function(){
@@ -122,11 +122,15 @@
 <link rel="stylesheet" href="css/resilience.css">
 <link rel="stylesheet" href="css/premium.css">
 <link rel="stylesheet" href="css/card-metal.css">
+<link rel="stylesheet" href="css/livex.css">
+<link rel="stylesheet" href="css/welcome.css">
+<link rel="stylesheet" href="css/intl.css">
+<link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
 
-<div id="splash" aria-live="polite"><svg viewBox="0 0 512 512" width="96" height="96" aria-hidden="true" style="width:min(28vmin,120px);height:auto;filter:drop-shadow(0 18px 36px rgba(11,127,117,.45))"><defs><linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0B7F75"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#pre-g)"/><g transform="translate(-20 -9)" fill="none" stroke="#fff" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"><path d="M180 388V196a54 54 0 0 1 54-54H372"/><path d="M180 266H326"/></g><circle cx="318" cy="369" r="31" fill="#fff"/></svg></div>
-<noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#0B1F1D">Friendly Pay needs JavaScript. Please enable it and reload. · Friendly Pay nécessite JavaScript. · يتطلب فرندي باي تفعيل JavaScript.</div></noscript>
+<div id="splash" aria-live="polite"><svg viewBox="0 0 512 512" width="96" height="96" aria-hidden="true" style="width:min(28vmin,120px);height:auto;filter:drop-shadow(0 18px 36px rgba(107,76,8,.45))"><defs><linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9aa1c"/><stop offset="1" stop-color="#6b4c08"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#pre-g)"/><g transform="translate(-20 -9)" fill="none" stroke="#fff" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"><path d="M180 388V196a54 54 0 0 1 54-54H372"/><path d="M180 266H326"/></g><circle cx="318" cy="369" r="31" fill="#fff"/></svg></div>
+<noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#151411">Live X Digitale needs JavaScript. Please enable it and reload. · Live X Digitale nécessite JavaScript. · يتطلب لايف إكس ديجيتال تفعيل JavaScript.</div></noscript>
 
 <div id="app">
   <aside id="sidebar">
@@ -153,13 +157,17 @@
 <script src="js/vendor/supabase-2.45.4.js" defer></script>
 <script src="js/core/supabase-client.js" defer></script>
 <script src="js/data/reference-data.js" defer></script>
+<script src="js/data/intl-catalog.js" defer></script>
 <script src="js/i18n/translations.js" defer></script>
+<script src="js/i18n/livex.js" defer></script>
 <script src="js/core/engines.js" defer></script>
 <script src="js/core/domain.js" defer></script>
 <script src="js/core/notifications.js" defer></script>
 <script src="js/core/utils-lang.js" defer></script>
 <script src="js/ui/icons.js" defer></script>
 <script src="js/ui/opening-art.js" defer></script>
+<script src="js/ui/sfx.js" defer></script>
+<script src="js/ui/phone-art.js" defer></script>
 <script src="js/ui/send-anim.js" defer></script>
 <script src="js/features/resilience.js" defer></script>
 <script src="js/core/router.js" defer></script>
@@ -192,7 +200,11 @@
 <script src="js/features/wallet-connect.js" defer></script>
 <script src="js/features/v12.js" defer></script>
 <script src="js/features/promos.js" defer></script>
+<script src="js/features/reward.js" defer></script>
+<script src="js/screens/intl.js" defer></script>
+<script src="js/screens/admin.js" defer></script>
 <script src="js/screens/register.js" defer></script>
+<script src="js/features/livex.js" defer></script>
 <script src="js/ui/uikit.js" defer></script>
 <script src="js/features/push.js" defer></script>
 <script src="js/features/premium.js" defer></script>

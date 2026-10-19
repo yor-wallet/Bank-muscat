@@ -71,7 +71,7 @@ function sparklineSvg(symbol, w, h){
 
 function receiptToText(r){
   const lines = [];
-  lines.push('Friendly Pay — Receipt');
+  lines.push('Live X Digitale — Receipt');
   lines.push('─────────────────────');
   lines.push('Reference: ' + (r.reference || r.transactionId || r.id));
   lines.push('Date: ' + fmtDate(r.createdAt) + ' ' + fmtTime(r.createdAt));
@@ -91,7 +91,7 @@ function receiptToText(r){
   if (r.vat) lines.push('VAT: ' + CurrencyEngine.format(r.vat, r.currency || 'OMR'));
   lines.push('Total debited: ' + fmtA(r.total, r.asset));
   lines.push('─────────────────────');
-  lines.push('Friendly Pay');
+  lines.push('Live X Digitale');
   return lines.join('\n');
 }
 
@@ -168,7 +168,7 @@ function statusPill(state, withIcon, label){
 }
 /* human name of an operation from the server kind (FIAT_TRANSFER, CRYPTO_BUY, ...); '' when unknown (nothing is guessed) */
 function opLabel(x){
-  const k = String((x && (x.kind || x.type)) || '').toUpperCase();
+  const k = (x && x.flow === 'INTL_TRANSFER') ? 'INTL_TRANSFER' : String((x && (x.kind || x.type)) || '').toUpperCase();
   const key = 'op.' + k;
   const v = t(key);
   return v === key ? '' : v;
@@ -222,9 +222,9 @@ async function copyText(text, okMsg){
 
 
 /* ============================================================
-   Friendly ID display (12.9.0)
+   Live X ID display (12.9.0)
    The database keeps its identifiers as YOR-XXXXXX (profiles_yor_id_check) and YOR-TX-… (new_tx_reference): they are NOT
-   changed. Users see FRD-… everywhere, and may type FRD-, FRIENDLY- or YOR- when searching for someone.
+   changed. Users see LXD-… everywhere, and may type LXD-, FRD-, FRIENDLY- or YOR- when searching for someone.
    ============================================================ */
-function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'FRD-'); }
-function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }
+function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'LXD-'); }
+function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(LXD|LIVEX|LIVE X|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }

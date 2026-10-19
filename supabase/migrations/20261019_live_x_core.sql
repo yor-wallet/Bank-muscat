@@ -57,11 +57,17 @@ create trigger on_signup_bonus after insert or update of email_confirmed_at on a
 
 -- ---------- 2. un seul e-mail « OK » ----------
 do $m$
-declare d text;
+declare d text; v_start int; v_rel int; v_cut int;
 begin
+  -- e-mail « Confirmation de votre transfert … le versement n'est pas encore effectué » : retiré (un seul e-mail « OK » reste : TX_SENDER)
   d := pg_get_functiondef('public.enqueue_recipient_notices(uuid)'::regprocedure);
-  d := regexp_replace(d, $re$\s*if v_sp\.status = 'ACTIVE' and nullif\(btrim\(coalesce\(v_sp\.email, ''\)\), ''\) is not null then\s*insert into public\.recipient_notices \(transaction_id, channel, audience, user_id, to_email, country, status, idempotency_key\)\s*values \(t\.id, 'EMAIL', 'SENDER'.*?end if;$re$, E'\n');
-  if d like '%''EMAIL'', ''SENDER''%' then raise exception 'patch enqueue_recipient_notices: bloc introuvable'; end if;
+  v_start := strpos(d, E'      if v_sp.status = ''ACTIVE''');
+  if v_start = 0 then raise exception 'patch enqueue_recipient_notices: début du bloc introuvable'; end if;
+  v_rel := strpos(substr(d, v_start), E'\n      end if;');
+  if v_rel = 0 then raise exception 'patch enqueue_recipient_notices: fin du bloc introuvable'; end if;
+  v_cut := v_start + v_rel - 1 + length(E'\n      end if;');
+  d := substr(d, 1, v_start - 1) || substr(d, v_cut + 1);
+  if d like '%''EMAIL'', ''SENDER''%' then raise exception 'patch enqueue_recipient_notices: bloc encore présent'; end if;
   execute d;
   d := pg_get_functiondef('public.enqueue_tx_emails(uuid)'::regprocedure);
   d := replace(d, 'if t.id is null or t.status not in', E'if t.kind = ''SIGNUP_BONUS'' then return; end if;\n  if t.id is null or t.status not in');
@@ -70,6 +76,9 @@ begin
   d := pg_get_functiondef('public.handle_new_user()'::regprocedure);
   d := replace(d, E'(new.id, ''MAIN'', ''Main OMR'', ''OMR'', ''OM''), (new.id, ''WEST_AFRICA'', ''West Africa'', ''XOF'', ''CI'');', E'(new.id, ''MAIN'', ''Main OMR'', ''OMR'', ''OM'');');
   if d like '%WEST_AFRICA%' then raise exception 'patch handle_new_user'; end if;
+  -- monnaie d'affichage de base : le dollar (USD) pour les nouveaux comptes ; la personne peut en changer dans les réglages (les comptes existants gardent leur choix)
+  d := replace(d, '"primaryCurrency":"OMR"', '"primaryCurrency":"USD"');
+  if d not like '%"primaryCurrency":"USD"%' then raise exception 'patch handle_new_user primaryCurrency'; end if;
   execute d;
   d := pg_get_functiondef('public._push_on_notification()'::regprocedure);
   d := replace(d, $s$('TRANSFER_SENT', 'TRANSFER_RECEIVED', 'DEPOSIT')$s$, $s$('TRANSFER_SENT', 'TRANSFER_RECEIVED', 'DEPOSIT', 'REWARD', 'NEW_USER')$s$);

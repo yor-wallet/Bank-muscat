@@ -1,23 +1,27 @@
 'use strict';
 
 /* ===== FRIENDLY PAY 12.10.0 — carrousel de publicités de l'accueil =====
-   Quatre cartes illustrées (personnages originaux dessinés pour Friendly Pay, assets/ads/ad-*.svg) placées sous les actions rapides.
+   Quatre cartes illustrées (personnages originaux dessinés pour Live X Digitale, assets/ads/ad-*.svg) placées sous les actions rapides.
    Règles :
    - chaque carte porte l'étiquette « Publicité » ; elle ne promet rien que l'application ne fait pas aujourd'hui (aucun frais, délai ou taux annoncé) ;
-   - aucun logo ni nom de marque tiers ; (12.12.0 : la carte « Friendly ID » est retirée, on ne reçoit plus par identifiant dans l'interface) ;
+   - aucun logo ni nom de marque tiers ; (12.12.0 : la carte « Live X ID » est retirée, on ne reçoit plus par identifiant dans l'interface) ;
    - défilement tactile natif (scroll-snap), compatible droite-gauche ; défilement automatique seulement si l'écran n'est pas touché et
      si l'appareil n'a pas demandé « réduire les animations » ;
    - « Masquer » cache le carrousel jusqu'à la fin de la session (sessionStorage) ; rien n'est stocké durablement. */
 const Promos = (() => {
   const KEY = 'yor.promos.dismissed';
   const AUTO_MS = 6500;
-  const ITEMS = [
+  const ITEMS_ALL = [
     { id: 'send', tone: 'send', nav: 'country-select', art: 'assets/ads/ad-send.svg',
       title: { fr: 'Envoyez à vos proches', en: 'Send to your loved ones', ar: 'أرسل إلى أحبّائك' },
       body:  { fr: 'Quelques gestes suffisent, depuis votre téléphone.', en: 'A few taps are all it takes, right from your phone.', ar: 'بضع لمسات تكفي، من هاتفك مباشرة.' },
       cta:   { fr: 'Envoyer', en: 'Send', ar: 'إرسال' } },
+    { id: 'world', tone: 'send', nav: 'intl', cap: 'intl', art: 'assets/ads/ad-send.svg',
+      title: { fr: 'Envoyez de l’argent dans le monde', en: 'Send money around the world', ar: 'أرسل الأموال حول العالم' },
+      body:  { fr: 'Golfe, Afrique, USA et Canada — banque, mobile money ou retrait en espèces.', en: 'Gulf, Africa, USA and Canada — bank, mobile money or cash pickup.', ar: 'الخليج وأفريقيا وأمريكا وكندا — بنك أو محفظة هاتف أو استلام نقدي.' },
+      cta:   { fr: 'Envoyer à l’étranger', en: 'Send abroad', ar: 'إرسال إلى الخارج' } },
     { id: 'card', tone: 'card', nav: 'cards', art: 'assets/ads/ad-card.svg',
-      title: { fr: 'Vos cartes Friendly', en: 'Your Friendly cards', ar: 'بطاقاتك من فرندي' },
+      title: { fr: 'Vos cartes Live X', en: 'Your Live X cards', ar: 'بطاقاتك من لايف إكس' },
       body:  { fr: 'Gelez ou dégelez une carte en un geste.', en: 'Freeze or unfreeze a card with one tap.', ar: 'جمّد البطاقة أو ألغِ التجميد بلمسة واحدة.' },
       cta:   { fr: 'Mes cartes', en: 'My cards', ar: 'بطاقاتي' } },
     { id: 'secure', tone: 'secure', nav: 'settings', art: 'assets/ads/ad-secure.svg',
@@ -25,14 +29,16 @@ const Promos = (() => {
       body:  { fr: 'Code PIN et Face ID gardent l’accès à votre argent.', en: 'PIN and Face ID guard access to your money.', ar: 'رمز PIN وFace ID يحميان الوصول إلى أموالك.' },
       cta:   { fr: 'Réglages', en: 'Settings', ar: 'الإعدادات' } },
     { id: 'lang', tone: 'lang', nav: 'settings', art: 'assets/ads/ad-lang.svg',
-      title: { fr: 'Friendly parle votre langue', en: 'Friendly speaks your language', ar: 'فرندي بلغتك' },
+      title: { fr: 'Live X parle votre langue', en: 'Live X speaks your language', ar: 'لايف إكس بلغتك' },
       body:  { fr: 'Français, English et العربية, à votre choix.', en: 'Français, English and العربية, your choice.', ar: 'العربية وEnglish وFrançais، كما تفضّل.' },
       cta:   { fr: 'Langue', en: 'Language', ar: 'اللغة' } },
   ];
+  /* 16.0.0 : une carte peut dépendre d'une capacité serveur (cap) : elle n'est montrée que si le serveur la propose */
+  const items = () => ITEMS_ALL.filter(it => !it.cap || (typeof LiveX !== 'undefined' && LiveX.caps[it.cap] === true));
   const UI = {
-    fr: { tag: 'Publicité', region: 'Publicités Friendly', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
-    en: { tag: 'Ad', region: 'Friendly ads', hide: 'Hide', hideLbl: 'Hide ads', go: (i, n) => 'Go to card ' + i + ' of ' + n, slide: (i, n) => i + ' of ' + n },
-    ar: { tag: 'إعلان', region: 'إعلانات فرندي', hide: 'إخفاء', hideLbl: 'إخفاء الإعلانات', go: (i, n) => 'الانتقال إلى البطاقة ' + i + ' من ' + n, slide: (i, n) => i + ' من ' + n },
+    fr: { tag: 'Publicité', region: 'Publicités Live X', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
+    en: { tag: 'Ad', region: 'Live X ads', hide: 'Hide', hideLbl: 'Hide ads', go: (i, n) => 'Go to card ' + i + ' of ' + n, slide: (i, n) => i + ' of ' + n },
+    ar: { tag: 'إعلان', region: 'إعلانات لايف إكس', hide: 'إخفاء', hideLbl: 'إخفاء الإعلانات', go: (i, n) => 'الانتقال إلى البطاقة ' + i + ' من ' + n, slide: (i, n) => i + ' من ' + n },
   };
   const lang = () => (typeof LANG === 'string' && UI[LANG]) ? LANG : 'en';
   const tx = (o) => o[lang()] || o.en;
@@ -45,10 +51,10 @@ const Promos = (() => {
   /* HTML du carrousel (chaîne vide si masqué pour la session) */
   function html() {
     if (dismissed()) return '';
-    const u = UI[lang()], n = ITEMS.length;
+    const u = UI[lang()], n = items().length;
     return '<section class="rv-sec rv-promos" data-promos role="region" aria-roledescription="carousel" aria-label="' + esc(u.region) + '">' +
       '<div class="rv-promo-track" data-promo-track tabindex="0">' +
-      ITEMS.map((it, i) =>
+      items().map((it, i) =>
         '<article class="rv-promo t-' + it.tone + '" data-promo-slide role="group" aria-roledescription="slide" aria-label="' + esc(u.slide(i + 1, n)) + '">' +
           '<div class="rv-promo-txt"><span class="rv-promo-tag">' + esc(u.tag) + '</span>' +
             '<h3>' + esc(tx(it.title)) + '</h3><p>' + esc(tx(it.body)) + '</p>' +
@@ -57,7 +63,7 @@ const Promos = (() => {
         '</article>').join('') +
       '</div>' +
       '<div class="rv-promo-foot"><div class="rv-promo-dots">' +
-        ITEMS.map((it, i) => '<button type="button" class="rv-promo-dot' + (i === 0 ? ' on' : '') + '" data-promo-dot="' + i + '" aria-label="' + esc(u.go(i + 1, n)) + '"' + (i === 0 ? ' aria-current="true"' : '') + '></button>').join('') +
+        items().map((it, i) => '<button type="button" class="rv-promo-dot' + (i === 0 ? ' on' : '') + '" data-promo-dot="' + i + '" aria-label="' + esc(u.go(i + 1, n)) + '"' + (i === 0 ? ' aria-current="true"' : '') + '></button>').join('') +
       '</div><button type="button" class="rv-promo-hide" data-promo-hide aria-label="' + esc(u.hideLbl) + '">' + esc(u.hide) + '</button></div>' +
     '</section>';
   }
@@ -93,7 +99,7 @@ const Promos = (() => {
     if (!root || root.dataset.touched === '1' || document.hidden || reduceMotion()) return;
     const r = root.getBoundingClientRect();
     if (r.bottom < 0 || r.top > (window.innerHeight || 800)) return;          // hors de l'écran : on n'anime pas
-    const n = ITEMS.length;
+    const n = items().length;
     goTo(root, (currentIndex(root) + 1) % n, true);
   }
   function stopAuto(root) { if (root) root.dataset.touched = '1'; }
@@ -124,5 +130,5 @@ const Promos = (() => {
     timer = setInterval(tick, AUTO_MS);
   }
 
-  return { html, init, ITEMS, _dismiss: dismiss };
+  return { html, init, ITEMS: ITEMS_ALL, _dismiss: dismiss };
 })();

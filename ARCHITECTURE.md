@@ -104,3 +104,9 @@ Les trois fichiers sont dans `SHELL` de `sw.js` ; la CSP n'autorise que `https:/
 - Script `js/features/premium.js` (après `push.js`, avant `wire.js`) : enregistre `home`, `receive`, `profile`, `profile-edit`, `tx-result` (remplace les anciens rendus de `home` et `profile`, qui restent dans le code) ; modules `Premium`, `TxResult`, `PxSearch`, `PxInstall`, `BalanceFx`, aides `maskPhone`, `maskEmail`, `txMatches`. `wire()` appelle `Premium.onScreen(id, root)` ; un `data-nav` sans branche dédiée va vers `R.go(n)` (le routeur refuse les écrans inconnus).
 - Transferts : `TransferEngine.isUncertain(error, status)`, `TransferEngine.checkExternal(req)` (lecture sans autorisation PIN), `ProcessingEngine.run(work, { timeoutMs })` (30 s par défaut, phase `uncertain`, `out.late` = requête toujours en cours), `SendAnim.setPhase('uncertain')`. `PinEngine.change()` → `change_pin`.
 - Historique : objet `HIST` (`q`, `period`, `dir`) dans `history-cards.js`, appliqué par `historyFilter`.
+
+## Live X Digitale 16.0.0
+- Ordre d'inclusion (index.html) : `css/livex.css` (jetons noir/or) après les feuilles existantes, puis `welcome.css`, `intl.css`, `admin.css`. Scripts : `sfx.js`, `phone-art.js`, `reward.js`, `data/intl-catalog.js`, `i18n/livex.js`, `features/livex.js`, `screens/intl.js`, `screens/admin.js` (tous inscrits dans `scripts/build.mjs` et `sw.js`).
+- `LiveX` (`js/features/livex.js`) : détection des capacités (`caps.intl` par lecture de `intl_countries`), fenêtre bloquante du téléphone, garde des écrans, `onScreen`. `ADMIN_SCREENS` (router) sépare l'expérience admin.
+- `Sfx.play(nom)` : sons WebAudio ; branché sur `UIKit.haptic`, `Reward`, `onLive` (auth.js).
+- Serveur : voir `supabase/migrations/20261019_*` ; `intl_send` (idempotent, PIN, limites 0,5–3000 OMR) ; `bank_jobs` flux `INTL_TRANSFER` (48–72 h) ; tests dans `supabase/tests/README.md`.

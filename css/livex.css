@@ -1,0 +1,44 @@
+/* ==========================================================================
+   LIVE X DIGITALE 16.0.0 — identité noir & or. Chargé en DERNIER (après card-metal.css).
+   Source unique des couleurs de marque : ce fichier redéfinit les jetons (--accent, --btn-grad, …) pour les deux thèmes ;
+   les anciennes feuilles les lisent déjà. Texte SUR une surface or : toujours --on-accent (noir chaud), jamais du blanc.
+   Sombre (défaut) : noir chaud #0A0A0B, or #FFC83D.   Clair : blanc cassé #F5F4F1, or profond #8F6400 pour le texte, or vif pour les boutons.
+   ========================================================================== */
+:root{
+  --lx-gold:#FFC83D;--lx-gold-2:#F2B21B;--lx-gold-3:#C98A0E;--lx-gold-hi:#FFE08A;--lx-ink:#0A0A0B;--lx-navy:#2B2BC9;
+  --on-accent:#14110A;
+  --accent:#FFC83D;--accent-600:#E5A91A;
+  --accent-soft:rgba(255,200,61,.14);--accent-subtle:rgba(255,200,61,.08);--accent-glow:rgba(255,200,61,.34);
+  --yor-violet:#E5A91A;--yor-mint:#FFC83D;--yor-gold:#FFC83D;--yor-glow:#FFD866;--yor-mist:#FFEFC6;
+  --btn-grad:linear-gradient(180deg,#FFDB72 0%,#FFC83D 58%,#F2B21B 100%);
+  --brand-grad:linear-gradient(180deg,#FFDB72 0%,#FFC83D 58%,#F2B21B 100%);
+  --btn-glow:rgba(255,200,61,.42);
+  --bg:#0A0A0B;--bg-1:#111113;--bg-2:#17171A;--bg-3:#1F1F23;
+  --glass-1:#121214;--glass-2:#19191C;--surf:#121214;--surf-2:#19191C;
+  --text:#F7F4EC;--text-2:#BDB7A8;--text-3:#8F8A7D;
+  --champagne:#FFC83D;--champagne-soft:rgba(255,200,61,.20);
+}
+:root[data-theme="light"]{
+  --on-accent:#14110A;
+  --accent:#8F6400;--accent-600:#6E4C00;
+  --accent-soft:rgba(201,138,14,.14);--accent-subtle:rgba(201,138,14,.08);--accent-glow:rgba(201,138,14,.30);
+  --yor-violet:#8F6400;--yor-mint:#F2B21B;--yor-gold:#E5A91A;
+  --btn-grad:linear-gradient(180deg,#FFDB72 0%,#FFC83D 58%,#F2B21B 100%);
+  --brand-grad:linear-gradient(180deg,#FFDB72 0%,#FFC83D 58%,#F2B21B 100%);
+  --btn-glow:rgba(229,166,26,.45);
+  --bg:#F5F4F1;--bg-1:#FFFFFF;--bg-2:#EFEDE8;--bg-3:#E5E2DA;
+  --glass-1:#FFFFFF;--glass-2:#F3F1EC;--surf:#FFFFFF;--surf-2:#F3F1EC;
+  --text:#0E0D0A;--text-2:#55524A;--text-3:#6B675D;
+  --champagne:#A9843E;--champagne-soft:rgba(169,132,62,.16);
+}
+/* boutons dorés : texte noir chaud, reflet doux */
+.btn-primary,.tile-solid,.nav-cta .nav-cta-tile,.nav-item.nav-cta .nav-cta-tile,.rv-act.p i,.rv-ava{background:var(--btn-grad)!important;color:var(--on-accent)!important}
+.btn-primary{box-shadow:0 12px 28px -12px var(--btn-glow),inset 0 1px 0 rgba(255,255,255,.55)!important}
+.btn-primary svg,.nav-cta-tile svg,.tile-solid svg{color:var(--on-accent);stroke:currentColor}
+.chip[aria-pressed="true"]{background:var(--btn-grad);color:var(--on-accent);border-color:transparent}
+.progress-step.current .progress-step-dot,.select-check,.swipe-thumb{background:var(--btn-grad);color:var(--on-accent)}
+/* thème clair : l'accent sert au texte et aux icônes (contraste ≥ 4,5:1) ; les liens utilisent le bleu nuit de la marque */
+:root[data-theme="light"] .rv-h button,:root[data-theme="light"] .topbar-action,:root[data-theme="light"] .btn-ghost{color:var(--lx-navy)}
+:root[data-theme="light"] .tile{background:rgba(255,200,61,.22);color:#6E4C00}
+/* cartouche « ADMIN » : jamais de la même couleur que les badges utilisateur */
+.badge-admin,.px-chip.admin{background:#1F1F6B;color:#fff;border:1px solid rgba(255,255,255,.18);letter-spacing:.08em}

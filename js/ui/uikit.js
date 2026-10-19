@@ -9,6 +9,7 @@ const UIKit = (() => {
   const GUARD_MS = 450;
   let started = false, raf = 0, timer = 0, _lastEnhance = 0;
   function haptic(kind){
+    try { if (typeof Sfx !== 'undefined') Sfx.play(kind === 'success' || kind === 'error' || kind === 'warning' ? kind : 'tap'); } catch(e){}
     try {
       if (Runtime.settings && Runtime.settings.vibration === false) return;
       if (!navigator.vibrate) return;

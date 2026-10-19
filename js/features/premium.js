@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Friendly Pay 12.14.0 — premium layer
+   Live X Digitale 12.14.0 — premium layer
    Home, Receive, global search, Profile (+ edit), transfer outcome screen (refused / uncertain), balance change animation.
    Rules kept from earlier versions: every number shown is read from the server data in Runtime; nothing is invented, no balance,
    reference, status or verification state is ever simulated. Loaded after js/screens/register.js (it registers the screens it owns)
@@ -13,14 +13,14 @@ Object.assign(TR.en, {
   'px.recent':'Recent activity','px.seeAll':'See all','px.search':'Search','px.searchPh':'Transactions, references, settings…',
   'px.sTx':'Transactions','px.sPeople':'Recipients','px.sScreens':'Screens and settings','px.sNone':'No result for “{q}”','px.sHint':'Search your real transactions by name, number, reference or amount.',
   'px.profile':'Profile','px.openProfile':'Open my profile','px.notifs':'Notifications',
-  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Friendly Pay balance appears here and in your history, with its real status.',
-  'px.rcvId':'Your Friendly ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
-  'px.rcvNote':'Transfers made to a mobile number leave Friendly Pay (the recipient is told by SMS); they do not credit a Friendly Pay balance.',
+  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Live X Digitale balance appears here and in your history, with its real status.',
+  'px.rcvId':'Your Live X ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
+  'px.rcvNote':'Transfers made to a mobile number leave Live X Digitale (the recipient is told by SMS); they do not credit a Live X Digitale balance.',
   'px.rcvRecent':'Money received','px.rcvNone':'Nothing received yet','px.rcvNoneD':'Confirmed credits will be listed here.',
-  'px.shareText':'My Friendly Pay details — Friendly ID: {id}',
+  'px.shareText':'My Live X Digitale details — Live X ID: {id}',
   'px.edit':'Edit profile','px.personal':'Personal information','px.first':'First name','px.last':'Last name','px.phone':'Mobile number','px.email':'E-mail','px.country':'Country','px.accountId':'Account ID',
   'px.verif':'Account verification','px.kyc.VERIFIED':'Verified','px.kyc.PENDING':'Verification in progress','px.kyc.REJECTED':'Verification refused','px.kyc.UNVERIFIED':'Not verified',
-  'px.kycD.VERIFIED':'Your identity has been confirmed by Friendly Pay.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
+  'px.kycD.VERIFIED':'Your identity has been confirmed by Live X Digitale.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
   'px.kycD.REJECTED':'Your verification was not accepted. Contact support to know what is needed.','px.kycD.UNVERIFIED':'Identity verification is not offered in the app yet. No document is requested for now.',
   'px.security':'Security','px.pinChange':'Change personal code','px.pinChangeD':'6 digits, asked to confirm every transfer','px.pinOldT':'Current code','px.pinOldS':'Enter your current 6-digit code.','px.pinNewT':'New code','px.pinSame':'Choose a code different from the current one.','px.pinDone':'Personal code changed',
   'px.prefs':'Preferences','px.language':'Language','px.theme':'Theme','px.dispCur':'Display currency','px.support':'Help and information','px.version':'Version {v}',
@@ -38,14 +38,14 @@ Object.assign(TR.fr, {
   'px.recent':'Activité récente','px.seeAll':'Voir tout','px.search':'Rechercher','px.searchPh':'Opérations, références, réglages…',
   'px.sTx':'Opérations','px.sPeople':'Bénéficiaires','px.sScreens':'Écrans et réglages','px.sNone':'Aucun résultat pour « {q} »','px.sHint':'Retrouvez vos vraies opérations par nom, numéro, référence ou montant.',
   'px.profile':'Profil','px.openProfile':'Ouvrir mon profil','px.notifs':'Notifications',
-  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Friendly Pay apparaît ici et dans l’historique, avec son statut réel.',
-  'px.rcvId':'Votre Friendly ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
-  'px.rcvNote':'Les transferts vers un numéro de mobile sortent de Friendly Pay (le destinataire est prévenu par SMS) : ils ne créditent pas un solde Friendly Pay.',
+  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Live X Digitale apparaît ici et dans l’historique, avec son statut réel.',
+  'px.rcvId':'Votre Live X ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
+  'px.rcvNote':'Les transferts vers un numéro de mobile sortent de Live X Digitale (le destinataire est prévenu par SMS) : ils ne créditent pas un solde Live X Digitale.',
   'px.rcvRecent':'Argent reçu','px.rcvNone':'Rien reçu pour l’instant','px.rcvNoneD':'Les crédits confirmés seront listés ici.',
-  'px.shareText':'Mes informations Friendly Pay — Friendly ID : {id}',
+  'px.shareText':'Mes informations Live X Digitale — Live X ID : {id}',
   'px.edit':'Modifier le profil','px.personal':'Informations personnelles','px.first':'Prénom','px.last':'Nom','px.phone':'Numéro de mobile','px.email':'E-mail','px.country':'Pays','px.accountId':'Identifiant du compte',
   'px.verif':'Vérification du compte','px.kyc.VERIFIED':'Vérifié','px.kyc.PENDING':'Vérification en cours','px.kyc.REJECTED':'Vérification refusée','px.kyc.UNVERIFIED':'Non vérifié',
-  'px.kycD.VERIFIED':'Votre identité a été confirmée par Friendly Pay.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
+  'px.kycD.VERIFIED':'Votre identité a été confirmée par Live X Digitale.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
   'px.kycD.REJECTED':'Votre vérification n’a pas été acceptée. Contactez l’assistance pour savoir quoi fournir.','px.kycD.UNVERIFIED':'La vérification d’identité n’est pas encore proposée dans l’application. Aucun document n’est demandé pour le moment.',
   'px.security':'Sécurité','px.pinChange':'Modifier le code personnel','px.pinChangeD':'6 chiffres, demandé pour confirmer chaque transfert','px.pinOldT':'Code actuel','px.pinOldS':'Saisissez votre code actuel à 6 chiffres.','px.pinNewT':'Nouveau code','px.pinSame':'Choisissez un code différent du code actuel.','px.pinDone':'Code personnel modifié',
   'px.prefs':'Préférences','px.language':'Langue','px.theme':'Thème','px.dispCur':'Devise d’affichage','px.support':'Aide et informations','px.version':'Version {v}',
@@ -63,14 +63,14 @@ Object.assign(TR.ar, {
   'px.recent':'آخر العمليات','px.seeAll':'عرض الكل','px.search':'بحث','px.searchPh':'العمليات، المراجع، الإعدادات…',
   'px.sTx':'العمليات','px.sPeople':'المستفيدون','px.sScreens':'الشاشات والإعدادات','px.sNone':'لا نتائج لـ «{q}»','px.sHint':'ابحث في عملياتك الحقيقية بالاسم أو الرقم أو المرجع أو المبلغ.',
   'px.profile':'الملف الشخصي','px.openProfile':'فتح ملفي الشخصي','px.notifs':'الإشعارات',
-  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في فرندي باي يظهر هنا وفي السجل بحالته الحقيقية.',
-  'px.rcvId':'معرّف فرندي الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
-  'px.rcvNote':'التحويلات إلى رقم هاتف تخرج من فرندي باي (يُبلَّغ المستلم برسالة نصية)، ولا تُضاف إلى رصيد في فرندي باي.',
+  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في لايف إكس ديجيتال يظهر هنا وفي السجل بحالته الحقيقية.',
+  'px.rcvId':'معرّف لايف إكس الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
+  'px.rcvNote':'التحويلات إلى رقم هاتف تخرج من لايف إكس ديجيتال (يُبلَّغ المستلم برسالة نصية)، ولا تُضاف إلى رصيد في لايف إكس ديجيتال.',
   'px.rcvRecent':'الأموال المستلمة','px.rcvNone':'لم يصلك شيء بعد','px.rcvNoneD':'ستظهر هنا المبالغ المؤكدة.',
-  'px.shareText':'بياناتي في فرندي باي — المعرّف: {id}',
+  'px.shareText':'بياناتي في لايف إكس ديجيتال — المعرّف: {id}',
   'px.edit':'تعديل الملف','px.personal':'المعلومات الشخصية','px.first':'الاسم الأول','px.last':'اسم العائلة','px.phone':'رقم الهاتف','px.email':'البريد الإلكتروني','px.country':'الدولة','px.accountId':'معرّف الحساب',
   'px.verif':'التحقق من الحساب','px.kyc.VERIFIED':'تم التحقق','px.kyc.PENDING':'التحقق جارٍ','px.kyc.REJECTED':'رُفض التحقق','px.kyc.UNVERIFIED':'لم يتم التحقق',
-  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل فرندي باي.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
+  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل لايف إكس ديجيتال.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
   'px.kycD.REJECTED':'لم يُقبل التحقق. تواصل مع الدعم لمعرفة المطلوب.','px.kycD.UNVERIFIED':'التحقق من الهوية غير متاح في التطبيق بعد. لا تُطلب أي وثيقة حالياً.',
   'px.security':'الأمان','px.pinChange':'تغيير الرمز الشخصي','px.pinChangeD':'6 أرقام، يُطلب لتأكيد كل تحويل','px.pinOldT':'الرمز الحالي','px.pinOldS':'أدخل رمزك الحالي المكوّن من 6 أرقام.','px.pinNewT':'الرمز الجديد','px.pinSame':'اختر رمزاً مختلفاً عن الرمز الحالي.','px.pinDone':'تم تغيير الرمز الشخصي',
   'px.prefs':'التفضيلات','px.language':'اللغة','px.theme':'المظهر','px.dispCur':'عملة العرض','px.support':'المساعدة والمعلومات','px.version':'الإصدار {v}',
@@ -127,7 +127,7 @@ function pxNorm(s){
     .replace(/[٠-٩]/g, c => String(c.charCodeAt(0) - 0x660))
     .normalize('NFD').replace(/[̀-ͯ]/g, '');
 }
-/* does a transaction match the query? name, phone, reference (FRD- or YOR-), amount, operation label */
+/* does a transaction match the query? name, phone, reference (LXD-, FRD- or YOR-), amount, operation label */
 function txMatches(tx, q){
   const n = pxNorm(q).trim();
   if (!n) return true;
@@ -324,14 +324,14 @@ const PxSearch = (() => {
 
 
 /* ============================================================
-   INSTALL WITHOUT AN APP STORE (12.14.0) — Friendly Pay is a web app (PWA): it is added to the home screen from its HTTPS address.
+   INSTALL WITHOUT AN APP STORE (12.14.0) — Live X Digitale is a web app (PWA): it is added to the home screen from its HTTPS address.
    iPhone / iPad (Safari): Apple offers no install button to web pages; the card shows the two real steps (Share → Add to Home Screen).
    Android / desktop Chrome / Edge: the browser's own install prompt (beforeinstallprompt) is used when it is offered.
    Nothing is shown once the app runs from its icon (standalone). "Later" hides the card for 14 days on this device.
    ============================================================ */
-Object.assign(TR.en, { 'pi.title':'Install Friendly Pay on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Friendly Pay from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Friendly Pay to your home screen', 'pi.note':'Friendly Pay is a web app: it is not an App Store app and it uses only what Safari allows.' });
-Object.assign(TR.fr, { 'pi.title':'Installer Friendly Pay sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Friendly Pay depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Friendly Pay à l’écran d’accueil', 'pi.note':'Friendly Pay est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
-Object.assign(TR.ar, { 'pi.title':'ثبّت فرندي باي على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح فرندي باي من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف فرندي باي إلى الشاشة الرئيسية', 'pi.note':'فرندي باي تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
+Object.assign(TR.en, { 'pi.title':'Install Live X Digitale on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Live X Digitale from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Live X Digitale to your home screen', 'pi.note':'Live X Digitale is a web app: it is not an App Store app and it uses only what Safari allows.' });
+Object.assign(TR.fr, { 'pi.title':'Installer Live X Digitale sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Live X Digitale depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Live X Digitale à l’écran d’accueil', 'pi.note':'Live X Digitale est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
+Object.assign(TR.ar, { 'pi.title':'ثبّت لايف إكس ديجيتال على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح لايف إكس ديجيتال من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف لايف إكس ديجيتال إلى الشاشة الرئيسية', 'pi.note':'لايف إكس ديجيتال تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
 const PxInstall = (() => {
   let deferred = null;
   const KEY = 'fp_install_later';
@@ -418,14 +418,14 @@ const Premium = (() => {
       Runtime.cards.map(c => '<button class="rv-mini th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><span class="ltr">•••• ' + escapeHtml(String(c.number || '0000').slice(-4)) + '</span>' + V12.netSlot(c) + '</button>').join('') +
       '<button class="rv-mini rv-mini-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
     /* other money accounts (e.g. XOF): shown in the display currency, original amount always visible (same rules as 12.6.0) */
-    const others = (Runtime.accounts || []).filter(a => a.type !== 'CRYPTO' && a.type !== 'MAIN').slice(0, 4);
+    const others = (Runtime.accounts || []).filter(a => a.type !== 'CRYPTO' && a.type !== 'MAIN' && a.type !== 'WEST_AFRICA').slice(0, 4);   /* 16.0.0 : le compte « West Africa » n'apparaît plus sur l'accueil */
     const othersHtml = others.length ? '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="rv-grid2">' +
       others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="rv-tile"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
         (!hide && v.converted ? '<span class="rv-cap ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
     return '<div class="rv-home ds-home px-home">' +
       '<header class="px-top">' +
         '<button class="px-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<div class="px-hello"><span>' + escapeHtml(pxGreeting()) + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Friendly Pay') + '</b></div>' +
+        '<div class="px-hello"><span>' + escapeHtml(pxGreeting()) + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Live X Digitale') + '</b></div>' +
         '<button class="rv-circ px-circ" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 20) + '</button>' +
         '<button class="rv-circ px-circ" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 20) + (unread ? '<span class="rv-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
       '</header>' +
@@ -489,7 +489,7 @@ const Premium = (() => {
       '<div class="screen-body px-prof" style="padding-top:0">' +
         '<section class="px-hero">' + pxAvatar(p, 'xl') +
           '<div class="px-hero-body"><h1>' + escapeHtml(name) + '</h1>' +
-            (p.phone ? '<span class="px-hero-sub ltr" dir="ltr">' + escapeHtml(maskPhone(p.phone)) + '</span>' : '') +
+            (p.phone ? '<span class="px-hero-sub ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(p.phone)) + '</span>' : '') +
             '<div class="px-hero-chips">' + (yid ? '<button class="px-chip id" data-action="copy" data-copy="' + escapeHtml(yid) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + yid) + '">' + icon('copy', 12) + '<span class="ltr">' + escapeHtml(yid) + '</span></button>' : '') +
               '<span class="px-chip ' + (kyc === 'VERIFIED' ? 'ok' : kyc === 'REJECTED' ? 'bad' : kyc === 'PENDING' ? 'warn' : 'muted') + '"><i></i>' + escapeHtml(t('px.kyc.' + kyc)) + '</span>' +
               (ctx.role === 'admin' ? '<span class="px-chip muted">ADMIN</span>' : '') + '</div></div>' +
@@ -497,7 +497,7 @@ const Premium = (() => {
         '</section>' +
         settingsSection(t('px.personal')) + '<div class="settings-group">' +
           info('user', t('px.first'), escapeHtml(p.firstName || '—')) + info('user', t('px.last'), escapeHtml(p.lastName || '—')) +
-          (p.phone ? info('mobile', t('px.phone'), escapeHtml(maskPhone(p.phone)), true) : '') +
+          (p.phone ? info('mobile', t('px.phone'), escapeHtml(formatPhoneIntl(p.phone)), true) : '') +
           (p.email ? info('mail', t('px.email'), escapeHtml(maskEmail(p.email)), true) : '') +
           (c ? info('globe', t('px.country'), '<span class="px-flag">' + flag(c.iso) + '</span> ' + escapeHtml(c[LANG] || c.en)) : '') +
           (yid ? info('wallet', t('px.accountId'), escapeHtml(yid), true) : '') +
@@ -521,7 +521,7 @@ const Premium = (() => {
           row('info', t('settings.about'), tf('px.version', { v: CONFIG.APP.version }), 'data-nav="about"') +
         '</div>' +
         '<div class="settings-group" style="margin-top:var(--sp-5)">' + row('logout', t('profile.logout'), '', 'data-action="sign-out"', '', true) + '</div>' +
-        '<p class="px-ver ltr">Friendly Pay ' + escapeHtml(CONFIG.APP.version) + '</p>' +
+        '<p class="px-ver ltr">Live X Digitale ' + escapeHtml(CONFIG.APP.version) + '</p>' +
       '</div>';
   }
   /* first / last name: the only profile fields the server lets the person change here (column grants on public.profiles) */
@@ -578,7 +578,7 @@ const Premium = (() => {
   async function share(){
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : ''; if (!yid) return;
     const text = tf('px.shareText', { id: yid });
-    if (navigator.share){ try { await navigator.share({ title: 'Friendly Pay', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
+    if (navigator.share){ try { await navigator.share({ title: 'Live X Digitale', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
     copyText(text);
   }
 

@@ -1,4 +1,4 @@
-/* Friendly Pay service worker (15.1.0) : coquille de l'application hors ligne + réception des notifications push.
+/* Live X Digitale service worker (16.0.0) : coquille de l'application hors ligne + réception des notifications push.
    - Il ne met JAMAIS en cache le trafic Supabase / API / chaîne : soldes et transactions viennent toujours du serveur.
    - 15.1.0 (vitesse) : les fichiers à empreinte (app.<hash>.js / .css), les polices et le client Supabase sont servis DEPUIS LE TÉLÉPHONE (copie locale d'abord,
      jamais de réseau tant qu'ils n'ont pas changé de nom) ; la page d'accueil aussi. Une nouvelle version = nouveau nom de cache : elle s'installe en arrière-plan
@@ -7,23 +7,23 @@
    - Hors ligne : l'application démarre depuis la copie locale ; si elle n'existe pas encore, « offline.html » explique la situation.
    - Il ne touche JAMAIS aux ressources d'autres sites (client Supabase sur le CDN, WalletConnect, chaîne) : le navigateur les charge lui-même.
      (12.11.0 interceptait le client Supabase : la CSP bloquait ce rechargement par le service worker et l'application ne démarrait plus dès la 2e ouverture.) */
-const CACHE = 'fp-shell-v15.1.0';
+const CACHE = 'fp-shell-v16.0.0';
 const SLOW_MS = 4500;      /* au-delà, on sert la copie locale si on en a une */
 const IMMUTABLE = /(?:\.[0-9a-f]{10}\.(?:js|css)|(?:^|\/)js\/vendor\/[^/]*-\d[\w.]*\.js|(?:^|\/)assets\/fonts\/[^/]+\.woff2)$/;   /* nom = contenu : jamais besoin du réseau */
 
 const SHELL = [
   './', 'index.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico',
   'css/base.css', 'css/buttons.css', 'css/layout.css', 'css/motion.css', 'css/home.css', 'css/redesign.css', 'css/v12.css', 'css/chain.css',
-  'css/yor-ds.css', 'css/friendly.css', 'css/promos.css', 'css/wallet-connect.css', 'css/opening.css', 'css/resilience.css', 'css/premium.css', 'css/card-metal.css', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg',
-  'js/core/supabase-client.js', 'js/data/reference-data.js', 'js/i18n/translations.js', 'js/core/engines.js', 'js/core/domain.js', 'js/core/notifications.js',
-  'js/core/utils-lang.js', 'js/ui/icons.js', 'js/ui/opening-art.js', 'js/ui/send-anim.js', 'js/features/resilience.js', 'js/core/router.js', 'js/features/auth.js', 'js/ui/keypad.js',
+  'css/yor-ds.css', 'css/friendly.css', 'css/promos.css', 'css/wallet-connect.css', 'css/opening.css', 'css/resilience.css', 'css/premium.css', 'css/card-metal.css', 'css/livex.css', 'css/welcome.css', 'css/intl.css', 'css/admin.css', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg',
+  'js/core/supabase-client.js', 'js/data/reference-data.js', 'js/data/intl-catalog.js', 'js/i18n/translations.js', 'js/i18n/livex.js', 'js/core/engines.js', 'js/core/domain.js', 'js/core/notifications.js',
+  'js/core/utils-lang.js', 'js/ui/icons.js', 'js/ui/opening-art.js', 'js/ui/sfx.js', 'js/ui/phone-art.js', 'js/ui/send-anim.js', 'js/features/resilience.js', 'js/core/router.js', 'js/features/auth.js', 'js/ui/keypad.js',
   'js/features/faceid.js', 'js/features/pin.js', 'js/features/app-lock.js', 'js/features/onboarding.js', 'js/features/transfer-engine.js',
   'js/features/crypto-buy.js', 'js/features/recovery.js', 'js/core/state.js', 'js/core/helpers.js', 'js/screens/auth.js', 'js/screens/home.js',
   'js/screens/drawer.js', 'js/screens/transfer-flow.js', 'js/ui/receipt-export.js', 'js/screens/receipt.js', 'js/screens/history-cards.js',
   'js/screens/profile-settings.js', 'js/screens/info.js', 'js/screens/crypto-market.js', 'js/screens/crypto-trade.js', 'js/screens/crypto-receive-bank.js',
   'js/features/yor-chain.js', 'js/features/chain-notice.js', 'js/screens/chain-wallet.js', 'js/features/wallet-connect.js', 'js/features/v12.js',
-  'js/features/promos.js', 'js/features/push.js', 'js/features/premium.js', 'js/features/v13.js', 'js/screens/register.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
-  'assets/brand/logo-mark.svg', 'assets/brand/friendly-letters-white.svg',
+  'js/features/promos.js', 'js/features/reward.js', 'js/features/push.js', 'js/features/premium.js', 'js/features/v13.js', 'js/screens/intl.js', 'js/screens/admin.js', 'js/screens/register.js', 'js/features/livex.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
+  'assets/brand/logo-mark.svg', 'assets/brand/wordmark-white.svg',
   'assets/fonts/manrope-latin-var.woff2', 'assets/fonts/manrope-latin-ext-var.woff2', 'assets/fonts/inter-latin-var.woff2',
   'assets/fonts/plex-arabic-400.woff2', 'assets/fonts/plex-arabic-500.woff2', 'assets/fonts/plex-arabic-600.woff2', 'assets/fonts/plex-arabic-700.woff2',
   'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png', 'assets/icons/apple-touch-icon.png',
@@ -134,7 +134,7 @@ self.addEventListener('push', e => {
   try { d = e.data ? e.data.json() : {}; }
   catch (err) { try { d = { body: e.data.text() }; } catch (err2) { d = {}; } }
   if (!d || typeof d !== 'object') d = {};
-  const title = String(d.title || 'Friendly Pay').slice(0, 80);
+  const title = String(d.title || 'Live X Digitale').slice(0, 80);
   const opts = {
     body: String(d.body || '').slice(0, 200),
     icon: 'assets/icons/icon-192.png',
