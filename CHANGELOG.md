@@ -1,3 +1,31 @@
+# Friendly Pay 15.1.0 — chargement ultra rapide
+
+## Mesuré (Chromium, réseau « 3G rapide » 1,6 Mbit/s + 150 ms, processeur ralenti ×4, téléphone 390 px)
+| | 15.0.0 | 15.1.0 |
+|---|---|---|
+| Requêtes au démarrage | 71 | 10 |
+| Premier affichage, 1re visite | 3 090 ms | 1 510 ms |
+| Premier affichage, visites suivantes | ~1 000 ms | ~140 ms (0 octet sur le réseau) |
+| Réseau, 1re visite (compressé) | 445 Ko + client Supabase (CDN tiers) | 314 Ko, tout compris |
+
+## Changé
+- **Build de production** (`npm run build` → `dist/`, publié tel quel par Netlify) : 16 feuilles CSS → 1, 50 scripts → 3 (ordre d'exécution identique ; `yor-chain.js`, fichier généré sans « use strict », reste seul à sa place), minifiés. Aucune logique modifiée.
+- **Cache navigateur d'un an** sur les fichiers à empreinte (`app.<hash>.js/.css`), les polices et le client Supabase : un fichier ne se retélécharge que s'il a changé de nom. `index.html` et `sw.js` restent « no-cache » : une mise à jour est vue tout de suite.
+- **Client Supabase hébergé par le site** (`js/vendor/supabase-2.45.4.js`, même version) : plus de connexion DNS + TLS vers un CDN tiers avant le démarrage. Connexion anticipée (`preconnect`) vers l'API.
+- **Early Hints** (en-têtes `Link: rel=preload`) : le navigateur commence à charger CSS, JS et polices avant d'avoir reçu la page ; polices principales préchargées.
+- **Service worker** : fichiers à empreinte, polices, client Supabase et page d'accueil servis DEPUIS LE TÉLÉPHONE (plus de revalidation réseau à chaque ouverture) ; images en « copie locale + mise à jour en arrière-plan » ; le reste reste réseau d'abord. Une nouvelle version s'installe en arrière-plan (nom de cache = empreinte du build) et sert à l'ouverture suivante. Inscription du service worker après le chargement, en temps libre. Hors ligne vérifié.
+- **Écran d'ouverture** : logo affiché dès le premier affichage (avant même le JavaScript), durée minimale 1,9 s → 1,0 s (0,3 s en mouvement réduit ; `SPLASH_MIN` dans `js/boot.js`).
+- `netlify.toml` : `publish = "dist"`, aucun build côté Netlify.
+
+## Pour modifier le site
+Modifier les sources (`css/`, `js/`, `index.html`…), lancer `npm install` (une fois) puis `npm run build`, et publier `dist/`.
+
+## NON EXÉCUTÉ
+- Mesures faites dans Chromium simulé, pas sur un vrai iPhone / un vrai réseau mobile. Les en-têtes `Link` (Early Hints) et le cache « immutable » dépendent de Netlify : à constater en ligne.
+- Le JavaScript de l'application reste ~670 Ko minifiés (≈ 200 Ko compressés) : c'est lui qui domine maintenant le temps de démarrage sur un téléphone lent. Pistes suivantes (non faites, plus risquées) : ne charger qu'à la demande les écrans crypto / chaîne et l'export du reçu.
+
+---
+
 # Friendly Pay 15.0.0 — carte métal Visa (sur la base 13.0.0)
 
 ## Ajouté

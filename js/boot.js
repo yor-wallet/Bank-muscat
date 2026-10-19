@@ -95,7 +95,7 @@ function boot(){
   let firstAuthEvent = true;
   /* L'écran d'ouverture reste au moins SPLASH_MIN ms depuis le chargement de la page (pas depuis l'événement d'authentification) */
   const reduced = (() => { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch(e){ return false; } })();
-  const SPLASH_MIN = typeof window.__FP_SPLASH_MIN === 'number' ? window.__FP_SPLASH_MIN : (reduced ? 600 : 1900);   /* __FP_SPLASH_MIN : crochet de test */
+  const SPLASH_MIN = typeof window.__FP_SPLASH_MIN === 'number' ? window.__FP_SPLASH_MIN : (reduced ? 300 : 1000);   /* __FP_SPLASH_MIN : crochet de test */
   const splashT0 = Date.now();
   const splashWait = () => Math.max(250, SPLASH_MIN - (Date.now() - splashT0));
   AuthEngine.subscribe((signedIn, authEvent) => {
@@ -160,7 +160,7 @@ function boot(){
 
   document.addEventListener('click', function once(){ requestFullscreen(); document.removeEventListener('click', once); }, { once: true });
 
-  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){ window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); }); }
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){ window.addEventListener('load', () => { const go = () => navigator.serviceWorker.register('sw.js').catch(() => {}); (window.requestIdleCallback ? requestIdleCallback(go, { timeout: 4000 }) : setTimeout(go, 1500)); }); }
 
   window.YOR = {
     get context(){ return UserContext.get(); },

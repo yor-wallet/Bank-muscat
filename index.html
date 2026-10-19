@@ -6,6 +6,7 @@
 <meta name="theme-color" content="#F4F6F5">
 <meta name="apple-mobile-web-app-title" content="Friendly Pay">
 <link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://gebjmguoauvutiqvoswl.supabase.co" crossorigin>
 <meta name="description" content="Friendly Pay — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
@@ -124,7 +125,7 @@
 </head>
 <body>
 
-<div id="splash" aria-live="polite"></div>
+<div id="splash" aria-live="polite"><svg viewBox="0 0 512 512" width="96" height="96" aria-hidden="true" style="width:min(28vmin,120px);height:auto;filter:drop-shadow(0 18px 36px rgba(11,127,117,.45))"><defs><linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2DD4BF"/><stop offset="1" stop-color="#0B7F75"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#pre-g)"/><g transform="translate(-20 -9)" fill="none" stroke="#fff" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"><path d="M180 388V196a54 54 0 0 1 54-54H372"/><path d="M180 266H326"/></g><circle cx="318" cy="369" r="31" fill="#fff"/></svg></div>
 <noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#0B1F1D">Friendly Pay needs JavaScript. Please enable it and reload. · Friendly Pay nécessite JavaScript. · يتطلب فرندي باي تفعيل JavaScript.</div></noscript>
 
 <div id="app">
@@ -149,7 +150,7 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
+<script src="js/vendor/supabase-2.45.4.js" defer></script>
 <script src="js/core/supabase-client.js" defer></script>
 <script src="js/data/reference-data.js" defer></script>
 <script src="js/i18n/translations.js" defer></script>

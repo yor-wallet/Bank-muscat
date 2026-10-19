@@ -1,12 +1,15 @@
-/* Friendly Pay service worker (15.0.0) : coquille de l'application hors ligne + réception des notifications push.
+/* Friendly Pay service worker (15.1.0) : coquille de l'application hors ligne + réception des notifications push.
    - Il ne met JAMAIS en cache le trafic Supabase / API / chaîne : soldes et transactions viennent toujours du serveur.
-   - Réseau d'abord (toujours la dernière version quand on est en ligne), avec repli sur la copie locale si le réseau est absent ou trop lent.
+   - 15.1.0 (vitesse) : les fichiers à empreinte (app.<hash>.js / .css), les polices et le client Supabase sont servis DEPUIS LE TÉLÉPHONE (copie locale d'abord,
+     jamais de réseau tant qu'ils n'ont pas changé de nom) ; la page d'accueil aussi. Une nouvelle version = nouveau nom de cache : elle s'installe en arrière-plan
+     et sert dès l'ouverture suivante. Les images / icônes : copie locale tout de suite, mise à jour en arrière-plan. Le reste : réseau d'abord comme avant.
    - Seules les réponses réussies (200) du même site sont gardées : une page d'erreur n'est jamais servie plus tard comme si c'était l'application.
    - Hors ligne : l'application démarre depuis la copie locale ; si elle n'existe pas encore, « offline.html » explique la situation.
    - Il ne touche JAMAIS aux ressources d'autres sites (client Supabase sur le CDN, WalletConnect, chaîne) : le navigateur les charge lui-même.
      (12.11.0 interceptait le client Supabase : la CSP bloquait ce rechargement par le service worker et l'application ne démarrait plus dès la 2e ouverture.) */
-const CACHE = 'fp-shell-v15.0.0';
+const CACHE = 'fp-shell-v15.1.0';
 const SLOW_MS = 4500;      /* au-delà, on sert la copie locale si on en a une */
+const IMMUTABLE = /(?:\.[0-9a-f]{10}\.(?:js|css)|(?:^|\/)js\/vendor\/[^/]*-\d[\w.]*\.js|(?:^|\/)assets\/fonts\/[^/]+\.woff2)$/;   /* nom = contenu : jamais besoin du réseau */
 
 const SHELL = [
   './', 'index.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico',
@@ -42,7 +45,7 @@ self.addEventListener('install', e => {
     const c = await caches.open(CACHE);
     await Promise.all(SHELL.map(async u => {
       try {
-        const res = await fetch(new Request(u, { cache: 'reload' }));
+        const res = await fetch(new Request(u, { cache: IMMUTABLE.test(u) ? 'default' : 'reload' }));
         if (res && res.status === 200) await c.put(u, await clean(res));
       } catch (err) { /* copie locale absente pour ce fichier : il sera mis en cache à sa première utilisation */ }
     }));
@@ -82,12 +85,40 @@ async function networkFirst(req, { slowMs = SLOW_MS } = {}) {
   });
 }
 
+/* Copie locale d'abord ; le réseau seulement si on ne l'a pas (puis on la garde). */
+async function cacheFirst(req) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match(req);
+  if (hit) return hit;
+  const res = await fetch(req);
+  if (res && res.status === 200) cache.put(req, res.clone()).catch(() => { /* rien */ });
+  return res;
+}
+/* La page d'accueil vient de la copie installée avec CETTE version (cohérente avec ses fichiers à empreinte) ; sans copie : réseau, puis repli hors ligne. */
+async function shellFirst(req) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match('index.html');
+  return hit || networkFirst(req);
+}
+/* Images / icônes : copie locale tout de suite, mise à jour en arrière-plan pour la prochaine fois. */
+async function staleWhileRevalidate(e, req) {
+  const cache = await caches.open(CACHE);
+  const hit = await cache.match(req);
+  const net = fetch(req).then(res => { if (res && res.status === 200) cache.put(req, res.clone()).catch(() => { /* rien */ }); return res; }).catch(() => null);
+  if (hit) { e.waitUntil(net); return hit; }
+  return (await net) || Response.error();
+}
+
 self.addEventListener('fetch', e => {
   const req = e.request, url = new URL(req.url);
   if (req.method !== 'GET') return;
   if (url.origin !== self.location.origin) return;                                     /* Supabase (API et client), WalletConnect, chaîne : jamais touchés */
   if (url.pathname.endsWith('/sw.js')) return;                                         /* le service worker se met à jour lui-même, sans copie intermédiaire */
   if (req.headers.has('range')) return;
+  const path = url.pathname;
+  if (IMMUTABLE.test(path)) { e.respondWith(cacheFirst(req)); return; }
+  if (req.mode === 'navigate' && (path === '/' || path.endsWith('/index.html'))) { e.respondWith(shellFirst(req)); return; }
+  if (/\.(?:svg|png|jpe?g|webp|ico|woff2?)$/.test(path)) { e.respondWith(staleWhileRevalidate(e, req)); return; }
   e.respondWith(networkFirst(req));
 });
 
