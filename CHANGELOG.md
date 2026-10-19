@@ -1,3 +1,18 @@
+# Friendly Pay 12.14.0 — carte Visa en métal, animations de carte
+
+## Ajouté
+- **Marque Visa** sur chaque carte (partenariat Visa) : `assets/brand/network/visa-white.svg` (finitions sombres) et `visa-blue.svg` (finitions claires : Minimal, Métal, Or). Visible sur la carte et sur les mini-cartes de l'accueil.
+- **Puce EMV et symbole sans contact** sur la face avant.
+- **Deux nouvelles finitions** : Titane et Or (FR / EN / AR).
+- `netlify.toml` (publication du dossier racine, page 404).
+
+## Amélioré
+- **Matière métal** (`css/card-metal.css`, chargé en dernier) : acier brossé à stries fines, bandes de lumière, tranche biseautée lumineuse, reflet métallique qui tourne avec l'inclinaison (`--ang`) et un reflet de repos lent ; toutes les finitions existantes passent en métal / anodisé.
+- **Animations** : entrée de la carte en 3D avec balayage de lumière, puce et logo qui apparaissent, retournement plus ample avec soulèvement, suivi du doigt / du gyroscope amorti par ressort (`tilt()` dans `js/features/v12.js`), pastilles de design qui brillent à la sélection, mini-cartes qui réagissent au toucher. Tout est coupé en mouvement réduit et à l'impression.
+- Version `12.14.0`, cache `fp-shell-v12.14.0`.
+
+---
+
 # Friendly Pay 12.13.1 — page fixe : plus aucun déplacement latéral, plus de bouton qui dépasse
 
 ## Corrigé

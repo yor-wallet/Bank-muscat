@@ -1,11 +1,11 @@
 'use strict';
 /* ============================================================
    V12 — cards, home and navigation (YOR identity), design system 12.4.0.
-   Cards are drawn in CSS: no third-party network mark, no chip, no NFC symbol, no security code.
+   Cards are drawn in CSS: metal finish, EMV chip, contactless symbol and Visa mark (12.14.0); never a security code.
    A card is a "preview" until the card data says a real issuer issued it.
    ============================================================ */
 const V12 = (() => {
-  const TH = ['obsidian', 'midnight', 'graphite', 'violet', 'aurora', 'minimal', 'metal'];
+  const TH = ['obsidian', 'midnight', 'graphite', 'violet', 'aurora', 'minimal', 'metal', 'titanium', 'gold'];
   const D = {
     en: { cards:'Cards', addCard:'Add card', freeze:'Freeze', unfreeze:'Unfreeze', frozen:'Frozen', details:'Details', hide:'Hide', settings:'Settings', limits:'Limits', virtual:'Virtual', physical:'Physical',
       cardNumber:'Card number', expiry:'Expiry', cvv:'CVV', holder:'Cardholder', copied:'Copied', online:'Online payments', onlineD:'Use this card on websites and apps', contactless:'Contactless payments', contactlessD:'Tap to pay with this card',
@@ -39,17 +39,17 @@ const V12 = (() => {
     noActivityTitle:'No card activity', noActivityBody:'Card payments will be listed here.', cardDetails:'Card details',
     showId:'Show card ID', hideId:'Hide card ID', idShort:'Card ID', pinProtected:'Protected by your PIN', statusL:'Status', currencyL:'Currency', created:'Created', historyL:'History',
 
-    th_obsidian:'Obsidian', th_midnight:'Midnight', th_graphite:'Graphite', th_violet:'Orange', th_aurora:'Aurora', th_minimal:'Minimal', th_metal:'Metal', cardOf:'Card', freezeD:'Temporarily block this card' });
+    th_obsidian:'Obsidian', th_midnight:'Midnight', th_graphite:'Graphite', th_violet:'Orange', th_aurora:'Aurora', th_minimal:'Minimal', th_metal:'Metal', th_titanium:'Titanium', th_gold:'Gold', cardOf:'Card', freezeD:'Temporarily block this card' });
   Object.assign(D.fr, { idLabel:'ID de carte Friendly', idNote:'Référence de cette carte dans Friendly Pay. Ce n’est pas un numéro de carte bancaire.',
     noActivityTitle:'Aucune activité de carte', noActivityBody:'Les paiements par carte seront listés ici.', cardDetails:'Détails de la carte',
     showId:'Afficher l’ID de carte', hideId:'Masquer l’ID de carte', idShort:'ID carte', pinProtected:'Protégé par votre code PIN', statusL:'Statut', currencyL:'Devise', created:'Créée le', historyL:'Historique',
 
-    th_obsidian:'Obsidienne', th_midnight:'Minuit', th_graphite:'Graphite', th_violet:'Orange', th_aurora:'Aurore', th_minimal:'Minimal', th_metal:'Métal', cardOf:'Carte', freezeD:'Bloquer temporairement cette carte' });
+    th_obsidian:'Obsidienne', th_midnight:'Minuit', th_graphite:'Graphite', th_violet:'Orange', th_aurora:'Aurore', th_minimal:'Minimal', th_metal:'Métal', th_titanium:'Titane', th_gold:'Or', cardOf:'Carte', freezeD:'Bloquer temporairement cette carte' });
   Object.assign(D.ar, { idLabel:'معرّف بطاقة فرندي', idNote:'مرجع هذه البطاقة في فرندي باي. وهو ليس رقم بطاقة دفع.',
     noActivityTitle:'لا يوجد نشاط للبطاقة', noActivityBody:'ستُعرض مدفوعات البطاقة هنا.', cardDetails:'تفاصيل البطاقة',
     showId:'إظهار معرّف البطاقة', hideId:'إخفاء معرّف البطاقة', idShort:'المعرّف', pinProtected:'محمي برمز PIN', statusL:'الحالة', currencyL:'العملة', created:'تاريخ الإنشاء', historyL:'السجل',
 
-    th_obsidian:'سبج', th_midnight:'منتصف الليل', th_graphite:'جرافيت', th_violet:'برتقالي', th_aurora:'شفق', th_minimal:'بسيط', th_metal:'معدني', cardOf:'بطاقة', freezeD:'حظر هذه البطاقة مؤقتاً' });
+    th_obsidian:'سبج', th_midnight:'منتصف الليل', th_graphite:'جرافيت', th_violet:'برتقالي', th_aurora:'شفق', th_minimal:'بسيط', th_metal:'معدني', th_titanium:'تيتانيوم', th_gold:'ذهبي', cardOf:'بطاقة', freezeD:'حظر هذه البطاقة مؤقتاً' });
   const vt = k => (D[LANG] && D[LANG][k]) || D.en[k] || k;
   const st = { sel: 0, newTheme: 'obsidian', hideTimer: null, closeOv: null, busy: false, enter: false, fx: null };
   const l4 = c => c.draft ? '\u2022\u2022\u2022\u2022' : String(c.number || '0000').slice(-4);   /* a card being designed has no ID yet */
@@ -72,24 +72,25 @@ const V12 = (() => {
     try { await UserDataEngine.writeSub(UserContext.requireCtx().uid, 'cards', c.id, c); return true; }
     catch(e){ Object.assign(c, old); toast(vt('failed'), 'error'); return false; }
   }
-  /* ---------- card face (CSS-drawn: no network mark, no chip, no NFC symbol, no CVV) ---------- */
+  /* ---------- card face (12.14.0: metal finish, EMV chip, contactless symbol and the Visa network mark; never a CVV) ---------- */
   /* 12.9.0: no "preview / not issued" wording is shown on cards; a label appears only for Frozen and Active */
   const stateLbl = s => (s === 'frozen' ? vt('frozen') : s === 'active' ? vt('active') : '');
   function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : ''; }
-  /* Slot for the card network. It stays EMPTY until the card data itself carries a real network AND a real issuer. */
-  function netSlot(c){ return (c.network && c.issuer) ? '<span class="rv-net-slot" data-network="' + escapeHtml(String(c.network)) + '">' + escapeHtml(String(c.network)) + '</span>' : ''; }
+  /* 12.14.0: every Friendly Pay card is a Visa card (partnership). Light finishes take the blue mark, dark ones the silver mark. */
+  const LIGHT_TH = ['minimal', 'metal', 'gold'];
+  function netSlot(c){ return '<img class="rv-visa" src="assets/brand/network/visa-' + (LIGHT_TH.indexOf(themeOf(c)) >= 0 ? 'blue' : 'white') + '.svg" alt="Visa">'; }
   function faceHTML(c){
     const created = c.createdAt ? fmtDate(c.createdAt) : '';
     return '<div class="rv-card th-' + themeOf(c) + (st.enter ? ' rv-enter' : '') + '" data-card="' + escapeHtml(c.id) + '" data-state="' + cardState(c) + '" role="group" aria-label="' + escapeHtml((c.label || vt('defName')) + ' •••• ' + l4(c)) + '"><div class="rv-in">' +
       '<div class="rv-face rv-front">' +
-        '<i class="rv-grain" aria-hidden="true"></i><i class="rv-foil" aria-hidden="true"></i>' +
+        '<i class="rv-grain" aria-hidden="true"></i><i class="rv-foil" aria-hidden="true"></i><i class="rv-holo" aria-hidden="true"></i><i class="rv-edge" aria-hidden="true"></i>' +
         '<div class="rv-top2"><img class="rv-wm" src="assets/brand/friendly-letters-white.svg" alt="Friendly Pay">' + stateChip(c) + '</div>' +
-        '<div class="rv-mid"><span class="rv-name">' + escapeHtml(c.label || vt('defName')) + '</span>' +
+        '<div class="rv-mid"><span class="rv-emv" aria-hidden="true"><img class="rv-chip" src="assets/ui/chip.svg" alt=""><img class="rv-nfc" src="assets/ui/contactless.svg" alt=""></span><span class="rv-name">' + escapeHtml(c.label || vt('defName')) + '</span>' +
           '<span class="rv-num ltr" dir="ltr"><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>' + l4(c) + '</span></span></div>' +
         '<div class="rv-bot"><span class="rv-holder">' + escapeHtml(c.holderName || '') + '</span>' + netSlot(c) + '</div>' +
         (c.frozen ? '<div class="rv-frost' + (st.fx === c.id ? ' in' : '') + '"><i class="rv-sp s1"></i><i class="rv-sp s2"></i><i class="rv-sp s3"></i><i class="rv-sp s4"></i><i class="rv-sp s5"></i><img src="assets/ui/snowflake.svg" alt=""><span>' + vt('frozen') + '</span></div>' : '') +
       '</div>' +
-      '<div class="rv-face rv-back"><div class="rv-bk">' +
+      '<div class="rv-face rv-back"><i class="rv-edge" aria-hidden="true"></i><div class="rv-bk">' +
         '<div class="rv-f"><small>' + vt('idLabel') + '</small><b class="ltr" data-rv-n>•••• •••• •••• ' + l4(c) + '</b><button class="rv-cp" data-rv="copy:number" aria-label="' + escapeHtml(vt('copied')) + '">' + icon('copy', 16) + '</button></div>' +
         '<div class="rv-row"><div class="rv-f"><small>' + vt('holder') + '</small><b class="rv-hold">' + escapeHtml(c.holderName || '') + '</b></div>' +
         (created ? '<div class="rv-f"><small>' + vt('created') + '</small><b class="ltr">' + escapeHtml(created) + '</b></div>' : '') + '</div>' +
@@ -209,7 +210,7 @@ const V12 = (() => {
       '<section class="rv-sec"><div class="rv-h"><h2>' + vt('transactions') + '</h2><button data-nav="history">' + vt('seeAll') + '</button></div>' +
         (txs.length ? txGroupedHtml(txs, hide) : '<div class="rv-list">' + emptyState('history', vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
       '<section class="rv-sec"><div class="rv-h"><h2>' + vt('cards') + '</h2><button data-nav="cards">' + vt('seeAll') + '</button></div><div class="rv-strip">' +
-        cards().map(c => '<button class="rv-mini th-' + themeOf(c) + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || vt('defName')) + ' •••• ' + l4(c)) + '"><span class="rv-mini-st">' + stateLbl(cardState(c)) + '</span><span class="ltr">•••• ' + l4(c) + '</span></button>').join('') +
+        cards().map(c => '<button class="rv-mini th-' + themeOf(c) + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || vt('defName')) + ' •••• ' + l4(c)) + '"><span class="rv-mini-st">' + stateLbl(cardState(c)) + '</span><span class="ltr">•••• ' + l4(c) + '</span>' + netSlot(c) + '</button>').join('') +
         '<button class="rv-mini rv-mini-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + vt('addCard') + '</span></button></div></section>' +
       (others.length ? '<section class="rv-sec"><div class="rv-h"><h2>' + vt('accounts') + '</h2><button data-rv="accts">' + vt('seeAll') + '</button></div><div class="rv-grid2">' +
         others.map(a => '<button class="rv-tile" data-rv="accts"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : moneyV(a.balance, a.currency)) + '</b>' + (!hide && origCap(a.balance, a.currency) ? '<span class="rv-cap ltr">' + escapeHtml(origCap(a.balance, a.currency)) + '</span>' : '') + '</button>').join('') +
@@ -337,8 +338,19 @@ const V12 = (() => {
   function tilt(host){
     if (reduced()) return;
     let raf = 0, tx = 0, ty = 0, mx = 30, my = 0;
+    /* 12.14.0: the card follows the finger through a damped spring (no jumps), and the light angle --ang drives the metal sheen */
+    const cur = { tx: 0, ty: 0, mx: 30, my: 0 };
     const el = () => host.querySelector('.rv-card');
-    const apply = () => { raf = 0; const c = el(); if (!c) return; c.style.setProperty('--tx', tx.toFixed(2) + 'deg'); c.style.setProperty('--ty', ty.toFixed(2) + 'deg'); c.style.setProperty('--mx', mx + '%'); c.style.setProperty('--my', my + '%'); c.style.setProperty('--shx', (-ty * 1.2).toFixed(1) + 'px'); c.style.setProperty('--sh', '.9'); };
+    const apply = () => {
+      raf = 0; const c = el(); if (!c) return;
+      const k = 0.18; let moving = false;
+      ['tx', 'ty', 'mx', 'my'].forEach(n => { const tgt = n === 'tx' ? tx : n === 'ty' ? ty : n === 'mx' ? mx : my; const d = tgt - cur[n]; if (Math.abs(d) > 0.05){ cur[n] += d * k; moving = true; } else cur[n] = tgt; });
+      c.style.setProperty('--tx', cur.tx.toFixed(2) + 'deg'); c.style.setProperty('--ty', cur.ty.toFixed(2) + 'deg');
+      c.style.setProperty('--mx', cur.mx.toFixed(1) + '%'); c.style.setProperty('--my', cur.my.toFixed(1) + '%');
+      c.style.setProperty('--ang', (cur.ty * 6 - cur.tx * 4).toFixed(1) + 'deg');
+      c.style.setProperty('--shx', (-cur.ty * 1.2).toFixed(1) + 'px'); c.style.setProperty('--sh', '.9');
+      if (moving) raf = requestAnimationFrame(apply);
+    };
     const mv = e => { const r = host.getBoundingClientRect(); if (!r.width) return; const x = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)), y = Math.max(0, Math.min(1, (e.clientY - r.top) / r.height)); tx = (0.5 - y) * 14; ty = (x - 0.5) * 18; mx = Math.round(x * 100); my = Math.round(y * 100); if (!raf) raf = requestAnimationFrame(apply); };
     const rest = () => { tx = 0; ty = 0; mx = 30; my = 0; if (!raf) raf = requestAnimationFrame(apply); const c = el(); if (c){ c.style.setProperty('--sh', '.5'); c.style.setProperty('--shx', '0px'); } };
     host.addEventListener('pointermove', mv); host.addEventListener('pointerdown', mv); host.addEventListener('pointerup', rest); host.addEventListener('pointerleave', rest); host.addEventListener('pointercancel', rest);

@@ -1,0 +1,9 @@
+# Friendly Pay — site statique, publié tel quel depuis la racine (les en-têtes de sécurité sont dans _headers).
+[build]
+  publish = "."
+  command = ""
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
