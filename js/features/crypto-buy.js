@@ -41,7 +41,7 @@ const CryptoBuyEngine = (() => {
       }
       const row = Array.isArray(data) ? data[0] : data;
       if (!row) return { ok:false, error:'errors.UNKNOWN_ERROR' };
-      try { await AuthEngine.hydrateRuntime(); } catch(e){}
+      try { await AuthEngine.hydrateLive(); } catch(e){}
       return { ok:true, data:row };
     } catch(e){
       console.error(e);
@@ -67,7 +67,7 @@ const CryptoBuyEngine = (() => {
     try {
       const { data, error } = await sb.rpc('get_receive_address', { p_asset: String(symbol).toUpperCase(), p_network: String(network).toLowerCase() });
       if (error){ console.error('get_receive_address', error); return null; }
-      try { await AuthEngine.hydrateRuntime(); } catch(e){}
+      try { await AuthEngine.hydrateLive(); } catch(e){}
       return data || null;
     } catch(e){ console.error(e); return null; }
   }

@@ -1,3 +1,22 @@
+# Live X Digitale 16.0.2 — démarrage et opérations plus rapides
+
+## Mesuré (faux serveur avec 150 ms de latence par requête, utilisateur déjà connecté)
+| | avant | après |
+|---|---|---|
+| Écran de verrouillage / code prêt | 1 306 ms | 728 ms |
+| Requêtes lancées en série au démarrage | 4 étapes (profil → appareil → 14 lectures → code) | 1 étape (tout en parallèle) |
+
+## Changé
+- Au démarrage, les 14 lectures de données et l'état du code PIN partent en même temps que la lecture du profil (avant : l'une après l'autre).
+- L'enregistrement de l'appareil et de la session n'est plus attendu (arrière-plan).
+- Écran d'ouverture : durée minimale 1,0 s → 0,5 s.
+- Après une opération (transfert, achat, alerte d'argent reçu) : seuls les soldes, les opérations et les alertes sont relus (3 lectures au lieu de 14) ; les rafraîchissements en rafale sont regroupés (500 ms).
+
+## NON EXÉCUTÉ
+- Mesures faites dans un navigateur simulé, pas sur un vrai téléphone. Le premier chargement d'une première visite dépend surtout du réseau (≈ 400 Ko compressés) et du processeur du téléphone.
+
+---
+
 # Live X Digitale 16.0.1 — correctif des transferts + confirmation visible
 
 ## Corrigé

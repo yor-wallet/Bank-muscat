@@ -61,7 +61,7 @@ const TransferEngine = (() => {
       }
       if (!data || !data.transaction_id) return { ok:false, error:'errors.DUPLICATE' };
       flushNotices(data.transaction_id);                         /* immediately, not awaited: the confirmation never waits for a message */
-      try { await AuthEngine.hydrateRuntime(); } catch(e){}      /* fresh balances + history */
+      try { await AuthEngine.hydrateLive(); } catch(e){}      /* fresh balances + history */
       return { ok:true, data:{ ok:true, transactionId: data.transaction_id, transferId: data.reference,
                reference: data.reference, balanceAfter: data.balance_after } };
     } catch(e){
@@ -91,7 +91,7 @@ const TransferEngine = (() => {
       });
       if (error) return /pin_required/i.test(String(error.message || '')) ? { state:'not_found' } : { state:'unknown' };
       if (!data || !data.transaction_id) return { state:'unknown' };
-      try { await AuthEngine.hydrateRuntime(); } catch(e){}
+      try { await AuthEngine.hydrateLive(); } catch(e){}
       return { state:'confirmed', data:{ transactionId: data.transaction_id, reference: data.reference, status: data.status,
         amount: data.amount, fee: data.fee, vat: data.vat, total: data.total,
         exchangeRate: data.exchange_rate, destinationAmount: data.destination_amount, destinationCurrency: data.destination_currency } };
@@ -121,7 +121,7 @@ const TransferEngine = (() => {
       }
       if (!data || !data.transaction_id) return { ok:false, error:'errors.DUPLICATE' };
       flushNotices(data.transaction_id);                         /* immediately, not awaited: the confirmation never waits for a message */
-      try { await AuthEngine.hydrateRuntime(); } catch(e){}
+      try { await AuthEngine.hydrateLive(); } catch(e){}
       return { ok:true, data:{ transactionId: data.transaction_id, reference: data.reference, status: data.status,
         amount: data.amount, fee: data.fee, vat: data.vat, total: data.total,
         exchangeRate: data.exchange_rate, destinationAmount: data.destination_amount, destinationCurrency: data.destination_currency } };

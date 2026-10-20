@@ -96,7 +96,7 @@ function boot(){
   let firstAuthEvent = true;
   /* L'écran d'ouverture reste au moins SPLASH_MIN ms depuis le chargement de la page (pas depuis l'événement d'authentification) */
   const reduced = (() => { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch(e){ return false; } })();
-  const SPLASH_MIN = typeof window.__FP_SPLASH_MIN === 'number' ? window.__FP_SPLASH_MIN : (reduced ? 300 : 1000);   /* __FP_SPLASH_MIN : crochet de test */
+  const SPLASH_MIN = typeof window.__FP_SPLASH_MIN === 'number' ? window.__FP_SPLASH_MIN : (reduced ? 300 : 500);   /* __FP_SPLASH_MIN : crochet de test */
   const splashT0 = Date.now();
   const splashWait = () => Math.max(250, SPLASH_MIN - (Date.now() - splashT0));
   AuthEngine.subscribe((signedIn, authEvent) => {

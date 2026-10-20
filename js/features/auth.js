@@ -32,23 +32,40 @@ const AuthEngine = (() => {
     if (!profile) return null;
     const deviceId = DeviceEngine.ensure(), info = DeviceEngine.describe(), now = Date.now();
     let sessionId = SessionEngine.current(); if (!sessionId) sessionId = SessionEngine.start();
-    try {
-      await Promise.all([
-        UserDataEngine.writeSub(user.id, 'devices', deviceId, { deviceId, platform: info.platform, browser: info.browser, language: info.language, lastSeen: now, status:'active', createdAt: now }),
-        UserDataEngine.writeSub(user.id, 'sessions', sessionId, { sessionId, deviceId, uid: user.id, createdAt: now, lastActiveAt: now, status:'active' })
-      ]);
-    } catch(e){ console.warn('device/session registration failed', e); }
+    /* 16.0.2 : l'enregistrement de l'appareil et de la session n'est plus ATTENDU (il retardait l'ouverture de ~0,3 s) : il part en arrière-plan */
+    Promise.all([
+      UserDataEngine.writeSub(user.id, 'devices', deviceId, { deviceId, platform: info.platform, browser: info.browser, language: info.language, lastSeen: now, status:'active', createdAt: now }),
+      UserDataEngine.writeSub(user.id, 'sessions', sessionId, { sessionId, deviceId, uid: user.id, createdAt: now, lastActiveAt: now, status:'active' })
+    ]).catch(e => console.warn('device/session registration failed', e));
     return { uid: user.id, userId: profile.userId, yorId: profile.yorId, role: profile.role || 'user', deviceId, sessionId };
   }
-  async function hydrateRuntime(){
-    const c = UserContext.requireCtx(), uid = c.uid;
-    const [profile, settingsDoc, securityDoc, accounts, transactions, receipts, notifications, cards, wallets, bankAccounts, contacts, beneficiaries, devices, sessions] = await Promise.all([
+  /* 16.0.2 : les 14 lectures ne dépendent que de l'identifiant : elles partent EN MÊME TEMPS que la lecture du profil au démarrage (voir handle) */
+  function fetchAll(uid){
+    return Promise.all([
       UserDataEngine.readProfile(uid), UserDataEngine.readDoc(uid, 'preferences', {}), UserDataEngine.readDoc(uid, 'security', {}),
       UserDataEngine.readAccounts(uid), UserDataEngine.readTransactions(uid), UserDataEngine.readReceipts(uid),
       UserDataEngine.readNotifications(uid), UserDataEngine.readCards(uid), UserDataEngine.readWallets(uid),
       UserDataEngine.readBankAccounts(uid), UserDataEngine.readContacts(uid), UserDataEngine.readBeneficiaries(uid),
       UserDataEngine.readDevices(uid), UserDataEngine.readSessions(uid)
     ]);
+  }
+  async function hydrateRuntime(){
+    const c = UserContext.requireCtx();
+    return applyAll(c, c.uid, await fetchAll(c.uid));
+  }
+  /* 16.0.2 : mise à jour en direct (argent reçu, solde modifié) : seules les 3 choses qui changent sont relues (soldes, opérations, alertes),
+     au lieu des 14 lectures complètes à chaque alerte */
+  async function hydrateLive(){
+    const c = UserContext.get(); if (!c) return Runtime;
+    const uid = c.uid;
+    const [accounts, transactions, notifications] = await Promise.all([UserDataEngine.readAccounts(uid), UserDataEngine.readTransactions(uid), UserDataEngine.readNotifications(uid)]);
+    if (!UserContext.get() || UserContext.get().uid !== uid) return Runtime;
+    Runtime.accounts = accounts || []; Runtime.transactions = transactions || []; Runtime.notifications = notifications || [];
+    try { if (typeof Push !== 'undefined') Push.syncBadge(); } catch(e){}
+    return Runtime;
+  }
+  function applyAll(c, uid, res){
+    const [profile, settingsDoc, securityDoc, accounts, transactions, receipts, notifications, cards, wallets, bankAccounts, contacts, beneficiaries, devices, sessions] = res;
     if (!UserContext.get() || UserContext.get().uid !== uid) return Runtime;   /* signed out meanwhile */
     Runtime.ctx = c; Runtime.profile = profile; Runtime.settings = settingsDoc || {}; Runtime.security = securityDoc || {};
     Runtime.accounts = accounts || []; Runtime.transactions = transactions || []; Runtime.receipts = receipts || [];
@@ -94,11 +111,11 @@ const AuthEngine = (() => {
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(async () => {
       try {
-        await hydrateRuntime();
+        await hydrateLive();
         const cur = R.current();
         if (['home','history','notifications'].indexOf(cur) !== -1) R.go(cur, { force:true });      /* l'écran admin se rafraîchit lui-même (Admin.onNewUser) */
       } catch(e){}
-    }, 350);
+    }, 500);
   }
   function subscribe(onChange){
     if (!supabaseReady) return;
@@ -117,10 +134,13 @@ const AuthEngine = (() => {
       if (pendingUid === user.id) return;
       pendingUid = user.id;
       try {
+        const dataP = fetchAll(user.id); dataP.catch(() => {});              /* démarre tout de suite, en parallèle de la lecture du profil */
+        try { if (typeof AppLock !== 'undefined') AppLock.prefetch(); } catch(e){ /* rien */ }
         const ctx = await loadContextFromUser(user);
         if (ctx){
           UserContext.set(ctx);
-          await hydrateRuntime();
+          let res = null; try { res = await dataP; } catch(e){ res = null; }
+          if (res) applyAll(ctx, user.id, res); else await hydrateRuntime();
           startRealtime(user.id);
           try { if (typeof Push !== 'undefined') Push.sync(); } catch(e){}           /* 12.13.0 : réenregistre l'appareil des alertes (adresse de livraison renouvelée, autre personne) */
           if (typeof onChange === 'function') onChange(true, event);
@@ -175,6 +195,6 @@ const AuthEngine = (() => {
     try { const { error } = await sb.auth.updateUser({ password: String(pw) }); return error ? { ok:false, error: errorKey(error) } : { ok:true }; }
     catch(e){ return { ok:false, error: errorKey(e) }; }
   }
-  return { subscribe, signIn, signUp, signOut, sendReset, updatePassword, hasValidContext, hydrateRuntime };
+  return { subscribe, signIn, signUp, signOut, sendReset, updatePassword, hasValidContext, hydrateRuntime, hydrateLive };
 })();
 

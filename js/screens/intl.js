@@ -272,7 +272,7 @@ const IntlX = (() => {
       if (error && TransferEngine.isUncertain(error, res0.status)) return { ok: false, uncertain: true, error: 'errors.UNCERTAIN' };
       if (error){ console.error('intl_send', error); return { ok: false, error: errKey(error) }; }
       if (!data || !data.transaction_id) return { ok: false, error: 'errors.DUPLICATE' };
-      try { await AuthEngine.hydrateRuntime(); } catch(err){ /* rien */ }
+      try { await AuthEngine.hydrateLive(); } catch(err){ /* rien */ }
       const receipt = {
         id: ID.receipt(), transactionId: data.transaction_id, status: 'PROCESSING', amount: data.amount, currency: 'OMR', fee: 0, vat: 0, total: data.amount,
         destinationAmount: data.destination_amount, destinationCurrency: data.destination_currency,
@@ -293,7 +293,7 @@ const IntlX = (() => {
     if (S.busy) return; S.busy = true;
     try {
       const res = await rpcSend(null);
-      if (res && res.data && res.data.transaction_id){ try { await AuthEngine.hydrateRuntime(); } catch(err){ /* rien */ } toast(e('recorded'), 'success'); S.busy = false; reset(); R.go('history'); return; }
+      if (res && res.data && res.data.transaction_id){ try { await AuthEngine.hydrateLive(); } catch(err){ /* rien */ } toast(e('recorded'), 'success'); S.busy = false; reset(); R.go('history'); return; }
       toast(e('uncertainD'), 'error');
     } catch(err){ toast(t('errors.UNCERTAIN'), 'error'); }
     S.busy = false;

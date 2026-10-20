@@ -120,6 +120,9 @@ const AppLock = (() => {
     paint();
   }
 
+  let pinP = null, pinPAt = 0;
+  /* 16.0.2 : l'état du code est demandé dès que la personne est connue (en parallèle du chargement des données), pas après */
+  function prefetch(){ if (!pinP || Date.now() - pinPAt > 20000){ pinPAt = Date.now(); pinP = hasPin(); } }
   async function hasPin(){
     try { const r = await PinEngine.hasPin(); return r; } catch(e){ return null; }
   }
@@ -151,7 +154,7 @@ const AppLock = (() => {
   async function gate(next){
     if (!signedIn){ next(); return; }
     css(); showCover(); setInert(true);
-    const has = await hasPin();
+    const has = await (pinP && Date.now() - pinPAt < 20000 ? pinP : hasPin()); pinP = null;
     pinKnown = has !== false;                 /* if the status cannot be read, fail closed: ask for the code */
     if (has === false){ open('create', () => afterPin('unlock', next)); return; }
     unlockFlow('unlock', next);
@@ -171,7 +174,7 @@ const AppLock = (() => {
     if (r.loggedOut) return;
     open('unlock', () => afterPin('login', null));
   }
-  function setSignedIn(v){ signedIn = !!v; if (!signedIn){ pinKnown = false; faceBusy = false; close(); } }
+  function setSignedIn(v){ signedIn = !!v; if (!signedIn){ pinKnown = false; faceBusy = false; pinP = null; close(); } }
   /* 16.0.1 : pendant un transfert (confirmation Face ID / code, puis envoi) la feuille système ou une notification peut mettre la page « en arrière-plan » un
      instant : le verrouillage ne doit alors NI couvrir l'écran (on aurait cru l'application fermée) NI redemander le code au retour. */
   function hold(){ if (!held) heldAt = Date.now(); held++; }
@@ -192,5 +195,5 @@ const AppLock = (() => {
     window.addEventListener('pagehide', onHide);
     window.addEventListener('pageshow', (e) => { if (e.persisted) onShow(); });
   }
-  return { init, gate, ensurePin, setSignedIn, hold, release };
+  return { init, gate, ensurePin, setSignedIn, hold, release, prefetch };
 })();
