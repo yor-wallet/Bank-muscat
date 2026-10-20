@@ -117,7 +117,7 @@ const ReceiptExport = (() => {
   async function run(kind){
     const r = window.__YOR_LAST_RECEIPT__, v = window.__YOR_LAST_RECEIPT_VIEW__;
     if (!r || !v) return;
-    const base = 'FRIENDLY-PAY-' + dispId(String(r.reference || r.transactionId || r.id || 'receipt')).replace(/[^\w-]/g, '');
+    const base = 'LIVE-X-DIGITALE-' + dispId(String(r.reference || r.transactionId || r.id || 'receipt')).replace(/[^\w-]/g, '');
     try {
       const c = await canvasOf(r, v);
       if (kind === 'pdf'){ save(await pdfBlob(c), base + '.pdf'); toast(t('action.download'), 'success'); return; }

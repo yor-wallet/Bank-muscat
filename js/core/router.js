@@ -181,6 +181,6 @@ const R = (() => {
     if (AuthEngine.hasValidContext()) R.go('home', { reset:true });
     else R.go('login', { reset:true });
   }
-  return { go, back, home, start, bind, current: () => current, register, resolve, onLeave, overlay:{ open, close:closeTop, isOpen:() => overlays.length > 0 } };
+  return { go, back, home, start, bind, current: () => current, register, resolve, onLeave, ids: () => Object.keys(SCREENS), overlay:{ open, close:closeTop, isOpen:() => overlays.length > 0 } };
 })();
 

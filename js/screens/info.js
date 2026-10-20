@@ -37,7 +37,8 @@ function renderAbout(){
 }
 function renderDevices(){
   const current = DeviceEngine.current();
-  const list = Runtime.devices || [];
+  let list = Runtime.devices || [];
+  if (!list.length){ try { const inf = DeviceEngine.describe(); list = [{ deviceId: current, platform: inf.platform, browser: inf.browser, lastSeen: Date.now() }]; } catch(e){ /* rien */ } }   /* l'appareil actuel est toujours listé */
   return '<div class="topbar"><button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button><span class="topbar-title">' + t('devices.title') + '</span><span style="width:calc(44px*var(--ui))"></span></div>' +
     '<div class="screen-body" style="padding-top:0">' +
       '<div class="glass" style="padding:calc(6px*var(--ui)) calc(18px*var(--ui))">' + (list.length ? list.map(d => '<div class="item" style="cursor:default"><div class="tile">' + icon('device', 20) + '</div><div class="item-body"><div class="item-title">' + escapeHtml(d.platform || '—') + ' · ' + escapeHtml(d.browser || '—') + (d.deviceId === current ? ' <span class="badge badge-success" style="margin-inline-start:6px">' + t('devices.current') + '</span>' : '') + '</div><div class="item-sub">' + escapeHtml(d.deviceId || '') + '</div><div class="caption" style="margin-top:calc(4px*var(--ui))">' + t('devices.lastActive') + ' · ' + escapeHtml(timeAgo(d.lastSeen || Date.now())) + '</div></div></div>').join('') : '<div class="empty" style="padding:var(--sp-6) 0"><div class="empty-sub">—</div></div>') + '</div>' +
@@ -45,7 +46,8 @@ function renderDevices(){
 }
 function renderSessions(){
   const current = SessionEngine.current();
-  const list = Runtime.sessions || [];
+  let list = Runtime.sessions || [];
+  if (!list.length && current){ try { list = [{ sessionId: current, deviceId: DeviceEngine.current(), createdAt: Date.now(), status: 'active' }]; } catch(e){ /* rien */ } }   /* la session actuelle est toujours listée */
   return '<div class="topbar"><button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button><span class="topbar-title">' + t('sessions.title') + '</span><span style="width:calc(44px*var(--ui))"></span></div>' +
     '<div class="screen-body" style="padding-top:0">' +
       '<div class="glass" style="padding:calc(6px*var(--ui)) calc(18px*var(--ui))">' + (list.length ? list.map(s => '<div class="item" style="cursor:default"><div class="tile">' + icon('session', 20) + '</div><div class="item-body"><div class="item-title">' + escapeHtml(s.sessionId || '') + (s.sessionId === current ? ' <span class="badge badge-success" style="margin-inline-start:6px">' + t('sessions.current') + '</span>' : '') + '</div><div class="item-sub">' + escapeHtml(s.deviceId || '') + '</div><div class="caption" style="margin-top:calc(4px*var(--ui))">' + t('sessions.createdAt') + ' · ' + escapeHtml(timeAgo(s.createdAt || Date.now())) + ' · ' + escapeHtml(s.status || 'active') + '</div></div></div>').join('') : '<div class="empty" style="padding:var(--sp-6) 0"><div class="empty-sub">—</div></div>') + '</div>' +

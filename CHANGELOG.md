@@ -1,3 +1,18 @@
+# Live X Digitale 16.0.3 — audit complet et correctifs
+
+## Audit
+- Parcours automatique des 59 écrans en 6 combinaisons (anglais / français / arabe × sombre / clair) : erreurs JavaScript, débordements horizontaux, textes bruts (clés de traduction, « undefined », « NaN »), écrans vides.
+- Traductions : 841 textes identiques en anglais, français et arabe (0 manquant).
+- Serveur : 141 e-mails envoyés, 0 échec ; alertes push actives ; 5 index ajoutés (clés étrangères sans index : `audit_log`, `notifications`, `recipient_notices`, `yor_mail`).
+
+## Corrigé
+- **Boucle infinie sur l'écran Admin** : si le chargement des statistiques échouait (réseau, serveur), l'écran se redessinait et relançait le chargement sans fin (requêtes en rafale, processeur et mémoire saturés). Il affiche maintenant « Réessayer » et ne relance pas tout seul plus d'une fois toutes les 15 s.
+- **Appareils / Sessions** : la liste pouvait être vide au premier affichage (enregistrement en arrière-plan depuis 16.0.2). Elle se met à jour dès l'enregistrement fait, et l'appareil / la session actuels sont toujours listés.
+- Les reçus exportés s'appellent `LIVE-X-DIGITALE-…` (ancien préfixe supprimé).
+- Reçu : voir 16.0.1 (retour silencieux à l'accueil) ; démarrage : voir 16.0.2.
+
+---
+
 # Live X Digitale 16.0.2 — démarrage et opérations plus rapides
 
 ## Mesuré (faux serveur avec 150 ms de latence par requête, utilisateur déjà connecté)

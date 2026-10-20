@@ -63,7 +63,7 @@ const Admin = (() => {
 
   /* ---------- données ---------- */
   async function load(){
-    S.loading = true; S.error = false;
+    S.loading = true; S.error = false; S.lastTry = Date.now();
     try {
       const [st, us] = await Promise.all([sb.rpc('admin_stats'), sb.rpc('admin_recent_users', { p_limit: 20 })]);
       if (st.error || us.error) throw (st.error || us.error);
@@ -156,7 +156,8 @@ const Admin = (() => {
   }
   function wire(id, root){
     if (id === 'admin'){
-      if (!S.stats && !S.loading){ load().then(() => { if (R.current() === 'admin') R.go('admin', { force: true, replace: true }); }); }
+      /* 16.0.3 : si le chargement échoue, l'écran affiche « Réessayer » ; il ne relance PLUS le chargement tout seul en boucle (au plus un essai automatique toutes les 15 s) */
+      if (!S.stats && !S.loading && (!S.lastTry || Date.now() - S.lastTry > 15000)){ load().then(() => { if (R.current() === 'admin') R.go('admin', { force: true, replace: true }); }); }
       else countUp(root);
       const q = root.querySelector('#adm-q');
       if (q) q.oninput = () => {

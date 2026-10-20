@@ -36,7 +36,13 @@ const AuthEngine = (() => {
     Promise.all([
       UserDataEngine.writeSub(user.id, 'devices', deviceId, { deviceId, platform: info.platform, browser: info.browser, language: info.language, lastSeen: now, status:'active', createdAt: now }),
       UserDataEngine.writeSub(user.id, 'sessions', sessionId, { sessionId, deviceId, uid: user.id, createdAt: now, lastActiveAt: now, status:'active' })
-    ]).catch(e => console.warn('device/session registration failed', e));
+    ]).then(async () => {
+      /* la liste « Appareils / Sessions » se met à jour dès que l'enregistrement est fait (il n'est plus attendu au démarrage) */
+      const [d, s] = await Promise.all([UserDataEngine.readDevices(user.id), UserDataEngine.readSessions(user.id)]);
+      const cur = UserContext.get(); if (!cur || cur.uid !== user.id) return;
+      Runtime.devices = d || []; Runtime.sessions = s || [];
+      try { if (['devices', 'sessions'].indexOf(R.current()) !== -1) R.go(R.current(), { force: true, replace: true }); } catch(e){ /* rien */ }
+    }).catch(e => console.warn('device/session registration failed', e));
     return { uid: user.id, userId: profile.userId, yorId: profile.yorId, role: profile.role || 'user', deviceId, sessionId };
   }
   /* 16.0.2 : les 14 lectures ne dépendent que de l'identifiant : elles partent EN MÊME TEMPS que la lecture du profil au démarrage (voir handle) */
