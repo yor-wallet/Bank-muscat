@@ -11,6 +11,7 @@ Object.assign(TR.en, {
   /* notifications : nouveaux types */
   'lx.n.REWARD': 'Welcome reward', 'lx.n.NEW_USER': 'New member', 'lx.n.TRANSFER_STATUS': 'Transfer update',
   'op.INTL_TRANSFER': 'International transfer', 'op.SIGNUP_BONUS': 'Welcome reward',
+  'lx.appr.done': 'Confirmed and approved', 'lx.appr.ok': 'Confirmed and approved',
 });
 Object.assign(TR.fr, {
   'lx.rw.k': 'Vous avez gagné', 'lx.rw.p': 'Récompense de bienvenue ajoutée à votre portefeuille', 'lx.rw.sub': 'Merci d’avoir rejoint Live X Digitale', 'lx.rw.go': 'Génial !',
@@ -18,6 +19,7 @@ Object.assign(TR.fr, {
   'lx.set.sounds': 'Sons', 'lx.set.soundsD': 'Carillons pour les notifications, l’argent reçu et les récompenses',
   'lx.n.REWARD': 'Récompense de bienvenue', 'lx.n.NEW_USER': 'Nouveau membre', 'lx.n.TRANSFER_STATUS': 'Suivi du transfert',
   'op.INTL_TRANSFER': 'Transfert international', 'op.SIGNUP_BONUS': 'Récompense de bienvenue',
+  'lx.appr.done': 'Confirmé et approuvé', 'lx.appr.ok': 'Confirmé et approuvé',
 });
 Object.assign(TR.ar, {
   'lx.rw.k': 'لقد ربحت', 'lx.rw.p': 'تمت إضافة مكافأة الترحيب إلى محفظتك', 'lx.rw.sub': 'شكراً لانضمامك إلى لايف إكس ديجيتال', 'lx.rw.go': 'رائع!',
@@ -25,4 +27,5 @@ Object.assign(TR.ar, {
   'lx.set.sounds': 'الأصوات', 'lx.set.soundsD': 'نغمات للإشعارات والأموال المستلمة والمكافآت',
   'lx.n.REWARD': 'مكافأة الترحيب', 'lx.n.NEW_USER': 'عضو جديد', 'lx.n.TRANSFER_STATUS': 'تحديث التحويل',
   'op.INTL_TRANSFER': 'تحويل دولي', 'op.SIGNUP_BONUS': 'مكافأة الترحيب',
+  'lx.appr.done': 'تم التأكيد والاعتماد', 'lx.appr.ok': 'تم التأكيد والاعتماد',
 });

@@ -279,7 +279,7 @@ const IntlX = (() => {
         beneficiary: { name: benName(), phone: _ben && _ben.phone ? _ben.phone : '', country: c.iso, networkName: cname(c.iso) + ' · ' + (S.provider || e('m.' + S.method)) },
         network: S.provider || e('m.' + S.method), reference: data.reference, createdAt: Date.now(), kind: 'FIAT_EXTERNAL', flow: 'INTL_TRANSFER', direction: 'OUT'
       };
-      try { await recordLocalReceipt(receipt); } catch(err){ console.error(err); }
+      try { await recordLocalReceipt(receipt); } catch(err){ console.error(err); Runtime.receipts.push(receipt); Runtime.lastReceipt = receipt; }
       return { ok: true, receipt };
     });
     S.busy = false;

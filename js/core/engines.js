@@ -240,6 +240,7 @@ function resetRuntime(){
   Runtime.accounts = [];
   Runtime.transactions = [];
   Runtime.receipts = [];
+  Runtime.lastReceipt = null;
   Runtime.notifications = [];
   Runtime.cards = [];
   Runtime.wallets = [];

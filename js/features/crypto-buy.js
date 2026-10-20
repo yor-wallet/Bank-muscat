@@ -77,8 +77,12 @@ async function recordLocalReceipt(rc){
   const uid = UserContext.requireCtx().uid;
   const id = rc.id || ID.receipt();
   const payload = Object.assign({}, rc, { id, createdAt: rc.createdAt || Date.now() });
-  await UserDataEngine.writeSub(uid, 'receipts', id, payload);
-  Runtime.receipts.push(payload);
+  /* 16.0.1 : le reçu est gardé en mémoire D'ABORD (puis enregistré sur le serveur) : si l'enregistrement échoue, ou si une actualisation des données
+     arrive entre-temps, l'écran du reçu s'ouvre quand même — sinon il renvoyait à l'accueil, comme si l'application se fermait après le transfert. */
+  Runtime.receipts = (Runtime.receipts || []).filter(x => x.id !== id).concat([payload]);
+  Runtime.lastReceipt = payload;
+  try { await UserDataEngine.writeSub(uid, 'receipts', id, payload); }
+  catch(e){ console.error('[receipt] not saved on the server', e); }
   return payload;
 }
 

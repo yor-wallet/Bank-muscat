@@ -119,6 +119,11 @@ const PinEngine = (() => {
      then the 6-digit PIN, which is the server-verified factor that yields the one-time grant.
      Resolves { ok:true, grant } (one-time, valid ~2 min) or { ok:false, cancelled? , error? } */
   async function authorize(){
+    try { if (typeof AppLock !== 'undefined') AppLock.hold(); } catch(e){ /* rien */ }
+    try { return await authorizeInner(); }
+    finally { try { if (typeof AppLock !== 'undefined') AppLock.release(); } catch(e){ /* rien */ } }
+  }
+  async function authorizeInner(){
     if (!supabaseReady) return { ok:false, error:'errors.UNKNOWN_ERROR' };
     if (busy) return { ok:false, cancelled:true };
     busy = true;

@@ -1,4 +1,4 @@
-/* Live X Digitale service worker (16.0.0) : coquille de l'application hors ligne + réception des notifications push.
+/* Live X Digitale service worker (16.0.1) : coquille de l'application hors ligne + réception des notifications push.
    - Il ne met JAMAIS en cache le trafic Supabase / API / chaîne : soldes et transactions viennent toujours du serveur.
    - 15.1.0 (vitesse) : les fichiers à empreinte (app.<hash>.js / .css), les polices et le client Supabase sont servis DEPUIS LE TÉLÉPHONE (copie locale d'abord,
      jamais de réseau tant qu'ils n'ont pas changé de nom) ; la page d'accueil aussi. Une nouvelle version = nouveau nom de cache : elle s'installe en arrière-plan
@@ -7,7 +7,7 @@
    - Hors ligne : l'application démarre depuis la copie locale ; si elle n'existe pas encore, « offline.html » explique la situation.
    - Il ne touche JAMAIS aux ressources d'autres sites (client Supabase sur le CDN, WalletConnect, chaîne) : le navigateur les charge lui-même.
      (12.11.0 interceptait le client Supabase : la CSP bloquait ce rechargement par le service worker et l'application ne démarrait plus dès la 2e ouverture.) */
-const CACHE = 'fp-shell-v16.0.0';
+const CACHE = 'fp-shell-v16.0.1';
 const SLOW_MS = 4500;      /* au-delà, on sert la copie locale si on en a une */
 const IMMUTABLE = /(?:\.[0-9a-f]{10}\.(?:js|css)|(?:^|\/)js\/vendor\/[^/]*-\d[\w.]*\.js|(?:^|\/)assets\/fonts\/[^/]+\.woff2)$/;   /* nom = contenu : jamais besoin du réseau */
 

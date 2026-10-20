@@ -97,7 +97,8 @@ function toast(msg, type){
   if (!c) return;
   const el = document.createElement('div');
   el.className = 'toast ' + (type || '');
-  el.textContent = msg;
+  if (String(type || '').indexOf('success') !== -1){ el.classList.add('toast-ok'); const ck = document.createElement('i'); ck.className = 'toast-ck'; ck.setAttribute('aria-hidden', 'true'); ck.textContent = '\u2713'; el.appendChild(ck); const tx = document.createElement('span'); tx.textContent = msg; el.appendChild(tx); }   /* 16.0.1 : chaque action réussie est confirmée par une coche */
+  else el.textContent = msg;
   c.appendChild(el);
   setTimeout(() => { el.style.transition = 'opacity .28s, transform .28s'; el.style.opacity = '0'; el.style.transform = 'translateY(-8px)'; setTimeout(() => el.remove(), 300); }, 2600);
 }

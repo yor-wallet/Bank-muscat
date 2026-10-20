@@ -19,7 +19,7 @@ const AppLock = (() => {
     ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح لايف إكس ديجيتال', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
   };
   const tx = (k) => (L[LANG] || L.en)[k] || L.en[k];
-  let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false;
+  let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0;
 
   function css(){
     if (document.getElementById('yl-css')) return;
@@ -172,8 +172,15 @@ const AppLock = (() => {
     open('unlock', () => afterPin('login', null));
   }
   function setSignedIn(v){ signedIn = !!v; if (!signedIn){ pinKnown = false; faceBusy = false; close(); } }
-  function onHide(){ hiddenAt = Date.now(); if (signedIn && pinKnown) showCover(); }
+  /* 16.0.1 : pendant un transfert (confirmation Face ID / code, puis envoi) la feuille système ou une notification peut mettre la page « en arrière-plan » un
+     instant : le verrouillage ne doit alors NI couvrir l'écran (on aurait cru l'application fermée) NI redemander le code au retour. */
+  function hold(){ if (!held) heldAt = Date.now(); held++; }
+  function release(){ held = Math.max(0, held - 1); if (!held){ hiddenAt = 0; if (!ov && !faceBusy) removeCover(); } }
+  function stale(){ if (held && Date.now() - heldAt > 180000) held = 0; }     /* garde-fou : une suspension oubliée ne dure jamais plus de 3 min */
+  function onHide(){ stale(); if (held) return; hiddenAt = Date.now(); if (signedIn && pinKnown) showCover(); }
   function onShow(){
+    stale();
+    if (held){ hiddenAt = 0; if (!ov && !faceBusy) removeCover(); return; }
     if (!signedIn || !pinKnown){ removeCover(); return; }
     if (ov || faceBusy){ removeCover(); return; }
     if (hiddenAt && Date.now() - hiddenAt >= GRACE_MS){ showCover(); unlockFlow('unlock', null); }
@@ -185,5 +192,5 @@ const AppLock = (() => {
     window.addEventListener('pagehide', onHide);
     window.addEventListener('pageshow', (e) => { if (e.persisted) onShow(); });
   }
-  return { init, gate, ensurePin, setSignedIn };
+  return { init, gate, ensurePin, setSignedIn, hold, release };
 })();

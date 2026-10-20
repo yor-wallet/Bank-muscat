@@ -1,6 +1,6 @@
 {
   "name": "friendly-pay",
-  "version": "16.0.0",
+  "version": "16.0.1",
   "private": true,
   "description": "Friendly Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
   "scripts": { "build": "node scripts/build.mjs" },

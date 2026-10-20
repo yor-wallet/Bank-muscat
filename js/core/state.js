@@ -41,6 +41,7 @@ const ProcessingEngine = (() => {
     opts = opts || {};
     const minMs = opts.minMs != null ? opts.minMs : 2400;
     const t0 = Date.now();
+    try { if (typeof AppLock !== 'undefined') AppLock.hold(); } catch(e){ /* 16.0.1 : pas de verrouillage de l'application pendant l'envoi */ }
     const job = Promise.resolve().then(work).then(r => r, e => { console.error(e); return { ok:false, uncertain:true, error:'errors.UNCERTAIN' }; });
     setPhase('secure');
     await sleep(900);
@@ -69,6 +70,7 @@ const ProcessingEngine = (() => {
       await sleep(opts.failMs != null ? opts.failMs : 1500);
     }
     releaseLock();
+    try { if (typeof AppLock !== 'undefined') AppLock.release(); } catch(e){ /* rien */ }
     return out;
   }
   function start(onDone, opts){

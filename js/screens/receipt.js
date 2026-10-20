@@ -164,7 +164,13 @@ function rcRow(label, valueHtml, opts){
 }
 
 function renderReceipt(){
-  const snapshot = Runtime.receipts[Runtime.receipts.length - 1];
+  /* 16.0.1 : le reçu à afficher est celui qui vient d'être créé ; à défaut le PLUS RÉCENT (la liste du serveur est triée du plus récent au plus ancien :
+     l'ancien « dernier élément » donnait le plus ancien) ; à défaut la dernière opération réelle. Jamais de retour silencieux à l'accueil si une opération existe. */
+  let snapshot = Runtime.lastReceipt || (Runtime.receipts || []).reduce((a, b) => (!a || (b.createdAt || 0) >= (a.createdAt || 0) ? b : a), null);
+  if (!snapshot){
+    const tx0 = (Runtime.transactions || [])[0];
+    if (tx0) snapshot = { id: 'tx-' + tx0.id, transactionId: tx0.id, status: tx0.status, direction: tx0.direction, kind: tx0.kind, amount: tx0.amount, currency: tx0.currency || 'OMR', fee: tx0.fee || 0, total: tx0.total || tx0.amount, network: tx0.network || null, beneficiary: tx0.beneficiary || null, reference: tx0.reference, createdAt: tx0.createdAt };
+  }
   if (!snapshot){ R.go('home'); return ''; }
   const tx = snapshot.transactionId ? Runtime.transactions.find(x => x.id === snapshot.transactionId) : null;
   const r = tx ? Object.assign({}, snapshot, {
@@ -252,6 +258,7 @@ function renderReceipt(){
       '<div class="rc-amt ltr">' + escapeHtml(amtFmt) + '</div>' +
       (destFmt ? '<div class="rc-dest ltr">≈ ' + escapeHtml(destFmt) + '</div>' : '') +
       '<div class="receipt-title">' + escapeHtml(title) + '</div>' +
+      (state === 'failed' ? '' : '<div class="rc-approved" role="status">' + icon('check', 15) + '<span>' + escapeHtml(t(state === 'success' ? 'lx.appr.done' : 'lx.appr.ok')) + '</span></div>') +
       (eyebrow ? '<div class="rc-eyebrow">' + escapeHtml(eyebrow) + '</div>' : '') +
       (sub ? '<div class="receipt-sub">' + escapeHtml(sub) + '</div>' : '') +
     '</section>' +

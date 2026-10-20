@@ -42,3 +42,11 @@
 :root[data-theme="light"] .tile{background:rgba(255,200,61,.22);color:#6E4C00}
 /* cartouche « ADMIN » : jamais de la même couleur que les badges utilisateur */
 .badge-admin,.px-chip.admin{background:#1F1F6B;color:#fff;border:1px solid rgba(255,255,255,.18);letter-spacing:.08em}
+
+/* ---- 16.0.1 : chaque action réussie est confirmée et approuvée visuellement ---- */
+.toast.toast-ok{display:flex;align-items:center;gap:10px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
+.toast-ck{flex:none;width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);font-style:normal;font-weight:900;font-size:13px;line-height:1;animation:lxck .45s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes lxck{0%{transform:scale(0) rotate(-40deg)}100%{transform:scale(1) rotate(0)}}
+.rc-approved{display:inline-flex;align-items:center;gap:7px;margin:10px auto 0;padding:7px 13px;border-radius:999px;font-size:calc(12.5px*var(--ui,1));font-weight:800;letter-spacing:.2px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);animation:lxck .5s .15s cubic-bezier(.2,1.4,.4,1) both}
+.rc-approved svg{flex:none}
+@media (prefers-reduced-motion:reduce){.toast-ck,.rc-approved{animation:none}}

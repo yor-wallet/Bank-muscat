@@ -1,3 +1,19 @@
+# Live X Digitale 16.0.1 — correctif des transferts + confirmation visible
+
+## Corrigé
+- **L'application semblait se fermer pendant / après un transfert.** Deux causes traitées :
+  1. Le verrouillage de l'application (écran logo + code) pouvait se déclencher quand la feuille Face ID du système ou une notification mettait la page un instant en arrière-plan. Il est maintenant suspendu pendant la confirmation et l'envoi (`AppLock.hold/release`, garde-fou de 3 min).
+  2. L'écran du reçu renvoyait silencieusement à l'accueil si le reçu n'était pas trouvé en mémoire (enregistrement serveur échoué, ou liste actualisée entre-temps ; l'ancien code prenait en plus le DERNIER élément d'une liste triée du plus récent au plus ancien, donc le plus ancien). Le reçu est désormais gardé en mémoire d'abord, l'écran prend le plus récent, puis à défaut la dernière opération réelle.
+- Transfert international : le reçu reste affiché même si son enregistrement échoue.
+
+## Nouveau
+- Chaque action réussie est confirmée par une coche animée (notifications de succès), et chaque reçu non échoué porte le bandeau « Confirmé et approuvé ». Un transfert encore en traitement (international : 48 à 72 h) l'indique aussi : le bandeau confirme la prise en compte, pas un versement terminé.
+
+## NON EXÉCUTÉ
+- Le plantage décrit n'a pas pu être reproduit sur un vrai téléphone (feuille Face ID iOS) : le correctif cible les deux causes trouvées dans le code ; à constater sur l'appareil.
+
+---
+
 # Live X Digitale 16.0.0 — nouvelle identité, récompense de bienvenue, transfert international, console admin
 
 ## Nouveau
