@@ -1,3 +1,16 @@
+# Live X Digitale 17.0.0 — nouvelle interface, Paramètres regroupés
+
+## Nouveau
+- **Nouvelle identité visuelle sur tous les écrans** (clair et sombre, français / anglais / arabe) : graphite froid et or, boutons plus hauts et en relief, puces teintées, champs 58 px avec halo doré, cartes à 24 px, icônes rondes, carte de solde à reflets dorés, actions rapides rondes, services en cartes, dock de navigation flottant avec pastille active, interrupteurs dorés.
+- **Paramètres refaits** : en haut, un seul panneau de **Raccourcis** (thème, langue, alertes, sons, vibration, Face ID). Tout le reste (alertes téléphone et SMS, code, appareils, sessions, banques, devise, contacts, affichage, compte, aide) est caché dans une section spéciale **Paramètres avancés**, repliée, découpée en 5 blocs repliés. L'état ouvert / fermé est mémorisé.
+- **Face ID** : quand il est actif, aucune confirmation ne demande le code à 6 chiffres (transfert, carte, international). Le code est retenu chiffré sur l'appareil ; il n'est redemandé qu'une seule fois si le coffre est vide (ancien compte) ou si le code a changé.
+
+## Corrigé
+- Liens bleus par défaut (« Réessayer », « Voir tout » en clair) remplacés par la couleur de la marque.
+- Bloc d'accès admin des Paramètres : le texte n'est plus écrasé.
+
+---
+
 # Live X Digitale 16.1.0 — Face ID seul, destinataire reconnu, notifications obligatoires, arabe refait
 
 ## Nouveau

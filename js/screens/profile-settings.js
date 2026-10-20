@@ -98,19 +98,39 @@ Object.assign(TR.ar, { 'set.c.look':'المظهر', 'set.c.lookD':'المظهر 
 function setCat(ic, title, desc){
   return '<div class="set-cat"><span class="set-cat-ic">' + icon(ic, 18) + '</span><div><h2>' + escapeHtml(title) + '</h2>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '</div></div>';
 }
+/* 17.0.0 — Paramètres refaits : en haut UN panneau de raccourcis (thème, langue, alertes, sons, vibration, Face ID) ; tout le reste (les mêmes vrais réglages)
+   est rangé dans une section spéciale « Avancé » repliée, elle-même découpée en 5 blocs repliés. */
+Object.assign(TR.en, { 'set17.quick':'Quick controls', 'set17.t.notif':'Alerts', 'set17.adv':'Advanced settings', 'set17.advD':'Notifications, security, money, account and help',
+  'set17.g.notif':'Alerts and SMS', 'set17.g.sec':'Security and devices', 'set17.g.money':'Money and contacts', 'set17.g.view':'Display', 'set17.g.acc':'Account and help', 'set17.fidNoCode':'Face ID replaces the 6-digit code' });
+Object.assign(TR.fr, { 'set17.quick':'Raccourcis', 'set17.t.notif':'Alertes', 'set17.adv':'Paramètres avancés', 'set17.advD':'Notifications, sécurité, argent, compte et aide',
+  'set17.g.notif':'Alertes et SMS', 'set17.g.sec':'Sécurité et appareils', 'set17.g.money':'Argent et contacts', 'set17.g.view':'Affichage', 'set17.g.acc':'Compte et aide', 'set17.fidNoCode':'Face ID remplace le code à 6 chiffres' });
+Object.assign(TR.ar, { 'set17.quick':'اختصارات', 'set17.t.notif':'تنبيهات', 'set17.adv':'الإعدادات المتقدمة', 'set17.advD':'الإشعارات والأمان والأموال والحساب والمساعدة',
+  'set17.g.notif':'التنبيهات والرسائل النصية', 'set17.g.sec':'الأمان والأجهزة', 'set17.g.money':'الأموال وجهات الاتصال', 'set17.g.view':'العرض', 'set17.g.acc':'الحساب والمساعدة', 'set17.fidNoCode':'بصمة الوجه تغني عن الرمز المكوّن من 6 أرقام' });
+function qsTile(ic, title, on, attrs, stateText){
+  return '<button class="qs-tile' + (on ? ' is-on' : '') + '" type="button" ' + attrs + '><i>' + icon(ic, 22) + '</i><b>' + escapeHtml(title) + '</b>' +
+    (stateText ? '<small>' + escapeHtml(stateText) + '</small>' : '<span class="qs-dot" aria-hidden="true"></span>') + '</button>';
+}
+function advGroup(key, ic, title, inner){
+  let open = ''; try { if (sessionStorage.getItem('lx_set_' + key) === '1') open = ' open'; } catch(e){ /* rien */ }
+  return '<details class="adv-g" data-adv="' + key + '"' + open + '><summary><i>' + icon(ic, 18) + '</i><span>' + escapeHtml(title) + '</span><em>' + icon('chev', 16) + '</em></summary><div class="adv-in">' + inner + '</div></details>';
+}
+(function(){ try { document.addEventListener('toggle', e => { const d = e.target; if (d && d.matches && d.matches('details[data-adv],details#set-adv')) { try { sessionStorage.setItem('lx_set_' + (d.getAttribute('data-adv') || 'all'), d.open ? '1' : '0'); } catch(x){ /* rien */ } } }, true); } catch(e){ /* rien */ } })();
 function renderSettings(){
   const setts = Runtime.settings || {};
   const sec = Runtime.security || {};
   const notifsOn = setts.notifications !== false;
   const vibOn = setts.vibration !== false;
+  const soundOn = setts.sounds !== false;
   const txConfirmOn = sec.transactionConfirmationRequired !== false;
-  const primaryCur = displayCurrency();   /* 12.6.0: default USD */
+  const primaryCur = displayCurrency();
   const contactCount = Runtime.contacts.length;
   const bankCount = Runtime.bankAccounts.length;
   const isAdmin = Runtime.ctx && Runtime.ctx.role === 'admin';
   const p = Runtime.profile || {};
   const yid = dispId(Runtime.ctx.yorId || '');
   const chipRow = inner => '<div class="set-chips">' + inner + '</div>';
+  let fi = { supported: null, enrolled: false, name: 'Face ID' }; try { fi = FaceId.info(); } catch(e){ /* rien */ }
+  const fiNa = fi.supported === false, fiOn = !fiNa && fi.enrolled;
 
   let html = '<div class="topbar px-topbar">' +
       '<button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button>' +
@@ -119,96 +139,77 @@ function renderSettings(){
     '</div>' +
     '<div class="screen-body set-body" style="padding-top:var(--sp-2)">';
 
-  /* 16.0.0 : la console admin est SÉPARÉE des réglages utilisateur (autre aspect, autre écran) ; ici seulement un accès pour les administrateurs */
-  if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
-  /* account summary -> profile */
   html += '<button class="set-me" type="button" data-nav="profile">' + (typeof pxAvatar === 'function' ? pxAvatar(p) : '') +
     '<span class="set-me-body"><b>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</b><small class="ltr" dir="ltr">' + escapeHtml(yid) + '</small></span>' +
     (isAdmin ? '<span class="badge badge-admin">ADMIN</span>' : '') + '<span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
+  if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
 
-  /* 1. Appearance */
-  html += setCat('sparkle', t('set.c.look'), t('set.c.lookD'));
-  html += '<div class="settings-group">' +
-    '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('sparkle', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.theme') + '</div><div class="settings-row-sub" id="set-theme-sub">' + t('theme.' + savedThemeMode()) + '</div></div></div>' +
-    chipRow('<div class="chips" style="padding-top:2px">' + ['light','dark','system'].map(th => '<button class="chip" data-theme="' + th + '" ' + (savedThemeMode() === th ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + t('theme.' + th) + '</button>').join('') + '</div>') +
-    '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('globe', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.language') + '</div><div class="settings-row-sub">' + t('settings.languages_list') + '</div></div></div>' +
-    chipRow('<div class="chips" style="padding-top:2px">' + ['en','fr','ar'].map(l => '<button class="chip" data-lang="' + l + '" ' + (LANG === l ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + (l === 'fr' ? 'Français' : l === 'en' ? 'English' : 'العربية') + '</button>').join('') + '</div>') +
-    settingsToggleRow({ icon:'vibrate', title:t('settings.vibration'), sub:t('settings.vibrationDesc'), checked:vibOn, action:'settings-toggle-vibration' }) +
-    settingsToggleRow({ icon:'volume', title:t('lx.set.sounds'), sub:t('lx.set.soundsD'), checked:setts.sounds !== false, action:'settings-toggle-sounds' }) +
-    settingsToggleRow({ icon:'device', title:t('settings.desktopMode'), sub:t('settings.desktopModeDesc'), checked:LayoutMode.isDesktop(), action:'layout-toggle' }) +
-    (typeof PxInstall !== 'undefined' ? PxInstall.settingsRow() : '') +
-  '</div>';
-
-  /* 2. Notifications — in-app, phone alerts (push), SMS: three distinct channels */
-  html += setCat('bell', t('set.c.notif'), t('set.c.notifD'));
-  html += '<p class="set-note">' + icon('info', 15) + '<span>' + escapeHtml(t('set.chan')) + '</span></p>';
-  html += '<div class="settings-group">' +
-    settingsToggleRow({ icon:'bell', title:t('settings.notifs'), sub:t('set.inappD'), checked:notifsOn, action:'settings-toggle-notifs' }) +
-    Push.rowHtml() +     /* 12.13.0 : alertes sur le téléphone, même application fermée */
-    (typeof Mobile !== 'undefined' ? Mobile.installRowHtml() : '') +     /* 16.1.0 : installer sur l'écran d'accueil (gratuit, sans App Store) */
-  '</div>';
-  html += settingsSection(t('confirm.title'));
-  html += '<div class="settings-group">' +
-    '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('mobile', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('set.sms') + '</div><div class="settings-row-sub">' + t('confirm.desc') + '</div></div></div>' +
-    '<div style="padding:0 16px 14px;border-top:1px solid var(--border)">' +
-      '<div class="field-box" style="margin-top:calc(10px*var(--ui))"><input type="tel" id="confirm-phone" inputmode="tel" dir="ltr" autocomplete="tel" placeholder="+968 7798 6533" value="' + escapeHtml(setts.confirmPhone || '') + '" aria-label="' + escapeHtml(t('confirm.title')) + '"></div>' +
-      '<div class="field-err" id="confirm-phone-err"></div>' +
-      '<button class="btn btn-secondary" id="confirm-phone-save" type="button" style="margin-top:calc(8px*var(--ui))">' + t('action.save') + '</button>' +
+  /* ---- panneau de raccourcis : tous les boutons principaux au même endroit ---- */
+  html += '<section class="qs"><h2 class="qs-h">' + escapeHtml(t('set17.quick')) + '</h2>' +
+    '<div class="qs-seg" role="group" aria-label="' + escapeHtml(t('settings.theme')) + '"><span class="qs-seg-l">' + icon('sparkle', 16) + '<em>' + escapeHtml(t('settings.theme')) + '</em></span><div class="chips">' +
+      ['light','dark','system'].map(th => '<button class="chip" data-theme="' + th + '" aria-pressed="' + (savedThemeMode() === th ? 'true' : 'false') + '">' + t('theme.' + th) + '</button>').join('') + '</div></div>' +
+    '<div class="qs-seg" role="group" aria-label="' + escapeHtml(t('settings.language')) + '"><span class="qs-seg-l">' + icon('globe', 16) + '<em>' + escapeHtml(t('settings.language')) + '</em></span><div class="chips">' +
+      ['en','fr','ar'].map(l => '<button class="chip" data-lang="' + l + '" aria-pressed="' + (LANG === l ? 'true' : 'false') + '">' + (l === 'fr' ? 'Français' : l === 'en' ? 'English' : 'العربية') + '</button>').join('') + '</div></div>' +
+    '<div class="qs-grid">' +
+      qsTile('bell', t('set17.t.notif'), notifsOn, 'data-action="settings-toggle-notifs" role="switch" aria-checked="' + notifsOn + '"') +
+      qsTile('volume', t('lx.set.sounds'), soundOn, 'data-action="settings-toggle-sounds" role="switch" aria-checked="' + soundOn + '"') +
+      qsTile('vibrate', t('settings.vibration'), vibOn, 'data-action="settings-toggle-vibration" role="switch" aria-checked="' + vibOn + '"') +
+      qsTile('faceid', fi.name || 'Face ID', fiOn, 'data-action="settings-faceid"', faceIdText(fiNa ? 'na' : fiOn ? 'on' : 'off')) +
     '</div>' +
-  '</div>';
+    (fiOn ? '<p class="qs-note">' + icon('check', 14) + '<span>' + escapeHtml(t('set17.fidNoCode')) + '</span></p>' : '') +
+  '</section>';
 
-  /* 3. Security and privacy */
-  html += setCat('shield', t('set.c.sec'), t('set.c.secD'));
-  html += '<div class="settings-group">' +
-    '<button class="settings-row" type="button" data-px="pin"><div class="tile">' + icon('lock', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('px.pinChange')) + '</div><div class="settings-row-sub">' + escapeHtml(t('px.pinChangeD')) + '</div></div><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>' +
-    faceIdRow() +
-    settingsToggleRow({ icon:'lock', title:t('settings.txConfirm'), sub:t('settings.txConfirmDesc'), checked:txConfirmOn, action:'settings-toggle-txconfirm' }) +
-    settingsLinkRow({ icon:'device', title:t('devices.title'), sub:t('devices.current'), nav:'devices' }) +
-    settingsLinkRow({ icon:'session', title:t('sessions.title'), sub:t('sessions.current'), nav:'sessions' }) +
-    settingsLinkRow({ icon:'shield', title:t('settings.privacy'), sub:t('settings.privacyDesc'), nav:'privacy' }) +
-  '</div>';
+  /* ---- section spéciale : tout le reste y est caché ---- */
+  let open = ''; try { if (sessionStorage.getItem('lx_set_all') === '1') open = ' open'; } catch(e){ /* rien */ }
+  const gNotif = '<p class="set-note">' + icon('info', 15) + '<span>' + escapeHtml(t('set.chan')) + '</span></p><div class="settings-group">' +
+      Push.rowHtml() + (typeof Mobile !== 'undefined' ? Mobile.installRowHtml() : '') +
+      '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('mobile', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('set.sms') + '</div><div class="settings-row-sub">' + t('confirm.desc') + '</div></div></div>' +
+      '<div style="padding:0 16px 14px;border-top:1px solid var(--border)">' +
+        '<div class="field-box" style="margin-top:calc(10px*var(--ui))"><input type="tel" id="confirm-phone" inputmode="tel" dir="ltr" autocomplete="tel" placeholder="+968 7798 6533" value="' + escapeHtml(setts.confirmPhone || '') + '" aria-label="' + escapeHtml(t('confirm.title')) + '"></div>' +
+        '<div class="field-err" id="confirm-phone-err"></div>' +
+        '<button class="btn btn-secondary" id="confirm-phone-save" type="button" style="margin-top:calc(8px*var(--ui))">' + t('action.save') + '</button>' +
+      '</div></div>';
+  const gSec = '<div class="settings-group">' +
+      '<button class="settings-row" type="button" data-px="pin"><div class="tile">' + icon('lock', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('px.pinChange')) + '</div><div class="settings-row-sub">' + escapeHtml(t('px.pinChangeD')) + '</div></div><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>' +
+      faceIdRow() +
+      settingsToggleRow({ icon:'lock', title:t('settings.txConfirm'), sub:t('settings.txConfirmDesc'), checked:txConfirmOn, action:'settings-toggle-txconfirm' }) +
+      settingsLinkRow({ icon:'device', title:t('devices.title'), sub:t('devices.current'), nav:'devices' }) +
+      settingsLinkRow({ icon:'session', title:t('sessions.title'), sub:t('sessions.current'), nav:'sessions' }) +
+      settingsLinkRow({ icon:'shield', title:t('settings.privacy'), sub:t('settings.privacyDesc'), nav:'privacy' }) +
+    '</div>' + (FEATURES.crypto ? settingsSection(t('wc.section')) + '<div class="nwc-wrap" data-nwc-slot>' + (typeof NexWC !== 'undefined' ? NexWC.cardHtml() : '') + '</div>' : '');
+  const gMoney = '<div class="settings-group">' +
+      (FEATURES.crypto ? settingsLinkRow({ icon:'bank', title:t('settings.banks'), sub: t('banks.choose_account') + ' · ' + bankCount, nav:'banks', value: String(bankCount) }) +
+      settingsLinkRow({ icon:'network', title:t('settings.networks'), sub:t('crypto.networks'), nav:'crypto-networks' }) : '') +
+      '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('banknote', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.primaryCurrency') + '</div><div class="settings-row-sub">' + t('settings.primaryCurrencyDesc') + '</div></div><span class="settings-value" id="set-cur-value">' + escapeHtml(primaryCur) + '</span></div>' +
+      chipRow('<div class="chips" style="padding-top:2px;flex-wrap:wrap">' + ['OMR','USD','EUR','GBP','AED','SAR','XOF','XAF','QAR','EGP'].map(c => '<button class="chip" data-currency="' + c + '" ' + (primaryCur === c ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + c + '</button>').join('') + '</div>' +
+        '<p class="set-mini">' + escapeHtml(t('set.curNote')) + '</p>') +
+    '</div>' + settingsSection(t('settings.sectionContacts')) + '<div class="settings-group">' +
+      '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('contact', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.contacts') + '</div><div class="settings-row-sub">' + (contactCount === 1 ? t('settings.numbers_count_one') : tf('settings.numbers_count', { n: contactCount })) + '</div></div></div>' +
+      '<div style="padding:calc(8px*var(--ui)) calc(12px*var(--ui));display:flex;flex-direction:column;gap:calc(10px*var(--ui));border-top:1px solid var(--border)">' +
+        (contactCount ? Runtime.contacts.map(c => contactCardHTML(c)).join('') : '<div class="empty" style="padding:20px 0"><div class="empty-sub">' + t('contact.empty') + '</div></div>') +
+        '<button class="btn btn-secondary" data-nav="contact-add" style="margin-top:calc(6px*var(--ui))">' + icon('plus', 18) + '<span>' + t('contact.add') + '</span></button>' +
+      '</div></div>';
+  const gView = '<div class="settings-group">' +
+      settingsToggleRow({ icon:'device', title:t('settings.desktopMode'), sub:t('settings.desktopModeDesc'), checked:LayoutMode.isDesktop(), action:'layout-toggle' }) +
+      (typeof PxInstall !== 'undefined' ? PxInstall.settingsRow() : '') +
+    '</div>';
+  const gAcc = '<div class="settings-group">' +
+      '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(yid) + '"><div class="tile">' + icon('copy', 20) + '</div>' +
+        '<div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('transfer.yor_id_label')) + '</div><div class="settings-row-sub">' + escapeHtml(faceIdText('tapCopy')) + '</div></div><span class="settings-value ltr">' + escapeHtml(yid) + '</span></div>' +
+      settingsLinkRow({ icon:'user', title:t('px.edit'), sub:'', nav:'profile-edit' }) +
+      settingsLinkRow({ icon:'help', title:t('settings.help'), sub:t('settings.helpDesc'), nav:'help' }) +
+      settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
+    '</div>';
+  html += '<details class="adv" id="set-adv"' + open + '><summary><i>' + icon('settings', 22) + '</i><span><b>' + escapeHtml(t('set17.adv')) + '</b><small>' + escapeHtml(t('set17.advD')) + '</small></span><em>' + icon('chev', 18) + '</em></summary>' +
+    '<div class="adv-body">' +
+      advGroup('notif', 'bell', t('set17.g.notif'), gNotif) +
+      advGroup('sec', 'shield', t('set17.g.sec'), gSec) +
+      advGroup('money', 'banknote', t('set17.g.money'), gMoney) +
+      advGroup('view', 'device', t('set17.g.view'), gView) +
+      advGroup('acc', 'user', t('set17.g.acc'), gAcc) +
+    '</div></details>';
 
-  /* 12.9.0: the connected wallet lives here (it used to sit in the home balance card) */
-  if (FEATURES.crypto){
-    html += settingsSection(t('wc.section'));
-    html += '<div class="nwc-wrap" data-nwc-slot>' + (typeof NexWC !== 'undefined' ? NexWC.cardHtml() : '') + '</div>';
-  }
-
-  /* 4. Money preferences — only what the app really supports (display currency, saved numbers). Limits and fees are set by the server. */
-  html += setCat('banknote', t('set.c.fin'), t('set.c.finD'));
-  html += '<div class="settings-group">' +
-    (FEATURES.crypto ? settingsLinkRow({ icon:'bank', title:t('settings.banks'), sub: t('banks.choose_account') + ' · ' + bankCount, nav:'banks', value: String(bankCount) }) +
-    settingsLinkRow({ icon:'network', title:t('settings.networks'), sub:t('crypto.networks'), nav:'crypto-networks' }) : '') +
-    '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('banknote', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.primaryCurrency') + '</div><div class="settings-row-sub">' + t('settings.primaryCurrencyDesc') + '</div></div><span class="settings-value" id="set-cur-value">' + escapeHtml(primaryCur) + '</span></div>' +
-    chipRow('<div class="chips" style="padding-top:2px;flex-wrap:wrap">' + ['OMR','USD','EUR','GBP','AED','SAR','XOF','XAF','QAR','EGP'].map(c => '<button class="chip" data-currency="' + c + '" ' + (primaryCur === c ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + c + '</button>').join('') + '</div>' +
-      '<p class="set-mini">' + escapeHtml(t('set.curNote')) + '</p>') +
-  '</div>';
-  html += settingsSection(t('settings.sectionContacts'));
-  html += '<div class="settings-group">' +
-    '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('contact', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.contacts') + '</div><div class="settings-row-sub">' + (contactCount === 1 ? t('settings.numbers_count_one') : tf('settings.numbers_count', { n: contactCount })) + '</div></div></div>' +
-    '<div style="padding:calc(8px*var(--ui)) calc(12px*var(--ui));display:flex;flex-direction:column;gap:calc(10px*var(--ui));border-top:1px solid var(--border)">' +
-      (contactCount ? Runtime.contacts.map(c => contactCardHTML(c)).join('') : '<div class="empty" style="padding:20px 0"><div class="empty-sub">' + t('contact.empty') + '</div></div>') +
-      '<button class="btn btn-secondary" data-nav="contact-add" style="margin-top:calc(6px*var(--ui))">' + icon('plus', 18) + '<span>' + t('contact.add') + '</span></button>' +
-    '</div>' +
-  '</div>';
-
-  /* 5. Account + information */
-  html += setCat('user', t('set.c.acc'));
-  html += '<div class="settings-group">' +
-    '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(yid) + '">' +
-      '<div class="tile">' + icon('copy', 20) + '</div>' +
-      '<div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('transfer.yor_id_label')) + '</div><div class="settings-row-sub">' + escapeHtml(faceIdText('tapCopy')) + '</div></div>' +
-      '<span class="settings-value ltr">' + escapeHtml(yid) + '</span>' +
-    '</div>' +
-    settingsLinkRow({ icon:'user', title:t('px.edit'), sub:'', nav:'profile-edit' }) +
-  '</div>';
-  html += setCat('info', t('set.c.info'));
-  html += '<div class="settings-group">' +
-    settingsLinkRow({ icon:'help', title:t('settings.help'), sub:t('settings.helpDesc'), nav:'help' }) +
-    settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
-    '<button class="settings-row" type="button" data-action="sign-out"><div class="tile" style="background:var(--danger-bg);color:var(--danger)">' + icon('logout', 20) + '</div><div class="settings-row-body"><div class="settings-row-title" style="color:var(--danger)">' + t('profile.logout') + '</div></div></button>' +
-  '</div>';
-
+  html += '<button class="set-out" type="button" data-action="sign-out">' + icon('logout', 20) + '<span>' + t('profile.logout') + '</span></button>';
   html += '<div style="height:var(--sp-6)"></div></div>';
   return html;
 }
