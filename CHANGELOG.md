@@ -1,3 +1,18 @@
+# Live X Digitale 16.1.0 — Face ID seul, destinataire reconnu, notifications obligatoires, arabe refait
+
+## Nouveau
+- **Face ID suffit** : une fois Face ID actif, la confirmation d'un transfert ne demande plus le code. Le code est mémorisé chiffré sur l'appareil (clé liée à Face ID, ou clé non exportable de l'appareil à défaut) ; en cas d'échec, le code reste demandé.
+- **Destinataire reconnu** : en saisissant un numéro déjà inscrit sur Live X Digitale, le nom s'affiche et le transfert est interne (le solde du destinataire est crédité aussitôt et il est averti).
+- **Notifications** : l'accès est demandé à l'ouverture (guide d'installation sur iPhone, puis autorisation). L'alerte affiche le montant, la personne et la référence.
+- **Installation gratuite sans App Store** : page `/install.html` (iPhone / Android, 3 langues) et guide dans l'application.
+- **Police arabe** : Readex Pro (arabe + latin assortis), sans espacement ni capitales dans les textes arabes (ils cassent la liaison des lettres), chiffres latins.
+
+## Corrigé
+- Arabe : phrases tronquées complétées (connexion, banques, réglages, succès du transfert), orthographe du tanwin unifiée, note de réception mise à jour.
+- Reçu, historique et console admin : le bloc de messages est retiré ; badge « confirmé et approuvé ».
+
+---
+
 # Live X Digitale 16.0.3 — audit complet et correctifs
 
 ## Audit

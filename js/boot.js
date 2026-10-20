@@ -7,6 +7,8 @@
 function showFatal(msg){
   try { Resilience.fatal(msg); } catch(e){ console.error('[boot]', msg, e); }
 }
+/* Arabe : une seule orthographe du tanwin sur l'alif («أبداً», «لاحقاً») et aucune tatwil dans les textes. */
+try { const ar = TR.ar; for (const k in ar) if (typeof ar[k] === 'string') ar[k] = ar[k].replace(/ًا/g, 'اً').replace(/\u0640/g, ''); } catch(e){}
 const BOOT_FAILS_KEY = 'fp.loadfail';
 function bootFails(delta){
   try {

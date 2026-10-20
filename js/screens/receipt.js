@@ -280,7 +280,8 @@ function renderReceipt(){
       '<div class="rc-tear" aria-hidden="true"></div>' +
       statement +
     '</section>' +
-    '<div class="rc-sheet receipt-panel rc-notice" id="receipt-notice" style="display:none" aria-live="polite"></div>' +
+    /* 16.1.0 : le suivi des messages envoyés (SMS / e-mail) n'est plus affiché dans le reçu : l'envoi continue côté serveur, sans bruit à l'écran */
+    '' +
     /* 12.14.0 — order: download (PDF / PNG), share, copy the reference, print; then another operation and home */
     '<div class="receipt-actions rc-acts">' +
       '<button class="btn btn-secondary rc-a" data-action="download-pdf" aria-label="' + escapeHtml(t('rc.pdfL')) + '">' + icon('download', 18) + '<span>' + escapeHtml(t('rc.pdf')) + '</span></button>' +

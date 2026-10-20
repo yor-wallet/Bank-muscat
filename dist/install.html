@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="robots" content="noindex">
+<title>Install · Live X Digitale</title>
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+*{box-sizing:border-box}html,body{margin:0}
+body{min-height:100vh;padding:max(24px,env(safe-area-inset-top)) 20px max(32px,env(safe-area-inset-bottom));font:16px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,Roboto,system-ui,sans-serif;color:#F2F2F5;background:radial-gradient(80% 50% at 50% 0%,#24211a 0%,#0c0b0a 70%) #0A0A0B}
+html[dir=rtl] body{font-family:"Readex Pro","SF Arabic","Geeza Pro","Noto Sans Arabic",system-ui,sans-serif;line-height:1.85}
+main{max-width:440px;margin:0 auto}
+.logo{display:block;margin:8px auto 18px;width:84px;height:84px;border-radius:22px;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+h1{margin:0 0 6px;text-align:center;font-size:24px;line-height:1.3;font-weight:800}
+.sub{margin:0 0 22px;text-align:center;color:rgba(242,242,245,.68)}
+.tabs{display:flex;gap:8px;margin:0 0 14px}
+.tabs button{flex:1;min-height:44px;border:1px solid rgba(233,170,28,.35);border-radius:12px;background:transparent;color:inherit;font:inherit;font-weight:700;cursor:pointer}
+.tabs button[aria-selected=true]{background:linear-gradient(180deg,#e9aa1c,#a8730a);color:#1a1205;border-color:transparent}
+ol{list-style:none;margin:0;padding:0;counter-reset:s}
+li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;margin:0 0 12px;padding:14px 16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+li::before{content:counter(s);flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#e9aa1c;color:#1a1205;font-weight:800}
+.ic{display:inline-block;vertical-align:-5px;margin:0 2px}
+.note{margin:18px 0 0;padding:12px 14px;border-radius:14px;background:rgba(233,170,28,.1);color:rgba(242,242,245,.8);font-size:14px}
+a.b{display:flex;align-items:center;justify-content:center;min-height:54px;margin-top:20px;border-radius:16px;background:linear-gradient(180deg,#e9aa1c,#a8730a);color:#1a1205;font-weight:800;text-decoration:none}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<img class="logo" src="assets/icons/icon-192.png" width="84" height="84" alt="">
+<h1 id="t"></h1>
+<p class="sub" id="s"></p>
+<div class="tabs" role="tablist"><button type="button" role="tab" id="tI" aria-selected="true">iPhone</button><button type="button" role="tab" id="tA" aria-selected="false">Android</button></div>
+<ol id="ios"></ol>
+<ol id="and" hidden></ol>
+<p class="note" id="n"></p>
+<a class="b" id="go" href="./"></a>
+</main>
+<script>
+(function(){
+var SH='<svg class="ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#e9aa1c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M5 11v9h14v-9"/></svg>';
+var T={
+ en:{t:'Install Live X Digitale',s:'Free, in 30 seconds, without the App Store. It opens full screen from its own icon and can send you notifications.',
+  i:['Open this page in <b>Safari</b> on your iPhone.','Tap the Share button '+SH+' at the bottom of the screen.','Scroll and choose <b>Add to Home Screen</b>.','Tap <b>Add</b>, then open <b>Live X Digitale</b> from your home screen.'],
+  a:['Open this page in <b>Chrome</b>.','Open the menu (⋮) at the top right.','Tap <b>Install app</b> or <b>Add to Home screen</b>.','Confirm, then open <b>Live X Digitale</b> from your home screen.'],
+  n:'Notifications on iPhone only work once the app is installed this way (iOS 16.4 or later). Open it from the new icon, then allow notifications.',go:'Open Live X Digitale'},
+ fr:{t:'Installer Live X Digitale',s:'Gratuit, en 30 secondes, sans App Store. L’app s’ouvre en plein écran depuis sa propre icône et peut vous envoyer des notifications.',
+  i:['Ouvrez cette page dans <b>Safari</b> sur votre iPhone.','Touchez le bouton Partager '+SH+' en bas de l’écran.','Faites défiler et choisissez <b>Sur l’écran d’accueil</b>.','Touchez <b>Ajouter</b>, puis ouvrez <b>Live X Digitale</b> depuis votre écran d’accueil.'],
+  a:['Ouvrez cette page dans <b>Chrome</b>.','Ouvrez le menu (⋮) en haut à droite.','Touchez <b>Installer l’application</b> ou <b>Ajouter à l’écran d’accueil</b>.','Confirmez, puis ouvrez <b>Live X Digitale</b> depuis votre écran d’accueil.'],
+  n:'Sur iPhone, les notifications ne fonctionnent qu’une fois l’app installée ainsi (iOS 16.4 ou plus). Ouvrez-la depuis la nouvelle icône, puis autorisez les notifications.',go:'Ouvrir Live X Digitale'},
+ ar:{t:'ثبّت لايف إكس ديجيتال',s:'مجاني وفي 30 ثانية ودون App Store. يفتح بملء الشاشة من أيقونته الخاصة ويمكنه إرسال الإشعارات إليك.',
+  i:['افتح هذه الصفحة في <b>Safari</b> على آيفون.','اضغط زر المشاركة '+SH+' أسفل الشاشة.','مرّر لأسفل واختر <b>إضافة إلى الشاشة الرئيسية</b>.','اضغط <b>إضافة</b> ثم افتح <b>لايف إكس ديجيتال</b> من الشاشة الرئيسية.'],
+  a:['افتح هذه الصفحة في <b>Chrome</b>.','افتح القائمة (⋮) أعلى الشاشة.','اضغط <b>تثبيت التطبيق</b> أو <b>إضافة إلى الشاشة الرئيسية</b>.','أكّد ثم افتح <b>لايف إكس ديجيتال</b> من الشاشة الرئيسية.'],
+  n:'على آيفون لا تعمل الإشعارات إلا بعد تثبيت التطبيق بهذه الطريقة (iOS 16.4 أو أحدث). افتحه من الأيقونة الجديدة ثم اسمح بالإشعارات.',go:'فتح لايف إكس ديجيتال'}
+};
+var l='en';
+try{var q=(location.search.match(/[?&]lang=(en|fr|ar)/)||[])[1];var L=[].concat(navigator.languages||[],navigator.language||[]);
+ for(var i=0;i<L.length;i++){var c=String(L[i]).toLowerCase().slice(0,2);if(T[c]){l=c;break}}
+ var st=localStorage.getItem('yor_device_lang');if(T[st])l=st;if(q)l=q;}catch(e){}
+var x=T[l],d=document.documentElement;d.lang=l;d.dir=l==='ar'?'rtl':'ltr';
+document.title=x.t+' · '+(l==='ar'?'لايف إكس ديجيتال':'Live X Digitale');
+function $(i){return document.getElementById(i)}
+$('t').textContent=x.t;$('s').textContent=x.s;$('n').textContent=x.n;$('go').textContent=x.go;
+function fill(id,a){$(id).innerHTML=a.map(function(s){return '<li><span>'+s+'</span></li>'}).join('')}
+fill('ios',x.i);fill('and',x.a);
+function pick(ios){$('ios').hidden=!ios;$('and').hidden=ios;$('tI').setAttribute('aria-selected',ios);$('tA').setAttribute('aria-selected',!ios)}
+$('tI').onclick=function(){pick(true)};$('tA').onclick=function(){pick(false)};
+if(/android/i.test(navigator.userAgent))pick(false);
+})();
+</script>
+</body>
+</html>

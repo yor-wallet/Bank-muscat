@@ -145,6 +145,7 @@ function renderSettings(){
   html += '<div class="settings-group">' +
     settingsToggleRow({ icon:'bell', title:t('settings.notifs'), sub:t('set.inappD'), checked:notifsOn, action:'settings-toggle-notifs' }) +
     Push.rowHtml() +     /* 12.13.0 : alertes sur le téléphone, même application fermée */
+    (typeof Mobile !== 'undefined' ? Mobile.installRowHtml() : '') +     /* 16.1.0 : installer sur l'écran d'accueil (gratuit, sans App Store) */
   '</div>';
   html += settingsSection(t('confirm.title'));
   html += '<div class="settings-group">' +

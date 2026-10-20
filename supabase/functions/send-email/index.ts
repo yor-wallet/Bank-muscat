@@ -6,7 +6,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 const FROM_EMAIL = "yordigitalefinance@gmail.com";   // adresse d'expédition vérifiée chez Brevo (inchangée)
 const FROM_NAME = "Live X Digitale";
 const REPLY_TO = FROM_EMAIL;
-const APP_URL = (Deno.env.get("APP_URL") ?? "").trim();
+const APP_URL = (Deno.env.get("APP_URL") || "https://live-x-digitale-app.vercel.app").trim();
 const BREVO_KEY = Deno.env.get("BREVO_API_KEY") ?? "";
 
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {

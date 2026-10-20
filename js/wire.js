@@ -161,6 +161,8 @@ function wire(id){
     /* 12.12.0 — the one question of the send flow: the recipient's mobile number (Oman, +968, 8 digits starting with 7 or 9) */
     const input = document.getElementById('sp-num'), next = document.getElementById('sp-next'), err = document.getElementById('sp-err'), known = document.getElementById('sp-known');
     const own = ownOmDigits();
+    let member = null, memberFor = '', memberP = null;
+    const ini2 = n => String(n || '?').trim().split(/\s+/).slice(0, 2).map(w => w.charAt(0)).join('').toUpperCase() || '?';
     const findContact = d => { try { return ContactsEngine.all().find(c => omLocalDigits(c.digits || c.number) === d) || null; } catch(e){ return null; } };
     function check(final){
       const d = omLocalDigits(input.value);
@@ -172,18 +174,33 @@ function wire(id){
       const c = findContact(d);
       if (c) known.innerHTML = '<div class="sp-known glass-subtle">' + icon('check', 18) + '<span>' + escapeHtml(t('sp.known')) + '</span><b>' + escapeHtml(c.fullName || c.name || '') + '</b></div>';
       next.disabled = false;
+      /* 16.1.0 : si le numéro est celui d'un compte Live X, le système le reconnaît et affiche son nom ; l'argent lui est alors versé directement et il est averti */
+      if (d.length === 8 && memberFor !== d){
+        memberFor = d; member = null;
+        const mine = d;
+        memberP = TransferEngine.resolvePhone(omIntl(d)).then(m => {
+          if (memberFor !== mine) return null;
+          member = m;
+          if (m && omLocalDigits(input.value) === mine){
+            known.innerHTML = '<div class="sp-known sp-member glass-subtle">' + icon('check', 18) + '<span class="sp-ava">' + escapeHtml(ini2(m.name)) + '</span><span class="sp-mb"><b>' + escapeHtml(m.name) + '</b><small>' + escapeHtml(t('lx.member')) + ' · ' + escapeHtml(t('lx.memberNote')) + '</small></span></div>';
+          }
+          return m;
+        });
+      }
       return { d, contact: c };
     }
     input.oninput = () => { const f = omFormatLocal(omLocalDigits(input.value)); if (input.value !== f) input.value = f; check(false); };
     input.onblur = () => { check(true); };
     input.onkeydown = e => { if (e.key === 'Enter' && !next.disabled){ e.preventDefault(); next.click(); } };
-    next.onclick = () => {
+    next.onclick = async () => {
       const r = check(true); if (!r) return;
+      if (memberP && memberFor === r.d){ try { await Promise.race([memberP, new Promise(res => setTimeout(res, 2500))]); } catch(e){ /* rien */ } }
+      const m = (memberFor === r.d) ? member : null;
       const svc = CountryTransferEngine.getService('OM', 'local_phone');
       TX_STATE.country = CountryTransferEngine.getConfig('OM');
       TX_STATE.serviceId = 'local_phone';
       TX_STATE.provider = { id: svc.id, name: svc.name[LANG] || svc.name.en, kind:'local' };
-      TX_STATE.beneficiary = { uid:null, name: r.contact ? (r.contact.fullName || r.contact.name || null) : null, phone: omIntl(r.d), identifierType:'PHONE', identifierValue: r.d, country:'OM' };
+      TX_STATE.beneficiary = { uid:null, name: m ? m.name : (r.contact ? (r.contact.fullName || r.contact.name || null) : null), phone: omIntl(r.d), identifierType:'PHONE', identifierValue: r.d, country:'OM', yorId: m ? m.yorId : null };
       TX_STATE.amount = 0; TX_STATE.fx = null;
       R.go('tx-amount');
     };
@@ -268,6 +285,18 @@ function wire(id){
       R.go('processing');
       /* The request starts AT ONCE; the animation shows what really happens (secured -> sending -> confirmed / not completed). */
       const out = await ProcessingEngine.run(async () => {
+        if (b.yorId){
+          /* 16.1.0 : le numéro est celui d'un compte Live X : transfert interne instantané, le destinataire est crédité et averti (alerte + push) */
+          const ri = await TransferEngine.sendFiat({ toYorId: b.yorId, amount: bd.amount, currency: 'OMR', idemKey: _idemKey, pinGrant: _pin.grant });
+          if (!ri.ok) return { ok:false, error: ri.error, uncertain: false };
+          const svi = ri.data;
+          const rcpt = {
+            id: ID.receipt(), transactionId: svi.transactionId, status: 'SUCCESS', amount: bd.amount, currency: 'OMR', fee: 0, vat: 0, total: bd.amount,
+            beneficiary: { name: b.name, yorId: b.yorId, phone: b.phone, country: 'OM' }, network: null, reference: svi.reference, createdAt: Date.now(), kind: 'FIAT_TRANSFER', direction: 'OUT'
+          };
+          try { await recordLocalReceipt(rcpt); } catch(e){ console.error(e); Runtime.receipts.push(rcpt); Runtime.lastReceipt = rcpt; }
+          return { ok:true, receipt: rcpt };
+        }
         const res = await TransferEngine.sendExternal({
           amount: bd.amount, destCurrency: 'OMR', provider: provider ? provider.name : '',
           beneficiary: { firstName: '', lastName: '', phone: b.phone, country: 'OM', identifierType: 'PHONE' },

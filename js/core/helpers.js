@@ -192,7 +192,7 @@ function txDayLabel(ts){
   const diff = Math.round((s(n) - s(d)) / 86400000);
   if (diff === 0) return t('ds.today');
   if (diff === 1) return t('ds.yesterday');
-  try { return d.toLocaleDateString(LANG === 'ar' ? 'ar' : LANG, { weekday:'long', day:'numeric', month:'long' }); } catch(e){ return d.toDateString(); }
+  try { return d.toLocaleDateString(LANG === 'ar' ? 'ar-u-nu-latn' : LANG, { weekday:'long', day:'numeric', month:'long' }); } catch(e){ return d.toDateString(); }
 }
 function txGroupedHtml(txs, mask){
   let html = '', last = null;

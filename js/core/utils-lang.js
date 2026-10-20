@@ -88,9 +88,9 @@ function timeAgo(ts){
   if (m < 60) return m + ' min';
   const h = Math.floor(m / 60);
   if (h < 24) return h + ' h';
-  return new Date(ts).toLocaleDateString(LANG === 'en' ? 'en-GB' : LANG === 'ar' ? 'ar-EG' : 'fr-FR', { day:'2-digit', month:'short' });
+  return new Date(ts).toLocaleDateString(LANG === 'en' ? 'en-GB' : LANG === 'ar' ? 'ar-EG-u-nu-latn' : 'fr-FR', { day:'2-digit', month:'short' });
 }
-function fmtDate(ts){ return new Date(ts).toLocaleDateString(LANG === 'en' ? 'en-GB' : LANG === 'ar' ? 'ar-EG' : 'fr-FR', { day:'2-digit', month:'short', year:'numeric' }); }
+function fmtDate(ts){ return new Date(ts).toLocaleDateString(LANG === 'en' ? 'en-GB' : LANG === 'ar' ? 'ar-EG-u-nu-latn' : 'fr-FR', { day:'2-digit', month:'short', year:'numeric' }); }
 function fmtTime(ts){ return new Date(ts).toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit', hour12:true }); }
 function toast(msg, type){
   const c = document.getElementById('toasts');

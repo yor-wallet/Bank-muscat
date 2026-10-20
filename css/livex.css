@@ -50,3 +50,23 @@
 .rc-approved{display:inline-flex;align-items:center;gap:7px;margin:10px auto 0;padding:7px 13px;border-radius:999px;font-size:calc(12.5px*var(--ui,1));font-weight:800;letter-spacing:.2px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);animation:lxck .5s .15s cubic-bezier(.2,1.4,.4,1) both}
 .rc-approved svg{flex:none}
 @media (prefers-reduced-motion:reduce){.toast-ck,.rc-approved{animation:none}}
+
+/* ---- 16.1.0 : destinataire reconnu par son numéro ---- */
+.sp-member{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.sp-ava{flex:none;width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;font-weight:800;font-size:14px;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A)}
+.sp-mb{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:start}
+.sp-mb b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sp-mb small{font-size:12px;opacity:.75;line-height:1.35}
+.sp-member{justify-content:flex-start}.sp-member .sp-mb{flex:1}.sp-member .sp-mb b,.sp-member .sp-mb small{margin:0;text-align:start;align-self:stretch}
+
+/* ---- 16.1.0 : notifications obligatoires et installation iPhone ---- */
+.mb{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:26px 22px 22px;max-width:380px;margin:0 auto}
+.mb-ic{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);box-shadow:0 10px 30px color-mix(in srgb,var(--accent) 35%,transparent)}
+.mb h2{margin:4px 0 0;font-size:21px;font-weight:800}
+.mb p{margin:0;font-size:14.5px;line-height:1.6;opacity:.85}
+.mb .btn{width:100%}
+.mb-err{min-height:18px;color:var(--danger,#ef4444);font-size:13px}
+.mb-steps{list-style:none;margin:4px 0 6px;padding:0;width:100%;display:flex;flex-direction:column;gap:10px;text-align:start}
+.mb-steps li{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,transparent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
+.mb-steps b{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);font-size:13px}
+.mb-steps span{font-size:14px;line-height:1.45}

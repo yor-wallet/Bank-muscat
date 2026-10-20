@@ -19,7 +19,7 @@ const AppLock = (() => {
     ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح لايف إكس ديجيتال', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
   };
   const tx = (k) => (L[LANG] || L.en)[k] || L.en[k];
-  let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0;
+  let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0, lastPin = null;
 
   function css(){
     if (document.getElementById('yl-css')) return;
@@ -91,7 +91,7 @@ const AppLock = (() => {
       busy = true;
       if (step === 0){
         let r; try { r = await PinEngine.verify(entry); } catch(e){ r = { ok:false, msg:tx('error') }; }
-        if (r.ok){ success(); return; }
+        if (r.ok){ lastPin = entry; success(); return; }
         fail(r.msg); return;
       }
       if (step === 1){ first = entry; entry = ''; step = 2; busy = false; $('yl-err').textContent = ''; paint(); return; }
@@ -102,7 +102,7 @@ const AppLock = (() => {
         if (m.includes('weak_pin')){ first = null; step = 1; fail(tx('weak')); return; }
         if (!m.includes('pin_exists')){ fail(tx('error')); return; }
       }
-      success();
+      lastPin = entry; success();
     }
     function press(k, btn){
       if (busy) return;
@@ -132,7 +132,9 @@ const AppLock = (() => {
     if (sup){
       const r = await FaceId.reenroll({ purpose: purpose, logout: logout });
       if (r && r.loggedOut) return;
+      if (lastPin && r && r.ok && !r.skipped){ try { await PinEngine.seed(lastPin, r); } catch(e){ /* rien */ } }     /* 16.1.0 : Face ID activé -> les transferts n'ont plus besoin du code */
     }
+    lastPin = null;
     close(); if (next) next();
   }
   /* Confirmation Face ID (obligatoire quand l'appareil le permet) à l'ouverture / au retour dans l'application */

@@ -13,6 +13,16 @@ const TransferEngine = (() => {
     return { uid: null, userId: '', yorId: r.yor_id, name: r.display_name || dispId(r.yor_id),
              phone: '', country: r.country || 'OM', role: 'user', photo: r.photo || null };
   }
+  /* 16.1.0 : reconnaît un compte Live X à partir de son numéro de mobile (find_user_by_phone) -> { yorId, name, country } ou null */
+  async function resolvePhone(intl){
+    if (!supabaseReady || !intl) return null;
+    try {
+      const { data, error } = await sb.rpc('find_user_by_phone', { p_phone: intl });
+      const r = Array.isArray(data) ? data[0] : data;
+      if (error || !r) return null;
+      return { yorId: r.yor_id, name: r.display_name || dispId(r.yor_id), country: r.country || 'OM' };
+    } catch(e){ return null; }
+  }
   /* 12.3.3 : the two SMS (sender + recipient) of a transfer leave AUTOMATICALLY and IMMEDIATELY. The database itself calls the
      send-notice function the moment the transfer is recorded (same transaction, no button, no confirmation, no delay), and a
      per-minute sweep retries a failed send. This call is the BACKUP path: it runs right after the server answered (before the
@@ -130,6 +140,6 @@ const TransferEngine = (() => {
       return { ok:false, uncertain:true, error:'errors.UNCERTAIN' };     /* no answer read: the server may have recorded it */
     } finally { setTimeout(() => inflight.delete(idem), 1500); }
   }
-  return { resolveYorId, sendFiat, sendExternal, checkExternal, flushNotices, isUncertain };
+  return { resolveYorId, resolvePhone, sendFiat, sendExternal, checkExternal, flushNotices, isUncertain };
 })();
 

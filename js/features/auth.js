@@ -99,7 +99,8 @@ const AuthEngine = (() => {
     if (n && notifOn){
       const d = n.data || {};
       if (n.type === 'TRANSFER_RECEIVED' || n.type === 'DEPOSIT'){
-        InAppNotif.showCall({ title: n.title, message: n.message, status:'success' });
+        const nv = (typeof notifView === 'function') ? notifView(n) : { title: n.title, message: n.message };
+        InAppNotif.showCall({ title: nv.title, message: nv.message, status:'success' });
         try { Sfx.play('money'); } catch(e){ /* rien */ }
       } else if (n.type === 'REWARD'){
         try { Reward.celebrate({ id: n.id, amount: d.amount, currency: d.currency }); } catch(e){ /* rien */ }       /* 16.0.0 : la récompense réelle (écrite par le serveur) s'affiche en grand, avec son */

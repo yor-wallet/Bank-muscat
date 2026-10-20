@@ -40,6 +40,38 @@ const PinEngine = (() => {
       return /^[0-9]{6}$/.test(pin) ? pin : null;
     } catch(e){ return null; }
   }
+  /* 16.1.0 — Face ID SEUL, même sans PRF (iPhone / PWA / autres appareils) : le code est gardé chiffré avec une clé AES NON EXTRACTIBLE rangée dans
+     IndexedDB de CET appareil. Il n'est déchiffré qu'après une vraie vérification Face ID / biométrique réussie (jamais sur un appareil sans biométrie). */
+  function idbOpen(){ return new Promise((res, rej) => { const r = indexedDB.open('lx_vault', 1); r.onupgradeneeded = () => r.result.createObjectStore('k'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
+  async function deviceKey(create){
+    const db = await idbOpen();
+    try {
+      const k = await new Promise((res, rej) => { const q = db.transaction('k').objectStore('k').get('dk'); q.onsuccess = () => res(q.result || null); q.onerror = () => rej(q.error); });
+      if (k || !create) return k;
+      const nk = await crypto.subtle.generateKey({ name:'AES-GCM', length:256 }, false, ['encrypt', 'decrypt']);
+      await new Promise((res, rej) => { const tx = db.transaction('k', 'readwrite'); tx.objectStore('k').put(nk, 'dk'); tx.oncomplete = res; tx.onerror = () => rej(tx.error); });
+      return nk;
+    } finally { try { db.close(); } catch(e){ /* rien */ } }
+  }
+  async function vaultSaveDk(pin){
+    const u = ctxUid(); if (!u || !/^[0-9]{6}$/.test(pin)) return false;
+    try {
+      const key = await deviceKey(true); if (!key) return false;
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const ct = new Uint8Array(await crypto.subtle.encrypt({ name:'AES-GCM', iv }, key, new TextEncoder().encode(pin)));
+      const v = vRead(); v[u] = { m:'dk', iv: b64(iv), ct: b64(ct), cid: null, at: Date.now() }; vWrite(v); return true;
+    } catch(e){ return false; }
+  }
+  async function vaultOpenDk(){
+    const u = ctxUid(); const rec = u ? vRead()[u] : null;
+    if (!rec || rec.m !== 'dk') return null;
+    try {
+      const key = await deviceKey(false); if (!key) return null;
+      const pt = await crypto.subtle.decrypt({ name:'AES-GCM', iv: unb64(rec.iv) }, key, unb64(rec.ct));
+      const pin = new TextDecoder().decode(pt);
+      return /^[0-9]{6}$/.test(pin) ? pin : null;
+    } catch(e){ return null; }
+  }
   function forget(uid){ const u = uid || ctxUid(); const v = vRead(); if (u && v[u]){ delete v[u]; vWrite(v); } }
   function hasVault(){ const u = ctxUid(); return !!(u && vRead()[u]); }
   const unwrap = (r) => (Array.isArray(r.data) ? r.data[0] : r.data);
@@ -132,8 +164,9 @@ const PinEngine = (() => {
       try { salt = await prfSalt(); } catch(e){}
       try { f = await FaceId.gate({ purpose:'transfer', cancel:true, prfSalt: salt }); } catch(e){ f = { ok:false, skipped:'error' }; }
       /* 1) Face ID confirmed and the code is in the vault: the server checks it (verify_pin), nothing to type */
-      if (f && f.ok && f.prf){
-        const pin = await vaultOpen(f.prf, f.cid);
+      const bio = !!(f && f.ok && !f.skipped);          /* une vraie vérification Face ID / biométrique a réussi (pas « appareil sans biométrie ») */
+      if (bio){
+        const pin = f.prf ? await vaultOpen(f.prf, f.cid) : await vaultOpenDk();
         if (pin){
           const v = await verify(pin);
           if (v.ok) return { ok:true, grant: v.value, via:'faceid' };
@@ -143,16 +176,9 @@ const PinEngine = (() => {
       /* 2) otherwise the 6-digit code (Face ID cancelled, failed, not available, or first time on this device) */
       let typed = null;
       const r = await authorizeCore(pin => { typed = pin; });
-      if (r.ok && typed && f && f.ok){
+      if (r.ok && typed && bio){
         if (f.prf) await vaultSave(typed, f.prf, f.cid);        /* next time Face ID alone is enough */
-        else if (f.skipped !== 'unsupported'){
-          /* key created before 12.15.0 without PRF: one new Face ID key so the next transfers can use Face ID alone */
-          try {
-            const rec = await FaceId.record(), u = ctxUid(), k = 'friendly_prf_upgrade_v1';
-            let tried = {}; try { tried = JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch(e){}
-            if (rec && !rec.prf && u && !tried[u]){ tried[u] = Date.now(); try { localStorage.setItem(k, JSON.stringify(tried)); } catch(e){} await FaceId.reenroll({ purpose:'transfer', cancel:true }); }
-          } catch(e){}
-        }
+        else await vaultSaveDk(typed);                          /* 16.1.0 : sans PRF, clé liée à l'appareil : Face ID seul suffit aussi la prochaine fois */
       }
       typed = null;
       /* Face ID could not be used (recover): the PIN just verified lets the device create a fresh Face ID key */
@@ -249,6 +275,8 @@ const PinEngine = (() => {
     const d = unwrap(st) || {};
     return !!d.has_pin;
   }
-  return { authorize, verify, hasPin, change, forget, hasVault, _vault: { save: vaultSave, open: vaultOpen } };
+  /* 16.1.0 : le code saisi à l'ouverture / à la création est rangé dans le coffre dès que Face ID est activé : le premier transfert n'en demande plus */
+  async function seed(pin, f){ if (!f || !f.ok || f.skipped || !/^[0-9]{6}$/.test(String(pin || ''))) return false; return f.prf ? vaultSave(pin, f.prf, f.cid) : vaultSaveDk(pin); }
+  return { authorize, verify, hasPin, change, forget, hasVault, seed, _vault: { save: vaultSave, open: vaultOpen } };
 })();
 

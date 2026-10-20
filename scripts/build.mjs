@@ -81,7 +81,7 @@ const copyDir = (from, to) => {
   }
 };
 copyDir(path.join(ROOT, 'assets'), path.join(DIST, 'assets'));
-for (const f of ['404.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico', 'robots.txt']) fs.copyFileSync(path.join(ROOT, f), path.join(DIST, f));
+for (const f of ['404.html', 'offline.html', 'install.html', 'manifest.webmanifest', 'favicon.ico', 'robots.txt']) fs.copyFileSync(path.join(ROOT, f), path.join(DIST, f));
 
 /* ---------- service worker : liste de fichiers + nom de cache ---------- */
 let sw = read('sw.js');

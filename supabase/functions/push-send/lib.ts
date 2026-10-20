@@ -151,18 +151,21 @@ const T: Record<Lang, Record<string, string>> = {
     sent: "Money sent", received: "Money received", deposit: "Money added", reward: "Welcome reward 🎁", newUser: "New member",
     sentBody: "{amt} sent to {to}", sentBodyNoTo: "{amt} sent", receivedBody: "{amt} received from {from}", receivedBodyNoFrom: "{amt} received", depositBody: "{amt} added to your account",
     rewardBody: "{amt} added to your wallet as a welcome reward",
+    ref: "Ref.",
     testTitle: "Notifications are on", testBody: "You will see here when money is sent or received.",
   },
   fr: {
     sent: "Transfert envoyé", received: "Argent reçu", deposit: "Argent ajouté", reward: "Récompense de bienvenue 🎁", newUser: "Nouveau membre",
-    sentBody: "{amt} envoyés au {to}", sentBodyNoTo: "{amt} envoyés", receivedBody: "{amt} reçus de {from}", receivedBodyNoFrom: "{amt} reçus", depositBody: "{amt} ajoutés à votre compte",
+    sentBody: "{amt} envoyés à {to}", sentBodyNoTo: "{amt} envoyés", receivedBody: "{amt} reçus de {from}", receivedBodyNoFrom: "{amt} reçus", depositBody: "{amt} ajoutés à votre compte",
     rewardBody: "{amt} ajoutés à votre portefeuille en cadeau de bienvenue",
+    ref: "Réf.",
     testTitle: "Notifications activées", testBody: "Vous serez prévenu ici dès qu'un transfert est envoyé ou reçu.",
   },
   ar: {
     sent: "تم الإرسال", received: "تم استلام مبلغ", deposit: "تمت إضافة مبلغ", reward: "مكافأة الترحيب 🎁", newUser: "عضو جديد",
     sentBody: "تم إرسال {amt} إلى {to}", sentBodyNoTo: "تم إرسال {amt}", receivedBody: "تم استلام {amt} من {from}", receivedBodyNoFrom: "تم استلام {amt}", depositBody: "تمت إضافة {amt} إلى حسابك",
     rewardBody: "تمت إضافة {amt} إلى محفظتك كمكافأة ترحيب",
+    ref: "المرجع",
     testTitle: "الإشعارات مفعّلة", testBody: "ستظهر هنا عند إرسال أو استلام أي مبلغ.",
   },
 };
@@ -206,7 +209,8 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   const fill = (tpl: string, vars: Row) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(vars[k] ?? ""));
   let title = "", body = "";
   if (type === "TRANSFER_SENT") {
-    const to = maskPhone(d.to);
+    const toRaw = String(d.to ?? "");
+    const to = /\d{6,}/.test(toRaw) ? maskPhone(toRaw) : clean(toRaw, 40);   /* numéro : masqué ; nom d'un membre (transfert interne) : affiché */
     title = t.sent;
     body = amt ? fill(to ? t.sentBody : t.sentBodyNoTo, { amt: iso(amt), to: iso(to) }) : clean(n.message, 120);
   } else if (type === "TRANSFER_RECEIVED") {
@@ -225,6 +229,8 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
     title = t.deposit;                                        /* DEPOSIT : on n'affiche pas l'expéditeur (ancien nom de marque dans les anciennes lignes) */
     body = amt ? fill(t.depositBody, { amt: iso(amt) }) : clean(n.message, 120);
   }
+  /* 16.1.0 : référence de la transaction dans le texte de l'alerte (montant, personne et référence) */
+  if (d.reference && (type === "TRANSFER_SENT" || type === "TRANSFER_RECEIVED" || type === "DEPOSIT") && amt) body += " · " + t.ref + " " + iso(String(d.reference).replace(/^YOR-/i, "LXD-"));
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {

@@ -1,4 +1,4 @@
-/* Live X Digitale service worker (16.0.3) : coquille de l'application hors ligne + réception des notifications push.
+/* Live X Digitale service worker (16.1.0) : coquille de l'application hors ligne + réception des notifications push.
    - Il ne met JAMAIS en cache le trafic Supabase / API / chaîne : soldes et transactions viennent toujours du serveur.
    - 15.1.0 (vitesse) : les fichiers à empreinte (app.<hash>.js / .css), les polices et le client Supabase sont servis DEPUIS LE TÉLÉPHONE (copie locale d'abord,
      jamais de réseau tant qu'ils n'ont pas changé de nom) ; la page d'accueil aussi. Une nouvelle version = nouveau nom de cache : elle s'installe en arrière-plan
@@ -14,7 +14,7 @@ const IMMUTABLE = /(?:\.[0-9a-f]{10}\.(?:js|css)|(?:^|\/)js\/vendor\/[^/]*-\d[\w
 const SHELL = [
   './', 'index.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico',
   'css/base.css', 'css/buttons.css', 'css/layout.css', 'css/motion.css', 'css/home.css', 'css/redesign.css', 'css/v12.css', 'css/chain.css',
-  'css/yor-ds.css', 'css/friendly.css', 'css/promos.css', 'css/wallet-connect.css', 'css/opening.css', 'css/resilience.css', 'css/premium.css', 'css/card-metal.css', 'css/livex.css', 'css/welcome.css', 'css/intl.css', 'css/admin.css', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg',
+  'css/yor-ds.css', 'css/friendly.css', 'css/promos.css', 'css/wallet-connect.css', 'css/opening.css', 'css/resilience.css', 'css/premium.css', 'css/card-metal.css', 'css/livex.css', 'css/arabic.css', 'css/welcome.css', 'css/intl.css', 'css/admin.css', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg',
   'js/core/supabase-client.js', 'js/data/reference-data.js', 'js/data/intl-catalog.js', 'js/i18n/translations.js', 'js/i18n/livex.js', 'js/core/engines.js', 'js/core/domain.js', 'js/core/notifications.js',
   'js/core/utils-lang.js', 'js/ui/icons.js', 'js/ui/opening-art.js', 'js/ui/sfx.js', 'js/ui/phone-art.js', 'js/ui/send-anim.js', 'js/features/resilience.js', 'js/core/router.js', 'js/features/auth.js', 'js/ui/keypad.js',
   'js/features/faceid.js', 'js/features/pin.js', 'js/features/app-lock.js', 'js/features/onboarding.js', 'js/features/transfer-engine.js',
@@ -22,10 +22,10 @@ const SHELL = [
   'js/screens/drawer.js', 'js/screens/transfer-flow.js', 'js/ui/receipt-export.js', 'js/screens/receipt.js', 'js/screens/history-cards.js',
   'js/screens/profile-settings.js', 'js/screens/info.js', 'js/screens/crypto-market.js', 'js/screens/crypto-trade.js', 'js/screens/crypto-receive-bank.js',
   'js/features/yor-chain.js', 'js/features/chain-notice.js', 'js/screens/chain-wallet.js', 'js/features/wallet-connect.js', 'js/features/v12.js',
-  'js/features/promos.js', 'js/features/reward.js', 'js/features/push.js', 'js/features/premium.js', 'js/features/v13.js', 'js/screens/intl.js', 'js/screens/admin.js', 'js/screens/register.js', 'js/features/livex.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
+  'js/features/promos.js', 'js/features/reward.js', 'js/features/push.js', 'js/features/mobile.js', 'js/features/premium.js', 'js/features/v13.js', 'js/screens/intl.js', 'js/screens/admin.js', 'js/screens/register.js', 'js/features/livex.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
   'assets/brand/logo-mark.svg', 'assets/brand/wordmark-white.svg',
   'assets/fonts/manrope-latin-var.woff2', 'assets/fonts/manrope-latin-ext-var.woff2', 'assets/fonts/inter-latin-var.woff2',
-  'assets/fonts/plex-arabic-400.woff2', 'assets/fonts/plex-arabic-500.woff2', 'assets/fonts/plex-arabic-600.woff2', 'assets/fonts/plex-arabic-700.woff2',
+  'assets/fonts/readex-pro-arabic-var.woff2', 'assets/fonts/readex-pro-latin-var.woff2',
   'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png', 'assets/icons/apple-touch-icon.png',
   'assets/ui/snowflake.svg', 'assets/ui/chip.svg', 'assets/ui/contactless.svg',
   'assets/illustrations/empty-cards.svg', 'assets/illustrations/empty-activity.svg', 'assets/illustrations/success.svg',

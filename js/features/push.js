@@ -10,7 +10,7 @@
    La clé publique VAPID (CONFIG.PUSH.vapidPublicKey) est publique ; la clé privée n'existe que sur le serveur.
    ============================================================ */
 const Push = (() => {
-  const FIAT_TYPES = ['TRANSFER_SENT', 'TRANSFER_RECEIVED', 'DEPOSIT'];     /* la crypto est masquée : jamais de pastille ni d'alerte pour elle */
+  const FIAT_TYPES = ['TRANSFER_SENT', 'TRANSFER_RECEIVED', 'DEPOSIT', 'REWARD', 'NEW_USER'];     /* la crypto est masquée : jamais de pastille ni d'alerte pour elle */
   const keyB64 = () => (typeof CONFIG !== 'undefined' && CONFIG.PUSH && CONFIG.PUSH.vapidPublicKey) || '';
   const ua = () => (navigator.userAgent || '');
   const isIos = () => /iPad|iPhone|iPod/.test(ua()) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);

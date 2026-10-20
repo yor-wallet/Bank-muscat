@@ -9,7 +9,7 @@ const CurrencyEngine = Object.freeze({
     c = String(c || 'OMR').toUpperCase();
     const m = CurrencyEngine.meta(c);
     const n = Number(a || 0);
-    if (!locale) locale = LANG === 'en' ? 'en-US' : LANG === 'ar' ? 'ar-OM-u-nu-arab' : 'fr-FR';
+    if (!locale) locale = LANG === 'en' ? 'en-US' : LANG === 'ar' ? 'ar-OM-u-nu-latn' : 'fr-FR';
     const o = { minimumFractionDigits:m.decimals, maximumFractionDigits:m.decimals };
     let num;
     try { num = Math.abs(n).toLocaleString(locale, o); } catch(e){ num = Math.abs(n).toLocaleString('en-US', o); }

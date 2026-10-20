@@ -1,0 +1,26 @@
+/* ===== Live X Digitale 16.1.0 — système de police arabe =====
+   Readex Pro : police variable (poids 160 à 700) dont les lettres arabes ET latines sont dessinées ensemble : un texte arabe contenant un nombre,
+   un nom latin ou « OMR » garde la même hauteur, la même graisse et la même couleur de trait (l'ancien mélange Plex arabe + Manrope latin ne s'accordait pas).
+   Fichiers hébergés par le site (≈ 54 Ko pour les deux), chargés seulement quand un texte arabe est affiché. */
+@font-face{font-family:"Readex Pro";font-style:normal;font-display:swap;font-weight:160 700;src:url(../assets/fonts/readex-pro-arabic-var.woff2) format("woff2-variations"),url(../assets/fonts/readex-pro-arabic-var.woff2) format("woff2");
+  unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:"Readex Pro";font-style:normal;font-display:swap;font-weight:160 700;src:url(../assets/fonts/readex-pro-latin-var.woff2) format("woff2-variations"),url(../assets/fonts/readex-pro-latin-var.woff2) format("woff2");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+/* base : interligne plus haut (les points et les signes se superposent sinon), aucun espacement entre lettres (il COUPE la liaison des lettres arabes),
+   aucune capitale forcée, ligatures actives, signes de vocalisation jamais rognés */
+html[dir="rtl"] body{font-family:var(--font-ar);line-height:1.6;font-feature-settings:"liga" 1,"calt" 1,"ccmp" 1,"locl" 1;font-kerning:normal;text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%}
+html[dir="rtl"] body *:not(.ltr):not([dir="ltr"]):not(svg):not(svg *):not(code):not(.mono){letter-spacing:0!important;text-transform:none!important;word-spacing:normal}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] .topbar-title,html[dir="rtl"] .receipt-title,html[dir="rtl"] .item-title,html[dir="rtl"] .settings-row-title{line-height:1.45;font-weight:700}
+html[dir="rtl"] .caption,html[dir="rtl"] .item-sub,html[dir="rtl"] .settings-row-sub,html[dir="rtl"] .field-label,html[dir="rtl"] p{line-height:1.7}
+html[dir="rtl"] .btn,html[dir="rtl"] .chip,html[dir="rtl"] button{font-family:var(--font-ar);font-weight:600;line-height:1.4}
+html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea{font-family:var(--font-ar);line-height:1.5}
+/* un nombre, un identifiant ou un numéro reste lisible de gauche à droite, avec les mêmes chiffres que les autres langues */
+html[dir="rtl"] .ltr,html[dir="rtl"] [dir="ltr"],html[dir="rtl"] .amount,html[dir="rtl"] .item-amount,html[dir="rtl"] .rc-amt{font-family:"Readex Pro",var(--font-num);font-variant-numeric:tabular-nums lining-nums;unicode-bidi:isolate}
+/* champ de saisie : le texte arabe va de droite à gauche, le numéro de téléphone / l'e-mail de gauche à droite */
+html[dir="rtl"] input[type="tel"],html[dir="rtl"] input[type="email"],html[dir="rtl"] input[type="number"],html[dir="rtl"] input[inputmode="numeric"]{direction:ltr;text-align:right}
+html[dir="rtl"] ::placeholder{font-family:var(--font-ar);opacity:.55}
+/* étiquettes en capitales des écrans latins : en arabe, ni capitales ni espacement */
+html[dir="rtl"] .eyebrow,html[dir="rtl"] .rc-eyebrow,html[dir="rtl"] .px-s-h,html[dir="rtl"] .set-cat,html[dir="rtl"] .receipt-benef-label{text-transform:none!important;letter-spacing:0!important;font-size:calc(1em*1.02)}
+/* l'ombre des textes sur fond doré ne doit pas mordre les points des lettres */
+html[dir="rtl"] .btn-primary{text-shadow:none}

@@ -74,6 +74,7 @@ const LiveX = (() => {
   function afterHome(){
     probe().then(() => { if (caps.intl && R.current() === 'home') R.go('home', { force: true, replace: true }); });
     phoneGate();
+    try { Mobile.afterHome(); } catch(e2){ /* rien */ }      /* 16.1.0 : notifications obligatoires / installation iPhone */
   }
   function guardIntl(){
     if (caps.intl === false){ setTimeout(() => { try { toast(IntlX.e('notReady'), 'error'); } catch(e2){ /* rien */ } R.go('services', { replace: true }); }, 0); return false; }
