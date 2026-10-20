@@ -140,6 +140,23 @@ ${assetDirs.map(d => `/assets/${d}/*\n  ${SWR}`).join('\n')}
 `;
 fs.writeFileSync(path.join(DIST, '_headers'), headers);
 
+/* ---------- vercel.json : les MÊMES règles que _headers, pour un déploiement Vercel (dossier racine = dist) ---------- */
+{
+  const rules = []; let cur = null;
+  for (const raw of headers.split('\n')) {
+    if (!raw.trim() || raw.startsWith('#')) continue;
+    if (!/^\s/.test(raw)) { cur = { path: raw.trim(), h: [] }; rules.push(cur); continue; }
+    const m = raw.trim().match(/^([A-Za-z-]+):\s*(.*)$/); if (m && cur) cur.h.push([m[1], m[2]]);
+  }
+  const toSource = p => p === '/*' ? '/(.*)' : p.replace(/\*$/, '(.*)');
+  const vercel = { cleanUrls: false, trailingSlash: false, headers: rules.map(r => {
+    const merged = new Map();
+    for (const [k, v] of r.h) merged.set(k, merged.has(k) ? merged.get(k) + ', ' + v : v);     /* plusieurs « Link » -> un seul en-tête */
+    return { source: toSource(r.path), headers: [...merged].map(([key, value]) => ({ key, value })) };
+  }) };
+  fs.writeFileSync(path.join(DIST, 'vercel.json'), JSON.stringify(vercel, null, 2) + '\n');
+}
+
 /* ---------- bilan ---------- */
 const size = f => fs.statSync(path.join(DIST, f)).size;
 console.log(`CSS  ${cssFiles.length} fichiers ${kb(Buffer.byteLength(cssRaw))} -> ${cssName} ${kb(size(cssName))}`);
