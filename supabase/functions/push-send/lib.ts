@@ -144,28 +144,28 @@ export async function sendPush(
 }
 
 /* ---------- texte des notifications ---------- */
-export const PUSH_TYPES = ["TRANSFER_SENT", "TRANSFER_RECEIVED", "DEPOSIT", "REWARD", "NEW_USER", "CHAT_MESSAGE", "CREDIT_DECISION", "CREDIT_REQUEST", "ANNOUNCEMENT"] as const;   /* argent, récompense et alerte administrateur ; la crypto est masquée dans l'application */
+export const PUSH_TYPES = ["TRANSFER_SENT", "TRANSFER_RECEIVED", "DEPOSIT", "REWARD", "NEW_USER", "CHAT_MESSAGE", "CREDIT_DECISION", "CREDIT_REQUEST", "CREDIT_DUE", "ANNOUNCEMENT"] as const;   /* argent, récompense et alerte administrateur ; la crypto est masquée dans l'application */
 
 const T: Record<Lang, Record<string, string>> = {
   en: {
     sent: "Money sent", received: "Money received", deposit: "Money added", reward: "Welcome reward", newUser: "New member",
     sentBody: "{amt} sent to {to}", sentBodyNoTo: "{amt} sent", receivedBody: "{amt} received from {from}", receivedBodyNoFrom: "{amt} received", depositBody: "{amt} added to your account",
     rewardBody: "{amt} added to your wallet as a welcome reward",
-    ref: "Ref.", chat: "New message", creditOk: "Credit approved", creditNo: "Credit declined", creditReq: "Credit request",
+    ref: "Ref.", chat: "New message", creditOk: "Credit approved", creditNo: "Credit declined", creditReq: "Credit request", dueSoon: "Credit payment due soon", dueToday: "Credit payment due today", dueOver: "Credit payment overdue", dueClosed: "Credit repaid", dueBody: "{amt} due on {d}", dueClosedBody: "Your credit is fully repaid",
     testTitle: "Notifications are on", testBody: "You will see here when money is sent or received.",
   },
   fr: {
     sent: "Transfert envoyé", received: "Argent reçu", deposit: "Argent ajouté", reward: "Récompense de bienvenue", newUser: "Nouveau membre",
     sentBody: "{amt} envoyés à {to}", sentBodyNoTo: "{amt} envoyés", receivedBody: "{amt} reçus de {from}", receivedBodyNoFrom: "{amt} reçus", depositBody: "{amt} ajoutés à votre compte",
     rewardBody: "{amt} ajoutés à votre portefeuille en cadeau de bienvenue",
-    ref: "Réf.", chat: "Nouveau message", creditOk: "Crédit accordé", creditNo: "Crédit refusé", creditReq: "Demande de crédit",
+    ref: "Réf.", chat: "Nouveau message", creditOk: "Crédit accordé", creditNo: "Crédit refusé", creditReq: "Demande de crédit", dueSoon: "Échéance de crédit proche", dueToday: "Échéance de crédit aujourd'hui", dueOver: "Échéance de crédit en retard", dueClosed: "Crédit remboursé", dueBody: "{amt} à payer le {d}", dueClosedBody: "Votre crédit est entièrement remboursé",
     testTitle: "Notifications activées", testBody: "Vous serez prévenu ici dès qu'un transfert est envoyé ou reçu.",
   },
   ar: {
     sent: "تم الإرسال", received: "تم استلام مبلغ", deposit: "تمت إضافة مبلغ", reward: "مكافأة الترحيب", newUser: "عضو جديد",
     sentBody: "تم إرسال {amt} إلى {to}", sentBodyNoTo: "تم إرسال {amt}", receivedBody: "تم استلام {amt} من {from}", receivedBodyNoFrom: "تم استلام {amt}", depositBody: "تمت إضافة {amt} إلى حسابك",
     rewardBody: "تمت إضافة {amt} إلى محفظتك كمكافأة ترحيب",
-    ref: "المرجع", chat: "رسالة جديدة", creditOk: "تمت الموافقة على الائتمان", creditNo: "تم رفض الائتمان", creditReq: "طلب ائتمان",
+    ref: "المرجع", chat: "رسالة جديدة", creditOk: "تمت الموافقة على الائتمان", creditNo: "تم رفض الائتمان", creditReq: "طلب ائتمان", dueSoon: "اقتراب موعد قسط الائتمان", dueToday: "قسط الائتمان مستحق اليوم", dueOver: "قسط الائتمان متأخر", dueClosed: "تم سداد الائتمان", dueBody: "{amt} مستحق في {d}", dueClosedBody: "تم سداد ائتمانك بالكامل",
     testTitle: "الإشعارات مفعّلة", testBody: "ستظهر هنا عند إرسال أو استلام أي مبلغ.",
   },
 };
@@ -227,6 +227,10 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   } else if (type === "CREDIT_DECISION") {
     title = String(d.status) === "APPROVED" ? t.creditOk : t.creditNo;
     body = String(d.status) === "APPROVED" && amt ? fill(t.depositBody, { amt: iso(amt) }) : clean(n.message, 120);
+  } else if (type === "CREDIT_DUE") {
+    const st = String(d.stage ?? "");
+    title = st === "OVERDUE" ? t.dueOver : st === "TODAY" ? t.dueToday : st === "CLOSED" || st === "FORGIVEN" ? t.dueClosed : t.dueSoon;
+    body = st === "CLOSED" || st === "FORGIVEN" ? t.dueClosedBody : (amt ? fill(t.dueBody, { amt: iso(amt), d: iso(clean(d.due, 12)) }) : clean(n.message, 120));
   } else if (type === "ANNOUNCEMENT") {
     title = clean(n.title, 60) || "Live X Digitale"; body = clean(n.message, 160);
   } else if (type === "NEW_USER") {
@@ -243,7 +247,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {
-    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Live X Digitale" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : type === "CREDIT_DECISION" ? "#/credit" : "#/notifications",
+    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Live X Digitale" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : (type === "CREDIT_DECISION" || type === "CREDIT_DUE") ? "#/credit" : "#/notifications",
     badge: Math.max(0, Math.min(99, Math.floor(Number(unread) || 0))), lang, dir: lang === "ar" ? "rtl" : "ltr", ts: Date.now(), kind: type,
   };
 }
