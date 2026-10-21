@@ -42,3 +42,13 @@ Strings.add({
     };
   } catch(e){ console.warn('v181', e); }
 })();
+
+/* accueil : graphique réel envoyé / reçu sur 6 mois sous le panneau « Ce mois-ci » (uniquement s'il y a des opérations) */
+Hooks.on('home', root => {
+  try {
+    if (typeof Charts === 'undefined' || !Runtime.transactions || !Runtime.transactions.length) return;
+    const panel = root.querySelector('.v13-month'); if (!panel || panel.querySelector('.v19-monthly')) return;
+    const box = document.createElement('div'); box.className = 'v19-monthly'; box.style.marginTop = '14px';
+    panel.appendChild(box); Charts.monthly(box, Runtime.transactions);
+  } catch(e){ console.warn('monthly chart', e); }
+});

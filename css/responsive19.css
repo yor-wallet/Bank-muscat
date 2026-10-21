@@ -13,16 +13,26 @@
   .btn{padding-inline:14px}
   .yb-grid{gap:8px}
 }
+@media (max-width:380px){
+  #bottom-nav .nav-lb{font-size:9.5px;letter-spacing:-.01em}
+  #bottom-nav .nav-dock{padding-inline:2px}
+  .px-bal .ds-bal-label{white-space:normal}
+}
+.qs-seg-l{width:auto;min-width:96px;flex:0 0 auto}
+.qs-seg-l em{white-space:nowrap}
+.px-act span,.rv-act span{max-width:none;text-overflow:clip}
 @media (max-width:420px){ .yb-grid{grid-template-columns:repeat(3,1fr)} }
 
 /* ---------- tablette 600–1023 ---------- */
 @media (min-width:600px) and (max-width:1023.98px){
   .screen-body,.topbar,.yb,.rv-page,.set-body,.px-home,.rv-home{max-width:880px;margin-inline:auto;width:100%}
-  .px-home{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:24px;align-items:start;padding-inline:28px}
+  .px-home{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:20px;align-items:start;padding-inline:28px;grid-auto-flow:row dense}
+  .px-home .px-acts{gap:8px}
+  .px-home .px-acts .rv-act i{max-width:56px}
   .px-home > .px-top,.px-home > .cin-slot,.px-home > .v18-quick{grid-column:1/-1}
   .px-home > .ds-balance,.px-home > .rv-acts,.px-home > .v13-month{grid-column:1}
   .px-home > .px-sec{grid-column:2}
-  .px-home > .px-sec:first-of-type{grid-row:2 / span 4}
+  .px-home > .v13-month + .px-sec{grid-row:2 / span 6}
   .v18-quick{grid-template-columns:repeat(4,1fr)}
   .yb-grid{grid-template-columns:repeat(4,1fr);gap:14px}
   .qs-grid{grid-template-columns:repeat(4,1fr)}
@@ -38,11 +48,11 @@
 @media (min-width:1024px){
   .screen-body,.topbar,.yb,.rv-page,.set-body{max-width:1200px;margin-inline:auto;width:100%}
   .px-home,.rv-home{max-width:1200px;margin-inline:auto;width:100%;padding-inline:32px}
-  .px-home{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:32px;align-items:start}
+  .px-home{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:32px;align-items:start;grid-auto-flow:row dense}
   .px-home > .px-top,.px-home > .cin-slot,.px-home > .v18-quick{grid-column:1/-1}
   .px-home > .ds-balance,.px-home > .rv-acts,.px-home > .v13-month{grid-column:1}
   .px-home > .px-sec{grid-column:2}
-  .px-home > .px-sec:first-of-type{grid-row:2 / span 6}
+  .px-home > .v13-month + .px-sec{grid-row:2 / span 6}
   .px-home .px-acts{max-width:560px;justify-self:start;gap:18px}
   .v18-quick{grid-template-columns:repeat(4,1fr)}
   .yb-grid{grid-template-columns:repeat(5,1fr);gap:16px}
@@ -50,7 +60,8 @@
   /* paramètres : deux colonnes */
   .set-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:start}
   .set-body > .set-me,.set-body > .set-admin,.set-body > .set-out{grid-column:1/-1}
-  .set-body > .qs{grid-column:1}.set-body > .adv{grid-column:2;grid-row:2 / span 3}
+  .set-body > .set-me{grid-row:1}.set-body > .set-admin{grid-row:2}
+  .set-body > .qs{grid-column:1;grid-row:3}.set-body > .adv{grid-column:2;grid-row:3}.set-body > .set-out{grid-row:4}
   /* formulaires : deux colonnes quand ils sont larges */
   .screen-body .field-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   /* listes : lignes plus aérées, survol, curseur */

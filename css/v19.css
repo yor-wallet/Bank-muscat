@@ -176,3 +176,24 @@ html[dir="rtl"] .rv-day,html[dir="rtl"] .settings-section{letter-spacing:0;text-
 .fx-in{animation-duration:.4s}
 .btn:active:not(:disabled),.yb-svc:active,.v18-q:active,.qs-tile:active{transform:scale(.98)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ---------- graphiques (js/ui/charts.js) ---------- */
+:root{--ch-1:#ffd60a;--ch-2:#ffffff;--ch-3:#8e8e98;--ch-4:#c79c00;--ch-5:#4a4a52}
+:root[data-theme="light"]{--ch-1:#e0b800;--ch-2:#0a0a0b;--ch-3:#8a8a94;--ch-4:#7a5c00;--ch-5:#c4c4cc}
+.ch-empty{display:grid;place-items:center;border:1px dashed var(--border-2);border-radius:14px;color:var(--text-3);font-size:var(--t-sm)}
+.ch-donut-wrap{position:relative;width:min(200px,60vw);aspect-ratio:1;margin:0 auto}
+.ch-donut{width:100%;height:100%;display:block}
+.ch-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-align:center}
+.ch-center small{font-size:var(--t-xs);color:var(--text-3)}.ch-center b{font-size:var(--t-xl);font-weight:800;font-variant-numeric:tabular-nums}
+.ch-legend{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 16px}
+.ch-legend li{display:flex;align-items:center;gap:8px;font-size:var(--t-sm);color:var(--text-2)}
+.ch-legend i{width:10px;height:10px;border-radius:3px;display:block}.ch-legend b{color:var(--text);font-weight:700}
+.ch-bars,.ch-line{width:100%;height:auto;display:block;overflow:visible}
+.ch-bars .ch-lbl{fill:var(--text-3);font-size:10px;font-family:inherit}
+.ch-line{height:var(--ch-h,150px)}
+.ch-line-wrap{position:relative}
+.ch-tip{position:absolute;top:0;transform:translate(-50%,-4px);background:var(--bg-1);border:1px solid var(--border-2);border-radius:10px;padding:6px 10px;pointer-events:none;display:flex;flex-direction:column;align-items:center;font-size:var(--t-xs);white-space:nowrap}
+.ch-tip b{font-size:var(--t-sm)}.ch-tip[hidden]{display:none}
+.ch-spark{width:80px;height:28px;display:block}
+.ch-prog{height:8px;border-radius:99px;background:var(--bg-3);overflow:hidden}.ch-prog i{display:block;height:100%;border-radius:99px;background:var(--gold)}
+.ch-prog-l{display:flex;justify-content:space-between;margin-top:6px;font-size:var(--t-sm);color:var(--text-2)}.ch-prog-l b{color:var(--text)}
