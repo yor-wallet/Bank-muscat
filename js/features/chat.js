@@ -257,7 +257,7 @@ const Chat = (() => {
         const r = await Guardian.query(() => sb.from('chat_threads').select('unread_user').eq('user_id', S.uid).maybeSingle());
         if (r.ok) S.count = r.data ? Guardian.norm.int(r.data.unread_user) : 0;
       }
-      emit();
+      S.lastUnread = Date.now(); emit();
     } catch(e){ Guardian.note('chat:unread', e); }
   }
   const refreshUnreadSoon = Guardian.debounce(refreshUnread, 400);
@@ -300,8 +300,9 @@ const Chat = (() => {
           .subscribe(st => { setOnline(st === 'SUBSCRIBED'); });
       } catch(e){ setOnline(false); Guardian.note('chat:channel', e); }
       S.stopPoll = Guardian.every(async () => {
-        if (S.online && !S.view) return;
-        if (!S.online){ if (S.view && S.view.sync) await S.view.sync(); if (S.inbox && S.inbox.refresh) await S.inbox.refresh(); }
+        if (S.online){ if (Date.now() - (S.lastUnread || 0) > 60000) await refreshUnread(); return; }      /* le realtime couvre tout : relecture lente seulement */
+        if (S.view && S.view.sync) await S.view.sync();
+        if (S.inbox && S.inbox.refresh) await S.inbox.refresh();
         await refreshUnread();
       }, 6000);
       Guardian.queue.handle('chat-text', async p => {
@@ -585,6 +586,7 @@ function chThreadView(root, o){
     (r.data || []).map(Guardian.norm.msg).forEach(m => { V.items.push(m); V.ids.add(m.id); });
     keep.forEach(x => { V.items.push(x); V.ids.add(x.id); });
     renderAll(); V.loaded = true; V.setOnline(Chat._S.online); toBottom(false); setDown(); V.markRead();
+    const hp = root.querySelector('.chat-help'); if (hp && V.items.length > 2) hp.classList.add('is-compact');
   };
   V.sync = async () => {
     if (V.dead || !V.loaded) return;
@@ -990,13 +992,14 @@ const Yaser = (() => {
   const fill = (s, v) => String(s).replace(/(\s*)\{(\w+)\}/g, (m0, ws, k) => { const val = v[k]; if (k === 'n') return val ? ' ' + val : ''; return ws + (val == null ? '' : val); });
   function reply(intent){
     const name = Guardian.norm.str(Runtime.profile && Runtime.profile.firstName, 40), cfg = Cfg.get(), actions = [];
+    const iso = v => (LANG === 'ar' && v ? '\u2066' + v + '\u2069' : v);      /* un montant latin reste d'un seul bloc dans une phrase arabe */
     const key = 'yas.r.' + intent; let text, auto = '';
     if (intent === 'balance'){
       const acc = Guardian.norm.arr(Runtime.accounts); const a = acc.find(x => x.currency === 'OMR') || acc[0];
-      text = a ? fill(t('yas.r.balance'), { bal: Money.fmt(Guardian.norm.num(a.availableBalance, Guardian.norm.num(a.balance)), a.currency || 'OMR') }) : t('yas.r.balanceNo');
+      text = a ? fill(t('yas.r.balance'), { bal: iso(Money.fmt(Guardian.norm.num(a.availableBalance, Guardian.norm.num(a.balance)), a.currency || 'OMR')) }) : t('yas.r.balanceNo');
     } else if (intent === 'history'){
       const tx = Guardian.norm.arr(Runtime.transactions).slice(0, 3);
-      text = tx.length ? fill(t('yas.r.history'), { list: tx.map(x => (x.direction === 'IN' ? '+' : '−') + Money.fmt(x.amount, x.currency || 'OMR') + ' · ' + ((typeof opLabel === 'function' && opLabel(x)) || x.kind || '') + ' · ' + v18Time(x.createdAt)).join('\n') }) : t('yas.r.historyNo');
+      text = tx.length ? fill(t('yas.r.history'), { list: tx.map(x => (x.direction === 'IN' ? '+' : '−') + iso(Money.fmt(x.amount, x.currency || 'OMR')) + ' · ' + ((typeof opLabel === 'function' && opLabel(x)) || x.kind || '') + ' · ' + v18Time(x.createdAt)).join('\n') }) : t('yas.r.historyNo');
     } else {
       text = fill(t(key), { n: name, min: Money.int(cfg.credit_min), max: Money.int(cfg.credit_max), rate: Money.num(cfg.vault_rate_pct_day, 2).replace(/\.?0+$/, '') });
     }
@@ -1024,7 +1027,7 @@ const Yaser = (() => {
     const save = () => Guardian.store.set(hkey(), hist.slice(-60));
     const bottom = () => { try { list.scrollTo({ top: list.scrollHeight, behavior: Fx.reduced() ? 'auto' : 'smooth' }); } catch(e){ list.scrollTop = list.scrollHeight; } };
     const addUser = (text, instant) => { const d = document.createElement('div'); d.className = 'yas-m me' + (instant ? '' : ' chat-in'); d.innerHTML = '<div class="yas-b" dir="auto">' + chEsc(text) + '</div>'; list.appendChild(d); wrap.classList.add('has-msgs'); bottom(); return d; };
-    const botEl = () => { const d = document.createElement('div'); d.className = 'yas-m bot chat-in'; d.innerHTML = '<span class="yas-ava">' + yaserSvg(30, 'mini') + '</span><div class="yas-b" dir="auto"></div>'; list.appendChild(d); wrap.classList.add('has-msgs'); return d; };
+    const botEl = () => { const d = document.createElement('div'); d.className = 'yas-m bot chat-in'; d.innerHTML = '<span class="yas-ava">' + yaserSvg(30, 'mini') + '</span><div class="yas-b" dir="auto"></div>'; list.appendChild(d); return d; };
     const actionsHtml = acts => (acts && acts.length ? '<div class="yas-acts">' + acts.map(a => '<button type="button" class="yas-act" data-go="' + chEsc(a.go) + '">' + chEsc(t(a.k)) + '</button>').join('') + '</div>' : '');
     const showChips = () => { chips.innerHTML = CHIPS.map((c, i) => '<button type="button" class="yas-chip" data-i="' + c[0] + '" style="--i:' + i + '">' + chEsc(t(c[1])) + '</button>').join(''); chips.classList.remove('is-in'); void chips.offsetWidth; chips.classList.add('is-in'); };
     const talk = on => { if (svg) svg.classList.toggle('is-talk', !!on); };

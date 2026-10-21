@@ -44,6 +44,16 @@
 @keyframes chatHelp{from{opacity:0;transform:translateY(-10px) scale(.97)}}
 @keyframes chatSheen{0%{transform:translateX(-120%)}40%,100%{transform:translateX(120%)}}
 
+/* bandeau compact quand la conversation a déjà des messages */
+.chat-help.is-compact{padding:8px 10px;align-items:center;gap:10px}
+.chat-help.is-compact .chat-help-ic{width:32px;height:32px}
+.chat-help.is-compact .chat-help-ic svg{width:16px;height:16px}
+.chat-help.is-compact .chat-help-b{flex-direction:row;align-items:center;flex-wrap:wrap;gap:6px 10px}
+.chat-help.is-compact .chat-help-b span{display:none}
+.chat-help.is-compact .chat-help-b b{font-size:13px;flex:1;min-width:120px}
+.chat-help.is-compact .chat-help-go{margin:0;min-height:34px;padding:0 12px}
+@media (max-height:700px){.chat-help:not(.is-compact){padding:9px 10px}.chat-help-b span{display:none}}
+
 /* ---------- liste ---------- */
 .chat-list{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:12px 12px 8px;display:flex;flex-direction:column;gap:2px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scroll-behavior:auto}
 .chat-day{align-self:center;margin:12px 0 8px}
@@ -112,7 +122,7 @@ html[dir="rtl"] .chat-m.theirs .chat-b{transform-origin:100% 100%}
 .chat-voice.is-playing .cv-wave i.on{animation:chatBar .8s ease-in-out infinite alternate}
 @keyframes chatBar{to{transform:scaleY(.78)}}
 .cv-time{flex:none;font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;opacity:.8;min-width:34px;text-align:end}
-.cv-speed{flex:none;min-width:36px;height:26px;border-radius:99px;background:rgba(0,0,0,.14);font-size:11px;font-weight:800;color:inherit}
+.cv-speed{flex:none;min-width:36px;height:26px;display:grid;place-items:center;padding:0 6px;border-radius:99px;background:rgba(0,0,0,.14);font-size:11px;font-weight:800;color:inherit}
 .chat-m.theirs .cv-speed{background:var(--bg-3)}
 
 /* ---------- cartes dépôt / crédit / système ---------- */
@@ -231,6 +241,8 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 .chat-q-e button{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#ff6b6f;background:var(--surf-2)}
 .chat-q-add{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:14px;border:1px dashed rgba(242,182,50,.5);color:var(--gold-2);font-weight:700}
 
+.chat-sheet .field-box input{width:100%;min-height:50px;background:transparent;border:0;outline:0;box-shadow:none;font:inherit;font-size:16px;color:var(--text)}
+
 /* ---------- boîte de réception ---------- */
 .chat-inbox .v18-top{flex:none}
 .chat-in-n{min-width:26px;height:26px;padding:0 8px;border-radius:99px;display:inline-grid;place-items:center;background:var(--btn-grad);color:var(--on-accent);font-size:12px;font-weight:800}
@@ -274,7 +286,7 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 @keyframes yasDot{0%,60%,100%{transform:translateY(0);opacity:.45}30%{transform:translateY(-5px);opacity:1}}
 .yas-chips{flex:none;display:flex;gap:8px;overflow-x:auto;padding:6px 14px 8px;scrollbar-width:none}
 .yas-chips::-webkit-scrollbar{display:none}
-.yas-chip{flex:none;min-height:44px;padding:0 16px;border-radius:99px;background:rgba(242,182,50,.1);border:1px solid rgba(242,182,50,.36);color:var(--gold-2);font-weight:700;font-size:13.5px;white-space:nowrap;opacity:0;transform:translateY(10px)}
+.yas-chip{flex:none;min-height:44px;padding:0 16px;border-radius:99px;background:rgba(242,182,50,.1);border:1px solid rgba(242,182,50,.36);color:var(--gold-2);font-weight:700;font-size:13.5px;white-space:nowrap}
 .yas-chips.is-in .yas-chip{animation:chatIn .45s cubic-bezier(.2,.9,.2,1) both;animation-delay:calc(var(--i,0) * 70ms)}
 .yas-chip:active{transform:scale(.95)}
 .yas-comp{flex:none;display:flex;gap:8px;align-items:center;padding:8px 12px 10px;border-top:1px solid var(--border);background:color-mix(in srgb,var(--bg-1) 92%,transparent)}
