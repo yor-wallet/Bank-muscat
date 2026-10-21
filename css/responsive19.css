@@ -1,0 +1,97 @@
+/* ==========================================================================
+   LIVE X DIGITALE 19.0.0 — adaptation smartphone / tablette / ordinateur (CSS seulement, chargé après v19.css).
+   mobile 320–599 : disposition actuelle · tablette 600–1023 : conteneur centré, 2 colonnes · PC >= 1024 : barre latérale + 12 colonnes (1200 px max)
+   ========================================================================== */
+
+/* très petits écrans : rien ne déborde */
+@media (max-width:359px){
+  :root{--sp-5:14px}
+  .px-hello b{max-width:9ch}
+  .rv-act span,.px-act span{font-size:11.5px}
+  .v18-quick{grid-template-columns:1fr 1fr;gap:8px}
+  .qs-grid{grid-template-columns:repeat(2,1fr)}
+  .btn{padding-inline:14px}
+  .yb-grid{gap:8px}
+}
+@media (max-width:380px){
+  #bottom-nav .nav-lb{font-size:9.5px;letter-spacing:-.01em}
+  #bottom-nav .nav-dock{padding-inline:2px}
+  .px-bal .ds-bal-label{white-space:normal}
+}
+.qs-seg-l{width:auto;min-width:96px;flex:0 0 auto}
+.qs-seg-l em{white-space:nowrap}
+.px-act span,.rv-act span{max-width:none;text-overflow:clip}
+@media (max-width:420px){ .yb-grid{grid-template-columns:repeat(3,1fr)} }
+
+/* ---------- tablette 600–1023 ---------- */
+@media (min-width:600px) and (max-width:1023.98px){
+  .screen-body,.topbar,.yb,.rv-page,.set-body,.px-home,.rv-home{max-width:880px;margin-inline:auto;width:100%}
+  .px-home{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:20px;align-items:start;padding-inline:28px;grid-auto-flow:row dense}
+  .px-home .px-acts{gap:8px}
+  .px-home .px-acts .rv-act i{max-width:56px}
+  .px-home > .px-top,.px-home > .cin-slot,.px-home > .v18-quick{grid-column:1/-1}
+  .px-home > .ds-balance,.px-home > .rv-acts,.px-home > .v13-month{grid-column:1}
+  .px-home > .px-sec{grid-column:2}
+  .px-home > .v13-month + .px-sec{grid-row:2 / span 6}
+  .v18-quick{grid-template-columns:repeat(4,1fr)}
+  .yb-grid{grid-template-columns:repeat(4,1fr);gap:14px}
+  .qs-grid{grid-template-columns:repeat(4,1fr)}
+  #bottom-nav .nav-dock{max-width:560px}
+  .ov-panel{max-width:640px;margin-inline:auto;border-radius:22px}
+  .ov.is-modal .ov-panel{width:min(100%,560px)}
+  .receipt-view,.rc{max-width:640px;margin-inline:auto}
+  .topbar{padding-inline:20px}
+  .set-body{display:grid;grid-template-columns:1fr;gap:0}
+}
+
+/* ---------- ordinateur >= 1024 ---------- */
+@media (min-width:1024px){
+  .screen-body,.topbar,.yb,.rv-page,.set-body{max-width:1200px;margin-inline:auto;width:100%}
+  .px-home,.rv-home{max-width:1200px;margin-inline:auto;width:100%;padding-inline:32px}
+  .px-home{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);column-gap:32px;align-items:start;grid-auto-flow:row dense}
+  .px-home > .px-top,.px-home > .cin-slot,.px-home > .v18-quick{grid-column:1/-1}
+  .px-home > .ds-balance,.px-home > .rv-acts,.px-home > .v13-month{grid-column:1}
+  .px-home > .px-sec{grid-column:2}
+  .px-home > .v13-month + .px-sec{grid-row:2 / span 6}
+  .px-home .px-acts{max-width:560px;justify-self:start;gap:18px}
+  .v18-quick{grid-template-columns:repeat(4,1fr)}
+  .yb-grid{grid-template-columns:repeat(5,1fr);gap:16px}
+  .qs-grid{grid-template-columns:repeat(4,1fr)}
+  /* paramètres : deux colonnes */
+  .set-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:28px;align-items:start}
+  .set-body > .set-me,.set-body > .set-admin,.set-body > .set-out{grid-column:1/-1}
+  .set-body > .set-me{grid-row:1}.set-body > .set-admin{grid-row:2}
+  .set-body > .qs{grid-column:1;grid-row:3}.set-body > .adv{grid-column:2;grid-row:3}.set-body > .set-out{grid-row:4}
+  /* formulaires : deux colonnes quand ils sont larges */
+  .screen-body .field-row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  /* listes : lignes plus aérées, survol, curseur */
+  .item,.settings-row,.yb-svc,.v18-q,.qs-tile,.rv-act,.chip,.btn{cursor:pointer}
+  .ov-panel{max-width:680px}
+  #bottom-nav{display:none!important}
+  .topbar-title{font-size:var(--t-xl)}
+}
+@media (min-width:1024px) and (hover:hover){
+  .item:hover,.settings-row:hover,.yb-svc:hover,.v18-q:hover,.qs-tile:hover{background:var(--surf-2);border-color:var(--border-2)}
+  .btn-primary:hover:not(:disabled){filter:brightness(1.06)}
+  .btn-secondary:hover:not(:disabled){background:var(--surf-2)}
+  .chip:hover{border-color:var(--gold);color:var(--text)}
+  .rv-act:hover i{border-color:var(--gold)!important}
+  .side-item:hover{background:var(--surf-2)}
+  .item,.settings-row,.yb-svc,.v18-q,.qs-tile,.btn,.chip{transition:background-color .18s,border-color .18s,filter .18s,transform .18s}
+}
+/* écrans d'administration : pleine largeur utile */
+@media (min-width:1024px){
+  .adm-top,.adm-body,.hub-body,.cr-adm,.screen-body.adm{max-width:1200px;margin-inline:auto}
+  .adm-card,.adm-kpi,.hub-tile{min-width:0}
+}
+@media (min-width:1500px){ .px-home,.screen-body,.topbar,.yb,.set-body{max-width:1320px} }
+@media (min-width:1920px){ html{font-size:17px} }
+
+/* paysage téléphone : aucune barre ne mange l'écran */
+@media (max-height:480px) and (orientation:landscape){
+  .px-home{padding-top:0}
+  .topbar{min-height:48px}
+  .screen-body{padding-bottom:72px}
+}
+/* clavier ouvert : le champ actif reste visible */
+.screen-body:focus-within{scroll-padding-bottom:140px}

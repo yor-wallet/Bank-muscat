@@ -332,7 +332,7 @@ const Chat = (() => {
    Éléments communs : visionneuse, lecteur vocal, feuilles
    ============================================================ */
 let chViewerEl = null;
-function chCloseViewer(){ if (chViewerEl){ try { chViewerEl.remove(); } catch(e){ /* rien */ } chViewerEl = null; } }
+function chCloseViewer(){ if (chViewerEl){ try { if (chViewerEl.__key) document.removeEventListener('keydown', chViewerEl.__key); chViewerEl.remove(); } catch(e){ /* rien */ } chViewerEl = null; } }
 function chOpenViewer(url){
   if (!url) return;
   chCloseViewer();
@@ -353,8 +353,8 @@ function chOpenViewer(url){
   });
   const up = e => { pts.delete(e.pointerId); drag = null; };
   el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
-  const key = e => { if (e.key === 'Escape'){ chCloseViewer(); document.removeEventListener('keydown', key); } };
-  document.addEventListener('keydown', key);
+  const key = e => { if (e.key === 'Escape') chCloseViewer(); };
+  el.__key = key; document.addEventListener('keydown', key);
   document.body.appendChild(el); requestAnimationFrame(() => el.classList.add('is-open'));
   chViewerEl = el; try { Sfx.play('open'); } catch(e){ /* rien */ }
 }
@@ -578,8 +578,9 @@ function chThreadView(root, o){
     if (r.ok){ Chat._refreshUnread(); }
   }, 500);
   V.load = async () => {
-    const r = await Guardian.query(() => sb.from('chat_messages').select('*').eq('thread_user', V.thread).order('created_at', { ascending: true }).limit(300));
+    const r = await Guardian.query(() => sb.from('chat_messages').select('*').eq('thread_user', V.thread).order('created_at', { ascending: false }).limit(300));
     if (V.dead) return;
+    if (r.ok && Array.isArray(r.data)) r.data = r.data.slice().reverse();      /* les 300 plus récents, remis dans l'ordre */
     if (!r.ok){ list.innerHTML = '<div class="chat-empty"><p>' + chEsc(t('chat.loadErr')) + '</p><button type="button" class="chat-retry-all" data-ch="reload">' + chIc('retry', 16) + '<span>' + chEsc(t('chat.retry')) + '</span></button></div>'; return; }
     const keep = V.items.filter(x => x.local);
     V.items = []; V.ids = new Set();
@@ -986,7 +987,7 @@ const Yaser = (() => {
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^a-z0-9؀-ۿ\s]/g, ' ').replace(/\s+/g, ' ').trim();
   function intentOf(text){
     const s = ' ' + norm(text) + ' '; let best = '', score = 0;
-    ORDER.forEach(k => { let n = 0; KW[k].forEach(w => { if (A(w) ? s.indexOf(w) >= 0 : s.indexOf(' ' + w) >= 0) n++; }); if (n > score){ score = n; best = k; } });
+    ORDER.forEach(k => { let n = 0; KW[k].forEach(w => { if (A(w) && w.length <= 3 ? s.indexOf(' ' + w + ' ') >= 0 : (s.indexOf(' ' + w) >= 0 || (A(w) && s.indexOf(w) >= 0))) n++; }); if (n > score){ score = n; best = k; } });
     return best || 'fallback';
   }
   const fill = (s, v) => String(s).replace(/(\s*)\{(\w+)\}/g, (m0, ws, k) => { const val = v[k]; if (k === 'n') return val ? ' ' + val : ''; return ws + (val == null ? '' : val); });

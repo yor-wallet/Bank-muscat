@@ -298,6 +298,8 @@ const Cinema = (() => {
     mount(host, { full: true, compact: false, start: S.start });
     try { Sfx.play('open'); Fx.haptic('tap'); } catch(e){ /* rien */ }
   });
-  Hooks.on('*', root => { if (root && root.querySelector && root.querySelector('[data-cinema]')) mountAll(root); });
+  /* l'accueil s'affiche d'abord ; le film (réseau + animations) se monte quand le navigateur est libre (la réserve de 190 px évite tout saut de page) */
+  const idle = fn => { try { if (window.requestIdleCallback) return window.requestIdleCallback(fn, { timeout: 1200 }); } catch(e){ /* rien */ } return setTimeout(fn, 350); };
+  Hooks.on('*', root => { if (root && root.querySelector && root.querySelector('[data-cinema]')) idle(() => { if (root.isConnected && root.classList.contains('active')) mountAll(root); }); });
   return { mount, mountAll, homeHtml, open, refresh, previewHtml, sceneHtml, scenes };
 })();

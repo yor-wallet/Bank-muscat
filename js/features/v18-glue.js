@@ -32,10 +32,12 @@ const V18 = (() => {
     return film + q;
   }
   Hooks.on('home', root => {
-    try { Cfg.load(); } catch(e){ /* rien */ }
-    try { if (typeof Cinema !== 'undefined' && Cinema.mountAll) Cinema.mountAll(root); } catch(e){ console.warn('cinema', e); }
-    try { if (typeof Chat !== 'undefined' && Chat.start) { Chat.start(); paintBadge(); } } catch(e){ /* rien */ }
+    /* le film est monté par le module cinéma, au repos du navigateur ; le chat (canal temps réel + non lus) démarre un peu après l'affichage de l'accueil */
     try { if (typeof Fx !== 'undefined') Fx.stagger(root, '.v18-q', 70); } catch(e){ /* rien */ }
+    setTimeout(() => {
+      try { Cfg.load(); } catch(e){ /* rien */ }
+      try { if (typeof Chat !== 'undefined' && Chat.start && AuthEngine.hasValidContext()) { Chat.start(); paintBadge(); } } catch(e){ /* rien */ }
+    }, 1200);
   });
 
   /* ----- pastille de messages non lus (accueil, Services) ----- */
@@ -75,7 +77,11 @@ const V18 = (() => {
   /* ----- fermeture de session : le chat s'arrête ----- */
   try {
     const so = AuthEngine.signOut;
-    AuthEngine.signOut = async function(){ try { if (typeof Chat !== 'undefined' && Chat.stop) Chat.stop(); } catch(e){ /* rien */ } return so.apply(this, arguments); };
+    AuthEngine.signOut = async function(){
+      try { const u = Runtime.ctx && Runtime.ctx.uid; if (u) Guardian.store.del('yas_hist_' + u); } catch(e){ /* rien */ }      /* la conversation avec YASER contient des soldes : effacée à la déconnexion */
+      try { if (typeof Chat !== 'undefined' && Chat.stop) Chat.stop(); } catch(e){ /* rien */ }
+      return so.apply(this, arguments);
+    };
   } catch(e){ /* rien */ }
 
   return { homeHtml, handles, onNotif, paintBadge };

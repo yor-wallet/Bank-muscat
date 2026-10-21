@@ -68,6 +68,7 @@ const AuthEngine = (() => {
     if (!UserContext.get() || UserContext.get().uid !== uid) return Runtime;
     Runtime.accounts = accounts || []; Runtime.transactions = transactions || []; Runtime.notifications = notifications || [];
     try { if (typeof Guardian !== 'undefined') Guardian.heal(Runtime); } catch(e){}
+    try { if (typeof Snap !== 'undefined' && UserContext.get()) Snap.save(uid, Runtime); } catch(e){}
     try { if (typeof Push !== 'undefined') Push.syncBadge(); } catch(e){}
     return Runtime;
   }
@@ -147,12 +148,37 @@ const AuthEngine = (() => {
       try {
         const dataP = fetchAll(user.id); dataP.catch(() => {});              /* démarre tout de suite, en parallèle de la lecture du profil */
         try { if (typeof AppLock !== 'undefined') AppLock.prefetch(); } catch(e){ /* rien */ }
+        /* 19.0.0 : réouverture instantanée : si une copie chiffrée récente existe, l'accueil s'affiche tout de suite avec les dernières données connues,
+           puis le serveur remet tout à jour en arrière-plan (la copie n'est jamais utilisée si elle est illisible ou d'une autre personne) */
+        let snap = null; try { if (typeof Snap !== 'undefined') snap = await Snap.load(user.id); } catch(e){ snap = null; }
+        if (snap && snap[0] && snap[0].uid === user.id){
+          const p0 = snap[0];
+          const fast = { uid: user.id, userId: p0.userId, yorId: p0.yorId, role: p0.role || 'user', deviceId: DeviceEngine.ensure(), sessionId: SessionEngine.current() || SessionEngine.start() };
+          UserContext.set(fast);
+          applyAll(fast, user.id, snap);
+          startRealtime(user.id);
+          if (typeof onChange === 'function') onChange(true, event);
+          pendingUid = null;
+          (async () => {      /* mise à jour en arrière-plan */
+            try {
+              const real = await loadContextFromUser(user); let res = null; try { res = await dataP; } catch(e){ res = null; }
+              const c0 = UserContext.get(); if (!c0 || c0.uid !== user.id) return;
+              if (!real){ return; }
+              UserContext.set(real); if (res) applyAll(real, user.id, res); else await hydrateRuntime();
+              try { if (typeof Push !== 'undefined') Push.sync(); } catch(e){ /* rien */ }
+              try { Snap.save(user.id, Runtime); } catch(e){ /* rien */ }
+              const cur2 = R.current(); if (['home', 'history', 'notifications', 'cards', 'services'].indexOf(cur2) !== -1) R.go(cur2, { force: true, replace: true });
+            } catch(e){ console.warn('background refresh failed', e); }
+          })();
+          return;
+        }
         const ctx = await loadContextFromUser(user);
         if (ctx){
           UserContext.set(ctx);
           let res = null; try { res = await dataP; } catch(e){ res = null; }
           if (res) applyAll(ctx, user.id, res); else await hydrateRuntime();
           startRealtime(user.id);
+          try { if (typeof Snap !== 'undefined') Snap.save(user.id, Runtime); } catch(e){ /* rien */ }
           try { if (typeof Push !== 'undefined') Push.sync(); } catch(e){}           /* 12.13.0 : réenregistre l'appareil des alertes (adresse de livraison renouvelée, autre personne) */
           if (typeof onChange === 'function') onChange(true, event);
           return;
@@ -187,6 +213,7 @@ const AuthEngine = (() => {
   }
   async function signOut(){
     try { if (typeof PinEngine !== 'undefined') PinEngine.forget(); } catch(e){}   /* 12.15.0: the encrypted code never outlives the session */
+    try { if (typeof Snap !== 'undefined') Snap.wipe(); } catch(e){}                /* 19.0.0 : la copie chiffrée ne survit pas à une déconnexion volontaire */
     if (!supabaseReady) return;
     const c = UserContext.get();
     if (c){ try { await UserDataEngine.writeSub(c.uid, 'sessions', c.sessionId, { status:'signed_out', lastActiveAt: Date.now() }); } catch(e){} }

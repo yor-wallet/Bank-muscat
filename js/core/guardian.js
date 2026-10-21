@@ -55,7 +55,7 @@ const Guardian = (() => {
     else if (/request_pending/.test(low)) key = 'g.pending';
     else if (/rate_limited|54000/.test(low + code)) key = 'g.rate';
     else if (net) key = 'g.network';
-    return { code: code || (net ? 'NETWORK' : 'ERROR'), message: msg.slice(0, 200), key, retryable: net || /5\d\d|429|jwt|fetch/.test(code + low) };
+    return { code: code || (net ? 'NETWORK' : 'ERROR'), message: msg.slice(0, 200), key, retryable: net || /^(5\d\d|429)$/.test(code) || /jwt expired|fetch/.test(low) };
   }
   function withTimeout(p, ms){
     let to; const t = new Promise((_, rej) => { to = setTimeout(() => rej(new Error('timeout')), ms); });
@@ -80,7 +80,8 @@ const Guardian = (() => {
         if (i < tries - 1) await new Promise(r => setTimeout(r, 400 * Math.pow(2, i)));
       }
       const er = classify(last); note('rpc:' + name, er.message);
-      c.fails++; if (c.fails >= 5){ c.openUntil = now() + 20000; c.fails = 0; note('circuit', name); }
+      /* seules les pannes de transport comptent pour le coupe-circuit : une réponse métier (solde insuffisant, interdit…) prouve que le serveur répond */
+      if (er.retryable){ c.fails++; if (c.fails >= 5){ c.openUntil = now() + 20000; c.fails = 0; note('circuit', name); } } else c.fails = 0;
       return { ok: false, data: null, error: er };
     };
     if (!isRead) return run();
@@ -113,11 +114,12 @@ const Guardian = (() => {
 
   /* ---------- 5. file d'envois hors ligne ---------- */
   const QK = 'gq_pending_v1';
+  const curUid = () => { try { return (typeof Runtime !== 'undefined' && Runtime.ctx && Runtime.ctx.uid) || ''; } catch(e){ return ''; } };
   const handlers = {};
   let flushing = false;
   const queue = {
     handle(type, fn){ handlers[type] = fn; },
-    add(type, payload){ const q = store.get(QK, []); q.push({ id: now().toString(36) + Math.random().toString(36).slice(2, 6), type, payload, at: now(), tries: 0 }); store.set(QK, q.slice(-80)); },
+    add(type, payload){ const q = store.get(QK, []); q.push({ id: now().toString(36) + Math.random().toString(36).slice(2, 6), type, payload, at: now(), tries: 0, uid: curUid() }); store.set(QK, q.slice(-80)); },
     size(){ return store.get(QK, []).length; },
     async flush(){
       if (flushing || (typeof navigator !== 'undefined' && navigator.onLine === false)) return;
@@ -126,6 +128,10 @@ const Guardian = (() => {
         let q = store.get(QK, []);
         for (const job of q.slice()){
           const fn = handlers[job.type]; if (!fn) continue;
+          /* un envoi en attente appartient à la personne qui l'a écrit : jamais rejoué au nom d'une autre */
+          const cu = curUid();
+          if (job.uid && cu && job.uid !== cu){ store.set(QK, store.get(QK, []).filter(x => x.id !== job.id)); continue; }
+          if (job.uid && !cu) continue;
           let ok = false; try { ok = await fn(job.payload); } catch(e){ ok = false; }
           q = store.get(QK, []);
           if (ok || ++job.tries >= 6 || now() - job.at > 864e5){ q = q.filter(x => x.id !== job.id); }
@@ -180,8 +186,13 @@ const Guardian = (() => {
     try { Object.keys(inflight).forEach(k => delete inflight[k]); Object.keys(circuit).forEach(k => { circuit[k].openUntil = 0; circuit[k].fails = 0; }); } catch(e){ /* rien */ }
     try { if (typeof AuthEngine !== 'undefined' && AuthEngine.hasValidContext() && AuthEngine.hydrateLive) { await AuthEngine.hydrateLive(); heal(Runtime); } } catch(e){ /* rien */ }
     try {
-      if (level >= 3 && typeof R !== 'undefined' && R.current() !== 'home'){ R.go('home', { reset: true, force: true }); }
-      else if (typeof R !== 'undefined' && R.current()){ R.go(R.current(), { force: true, replace: true }); }
+      const cur = (typeof R !== 'undefined' && R.current && R.current()) || '';
+      /* jamais pendant une saisie ou une fenêtre ouverte : on ne perd pas le brouillon d'un message ni d'un montant */
+      const busy = /^(chat|yaser|admin-chat-thread|login|signup|reset|tx-|processing|intl-|crypto-)/.test(cur) || (typeof R !== 'undefined' && R.overlay && R.overlay.isOpen());
+      if (!busy){
+        if (level >= 3 && cur !== 'home'){ R.go('home', { reset: true, force: true }); }
+        else if (cur){ R.go(cur, { force: true, replace: true }); }
+      }
     } catch(e){ /* rien */ }
   }
   function start(){
