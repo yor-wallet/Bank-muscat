@@ -134,7 +134,7 @@
   /* ---------- feuille modale ---------- */
   function sheet(html, wire){
     const close = R.overlay.open('<div class="a19-sheet" dir="' + (LANG === 'ar' ? 'rtl' : 'ltr') + '">' + html + '</div>', { kind: 'modal' });
-    setTimeout(() => { const root = document.querySelector('.a19-sheet'); if (root && wire) try { wire(root, close); } catch(x){ console.error(x); } }, 80);
+    setTimeout(() => { const all = document.querySelectorAll('.a19-sheet'), root = all[all.length - 1]; if (root && wire) try { wire(root, close); } catch(x){ console.error(x); } }, 80);
     sound('open');
     return close;
   }
@@ -182,7 +182,7 @@
       '<div class="a19-vw-st" data-v="stage"><img data-v="img" alt="" draggable="false"></div><div class="a19-vw-ft"><button type="button" data-v="out">−</button><button type="button" data-v="rst">1:1</button><button type="button" data-v="in">+</button></div></div>';
     const close = R.overlay.open(html, { kind: 'modal' });
     setTimeout(() => {
-      const root = document.querySelector('.a19-vw'); if (!root) return;
+      const all = document.querySelectorAll('.a19-vw'), root = all[all.length - 1]; if (!root) return;
       const q = s => root.querySelector('[data-v="' + s + '"]'), img = q('img');
       const paint = () => { img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + z + ')'; };
       const show = () => { z = 1; tx = ty = 0; img.src = list[i].url; q('cap').textContent = (list[i].label || '') + (list.length > 1 ? '  ' + (i + 1) + '/' + list.length : ''); paint(); };
