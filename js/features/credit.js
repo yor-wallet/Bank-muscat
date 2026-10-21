@@ -164,7 +164,8 @@ const Credit = (() => {
     a: { list: [], tab: 'PENDING', q: '', loaded: false, error: false, busy: false } };
   const c = () => Cfg.get();
   const clampAmt = (v) => { const k = c(); return Math.max(k.credit_min, Math.min(k.credit_max, Math.round(Number(v) || k.credit_min))); };
-  const prog = (v) => { const k = c(); const d = k.credit_max - k.credit_min; return d > 0 ? Math.max(0, Math.min(1, (v - k.credit_min) / d)) : 0; };
+  const prog = (v) => { const k = c(); const d = k.credit_max - k.credit_min; return d > 0 ? Math.sqrt(Math.max(0, Math.min(1, (v - k.credit_min) / d))) : 0; };      /* l'anneau suit la racine : un petit montant reste visible */
+  const lin = (v) => { const k = c(); const d = k.credit_max - k.credit_min; return d > 0 ? Math.max(0, Math.min(1, (v - k.credit_min) / d)) : 0; };
   const RING_C = 2 * Math.PI * 84;
 
   /* ---------- données ---------- */
@@ -294,7 +295,7 @@ const Credit = (() => {
     o = o || {};
     v = clampAmt(v); const was = st.amount; st.amount = v;
     setRing(root, v, !!o.animate && was !== v);
-    const rng = root.querySelector('#cr-rng'); if (rng){ rng.value = String(v); rng.style.setProperty('--p', (prog(v) * 100).toFixed(1) + '%'); }
+    const rng = root.querySelector('#cr-rng'); if (rng){ rng.value = String(v); rng.style.setProperty('--p', (lin(v) * 100).toFixed(1) + '%'); }
     const inp = root.querySelector('#cr-amt'); if (inp && !o.keepInput) inp.value = CrUI.grp(v);
     root.querySelectorAll('[data-amt]').forEach(b => b.setAttribute('aria-pressed', Number(b.getAttribute('data-amt')) === v ? 'true' : 'false'));
     const m = root.querySelector('#cr-mthly'); if (m) m.textContent = CrUI.dec(v / st.months, 3) + ' OMR';
@@ -302,7 +303,7 @@ const Credit = (() => {
   function bindForm(root){
     const rng = root.querySelector('#cr-rng'), inp = root.querySelector('#cr-amt'), why = root.querySelector('#cr-why'), err = root.querySelector('#cr-err'), btn = root.querySelector('#cr-send');
     if (!rng) return;
-    rng.style.setProperty('--p', (prog(st.amount) * 100).toFixed(1) + '%');
+    rng.style.setProperty('--p', (lin(st.amount) * 100).toFixed(1) + '%');
     let tickAt = 0;
     rng.oninput = () => {
       setAmount(root, Number(rng.value), {});
@@ -340,18 +341,27 @@ const Credit = (() => {
     CrUI.snd('success'); Fx.haptic('success');
     const ov = document.createElement('div'); ov.className = 'cr-ok';
     ov.innerHTML = '<div class="cr-ok-in"><div class="cr-ok-ring"><svg viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="23"/><path d="M15 27l8 8 14-16"/></svg></div><h2>' + esc(t('cr.sentT')) + '</h2><p>' + esc(t('cr.sentD')) + '</p></div>';
-    root.appendChild(ov);
+    document.body.appendChild(ov);      /* hors de l'écran : un écran animé (transform) casserait position:fixed */
     setTimeout(() => Fx.confetti(ov.querySelector('.cr-ok-ring'), { n: 80, power: 8 }), 350);
     setTimeout(() => { ov.classList.add('is-out'); setTimeout(() => ov.remove(), 450); }, 2300);
     ov.onclick = () => { ov.remove(); };
   }
   function wire(root){
     try {
-      const refreshCfg = () => Cfg.load(true).then(() => { try { if (root.isConnected) paint(root); const rg = root.querySelector('#cr-range'); if (rg) rg.textContent = tf('cr.heroSub', { min: CrUI.grp(c().credit_min), max: CrUI.grp(c().credit_max) }); } catch(e){ /* rien */ } });
+      const sig = () => JSON.stringify([st.reqs.map(x => x.id + x.status), c().credit_enabled, c().credit_min, c().credit_max]);
+      const rangeTxt = () => { const rg = root.querySelector('#cr-range'); if (rg) rg.textContent = tf('cr.heroSub', { min: CrUI.grp(c().credit_min), max: CrUI.grp(c().credit_max) }); };
       st.amount = clampAmt(st.amount); paint(root);
-      Cfg.load().then(() => { if (root.isConnected){ st.amount = clampAmt(st.amount); paint(root); } });
+      Cfg.load().then(() => { if (root.isConnected){ st.amount = clampAmt(st.amount); paint(root); rangeTxt(); } });
       loadMine().then(async () => { if (root.isConnected) paint(root); await checkApproved(); });
-      const stop = Guardian.every(async () => { if (!root.isConnected) return; const had = pendingReq(); await loadMine(); await refreshCfg(); if (had && !pendingReq()){ await checkApproved(); } }, 20000);
+      /* rafraîchissement discret : l'écran n'est redessiné que si quelque chose a changé (on ne casse pas une saisie en cours) */
+      const stop = Guardian.every(async () => {
+        if (!root.isConnected) return;
+        const before = sig(), had = pendingReq();
+        await loadMine(); await Cfg.load(true);
+        if (!root.isConnected) return;
+        if (sig() !== before){ st.amount = clampAmt(st.amount); paint(root); rangeTxt(); }
+        if (had && !pendingReq()) await checkApproved();
+      }, 20000);
       R.onLeave(stop);
     } catch(e){ console.error('[credit]', e); }
   }

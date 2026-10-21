@@ -155,8 +155,8 @@ const Cinema = (() => {
     return '<div class="cin-scene ' + th + ' sc-' + esc(sc.type || sc.id) + '" data-id="' + esc(sc.id) + '">' +
       '<div class="cin-bg"><i class="cin-glow g1"></i><i class="cin-glow g2"></i><i class="cin-rings"></i><i class="cin-beams"></i>' + particles() + '</div>' +
       '<div class="cin-art">' + art + '</div>' +
-      '<div class="cin-copy"><div class="cin-kicker">' + esc(c.k) + '</div><h2 class="cin-title">' + c.title + '</h2>' +
-      '<p class="cin-sub">' + esc(c.sub) + '</p>' + c.num +
+      '<div class="cin-copy"><div class="cin-kicker">' + esc(c.k) + '</div><h2 class="cin-title" dir="auto">' + c.title + '</h2>' +
+      '<p class="cin-sub" dir="auto">' + esc(c.sub) + '</p>' + c.num +
       '<div class="cin-acts"><button type="button" class="cin-cta" data-cin-go="' + esc(sc.route || '') + '">' + esc(c.cta) + '<span class="cin-cta-ic">' + icon('arrowRight', 18) + '</span></button>' + secondary + '</div></div></div>';
   }
 

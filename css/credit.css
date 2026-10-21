@@ -144,7 +144,7 @@ html[dir="rtl"] .cr-send:hover svg{transform:scaleX(-1) translate(4px,-3px)}
 
 /* ---------- feuilles ---------- */
 .cr-sheet{display:flex;flex-direction:column;gap:12px;padding:6px 20px calc(24px + env(safe-area-inset-bottom,0px));max-height:86vh;overflow:auto}
-.cr-grab{width:42px;height:5px;border-radius:3px;background:var(--border-2);margin:4px auto 6px;flex:none}
+.cr-grab{display:none}      /* la feuille du routeur a déjà sa poignée */
 .cr-sh-t{margin:2px 0 0;font-size:calc(19px*var(--ui));font-weight:800}
 .cr-sh-who{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0;color:var(--text-2)}
 .cr-sh-who small{color:var(--text-3)}
@@ -215,8 +215,11 @@ html[dir="rtl"] .cr-send:hover svg{transform:scaleX(-1) translate(4px,-3px)}
 .vt-shine{position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-120%);animation:vtShine 3.4s ease-in-out infinite;pointer-events:none}
 @keyframes vtShine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
 .vt-collect:disabled .vt-shine{display:none}
+.vt-collect,.vt-collect span{color:var(--on-accent,#14110a)!important}
+.vt-collect svg{flex:none}
 .vt-acts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .vt-act{min-height:50px;border-radius:18px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid rgba(255,211,107,.3);background:rgba(255,255,255,.08);color:#fff6dc;font:inherit;font-weight:750;font-size:calc(13.5px*var(--ui));transition:transform .18s var(--cr-spring),background-color .2s}
+.vt-act{padding:0 10px;line-height:1.2;text-align:center}
 .vt-act:active:not(:disabled){transform:scale(.95);background:rgba(255,211,107,.18)}
 .vt-act:disabled{opacity:.4}
 .vt-coins{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -280,7 +283,7 @@ html[dir="rtl"] .vt-sw[aria-checked="true"] i{transform:translateX(-24px)}
 .vt-set{display:flex;flex-direction:column;gap:8px}
 .vt-set-row{display:flex;gap:10px;align-items:stretch}
 .vt-set-row .cr-field{flex:1;min-width:0}
-.vt-apply{min-height:60px;padding:0 16px;flex:none}
+.vt-set-row .vt-apply,.btn.vt-apply{width:auto!important;min-width:0;min-height:60px;padding:0 16px;flex:none}
 .vt-permonth{margin:0 2px;font-size:calc(12.5px*var(--ui));color:var(--gold-2);font-weight:700}
 .cr-sheet .cr-field input{font-size:calc(22px*var(--ui))}
 
