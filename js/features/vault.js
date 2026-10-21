@@ -176,13 +176,15 @@ const Vault = (() => {
     if (!d || typeof d !== 'object') return;
     const n = normStatus(Object.assign({}, S.s, d)); S.s = n;
   }
+  /* réponse perdue (réseau coupé après l'envoi) : on relit l'état réel pour que l'écran dise la vérité avant tout nouvel essai */
+  async function reconcile(root){ try { await loadStatus(); if (root.isConnected) paintStatic(root, false); CrUI.refreshMoney().then(() => { if (root.isConnected) paintAct(root); }); } catch(e){ /* rien */ } }
   async function collect(root){
     if (S.busy) return; const btn = root.querySelector('#vt-collect'); if (!btn || btn.disabled) return;
     S.busy = true; UIKit.loading(btn, true);
     const r = await Guardian.rpc('vault_collect', {}, { read: false });
     S.busy = false; UIKit.loading(btn, false);
     if (!root.isConnected) return;
-    if (!r.ok){ CrUI.snd('error'); Fx.haptic('error'); toast(CrUI.srvErr(r.error), 'error'); return; }
+    if (!r.ok){ CrUI.snd('error'); Fx.haptic('error'); toast(CrUI.srvErr(r.error), 'error'); if (r.error && r.error.retryable) reconcile(root); return; }
     const d = r.data || {};
     if (d.ok){
       const got = N.num(d.collected); mergeStatus(d);
@@ -220,7 +222,7 @@ const Vault = (() => {
         busy = true; UIKit.loading(ok, true);
         const res = await Guardian.rpc('vault_move', { p_amount: n, p_direction: dir }, { read: false });
         busy = false; UIKit.loading(ok, false);
-        if (!res.ok){ e.textContent = CrUI.srvErr(res.error); CrUI.snd('error'); Fx.haptic('error'); Fx.shake(ok); return; }
+        if (!res.ok){ e.textContent = CrUI.srvErr(res.error); CrUI.snd('error'); Fx.haptic('error'); Fx.shake(ok); if (res.error && res.error.retryable) reconcile(root); return; }
         mergeStatus(res.data); close();
         CrUI.snd(inn ? 'success' : 'pop'); Fx.haptic('success');
         toast(tf(inn ? 'vt.movedIn' : 'vt.movedOut', { amt: CrUI.dec(n, 3) }), 'success');

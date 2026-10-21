@@ -110,6 +110,16 @@ const T: Record<Lang, Row> = {
       SEC_NEW_DEVICE: ["تسجيل دخول جديد إلى حسابك", "تم رصد تسجيل دخول إلى حسابك في لايف إكس ديجيتال من جهاز جديد."],
       warn: "إذا لم تكن أنت، تواصل مع الدعم فوراً:",
     },
+    val: {
+      kycSubject: "تم التحقق من هويتك في لايف إكس ديجيتال", kycTitle: "تم قبول التحقق من الهوية",
+      kycBody: "راجع فريقنا وثائقك وصورتك الشخصية وتم قبولها. حسابك موثّق الآن ويمكنك طلب السحب والاشتراك في الخطط.",
+      invSubject: (r: string) => `تم تأكيد دفعتك — ${r}`, invTitle: "تم استلام دفعتك وتأكيدها",
+      invBody: "تحقق المسؤول فعلياً من وصول المبلغ إلى حسابنا، وأصبحت خطتك فعّالة.",
+      wdSubject: (r: string) => `تم تنفيذ سحبك — ${r}`, wdTitle: "تم تنفيذ طلب السحب",
+      wdBody: "أكّد المسؤول تحويل المبلغ إلى حسابك المصرفي. قد يستغرق ظهوره في كشف الحساب بعض الوقت حسب البنك.",
+      plan: "الخطة", days: "المدة (أيام)", bank: "البنك", bankRef: "مرجع التحويل المصرفي",
+      plans: { ESSENTIAL: "الأساسية", GROWTH: "النمو", PREMIUM: "بريميوم" },
+    },
   },
 };
 
@@ -194,6 +204,21 @@ async function build(log: Row, lang: Lang): Promise<{ subject: string; html: str
     };
   }
 
+  if (type === "KYC_APPROVED") {
+    return { subject: T.ar.val.kycSubject, html: layout("ar", T.ar.val.kycTitle, T.ar.val.kycBody, [], button(T.ar.open)) };
+  }
+  if (type === "INVEST_CONFIRMED") {
+    const p: Row = log.payload ?? {};
+    const rows: [string, string][] = [[T.ar.f.ref, String(p.reference ?? "")], [T.ar.val.plan, T.ar.val.plans[String(p.plan)] ?? String(p.plan ?? "")], [T.ar.f.amount, money(p.amount, "OMR", "ar")], [T.ar.val.days, String(p.days ?? "")]];
+    return { subject: T.ar.val.invSubject(String(p.reference ?? "")), html: layout("ar", T.ar.val.invTitle, T.ar.val.invBody, rows, button(T.ar.open)) };
+  }
+  if (type === "WITHDRAWAL_PAID") {
+    const p: Row = log.payload ?? {};
+    const rows: [string, string][] = [[T.ar.f.ref, String(p.reference ?? "")], [T.ar.f.amount, money(p.amount, "OMR", "ar")]];
+    if (p.bank_ar) rows.push([T.ar.val.bank, String(p.bank_ar)]);
+    if (p.bank_ref) rows.push([T.ar.val.bankRef, String(p.bank_ref)]);
+    return { subject: T.ar.val.wdSubject(String(p.reference ?? "")), html: layout("ar", T.ar.val.wdTitle, T.ar.val.wdBody, rows, button(T.ar.open)) };
+  }
   if (type === "ADMIN_NEW_USER") {
     // Alerte administrateur : un nouvel inscrit. Les données viennent de la base (payload écrit par le déclencheur).
     const p: Row = log.payload ?? {};
@@ -284,8 +309,9 @@ async function build(log: Row, lang: Lang): Promise<{ subject: string; html: str
 
 const retryDelayMin = (attempts: number) => Math.min(2 ** attempts, 60);
 
+const ARABIC_ONLY = ["KYC_APPROVED", "INVEST_CONFIRMED", "WITHDRAWAL_PAID"];   // e-mails de validation : toujours entièrement en arabe
 async function process(log: Row, dryRun = false): Promise<Row> {
-  const lang = await langOf(log.user_id);
+  const lang: Lang = ARABIC_ONLY.includes(log.email_type) ? "ar" : await langOf(log.user_id);
   const built = await build(log, lang);
 
   if ("skip" in built) {

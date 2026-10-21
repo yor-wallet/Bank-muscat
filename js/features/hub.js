@@ -153,7 +153,7 @@ const AdminHub = (() => {
     setTimeout(() => { const roots = document.querySelectorAll('.hub-sheet'); const r = roots[roots.length - 1]; if (r) { try { wire(r, close); } catch(x){ Guardian.note('hub:wire', x); } } }, 80);
   }
   const normId = v => { v = String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, ''); if (v.indexOf('LXD') === 0) v = 'YOR' + v.slice(3); if (/^[A-Z0-9]{6}$/.test(v)) v = 'YOR' + v; return /^YOR[A-Z0-9]{6}$/.test(v) ? 'YOR-' + v.slice(3) : ''; };
-  const parseAmt = v => { const n = parseFloat(String(v || '').replace(',', '.').replace(/[^0-9.]/g, '')); return Number.isFinite(n) ? Math.round(n * 1000) / 1000 : 0; };
+  const parseAmt = v => { const x = String(v || '').trim().replace(/\s/g, ''); if (!/^\d{1,8}([.,]\d{1,3})?$/.test(x)) return 0; const n = parseFloat(x.replace(',', '.')); return Number.isFinite(n) && n > 0 && n <= 10000000 ? Math.round(n * 1000) / 1000 : 0; };      /* « -50 », « 1e3 », « 5.5.5 » sont refusés (avant : « -50 » devenait 50) */
 
   function depositSheet(){
     sheet('<h2>' + esc(e('t.deposit')) + '</h2><p class="hub-p">' + esc(e('dSub')) + '</p>' +
@@ -185,10 +185,10 @@ const AdminHub = (() => {
           '<div class="adm-btns"><button type="button" class="btn btn-secondary" id="hd-back">' + esc(e('dBack')) + '</button><button type="button" class="btn btn-primary" id="hd-do">' + esc(e('dGo')) + '</button></div><div class="field-err" id="hd-err2" role="alert"></div>';
         try { Sfx.play('pop'); } catch(x){ /* rien */ }
         s2.querySelector('#hd-back').onclick = () => { s2.hidden = true; s1.hidden = false; };
-        const doBtn = s2.querySelector('#hd-do');
+        const doBtn = s2.querySelector('#hd-do'), idem = uuid();      /* UNE clé par confirmation : si la réponse se perd, un nouvel appui rejoue le même dépôt (jamais un second) */
         doBtn.onclick = async () => {
           if (busy) return; busy = true; doBtn.disabled = true; doBtn.textContent = e('dWorking');
-          const r = await Guardian.rpc('admin_deposit', { p_target_yor_id: yid, p_amount: a, p_currency: 'OMR', p_note: nt || null, p_idempotency_key: uuid() }, { retries: 0, read: false });
+          const r = await Guardian.rpc('admin_deposit', { p_target_yor_id: yid, p_amount: a, p_currency: 'OMR', p_note: nt || null, p_idempotency_key: idem }, { retries: 0, read: false });
           busy = false;
           if (!r.ok || !r.data || r.data.ok === false){ doBtn.disabled = false; doBtn.textContent = e('dGo'); s2.querySelector('#hd-err2').textContent = errMsg(r.error); try { Sfx.play('error'); Fx.haptic('error'); } catch(x){ /* rien */ } return; }
           note('ADMIN_DEPOSIT', Money.fmt(a, 'OMR') + ' · ' + dispId(yid)); done(a, nm, N().str(N().obj(r.data).reference, 40));
