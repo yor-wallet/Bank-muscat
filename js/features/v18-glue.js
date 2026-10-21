@@ -58,7 +58,8 @@ const V18 = (() => {
       } else if (n.type === 'CREDIT_DECISION'){
         const ok = d.status === 'APPROVED';
         InAppNotif.showCall({ title: t(ok ? 'v18.n.creditOk' : 'v18.n.creditNo'), message: ok ? Money.fmt(d.amount, d.currency || 'OMR') : (d.note || ''), status: ok ? 'success' : 'default', onClick: () => { try { R.go('credit'); } catch(e){ /* rien */ } } });
-        try { Sfx.play(ok ? 'credit' : 'notify'); if (ok) Fx.confetti(null, { n: 90 }); } catch(e){ /* rien */ }
+        if (ok && typeof Credit !== 'undefined' && Credit.checkApproved) setTimeout(async () => { try { await AuthEngine.hydrateLive(); await Credit.checkApproved(); } catch(e){ /* rien */ } }, 500);
+        else { try { Sfx.play(ok ? 'credit' : 'notify'); if (ok) Fx.confetti(null, { n: 90 }); } catch(e){ /* rien */ } }
       } else if (n.type === 'CREDIT_REQUEST'){
         InAppNotif.showCall({ title: t('v18.n.creditReq'), message: n.message, status: 'default', onClick: () => { try { R.go('admin-credit'); } catch(e){ /* rien */ } } });
         try { Sfx.play('notify'); } catch(e){ /* rien */ }
