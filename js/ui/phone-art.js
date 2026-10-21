@@ -21,15 +21,15 @@ const PhoneArt = (() => {
   };
   const ic = (n, s) => '<svg class="ph-i" viewBox="0 0 24 24" width="' + (s || 24) + '" height="' + (s || 24) + '" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[n] + '</svg>';
   const T = {
-    en: { hi: 'Good evening', name: 'Sajad', bal: 'Available balance', acts: ['Send', 'Receive', 'History', 'More'], recent: 'Recent activity', rw: 'Welcome reward', rwSub: 'Today', toastT: 'Money received', toastM: 'Awa sent you 25 OMR',
+    en: { hi: 'Good evening', name: 'Your name', friend: 'Friend', bal: 'Available balance', acts: ['Send', 'Receive', 'History', 'More'], recent: 'Recent activity', rw: 'Welcome reward', rwSub: 'Today', toastT: 'Money received', toastM: 'A friend sent you 25 OMR',
       earned: 'You earned', cong: 'Welcome reward added to your wallet', cta: 'Awesome!', intl: 'International transfer', regions: ['Gulf', 'Africa', 'USA', 'Canada'], days: '48–72 h', meth: ['Bank', 'Mobile money', 'Cash pickup'],
-      arrives: 'Arrives in 2–3 days', cards: 'Cards', online: 'Online payments', contactless: 'Contactless', atm: 'ATM withdrawals', code: 'Enter your code', fid: 'Face ID recognised', holder: 'SAJAD AJMI' },
-    fr: { hi: 'Bonsoir', name: 'Sajad', bal: 'Solde disponible', acts: ['Envoyer', 'Recevoir', 'Historique', 'Plus'], recent: 'Activité récente', rw: 'Récompense de bienvenue', rwSub: 'Aujourd’hui', toastT: 'Argent reçu', toastM: 'Awa vous a envoyé 25 OMR',
+      arrives: 'Arrives in 2–3 days', cards: 'Cards', online: 'Online payments', contactless: 'Contactless', atm: 'ATM withdrawals', code: 'Enter your code', fid: 'Face ID recognised', holder: 'YOUR NAME' },
+    fr: { hi: 'Bonsoir', name: 'Votre nom', friend: 'Ami', bal: 'Solde disponible', acts: ['Envoyer', 'Recevoir', 'Historique', 'Plus'], recent: 'Activité récente', rw: 'Récompense de bienvenue', rwSub: 'Aujourd’hui', toastT: 'Argent reçu', toastM: 'Un ami vous a envoyé 25 OMR',
       earned: 'Vous avez gagné', cong: 'Récompense de bienvenue ajoutée à votre portefeuille', cta: 'Génial !', intl: 'Transfert international', regions: ['Golfe', 'Afrique', 'USA', 'Canada'], days: '48–72 h', meth: ['Banque', 'Mobile money', 'Retrait en espèces'],
-      arrives: 'Arrive sous 2 à 3 jours', cards: 'Cartes', online: 'Paiements en ligne', contactless: 'Sans contact', atm: 'Retraits DAB', code: 'Saisissez votre code', fid: 'Face ID reconnu', holder: 'SAJAD AJMI' },
-    ar: { hi: 'مساء الخير', name: 'سجاد', bal: 'الرصيد المتاح', acts: ['إرسال', 'استلام', 'السجل', 'المزيد'], recent: 'النشاط الأخير', rw: 'مكافأة الترحيب', rwSub: 'اليوم', toastT: 'تم استلام مبلغ', toastM: 'أرسلت لك أوا 25 ر.ع',
+      arrives: 'Arrive sous 2 à 3 jours', cards: 'Cartes', online: 'Paiements en ligne', contactless: 'Sans contact', atm: 'Retraits DAB', code: 'Saisissez votre code', fid: 'Face ID reconnu', holder: 'YOUR NAME' },
+    ar: { hi: 'مساء الخير', name: 'اسمك', friend: 'صديق', bal: 'الرصيد المتاح', acts: ['إرسال', 'استلام', 'السجل', 'المزيد'], recent: 'النشاط الأخير', rw: 'مكافأة الترحيب', rwSub: 'اليوم', toastT: 'تم استلام مبلغ', toastM: 'أرسل لك صديق 25 ر.ع',
       earned: 'لقد ربحت', cong: 'تمت إضافة مكافأة الترحيب إلى محفظتك', cta: 'رائع!', intl: 'التحويل الدولي', regions: ['الخليج', 'أفريقيا', 'أمريكا', 'كندا'], days: '48–72 ساعة', meth: ['بنك', 'محفظة هاتف', 'استلام نقدي'],
-      arrives: 'يصل خلال 2–3 أيام', cards: 'البطاقات', online: 'الدفع عبر الإنترنت', contactless: 'الدفع اللاتلامسي', atm: 'السحب من الصراف', code: 'أدخل رمزك', fid: 'تم التعرف بـ Face ID', holder: 'SAJAD AJMI' },
+      arrives: 'يصل خلال 2–3 أيام', cards: 'البطاقات', online: 'الدفع عبر الإنترنت', contactless: 'الدفع اللاتلامسي', atm: 'السحب من الصراف', code: 'أدخل رمزك', fid: 'تم التعرف بـ Face ID', holder: 'YOUR NAME' },
   };
   const FACES = [['#C98A5C', '#2A1A15'], ['#8C5A3B', '#1E120D'], ['#E8B796', '#6A4029'], ['#A56F44', '#2A1A15'], ['#6E4228', '#120A06'], ['#D9A27A', '#5B3622']];
   /* avatar illustré : tête, cheveux, épaules (SVG) */
@@ -50,12 +50,12 @@ const PhoneArt = (() => {
     /* 0 — accueil */
     (t, lang) => shell(
       '<div class="ph-ui ph-home-ui">' +
-        '<div class="ph-hd"><span class="ph-ava">SA</span><span class="ph-hello"><small>' + esc(t.hi) + '</small><b>' + esc(t.name) + '</b></span><span class="ph-ic">' + ic('search', 18) + '</span><span class="ph-ic">' + ic('bell', 18) + '<i class="ph-dot"></i></span></div>' +
-        '<div class="ph-bal"><small>' + esc(t.bal) + '</small><div class="ph-amt"><span>USD</span><b>26.01</b></div><em>10.000 OMR</em><div class="ph-bal-f"><span>LXD-K7Q4ZX</span><span>' + esc(t.acts[2]) + ' ' + ic('chev', 12) + '</span></div></div>' +
+        '<div class="ph-hd"><span class="ph-ava">LX</span><span class="ph-hello"><small>' + esc(t.hi) + '</small><b>' + esc(t.name) + '</b></span><span class="ph-ic">' + ic('search', 18) + '</span><span class="ph-ic">' + ic('bell', 18) + '<i class="ph-dot"></i></span></div>' +
+        '<div class="ph-bal"><small>' + esc(t.bal) + '</small><div class="ph-amt"><span>USD</span><b>26.01</b></div><em>10.000 OMR</em><div class="ph-bal-f"><span>LXD-XXXXXX</span><span>' + esc(t.acts[2]) + ' ' + ic('chev', 12) + '</span></div></div>' +
         '<div class="ph-acts">' + ['send', 'recv', 'hist', 'grid'].map((n, i) => '<span class="ph-act' + (i === 0 ? ' p' : '') + '"><i>' + ic(n, 22) + '</i><small>' + esc(t.acts[i]) + '</small></span>').join('') + '</div>' +
         '<div class="ph-sec">' + esc(t.recent) + '</div>' +
         '<div class="ph-row"><i class="ph-tile">' + ic('gift', 18) + '</i><span><b>' + esc(t.rw) + '</b><small>' + esc(t.rwSub) + '</small></span><em class="up">+10.000 OMR</em></div>' +
-        '<div class="ph-row"><span class="ph-av">' + face(0, 28) + '</span><span><b>Awa Diop</b><small>' + esc(t.rwSub) + '</small></span><em>-25.000 OMR</em></div>' +
+        '<div class="ph-row"><span class="ph-av">' + face(0, 28) + '</span><span><b>' + esc(t.friend) + '</b><small>' + esc(t.rwSub) + '</small></span><em>-25.000 OMR</em></div>' +
         '<div class="ph-sec">' + esc(t.cards) + '</div>' +
         '<div class="ph-strip"><span class="ph-mini g"><b>LIVE X</b><img src="assets/brand/network/visa-blue.svg" alt="" height="9"></span><span class="ph-mini k"><b>LIVE X</b><img src="assets/brand/network/visa-white.svg" alt="" height="9"></span></div>' +
       '</div>',

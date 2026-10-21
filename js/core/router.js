@@ -6,6 +6,7 @@
 const R = (() => {
   let current = null, curHash = '', token = 0, started = false, bound = false, cleanups = [];
   const stack = [], overlays = [], SCREENS = {};
+  const NONAV = [];
   const LOCKED = ['processing','tx-network-validation','tx-confirmation','boot'];
   const PUBLIC_SCREENS = ['login','signup','reset'];
   const ADMIN_SCREENS = ['chain','admin','admin-user'];     /* écrans réservés au rôle admin (masquage d'interface) */
@@ -35,6 +36,8 @@ const R = (() => {
     'crypto-to-bank':'crypto','crypto-to-bank-account':'crypto','crypto-to-bank-amount':'crypto','crypto-bank-review':'crypto'
   };
   function register(map){ Object.assign(SCREENS, map); }
+  /* 18.0.0 : un module ajoute ses écrans sans toucher à ce fichier : meta({ 'chat': { parent:'home', nav:'services' }, 'admin-chat': { parent:'admin', nav:'services', admin:true } }) */
+  function meta(map){ Object.keys(map || {}).forEach(id => { const m = map[id] || {}; if (m.parent) PARENT[id] = m.parent; if (m.nav) NAV_KEYS[id] = m.nav; if (m.admin && ADMIN_SCREENS.indexOf(id) === -1) ADMIN_SCREENS.push(id); if (m.nonav && NONAV.indexOf(id) === -1) NONAV.push(id); if (m.locked && LOCKED.indexOf(id) === -1) LOCKED.push(id); }); }
   function onLeave(fn){ if (typeof fn === 'function') cleanups.push(fn); }
   function runCleanups(){ const l = cleanups; cleanups = []; l.forEach(fn => { try { fn(); } catch(e){} }); }
   function pathOf(id){ return '#/' + id.split('-').join('/'); }
@@ -51,7 +54,7 @@ const R = (() => {
   function arm(){ try { if (!(history.state && history.state.yorTop)) history.pushState({ yorTop:true }, '', location.href); } catch(e){} }
   function chrome(id){
     const nav = document.getElementById('bottom-nav');
-    const hideNav = /^settings|^banks-add|^contact-add|^cards-add|^login|^signup|^reset|^devices|^sessions|^processing/.test(id);   /* 12.12.0: the send animation is full-screen, nothing else to tap */
+    const hideNav = NONAV.indexOf(id) !== -1 || /^settings|^banks-add|^contact-add|^cards-add|^login|^signup|^reset|^devices|^sessions|^processing/.test(id);   /* 12.12.0: the send animation is full-screen, nothing else to tap */
     if (nav) nav.hidden = hideNav;
     const m = document.getElementById('main'); if (m) m.classList.toggle('no-nav', hideNav);
     const key = NAV_KEYS[id];
@@ -181,6 +184,6 @@ const R = (() => {
     if (AuthEngine.hasValidContext()) R.go('home', { reset:true });
     else R.go('login', { reset:true });
   }
-  return { go, back, home, start, bind, current: () => current, register, resolve, onLeave, ids: () => Object.keys(SCREENS), overlay:{ open, close:closeTop, isOpen:() => overlays.length > 0 } };
+  return { go, back, home, start, bind, current: () => current, register, meta, resolve, onLeave, ids: () => Object.keys(SCREENS), overlay:{ open, close:closeTop, isOpen:() => overlays.length > 0 } };
 })();
 

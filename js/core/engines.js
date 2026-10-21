@@ -99,7 +99,7 @@ const UserContext = (() => {
 const UserDataEngine = (() => {
   const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   const ITEM_COLLECTIONS = ['cards','bankAccounts','contacts','beneficiaries','devices','sessions','receipts'];
-  const FIAT_KINDS = ['FIAT_TRANSFER','ADMIN_DEPOSIT','FIAT_EXTERNAL','SIGNUP_BONUS'];
+  const FIAT_KINDS = ['FIAT_TRANSFER','ADMIN_DEPOSIT','FIAT_EXTERNAL','SIGNUP_BONUS','CREDIT_GRANT','EARN_YIELD','VAULT_IN','VAULT_OUT'];
   const ms = v => (v ? new Date(v).getTime() : Date.now());
   function must(res){ if (res.error) throw res.error; return res.data; }
 

@@ -67,6 +67,7 @@ const AuthEngine = (() => {
     const [accounts, transactions, notifications] = await Promise.all([UserDataEngine.readAccounts(uid), UserDataEngine.readTransactions(uid), UserDataEngine.readNotifications(uid)]);
     if (!UserContext.get() || UserContext.get().uid !== uid) return Runtime;
     Runtime.accounts = accounts || []; Runtime.transactions = transactions || []; Runtime.notifications = notifications || [];
+    try { if (typeof Guardian !== 'undefined') Guardian.heal(Runtime); } catch(e){}
     try { if (typeof Push !== 'undefined') Push.syncBadge(); } catch(e){}
     return Runtime;
   }
@@ -80,6 +81,7 @@ const AuthEngine = (() => {
     Runtime.devices = devices || []; Runtime.sessions = sessions || [];
     Runtime.hideBalance = !!Runtime.settings.hideBalances;
     LANG = Runtime.settings.language || DeviceLang.get();
+    try { if (typeof Guardian !== 'undefined') Guardian.heal(Runtime); } catch(e){}      /* 18.0.0 : contrôle d'intégrité des données chargées */
     try { if (typeof Push !== 'undefined') Push.syncBadge(); } catch(e){}      /* 12.13.0 : pastille de l'icône = alertes non lues */
     return Runtime;
   }
@@ -98,7 +100,9 @@ const AuthEngine = (() => {
     const notifOn = !(Runtime.settings && Runtime.settings.notifications === false);
     if (n && notifOn){
       const d = n.data || {};
-      if (n.type === 'TRANSFER_RECEIVED' || n.type === 'DEPOSIT'){
+      if (typeof V18 !== 'undefined' && V18.handles(n.type)){
+        V18.onNotif(n);                                                                                              /* 18.0.0 : message, crédit, annonce */
+      } else if (n.type === 'TRANSFER_RECEIVED' || n.type === 'DEPOSIT'){
         const nv = (typeof notifView === 'function') ? notifView(n) : { title: n.title, message: n.message };
         InAppNotif.showCall({ title: nv.title, message: nv.message, status:'success' });
         try { Sfx.play('money'); } catch(e){ /* rien */ }

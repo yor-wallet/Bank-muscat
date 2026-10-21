@@ -144,28 +144,28 @@ export async function sendPush(
 }
 
 /* ---------- texte des notifications ---------- */
-export const PUSH_TYPES = ["TRANSFER_SENT", "TRANSFER_RECEIVED", "DEPOSIT", "REWARD", "NEW_USER"] as const;   /* argent, récompense et alerte administrateur ; la crypto est masquée dans l'application */
+export const PUSH_TYPES = ["TRANSFER_SENT", "TRANSFER_RECEIVED", "DEPOSIT", "REWARD", "NEW_USER", "CHAT_MESSAGE", "CREDIT_DECISION", "CREDIT_REQUEST", "ANNOUNCEMENT"] as const;   /* argent, récompense et alerte administrateur ; la crypto est masquée dans l'application */
 
 const T: Record<Lang, Record<string, string>> = {
   en: {
-    sent: "Money sent", received: "Money received", deposit: "Money added", reward: "Welcome reward 🎁", newUser: "New member",
+    sent: "Money sent", received: "Money received", deposit: "Money added", reward: "Welcome reward", newUser: "New member",
     sentBody: "{amt} sent to {to}", sentBodyNoTo: "{amt} sent", receivedBody: "{amt} received from {from}", receivedBodyNoFrom: "{amt} received", depositBody: "{amt} added to your account",
     rewardBody: "{amt} added to your wallet as a welcome reward",
-    ref: "Ref.",
+    ref: "Ref.", chat: "New message", creditOk: "Credit approved", creditNo: "Credit declined", creditReq: "Credit request",
     testTitle: "Notifications are on", testBody: "You will see here when money is sent or received.",
   },
   fr: {
-    sent: "Transfert envoyé", received: "Argent reçu", deposit: "Argent ajouté", reward: "Récompense de bienvenue 🎁", newUser: "Nouveau membre",
+    sent: "Transfert envoyé", received: "Argent reçu", deposit: "Argent ajouté", reward: "Récompense de bienvenue", newUser: "Nouveau membre",
     sentBody: "{amt} envoyés à {to}", sentBodyNoTo: "{amt} envoyés", receivedBody: "{amt} reçus de {from}", receivedBodyNoFrom: "{amt} reçus", depositBody: "{amt} ajoutés à votre compte",
     rewardBody: "{amt} ajoutés à votre portefeuille en cadeau de bienvenue",
-    ref: "Réf.",
+    ref: "Réf.", chat: "Nouveau message", creditOk: "Crédit accordé", creditNo: "Crédit refusé", creditReq: "Demande de crédit",
     testTitle: "Notifications activées", testBody: "Vous serez prévenu ici dès qu'un transfert est envoyé ou reçu.",
   },
   ar: {
-    sent: "تم الإرسال", received: "تم استلام مبلغ", deposit: "تمت إضافة مبلغ", reward: "مكافأة الترحيب 🎁", newUser: "عضو جديد",
+    sent: "تم الإرسال", received: "تم استلام مبلغ", deposit: "تمت إضافة مبلغ", reward: "مكافأة الترحيب", newUser: "عضو جديد",
     sentBody: "تم إرسال {amt} إلى {to}", sentBodyNoTo: "تم إرسال {amt}", receivedBody: "تم استلام {amt} من {from}", receivedBodyNoFrom: "تم استلام {amt}", depositBody: "تمت إضافة {amt} إلى حسابك",
     rewardBody: "تمت إضافة {amt} إلى محفظتك كمكافأة ترحيب",
-    ref: "المرجع",
+    ref: "المرجع", chat: "رسالة جديدة", creditOk: "تمت الموافقة على الائتمان", creditNo: "تم رفض الائتمان", creditReq: "طلب ائتمان",
     testTitle: "الإشعارات مفعّلة", testBody: "ستظهر هنا عند إرسال أو استلام أي مبلغ.",
   },
 };
@@ -220,6 +220,15 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   } else if (type === "REWARD") {
     title = t.reward;
     body = amt ? fill(t.rewardBody, { amt: iso(amt) }) : clean(n.message, 120);
+  } else if (type === "CHAT_MESSAGE") {
+    title = t.chat; body = clean(n.message, 120);
+  } else if (type === "CREDIT_REQUEST") {
+    title = t.creditReq; body = clean(n.message, 120);
+  } else if (type === "CREDIT_DECISION") {
+    title = String(d.status) === "APPROVED" ? t.creditOk : t.creditNo;
+    body = String(d.status) === "APPROVED" && amt ? fill(t.depositBody, { amt: iso(amt) }) : clean(n.message, 120);
+  } else if (type === "ANNOUNCEMENT") {
+    title = clean(n.title, 60) || "Live X Digitale"; body = clean(n.message, 160);
   } else if (type === "NEW_USER") {
     /* alerte administrateur : nom, pays et numéro MASQUÉ sur l'écran verrouillé (le numéro complet reste dans la console admin) */
     title = t.newUser;
@@ -234,7 +243,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {
-    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : "#/notifications",
+    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Live X Digitale" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : type === "CREDIT_DECISION" ? "#/credit" : "#/notifications",
     badge: Math.max(0, Math.min(99, Math.floor(Number(unread) || 0))), lang, dir: lang === "ar" ? "rtl" : "ltr", ts: Date.now(), kind: type,
   };
 }

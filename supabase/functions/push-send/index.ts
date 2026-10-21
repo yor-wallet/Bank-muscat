@@ -5,7 +5,7 @@ import {
 } from "./lib.ts";
 
 /* push-send : notifications push (Web Push) — iPhone (écran d'accueil, iOS 16.4+), Android, ordinateur.
-   - La base APPELLE cette fonction (pg_net) dès qu'une ligne est écrite dans public.notifications (envoi, réception, dépôt, récompense, nouveau membre) :
+   - La base APPELLE cette fonction (pg_net) dès qu'une ligne est écrite dans public.notifications (envoi, réception, dépôt, récompense, nouveau membre, message, crédit, annonce) :
      la notification part même si l'application est fermée, c'est Apple (APNs) qui la livre.
    - L'application l'appelle (jeton de connexion de la personne) avec l'action « subscribe » / « unsubscribe » (Réglages → Alertes sur ce téléphone :
      enregistre ou retire SON appareil, après contrôle de l'adresse de livraison) ou « test » (bouton « Envoyer un test » : vers SES appareils seulement).
@@ -14,7 +14,7 @@ import {
    Clés VAPID : générées ICI à la première utilisation et gardées dans la table privée push_vapid (RLS sans politique, aucun droit public). La clé
    privée ne quitte jamais le serveur : elle n'est ni dans l'application, ni dans un fichier, ni dans une réponse. */
 
-const SUBJECT = Deno.env.get("PUSH_SUBJECT") ?? "https://taupe-cocada-442156.netlify.app";   /* contact VAPID : une adresse https (aucune adresse e-mail personnelle n'est envoyée à Apple) */
+const SUBJECT = Deno.env.get("PUSH_SUBJECT") ?? "https://live-x-digitale-app.vercel.app";   /* contact VAPID : une adresse https (aucune adresse e-mail personnelle n'est envoyée à Apple) */
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
 const CORS = {
   "access-control-allow-origin": "*",

@@ -83,6 +83,7 @@ const LiveX = (() => {
   function onScreen(id, root){
     if (id === 'intl' || id.indexOf('intl-') === 0) IntlX.wire(id, root);
     else if (id === 'admin' || id === 'admin-user') Admin.wire(id, root);
+    try { if (typeof Hooks !== 'undefined') Hooks.run(id, root); } catch(e2){ console.error(e2); }      /* 18.0.0 : modules crédit / coffre / chat / cinéma / centre de contrôle */
   }
   return { caps, probe, afterHome, phoneGate, guardIntl, onScreen, validPhone };
 })();

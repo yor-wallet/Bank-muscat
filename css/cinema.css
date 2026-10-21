@@ -1,0 +1,219 @@
+/* ==========================================================================
+   LIVE X DIGITALE 18.0.0 — Cinéma (film publicitaire) + centre de contrôle admin (admin-hub, admin-announce).
+   Les scènes sont TOUJOURS sombres et dorées (même en thème clair) : le film est une image de marque, pas un écran de réglages.
+   Animations : transform / opacity seulement. prefers-reduced-motion : scènes fixes.
+   ========================================================================== */
+
+/* ---------- conteneurs ---------- */
+.cin-slot{display:block;min-height:190px;margin:0;border-radius:28px;contain:layout paint}
+.cin-host{position:absolute;inset:0;background:#000}
+#cinema{padding:0!important;background:#000;overflow:hidden}
+.cin{position:relative;overflow:hidden;color:#fff;background:#07080b;isolation:isolate;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;
+  --gold:#f2b632;--gold-2:#ffd36b;--on:#14110a;font-family:var(--font)}
+html[dir="rtl"] .cin{font-family:var(--font-ar)}
+.cin-compact{height:190px;border-radius:28px;border:1px solid rgba(255,211,107,.28);box-shadow:0 22px 40px -24px rgba(242,182,50,.55),0 1px 0 rgba(255,236,190,.14) inset;cursor:pointer;touch-action:pan-y}
+.cin-full{position:absolute;inset:0;height:100%;touch-action:none;transition:transform .22s ease,opacity .22s ease}
+.cin-preview{height:190px;cursor:default;pointer-events:none}
+.cin-stage{position:absolute;inset:0}
+
+/* ---------- scène ---------- */
+.cin-scene{position:absolute;inset:0;overflow:hidden;opacity:0;transition:opacity .45s ease;
+  background:radial-gradient(120% 80% at 85% 0%,var(--c1),transparent 60%),radial-gradient(100% 70% at 0% 100%,var(--c2),transparent 62%),linear-gradient(170deg,var(--base),#07080b 78%)}
+.cin-scene.is-on{opacity:1}.cin-scene.is-out{opacity:0;pointer-events:none}
+.t-gold{--c1:rgba(255,200,74,.5);--c2:rgba(184,125,10,.42);--base:#17110a}
+.t-ember{--c1:rgba(255,150,60,.45);--c2:rgba(160,60,20,.4);--base:#1a0f08}
+.t-teal{--c1:rgba(60,214,190,.34);--c2:rgba(242,182,50,.3);--base:#061513}
+.t-indigo{--c1:rgba(125,120,255,.46);--c2:rgba(242,182,50,.26);--base:#0b0b1f}
+.t-sky{--c1:rgba(90,170,255,.4);--c2:rgba(242,182,50,.3);--base:#081220}
+.t-emerald{--c1:rgba(52,211,153,.38);--c2:rgba(242,182,50,.26);--base:#06150f}
+
+/* fond animé */
+.cin-bg{position:absolute;inset:0;pointer-events:none}
+.cin-glow{position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,226,150,.4),transparent 66%);will-change:transform}
+.cin-glow.g1{top:-22%;inset-inline-end:-14%;animation:cinDrift 8s ease-in-out infinite alternate}
+.cin-glow.g2{bottom:-30%;inset-inline-start:-18%;opacity:.7;animation:cinDrift 11s ease-in-out -3s infinite alternate-reverse}
+.cin-rings{position:absolute;top:-16%;inset-inline-end:-34%;width:96%;aspect-ratio:1;border-radius:50%;background:repeating-radial-gradient(circle,transparent 0 24px,rgba(255,255,255,.07) 24px 25px);
+  -webkit-mask-image:radial-gradient(circle,#000 28%,transparent 70%);mask-image:radial-gradient(circle,#000 28%,transparent 70%);animation:cinSpin 46s linear infinite}
+.cin-beams{position:absolute;inset:-45%;background:conic-gradient(from 0deg at 50% 40%,transparent 0 8%,rgba(255,255,255,.075) 10%,transparent 14% 30%,rgba(255,255,255,.05) 33%,transparent 37% 60%,rgba(255,255,255,.06) 63%,transparent 68%);
+  mix-blend-mode:screen;opacity:.75;animation:cinSpin 30s linear infinite}
+.cin-p{position:absolute;left:var(--x);bottom:-12px;width:var(--s);height:var(--s);border-radius:50%;background:radial-gradient(circle,#fff6cf,#f2b632 60%,transparent 72%);opacity:0;animation:cinRise var(--d) linear var(--t) infinite}
+@keyframes cinDrift{to{transform:translate3d(-12%,10%,0) scale(1.18)}}
+@keyframes cinSpin{to{transform:rotate(360deg)}}
+@keyframes cinRise{0%{transform:translate3d(0,0,0);opacity:0}12%{opacity:.9}100%{transform:translate3d(14px,-115vh,0);opacity:0}}
+.cin-compact .cin-p{animation-name:cinRiseS}
+@keyframes cinRiseS{0%{transform:translate3d(0,0,0);opacity:0}12%{opacity:.9}100%{transform:translate3d(10px,-230px,0);opacity:0}}
+
+/* mise en page plein écran */
+.cin-full .cin-scene{display:flex;flex-direction:column;justify-content:flex-end;padding:calc(96px + env(safe-area-inset-top,0px)) 24px calc(34px + env(safe-area-inset-bottom,0px))}
+.cin-full .cin-art{flex:1 1 auto;min-height:0;display:grid;place-items:center;margin-bottom:10px}
+.cin-full .cin-art>*{width:min(320px,82%);max-height:100%}
+.cin-full .cin-copy{flex:none;display:flex;flex-direction:column;gap:10px}
+/* mise en page bannière */
+.cin-compact .cin-scene{display:block}
+.cin-compact .cin-art{position:absolute;top:57%;inset-inline-end:-52px;width:260px;height:220px;display:grid;place-items:center;transform:translateY(-50%) scale(.54);transform-origin:center}
+.cin-compact .cin-art>*{width:100%;max-height:100%}
+.cin-compact .cin-copy{position:absolute;inset-block:0;inset-inline-start:0;width:60%;padding:30px 4px 14px 18px;display:flex;flex-direction:column;justify-content:center;gap:5px}
+html[dir="rtl"] .cin-compact .cin-copy{padding:30px 18px 14px 4px}
+.cin-compact .cin-sub,.cin-compact .cin-chips{display:none}
+.cin-compact .cin-num{flex-direction:row;align-items:baseline;gap:6px;flex-wrap:wrap}
+.cin-compact .cin-num small:first-child,.cin-compact .cin-num small:last-child{display:none}
+.cin-compact .cin-credit-n{display:none}
+.cin-compact .sc-credit .cin-num small{display:inline}
+.cin-compact .sc-boost .cin-num small{display:none}
+
+/* texte */
+.cin-kicker{font-size:12px;font-weight:800;letter-spacing:.22em;color:var(--gold-2);opacity:0;transform:translateY(8px)}
+html[dir="rtl"] .cin-kicker{letter-spacing:.04em}
+.is-on .cin-kicker{animation:cinUp .6s .05s cubic-bezier(.2,.9,.2,1) both}
+.cin-title{margin:0;font-size:clamp(34px,10.6vw,52px);line-height:1.04;font-weight:900;letter-spacing:-.03em;color:#fff;text-wrap:balance}
+html[dir="rtl"] .cin-title{letter-spacing:0;line-height:1.22}
+.cin-title .w{display:inline-block;opacity:0;transform:translateY(.55em) scale(.94);filter:blur(6px)}
+.is-on .cin-title .w{animation:cinWord .75s cubic-bezier(.2,.9,.2,1) both;animation-delay:calc(var(--w)*110ms + 250ms)}
+.cin-title .hl{background:linear-gradient(180deg,#fff3c4,#f2b632 70%,#d99a14);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+@keyframes cinWord{to{opacity:1;transform:none;filter:none}}
+@keyframes cinUp{to{opacity:1;transform:none}}
+.cin-sub{margin:0;font-size:15.5px;line-height:1.5;color:rgba(255,255,255,.78);max-width:34ch;opacity:0;transform:translateY(10px)}
+.is-on .cin-sub{animation:cinUp .7s .95s cubic-bezier(.2,.9,.2,1) both}
+.cin-num{display:flex;flex-direction:column;gap:2px;opacity:0;transform:translateY(10px)}
+.is-on .cin-num{animation:cinUp .7s 1.1s cubic-bezier(.2,.9,.2,1) both}
+.cin-num b{font-size:clamp(30px,9.4vw,42px);line-height:1.1;font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#fff3c4,#f2b632);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.cin-num small{font-size:12.5px;color:rgba(255,255,255,.72);font-weight:600}
+.cin-compact .cin-num b{font-size:22px}
+.cin-chips{display:flex;gap:8px;flex-wrap:wrap;opacity:0;transform:translateY(10px)}
+.is-on .cin-chips{animation:cinUp .7s 1.1s cubic-bezier(.2,.9,.2,1) both}
+.cin-chips span{padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.cin-compact .cin-kicker{font-size:10px}
+.cin-compact .cin-title{font-size:19px;line-height:1.12;letter-spacing:-.015em;max-height:3.5em;overflow:hidden}
+html[dir="rtl"] .cin-compact .cin-title{line-height:1.3;max-height:4em}
+
+/* appel à l'action */
+.cin-acts{display:flex;gap:10px;align-items:center;margin-top:6px;opacity:0;transform:translateY(12px)}
+.is-on .cin-acts{animation:cinUp .7s 1.25s cubic-bezier(.2,.9,.2,1) both}
+.cin-cta{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:18px;border:0;cursor:pointer;
+  background:linear-gradient(180deg,#ffd36b,#f2b632 55%,#d99a14);color:#14110a;font:inherit;font-weight:800;font-size:16px;box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 16px 30px -12px rgba(242,182,50,.7);animation:cinBreath 2.8s ease-in-out 2.4s infinite}
+.cin-cta::after{content:"";position:absolute;top:0;bottom:0;width:40%;inset-inline-start:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-18deg);animation:cinShine 3.4s ease-in-out 2.2s infinite}
+.cin-cta:active{transform:scale(.96)}
+.cin-cta-ic{display:inline-flex}
+html[dir="rtl"] .cin-cta-ic{transform:scaleX(-1)}
+.cin-cta2{min-height:52px;padding:0 18px;border-radius:18px;border:1px solid rgba(255,211,107,.5);background:rgba(255,255,255,.08);color:#ffe9a3;font:inherit;font-weight:700;cursor:pointer}
+.cin-compact .cin-cta{min-height:36px;padding:0 14px;border-radius:12px;font-size:13px;gap:6px;align-self:flex-start;animation:none}
+.cin-compact .cin-cta-ic svg{width:14px;height:14px}
+.cin-compact .cin-cta2{display:none}
+.cin-compact .cin-acts{margin-top:2px}
+@keyframes cinShine{0%,55%{transform:translateX(0) skewX(-18deg)}100%{transform:translateX(420%) skewX(-18deg)}}
+html[dir="rtl"] .cin-cta::after{animation-name:cinShineR}
+@keyframes cinShineR{0%,55%{transform:translateX(0) skewX(18deg)}100%{transform:translateX(-420%) skewX(18deg)}}
+@keyframes cinBreath{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+
+/* barres et boutons */
+.cin-bars{position:absolute;z-index:6;top:calc(10px + env(safe-area-inset-top,0px));inset-inline:12px;display:flex;gap:4px;pointer-events:none}
+.cin-compact .cin-bars{top:10px;inset-inline:16px}
+.cin-bar-s{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.22);overflow:hidden}
+.cin-bar-s i{display:block;height:100%;background:#fff;transform-origin:left center;transform:scaleX(0)}
+html[dir="rtl"] .cin-bar-s i{transform-origin:right center}
+.cin-ctrl{position:absolute;z-index:6;top:calc(24px + env(safe-area-inset-top,0px));inset-inline-end:12px;display:flex;gap:8px;transition:opacity .2s}
+.cin-compact .cin-ctrl{top:20px;inset-inline-end:12px}
+.cin-btn{position:relative;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.22);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);cursor:pointer}
+.cin-btn::after{content:"";position:absolute;inset:-4px}
+.cin-compact .cin-btn{width:32px;height:32px}.cin-compact .cin-btn::after{inset:-8px}
+.cin-btn:active{transform:scale(.9)}
+.cin-btn svg{display:block}
+.is-held .cin-ctrl{opacity:0}
+.is-held .cin-art,.is-held .cin-copy{transform:scale(.985);transition:transform .25s}
+.is-paused .cin-p,.is-paused .cin-glow,.is-paused .cin-rings,.is-paused .cin-beams{animation-play-state:paused}
+
+/* ---------- illustrations ---------- */
+.cin-art{position:relative}
+.cin-svg{display:block;width:100%;height:auto;overflow:visible}
+/* Boost */
+.cin-bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0)}
+.is-on .cin-bar{animation:cinGrow .9s calc(.4s + var(--i)*.12s) cubic-bezier(.2,.9,.2,1) both}
+@keyframes cinGrow{to{transform:scaleY(1)}}
+.cin-line{stroke-dasharray:320;stroke-dashoffset:320}
+.is-on .cin-line{animation:cinDraw 1.4s 1.1s ease-out both}
+@keyframes cinDraw{to{stroke-dashoffset:0}}
+.cin-dot{opacity:0;transform-box:fill-box;transform-origin:center}
+.is-on .cin-dot{animation:cinDot 1.2s 2.3s ease-out infinite}
+@keyframes cinDot{0%{opacity:0;transform:scale(.4)}25%{opacity:1;transform:scale(1)}100%{opacity:.85;transform:scale(1.5)}}
+.cin-coin{animation:none;opacity:0}
+.is-on .cin-coin{animation:cinCoin 3.4s calc(var(--i)*1.05s + .6s) cubic-bezier(.5,0,.8,.6) infinite}
+@keyframes cinCoin{0%{transform:translate(var(--tx,0),-20px);opacity:0}15%{opacity:1}70%{transform:translate(var(--tx,0),70px);opacity:1}100%{transform:translate(var(--tx,0),86px);opacity:0}}
+.cin-coin{transform-box:view-box}
+/* Crédit */
+.cin-cardwrap{position:relative;perspective:900px;aspect-ratio:1.18;display:grid;place-items:center}
+.cin-card3d{position:relative;width:78%;aspect-ratio:1.586;border-radius:18px;padding:14px;background:linear-gradient(135deg,#ffe9a3,#f2b632 45%,#a8730a);box-shadow:0 30px 50px -20px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.7) inset;transform-style:preserve-3d;animation:cinCard 6s ease-in-out infinite;overflow:hidden;color:#2a1c00}
+@keyframes cinCard{0%,100%{transform:rotateY(-24deg) rotateX(8deg)}50%{transform:rotateY(24deg) rotateX(-4deg)}}
+.cin-card-sheen{position:absolute;inset:0;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.55) 48%,transparent 62%);transform:translateX(-120%);animation:cinSheen 3.6s ease-in-out 1s infinite}
+@keyframes cinSheen{0%,40%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+.cin-chip{width:34px;height:auto;display:block}
+.cin-card-brand{position:absolute;inset-inline-end:14px;top:12px;font-size:17px;font-weight:900;letter-spacing:.14em;color:#2a1c00}
+.cin-card-line{position:absolute;inset-inline-start:14px;bottom:30px;width:56%;height:7px;border-radius:4px;background:rgba(42,28,0,.35)}
+.cin-card-line.s{bottom:16px;width:32%}
+.cin-tag{position:absolute;padding:6px 12px;border-radius:999px;font-weight:800;font-size:14px;color:#14110a;background:linear-gradient(180deg,#ffe9a3,#f2b632);box-shadow:0 10px 20px -8px rgba(0,0,0,.6);animation:cinFloat 3.2s ease-in-out infinite;font-variant-numeric:tabular-nums}
+.cin-tag.a{top:6%;inset-inline-start:2%}
+.cin-tag.b{bottom:6%;inset-inline-end:0;animation-delay:-1.6s}
+@keyframes cinFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+/* Chat */
+.cin-chat{display:flex;flex-direction:column;gap:10px;width:100%}
+.cin-bub{max-width:82%;padding:10px 14px;border-radius:18px;font-size:14px;line-height:1.35;opacity:0;transform:translateY(14px) scale(.92);box-shadow:0 10px 22px -12px rgba(0,0,0,.6)}
+.is-on .cin-bub{animation:cinBub .55s var(--d) cubic-bezier(.2,1.2,.3,1) both}
+@keyframes cinBub{to{opacity:1;transform:none}}
+.cin-bub.me{align-self:flex-end;background:linear-gradient(180deg,#ffd36b,#f2b632);color:#14110a;border-end-end-radius:5px}
+.cin-bub.them{align-self:flex-start;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);border-end-start-radius:5px}
+html[dir="rtl"] .cin-bub.me{align-self:flex-start}html[dir="rtl"] .cin-bub.them{align-self:flex-end}
+.cin-bub.typing{display:flex;gap:5px;padding:14px 16px}
+.is-on .cin-bub.typing{animation:cinBub .5s var(--d) cubic-bezier(.2,1.2,.3,1) both,cinHide .3s 2.6s ease forwards}
+@keyframes cinHide{to{opacity:0;transform:scale(.6);max-height:0;padding:0;margin:-5px 0}}
+.cin-bub.typing i{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.5;animation:cinDots 1s infinite}
+.cin-bub.typing i:nth-child(2){animation-delay:.15s}.cin-bub.typing i:nth-child(3){animation-delay:.3s}
+@keyframes cinDots{50%{transform:translateY(-4px);opacity:1}}
+.cin-bub.ok{display:flex;align-items:center;gap:8px}.cin-tk{width:17px;height:11px;flex:none;color:#0c6b3e}
+/* YASER */
+.cin-yas{position:relative;display:grid;place-items:center}
+.cin-halo{transform-box:fill-box;transform-origin:center;animation:cinHalo 3s ease-in-out infinite}
+.cin-halo.h2{animation-delay:-1.5s}
+@keyframes cinHalo{0%{transform:scale(.85);opacity:.5}100%{transform:scale(1.25);opacity:0}}
+.cin-orbit{transform-box:fill-box;transform-origin:center;animation:cinSpin 18s linear infinite}
+.cin-bot{transform-box:fill-box;transform-origin:center;animation:cinFloat 3.4s ease-in-out infinite}
+.cin-eye{transform-box:fill-box;transform-origin:center;animation:cinBlink 4s infinite}.cin-eye.e2{animation-delay:.04s}
+@keyframes cinBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.cin-ant{animation:cinPulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes cinPulse{50%{transform:scale(1.5);opacity:.6}}
+.cin-say{position:absolute;bottom:2%;inset-inline-start:50%;transform:translateX(-50%);padding:9px 14px;border-radius:16px;background:#fff;color:#1b1b4d;font-weight:700;font-size:13.5px;white-space:nowrap;box-shadow:0 14px 26px -12px rgba(0,0,0,.6);opacity:0}
+html[dir="rtl"] .cin-say{transform:translateX(50%)}
+.is-on .cin-say{animation:cinSay .6s 1.3s cubic-bezier(.2,1.2,.3,1) both}
+@keyframes cinSay{from{opacity:0;transform:translate(-50%,12px) scale(.85)}to{opacity:1;transform:translate(-50%,0)}}
+html[dir="rtl"] .is-on .cin-say{animation-name:cinSayR}
+@keyframes cinSayR{from{opacity:0;transform:translate(50%,12px) scale(.85)}to{opacity:1;transform:translate(50%,0)}}
+.cin-say span{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;max-width:0;animation:cinType 1.6s 1.8s steps(26) forwards}
+@keyframes cinType{to{max-width:24em}}
+/* Globe */
+.cin-mer{transform-box:fill-box;transform-origin:center;animation:cinMer 6s ease-in-out infinite;animation-delay:calc(var(--i)*-2s)}
+@keyframes cinMer{0%,100%{transform:scaleX(.15)}50%{transform:scaleX(1)}}
+.cin-arc{stroke-dasharray:240;stroke-dashoffset:240}
+.is-on .cin-arc{animation:cinDraw 1.6s .8s ease-out both}.is-on .cin-arc.a2{animation-delay:1.4s}
+.cin-pin{transform-box:fill-box;transform-origin:center;opacity:0}
+.is-on .cin-pin{animation:cinPin 2s 1s ease-out infinite}.is-on .cin-pin.p2{animation-delay:2s}.is-on .cin-pin.p3{animation-delay:2.4s}
+@keyframes cinPin{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1)}100%{opacity:.9;transform:scale(1.7)}}
+/* Face ID */
+.cin-shield{stroke-dasharray:560;stroke-dashoffset:560}
+.is-on .cin-shield{animation:cinDraw 1.4s .3s ease-out both}
+.cin-face{opacity:0}.is-on .cin-face{animation:cinUp 1s .9s ease both}
+.cin-scan{animation:cinScan 2.4s 1.2s ease-in-out infinite}
+@keyframes cinScan{0%{transform:translateY(0);opacity:0}15%{opacity:.7}85%{opacity:.7}100%{transform:translateY(130px);opacity:0}}
+.cin-okc,.cin-ok{opacity:0;transform-box:fill-box;transform-origin:center}
+.is-on .cin-okc{animation:cinPop .5s 2.4s cubic-bezier(.2,1.4,.3,1) both}
+.cin-ok{stroke-dasharray:40;stroke-dashoffset:40}
+.is-on .cin-ok{opacity:1;animation:cinDraw .5s 2.8s ease-out both}
+@keyframes cinPop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+.cin-wave{animation:cinPulse 1.6s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+
+/* mouvement réduit : scènes fixes */
+@media (prefers-reduced-motion:reduce){
+  .cin *,.cin *::before,.cin *::after{animation:none!important;transition:none!important}
+  .cin-title .w,.cin-kicker,.cin-sub,.cin-num,.cin-chips,.cin-acts,.cin-bub,.cin-say,.cin-face,.cin-okc,.cin-pin,.cin-coin{opacity:1!important;transform:none!important;filter:none!important}
+  .cin-bar{transform:scaleY(1)!important}.cin-line,.cin-arc,.cin-shield,.cin-ok{stroke-dashoffset:0!important}.cin-say span{max-width:none!important}.cin-bub.typing{display:none}.cin-p{display:none}
+}
+.cin-rm *,.cin-rm *::before,.cin-rm *::after{animation:none!important;transition:none!important}
+.cin-rm .cin-title .w,.cin-rm .cin-kicker,.cin-rm .cin-sub,.cin-rm .cin-num,.cin-rm .cin-chips,.cin-rm .cin-acts,.cin-rm .cin-bub,.cin-rm .cin-say,.cin-rm .cin-face,.cin-rm .cin-okc,.cin-rm .cin-pin,.cin-rm .cin-coin{opacity:1!important;transform:none!important;filter:none!important}
+.cin-rm .cin-bar{transform:scaleY(1)!important}.cin-rm .cin-line,.cin-rm .cin-arc,.cin-rm .cin-shield,.cin-rm .cin-ok{stroke-dashoffset:0!important}.cin-rm .cin-say span{max-width:none!important}.cin-rm .cin-bub.typing{display:none}.cin-rm .cin-p{display:none}

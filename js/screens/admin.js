@@ -45,7 +45,7 @@ const Admin = (() => {
   const ef = (k, v) => e(k).replace(/\{(\w+)\}/g, (_, x) => (v && v[x] != null ? v[x] : ''));
   const S = { stats: null, users: [], seen: null, q: '', results: null, sel: null, detail: null, loading: false, error: false, timer: 0 };
   const isAdmin = () => !!(Runtime.ctx && Runtime.ctx.role === 'admin');
-  const flag = iso => iso && /^[A-Z]{2}$/.test(iso) ? String.fromCodePoint(...[...iso].map(ch => 127397 + ch.charCodeAt(0))) : '';
+  const flag = iso => (iso && /^[A-Z]{2}$/.test(iso) ? iso : '');   /* 18.0.0 : plus d'emoji-drapeau : le code pays en texte */
   const cname = iso => { try { return new Intl.DisplayNames([LANG], { type: 'region' }).of(iso) || iso; } catch(err){ return iso; } };
   const fullName = u => ((u.first_name || '') + ' ' + (u.last_name || '')).trim() || dispId(u.yor_id);
   const ini = u => (((u.first_name || u.yor_id || '?')[0] || '?') + ((u.last_name || '')[0] || '')).toUpperCase();
@@ -180,9 +180,9 @@ const Admin = (() => {
       if (k === 'open'){ S.sel = el.getAttribute('data-id'); S.detail = null; R.go('admin-user'); }
       else if (k === 'refresh') refresh(root, false);
       else if (k === 'reload'){ S.detail = null; R.go('admin-user', { force: true, replace: true }); }
-      else if (k === 'p-new'){ try { InAppNotif.showCall({ title: e('playNew'), message: 'Awa Diop · +221 •••• 4567 · SN', status: 'success' }); Sfx.play('newUser'); } catch(err){ /* rien */ } }
+      else if (k === 'p-new'){ try { InAppNotif.showCall({ title: e('playNew'), message: '+221 •••• 4567 · SN', status: 'success' }); Sfx.play('newUser'); } catch(err){ /* rien */ } }
       else if (k === 'p-reward'){ try { Reward.celebrate({ amount: Number((root.querySelector('#adm-bonus') || {}).value) || 10, currency: 'OMR' }); } catch(err){ /* rien */ } }
-      else if (k === 'p-money'){ try { Sfx.play('money'); InAppNotif.showCall({ title: t('v13.nc.TRANSFER_RECEIVED'), message: 'Awa Diop', amount: CurrencyEngine.format(25, 'OMR'), status: 'success' }); } catch(err){ /* rien */ } }
+      else if (k === 'p-money'){ try { Sfx.play('money'); InAppNotif.showCall({ title: t('v13.nc.TRANSFER_RECEIVED'), message: 'Live X Digitale', amount: CurrencyEngine.format(25, 'OMR'), status: 'success' }); } catch(err){ /* rien */ } }
       else if (k === 'bplus' || k === 'bminus'){ const i = root.querySelector('#adm-bonus'); const v = Math.max(0, Math.min(100, (parseFloat(i.value) || 0) + (k === 'bplus' ? 1 : -1))); i.value = String(v); }
       else if (k === 'bsave' || k === 'boff'){
         const i = root.querySelector('#adm-bonus'); if (k === 'boff') i.value = '0';

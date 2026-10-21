@@ -46,9 +46,9 @@ Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitl
 Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG' });
 
 /* 12.3.4 : the receipt shows the SENDER'S number ("From"), the same number the recipient sees in the SMS. */
-Object.assign(TR.en, { 'receipt.from':'From' });
-Object.assign(TR.fr, { 'receipt.from':'De' });
-Object.assign(TR.ar, { 'receipt.from':'من' });
+Object.assign(TR.en, { 'receipt.from':'From', 'receipt.owner':'Account holder' });
+Object.assign(TR.fr, { 'receipt.from':'De', 'receipt.owner':'Titulaire du compte' });
+Object.assign(TR.ar, { 'receipt.from':'من', 'receipt.owner':'صاحب الحساب' });
 
 /* The sender's number in international form (+968…), taken the way the server takes it for the SMS: the number set in
    Settings › SMS confirmation number, else the profile phone. Returns '' when there is no usable number (nothing is invented). */
@@ -227,6 +227,8 @@ function renderReceipt(){
 
   /* amounts: a failed operation draws no "total debited" line (it would claim a debit that did not happen) */
   let rows = '';
+  /* 18.0.0 : le propriétaire du compte est toujours nommé sur le reçu (son vrai nom, jamais un exemple) */
+  try { const op = Runtime.profile || {}, on = ((op.firstName || '') + ' ' + (op.lastName || '')).trim(); if (on) rows += rcRow(t('receipt.owner'), escapeHtml(on) + (Runtime.ctx && Runtime.ctx.yorId ? ' · <span class="ltr">' + escapeHtml(dispId(Runtime.ctx.yorId)) + '</span>' : ''), { id: 'receipt-owner' }); } catch(e){ /* rien */ }
   if (fromPhone) rows += rcRow(t('receipt.from'), escapeHtml(typeof formatPhoneIntl === 'function' ? formatPhoneIntl(fromPhone) : fromPhone), { id: 'receipt-from', vcls: 'ltr' });
   if (!isIn && !isCrypto) rows += rcRow(t('receipt.paidFrom'), escapeHtml(t('receipt.paidFromVal') + ' · ' + (r.currency || 'OMR')));
   rows += rcRow(t(isIn ? 'receipt.amountReceived' : 'receipt.amountSent'), escapeHtml(amtFmt), { vcls: 'ltr' });

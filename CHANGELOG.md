@@ -1,3 +1,23 @@
+# Live X Digitale 18.0.0 — crédit, Boost, chat, YASER, film publicitaire, centre de contrôle, moteur Guardian
+
+## Nouveau
+- **Demande de crédit de 5 000 à 500 000 OMR** : seul l'administrateur accorde, depuis le centre de contrôle (file d'attente, montant modifiable, note, refus). Le crédit est versé sur le compte et notifié.
+- **Boost** : le coffre qui rapporte. On place son argent, les gains grandissent chaque seconde (taux fixé par l'administrateur, 0,2 % par jour par défaut), on les récolte quand on veut. Pour AJOUTER de l'argent, on passe par l'administrateur dans le chat.
+- **Chat intégré** (façon WhatsApp) avec l'administrateur : texte, photos, vidéos, messages vocaux, coches de lecture, temps réel. L'administrateur confirme un dépôt directement dans la conversation.
+- **YASER**, l'assistant animé (français, anglais, arabe) : répond avec les vraies données de la personne (solde, dernières opérations), explique le dépôt, le crédit, Boost, et ouvre les bons écrans.
+- **Film publicitaire** qui défile tout seul (scènes animées, annonces de l'administrateur) sur l'accueil et en plein écran.
+- **Centre de contrôle administrateur** : chiffres en direct, membres, boîte de chat, demandes de crédit, réglages Boost / crédit, annonces diffusées à tous, dépôt rapide, journal, diagnostic.
+- **Moteur Guardian** : appels serveur protégés (délai, nouvelles tentatives, coupe-circuit), données normalisées et contrôlées, file d'envoi hors ligne, auto-réparation en cas d'erreurs en rafale, diagnostic copiable.
+- **Sons doux façon iPhone** (notes de verre, attaque lente, volume bas), son de toucher presque inaudible, nouveaux sons : message, vocal, YASER, gains, crédit. Effets : confettis dorés, compteurs, ondes, cascade.
+
+## Corrigé
+- Plus aucun emoji dans l'application, les alertes téléphone et les e-mails (les drapeaux de pays de la console admin sont remplacés par le code pays).
+- Plus aucun nom d'exemple : la maquette de la page de bienvenue est neutre ; le reçu nomme le titulaire du compte.
+- Historique vierge pour chaque nouveau compte : les opérations affichées sont seulement les siennes (le cadeau de bienvenue reste dans les alertes et le solde).
+- Serveur : fonctions internes du chat et des alertes verrouillées (non appelables par les utilisateurs).
+
+---
+
 # Live X Digitale 17.0.0 — nouvelle interface, Paramètres regroupés
 
 ## Nouveau

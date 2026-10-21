@@ -142,7 +142,7 @@ function renderSettings(){
   html += '<button class="set-me" type="button" data-nav="profile">' + (typeof pxAvatar === 'function' ? pxAvatar(p) : '') +
     '<span class="set-me-body"><b>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</b><small class="ltr" dir="ltr">' + escapeHtml(yid) + '</small></span>' +
     (isAdmin ? '<span class="badge badge-admin">ADMIN</span>' : '') + '<span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
-  if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
+  if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin-hub"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
 
   /* ---- panneau de raccourcis : tous les boutons principaux au même endroit ---- */
   html += '<section class="qs"><h2 class="qs-h">' + escapeHtml(t('set17.quick')) + '</h2>' +
@@ -198,6 +198,7 @@ function renderSettings(){
         '<div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('transfer.yor_id_label')) + '</div><div class="settings-row-sub">' + escapeHtml(faceIdText('tapCopy')) + '</div></div><span class="settings-value ltr">' + escapeHtml(yid) + '</span></div>' +
       settingsLinkRow({ icon:'user', title:t('px.edit'), sub:'', nav:'profile-edit' }) +
       settingsLinkRow({ icon:'help', title:t('settings.help'), sub:t('settings.helpDesc'), nav:'help' }) +
+      '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(typeof Guardian !== 'undefined' ? Guardian.report() : '') + '"><div class="tile">' + icon('info', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('g.diag')) + '</div><div class="settings-row-sub">' + escapeHtml(t('g.diagD')) + '</div></div></div>' +
       settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
     '</div>';
   html += '<details class="adv" id="set-adv"' + open + '><summary><i>' + icon('settings', 22) + '</i><span><b>' + escapeHtml(t('set17.adv')) + '</b><small>' + escapeHtml(t('set17.advD')) + '</small></span><em>' + icon('chev', 18) + '</em></summary>' +

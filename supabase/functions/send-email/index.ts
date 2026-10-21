@@ -163,7 +163,7 @@ function button(label: string): string {
 }
 
 function rewardBox(text: string): string {
-  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#FFF7DB;border:1px solid ${GOLD};color:#5B4300;font-size:15px;font-weight:700;line-height:1.5">🎁 ${esc(text)}</div>`;
+  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#FFF7DB;border:1px solid ${GOLD};color:#5B4300;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
 }
 
 async function langOf(userId: string | null): Promise<Lang> {

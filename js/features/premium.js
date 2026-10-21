@@ -445,7 +445,7 @@ const Premium = (() => {
       '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
         (txs.length ? txGroupedHtml(txs, hide) : '<div class="rv-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
       othersHtml +
-      (typeof Promos !== 'undefined' ? Promos.html() : '') +
+      (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
       cardsHtml +
       '<div style="height:calc(20px + var(--safe-b))"></div></div>';
   }
