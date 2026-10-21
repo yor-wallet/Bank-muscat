@@ -120,7 +120,7 @@ function renderSettings(){
   const sec = Runtime.security || {};
   const notifsOn = setts.notifications !== false;
   const vibOn = setts.vibration !== false;
-  const soundOn = setts.sounds !== false;
+  const soundOn = setts.sounds === true;
   const txConfirmOn = sec.transactionConfirmationRequired !== false;
   const primaryCur = displayCurrency();
   const contactCount = Runtime.contacts.length;

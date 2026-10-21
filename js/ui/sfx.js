@@ -13,12 +13,12 @@ const Sfx = (() => {
   const LS = 'fp_sounds';
   let ctx = null, master = null, wet = null, unlocked = false;
   const last = {};
+  /* 19.0.0 : sons DÉSACTIVÉS par défaut ; ils ne jouent que si la personne les a activés (Réglages > Raccourcis > Sons) */
   function enabled(){
     try {
-      if (typeof Runtime !== 'undefined' && Runtime.settings && Runtime.settings.sounds === false) return false;
-      if (localStorage.getItem(LS) === '0') return false;
-    } catch(e){ /* rien */ }
-    return true;
+      if (typeof Runtime !== 'undefined' && Runtime.settings && typeof Runtime.settings.sounds === 'boolean') return Runtime.settings.sounds;
+      return localStorage.getItem(LS) === '1';
+    } catch(e){ return false; }
   }
   function set(on){
     try { localStorage.setItem(LS, on ? '1' : '0'); } catch(e){ /* rien */ }

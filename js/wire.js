@@ -84,7 +84,7 @@ function wire(id){
         await UserDataEngine.writeDoc(uid, 'preferences', Object.assign({}, Runtime.settings, { notifications: next }));
         Runtime.settings.notifications = next;
       });
-      else if (a === 'settings-toggle-sounds') await settingsSwitch(el, () => Runtime.settings.sounds !== false, async (next) => {
+      else if (a === 'settings-toggle-sounds') await settingsSwitch(el, () => Runtime.settings.sounds === true, async (next) => {
         const uid = UserContext.requireCtx().uid;
         await UserDataEngine.writeDoc(uid, 'preferences', Object.assign({}, Runtime.settings, { sounds: next }));
         Runtime.settings.sounds = next;
