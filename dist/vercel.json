@@ -70,7 +70,7 @@
         },
         {
           "key": "Link",
-          "value": "</assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.b0e252eba4.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.4f19c1ba9d.js>; rel=preload; as=script, </js/app2.17779283fd.js>; rel=preload; as=script, </js/app3.30d33c5556.js>; rel=preload; as=script"
+          "value": "</assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.c31e01a2ee.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.d2e64a8930.js>; rel=preload; as=script, </js/app2.17779283fd.js>; rel=preload; as=script, </js/app3.86f9464d8c.js>; rel=preload; as=script"
         }
       ]
     },
@@ -83,7 +83,7 @@
         },
         {
           "key": "Link",
-          "value": "</assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.b0e252eba4.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.4f19c1ba9d.js>; rel=preload; as=script, </js/app2.17779283fd.js>; rel=preload; as=script, </js/app3.30d33c5556.js>; rel=preload; as=script"
+          "value": "</assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.c31e01a2ee.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.d2e64a8930.js>; rel=preload; as=script, </js/app2.17779283fd.js>; rel=preload; as=script, </js/app3.86f9464d8c.js>; rel=preload; as=script"
         }
       ]
     },

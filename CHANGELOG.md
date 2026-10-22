@@ -1,3 +1,17 @@
+# Live X Digitale 19.0.0 — refonte : plans, vérification d'identité, preuves de paiement, retraits, financement, espace admin
+
+## Nouveau
+- **Comptes vierges** : solde 0 OMR, historique vide, aucun bonus ni gain simulé.
+- **3 plans configurables par l'administrateur** : ESSENTIEL 50–999 OMR / 7 jours, CROISSANCE 1 000–9 999 / 30 jours, PREMIUM 10 000–1 000 000 / 90 jours. Aucun rendement inventé : un gain n'existe que si le modèle financier du plan est défini et validé.
+- **Paiement par preuve** : instructions de paiement configurées par l'administrateur, envoi du justificatif (image ou PDF) dans le chat, confirmation par l'administrateur après vérification réelle, notification de la décision.
+- **Vérification d'identité** : pièce recto, verso, selfie ; acceptation/refus par l'administrateur ; e-mail de validation entièrement en arabe.
+- **Retraits** : montant, titulaire, banque omanaise (liste complète), compte, IBAN ; suivi du statut ; « payé » seulement après confirmation réelle.
+- **Financement** 5 000–500 000 OMR avec suivi de la demande.
+- **Espace admin complet** : membres, identités, plans, paiements/preuves, retraits, financement, conversations, notifications, journal d'audit protégé.
+- **YASER** : statuts réels uniquement, ne confirme jamais un paiement inventé. Chat : PDF pris en charge.
+- **Mémoire chiffrée de l'appareil + nettoyage automatique** : réouverture instantanée, données inutiles supprimées.
+- Sons désactivés par défaut. Boost et bonus de bienvenue désactivés.
+
 # Live X Digitale 18.0.0 — crédit, Boost, chat, YASER, film publicitaire, centre de contrôle, moteur Guardian
 
 ## Nouveau

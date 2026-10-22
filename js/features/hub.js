@@ -133,6 +133,11 @@ const AdminHub = (() => {
     { k: 'announce', ic: 'mega', route: 'admin-announce' }, { k: 'deposit', ic: 'banknote', sheet: 'deposit' },
     { k: 'audit', ic: 'doc', sheet: 'audit' }, { k: 'sounds', ic: 'volume', sheet: 'sounds' }, { k: 'diag', ic: 'chart', sheet: 'diag' }
   ];
+  /* 19.0.0 : tuiles de l'espace administrateur 19 (plans, paiements, identités, retraits, utilisateurs, journal, notifications) */
+  function allTiles(){
+    let extra = []; try { if (typeof Admin19 !== 'undefined' && Admin19.tiles) extra = Admin19.tiles().map(x => ({ k: 'a19:' + x.route, ic: x.icon, route: x.route, titleKey: x.titleKey, subKey: x.subKey, badge: 'a19:' + x.route })); } catch(err){ extra = []; }
+    return extra.concat(TILES);
+  }
   function kpi(k, label, ico){ return '<div class="hub-kpi" data-k="' + k + '"><i>' + icon(ico, 18) + '</i><b class="ltr" dir="ltr" data-v="0">—</b><span>' + esc(label) + '</span></div>'; }
   function render(){
     if (!guard()) return '';
@@ -141,7 +146,7 @@ const AdminHub = (() => {
         '<h1>' + esc(e('hello', { n: dispName() })) + '</h1><p>' + esc(e('sub')) + '</p></div>' +
       '<div class="hub-err adm-empty" hidden>' + esc(e('err')) + ' <button type="button" class="adm-link" data-hub="reload">' + esc(e('retry')) + '</button></div>' +
       '<div class="hub-kpis">' + kpi('members', e('kMembers'), 'users') + kpi('today', e('kToday'), 'sparkle') + kpi('credit', e('kCredit'), 'cards') + kpi('boost', e('kBoost'), 'trending') + '</div>' +
-      '<div class="hub-grid">' + TILES.map((x, i) => '<button type="button" class="hub-tile" data-hub="' + x.k + '" style="--i:' + i + '"><i class="hub-ic">' + ic(x.ic, 24) + '</i><b>' + esc(e('t.' + x.k)) + '</b><small>' + esc(e('d.' + x.k)) + '</small>' +
+      '<div class="hub-grid">' + allTiles().map((x, i) => '<button type="button" class="hub-tile" data-hub="' + x.k + '" style="--i:' + i + '"><i class="hub-ic">' + ic(x.ic, 24) + '</i><b>' + esc(x.titleKey ? t(x.titleKey) : e('t.' + x.k)) + '</b><small>' + esc(x.subKey ? t(x.subKey) : e('d.' + x.k)) + '</small>' +
         (x.badge ? '<em class="hub-badge" data-badge="' + x.badge + '" hidden>0</em>' : '') + '</button>').join('') + '</div>' +
       '<p class="adm-foot">' + icon('shield', 14) + '<span>' + esc(e('ro')) + '</span></p><div style="height:calc(40px + var(--safe-b))"></div></div>';
   }
@@ -248,7 +253,7 @@ const AdminHub = (() => {
       const k = b.getAttribute('data-hub');
       try { Sfx.play('nav'); Fx.haptic('tap'); } catch(x){ /* rien */ }
       if (k === 'reload'){ reload(); return; }
-      const tile = TILES.find(x => x.k === k); if (!tile) return;
+      const tile = allTiles().find(x => x.k === k); if (!tile) return;
       Fx.pulse(b);
       if (tile.sheet){ openSheet(tile.sheet); return; }
       try { R.go(tile.route); } catch(x){ Guardian.note('hub:go', x); }

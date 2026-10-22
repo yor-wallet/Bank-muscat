@@ -5,9 +5,9 @@
    Fichier séparé : il complète V18 (v18-glue.js) sans le modifier.
    ============================================================ */
 Strings.add({
-  en: { 'op.CREDIT_REPAY': 'Credit repayment', 'v181.n.soon': 'Credit payment due soon', 'v181.n.today': 'Credit payment due today', 'v181.n.over': 'Credit payment overdue', 'v181.n.closed': 'Credit repaid', 'v181.n.forgiven': 'Credit closed', 'v181.n.closedD': 'Your credit is fully repaid', 'v181.n.forgivenD': 'The remaining balance was cancelled', 'v181.n.due': '{amt} due on {d}' },
-  fr: { 'op.CREDIT_REPAY': 'Remboursement de crédit', 'v181.n.soon': 'Échéance de crédit proche', 'v181.n.today': 'Échéance de crédit aujourd’hui', 'v181.n.over': 'Échéance de crédit en retard', 'v181.n.closed': 'Crédit remboursé', 'v181.n.forgiven': 'Crédit clôturé', 'v181.n.closedD': 'Votre crédit est entièrement remboursé', 'v181.n.forgivenD': 'Le solde restant a été annulé', 'v181.n.due': '{amt} à payer le {d}' },
-  ar: { 'op.CREDIT_REPAY': 'سداد الائتمان', 'v181.n.soon': 'اقتراب موعد قسط الائتمان', 'v181.n.today': 'قسط الائتمان مستحق اليوم', 'v181.n.over': 'قسط الائتمان متأخر', 'v181.n.closed': 'تم سداد الائتمان', 'v181.n.forgiven': 'تم إغلاق الائتمان', 'v181.n.closedD': 'تم سداد ائتمانك بالكامل', 'v181.n.forgivenD': 'تم إلغاء الرصيد المتبقي', 'v181.n.due': '{amt} مستحق في {d}' }
+  en: { 'op.INVEST_PAYOUT': 'Plan payout', 'op.BANK_WITHDRAWAL': 'Bank withdrawal', 'op.CREDIT_REPAY': 'Credit repayment', 'v181.n.soon': 'Credit payment due soon', 'v181.n.today': 'Credit payment due today', 'v181.n.over': 'Credit payment overdue', 'v181.n.closed': 'Credit repaid', 'v181.n.forgiven': 'Credit closed', 'v181.n.closedD': 'Your credit is fully repaid', 'v181.n.forgivenD': 'The remaining balance was cancelled', 'v181.n.due': '{amt} due on {d}' },
+  fr: { 'op.INVEST_PAYOUT': 'Règlement de plan', 'op.BANK_WITHDRAWAL': 'Retrait bancaire', 'op.CREDIT_REPAY': 'Remboursement de crédit', 'v181.n.soon': 'Échéance de crédit proche', 'v181.n.today': 'Échéance de crédit aujourd’hui', 'v181.n.over': 'Échéance de crédit en retard', 'v181.n.closed': 'Crédit remboursé', 'v181.n.forgiven': 'Crédit clôturé', 'v181.n.closedD': 'Votre crédit est entièrement remboursé', 'v181.n.forgivenD': 'Le solde restant a été annulé', 'v181.n.due': '{amt} à payer le {d}' },
+  ar: { 'op.INVEST_PAYOUT': 'تسوية الخطة', 'op.BANK_WITHDRAWAL': 'سحب بنكي', 'op.CREDIT_REPAY': 'سداد الائتمان', 'v181.n.soon': 'اقتراب موعد قسط الائتمان', 'v181.n.today': 'قسط الائتمان مستحق اليوم', 'v181.n.over': 'قسط الائتمان متأخر', 'v181.n.closed': 'تم سداد الائتمان', 'v181.n.forgiven': 'تم إغلاق الائتمان', 'v181.n.closedD': 'تم سداد ائتمانك بالكامل', 'v181.n.forgivenD': 'تم إلغاء الرصيد المتبقي', 'v181.n.due': '{amt} مستحق في {d}' }
 });
 
 (function(){
@@ -97,4 +97,13 @@ Strings.add({
   en: { 'v19.kyc': 'Identity check', 'v19.withdraw': 'Withdrawal', 'v18.credit': 'Financing' },
   fr: { 'v19.kyc': 'Vérification d’identité', 'v19.withdraw': 'Retrait', 'v18.credit': 'Financement' },
   ar: { 'v19.kyc': 'التحقق من الهوية', 'v19.withdraw': 'السحب', 'v18.credit': 'التمويل' }
+});
+
+/* centre de contrôle : pastilles des tuiles de l'espace administrateur 19 */
+Hooks.on('admin-hub', root => {
+  try {
+    if (typeof Admin19 === 'undefined') return;
+    const paint = () => Admin19.tiles().forEach(x => { Promise.resolve(x.badgePromise).then(n => { const el = root.querySelector('[data-badge="a19:' + x.route + '"]'); if (!el) return; const v = Number(n) || 0; el.textContent = v > 99 ? '99+' : String(v); el.hidden = v <= 0; }).catch(() => {}); });
+    paint(); const stop = Guardian.every(paint, 20000); R.onLeave(stop);
+  } catch(e){ console.warn('hub badges', e); }
 });
