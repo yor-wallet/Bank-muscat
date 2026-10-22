@@ -117,7 +117,7 @@ const Cinema = (() => {
 
   const THEMES = { boost: 't-gold', credit: 't-ember', chat: 't-teal', yaser: 't-indigo', send: 't-sky', face: 't-emerald', ann: 't-gold' };
   const CORE = [
-    { id: 'boost', route: 'vault', art: artBoost }, { id: 'credit', route: 'credit', art: artCredit }, { id: 'chat', route: 'chat', art: artChat },
+    { id: 'boost', route: 'invest', art: artBoost }, { id: 'credit', route: 'credit', art: artCredit }, { id: 'chat', route: 'chat', art: artChat },
     { id: 'yaser', route: 'yaser', art: artYaser }, { id: 'send', route: 'country-select', art: artGlobe }, { id: 'face', route: 'settings', art: artFace }
   ];
   const scenes = () => ((S.ann || []).map(a => ({ id: 'ann-' + a.id, type: 'ann', ann: a }))).concat(CORE);
@@ -142,7 +142,7 @@ const Cinema = (() => {
     const id = sc.id, rate = (Number(c.vault_rate_pct_day) || 0).toLocaleString('en-US', { maximumFractionDigits: 3 });
     const fill = s => String(s).replace('{min}', Money.int(c.credit_min)).replace('{max}', Money.int(c.credit_max)).replace('{rate}', rate);
     let num = '';
-    if (id === 'boost') num = '<div class="cin-num"><small>' + esc(t('cin.boost.ex')) + '</small><b class="cin-tick ltr" dir="ltr" data-tick="1000" data-rate="' + esc(Number(c.vault_rate_pct_day) || 0) + '">1,000.000000</b><small>' + esc(fill(t('cin.boost.cap'))) + '</small></div>';
+    if (id === 'boost') num = '';   /* 19.0.0 : aucun rendement annoncé : pas de compteur de gains */
     else if (id === 'credit') num = '<div class="cin-num"><small>' + esc(t('cin.credit.up')) + '</small><b class="ltr" dir="ltr" data-cu="' + esc(Number(c.credit_max) || 0) + '">0</b><small>OMR</small></div>';
     else if (id === 'send') num = '<div class="cin-chips"><span>' + esc(t('cin.send.a')) + '</span><span>' + esc(t('cin.send.b')) + '</span></div>';
     return { k: t('cin.' + id + '.k'), title: titleHtml(fill(t('cin.' + id + '.t')), true), sub: t('cin.' + id + '.s'), cta: t('cin.' + id + '.c'), num };

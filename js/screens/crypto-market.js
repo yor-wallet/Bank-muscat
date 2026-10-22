@@ -81,7 +81,7 @@ function renderServices(){
   ];
   /* 16.0.0 : Transfert international (seulement si le serveur le propose) ; groupe Administration pour les administrateurs */
   if (typeof LiveX !== 'undefined' && LiveX.caps.intl === true) G[0][1].splice(1, 0, ['intl', 'globe', 'lx.svc.intl']);
-  G.splice(1, 0, ['v18.g.grow', [['vault','vault','v18.boost'],['credit','coins','v18.credit'],['chat','chat','v18.chat'],['yaser','bot','v18.yaser'],['cinema','film','v18.cinema']]]);   /* 18.0.0 */
+  G.splice(1, 0, ['v18.g.grow', [['invest','trend','v18.boost'],['kyc','shield','v19.kyc'],['withdraw','bank','v19.withdraw'],['credit','coins','v18.credit'],['chat','chat','v18.chat'],['yaser','bot','v18.yaser'],['cinema','film','v18.cinema']]]);   /* 18.0.0 */
   const adminTile = (typeof LiveX !== 'undefined' && Runtime.ctx && Runtime.ctx.role === 'admin');
   /* groupe Blockchain (YOR-USDT, réseau de test) : administrateurs uniquement */
   if (FEATURES.crypto && typeof canUseChain === 'function' && canUseChain()) G.splice(1, 0, ['gChain', [['chain','wallet','chainTile']]]);

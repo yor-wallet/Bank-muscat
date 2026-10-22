@@ -14,7 +14,7 @@ Strings.add({
     'chat.ph': 'Message', 'chat.today': 'Today', 'chat.yesterday': 'Yesterday',
     'chat.helpT': 'To add money, write here', 'chat.helpB': 'The administrator confirms your deposit in this conversation.', 'chat.askDep': 'Request a deposit',
     'chat.depTpl': 'Hello, I would like to add money to my account. Amount: ___ OMR. Please tell me how to proceed.',
-    'chat.attach': 'Attach', 'chat.photo': 'Photo', 'chat.camera': 'Camera', 'chat.video': 'Video', 'chat.mic': 'Voice message', 'chat.send': 'Send',
+    'chat.attach': 'Attach', 'chat.pdf': 'PDF document', 'chat.photo': 'Photo', 'chat.camera': 'Camera', 'chat.video': 'Video', 'chat.mic': 'Voice message', 'chat.send': 'Send',
     'chat.slide': 'Slide to cancel', 'chat.recording': 'Recording', 'chat.recCancel': 'Cancel recording',
     'chat.recDenied': 'Microphone access was refused. Allow it in your browser settings.', 'chat.recNone': 'Voice messages are not available on this device.', 'chat.recShort': 'Hold to record, release to send.',
     'chat.retry': 'Retry', 'chat.failed': 'Not sent', 'chat.sending': 'Sending', 'chat.queued': 'Waiting for connection',
@@ -36,7 +36,7 @@ Strings.add({
     'yas.r.who': 'I am YASER, the assistant of Live X Digitale. I answer your questions and take you to the right screen.',
     'yas.r.deposit': 'To add money to your account, write to the administrator in the chat. The administrator confirms your deposit there, and the money appears in your balance right away.',
     'yas.r.credit': 'You can request a credit from {min} to {max} OMR. The administrator reviews your request and decides. If it is approved, the amount is added to your balance immediately.',
-    'yas.r.boost': 'With Boost you move part of your balance into the vault and it earns {rate}% per day. You can collect your earnings or take your money back at any time.',
+    'yas.r.boost': 'Live X Digitale does not announce any return that has not been validated. See the plans: gains are shown only when the model is defined and validated.',
     'yas.r.send': 'To send money, choose Send, enter the recipient’s mobile number, then the amount. Your personal code or Face ID confirms the transfer.',
     'yas.r.intl': 'You can send money to more than 60 countries with the international transfer. The usual time is 48 to 72 hours.',
     'yas.r.balance': 'Your available balance is {bal}.', 'yas.r.balanceNo': 'I cannot read your balance right now. Please try again in a moment.',
@@ -52,7 +52,7 @@ Strings.add({
     'chat.ph': 'Message', 'chat.today': 'Aujourd’hui', 'chat.yesterday': 'Hier',
     'chat.helpT': 'Pour déposer de l’argent, écrivez ici', 'chat.helpB': 'L’administrateur confirme votre dépôt dans cette conversation.', 'chat.askDep': 'Demander un dépôt',
     'chat.depTpl': 'Bonjour, je souhaite déposer de l’argent sur mon compte. Montant : ___ OMR. Merci de m’indiquer comment procéder.',
-    'chat.attach': 'Joindre', 'chat.photo': 'Photo', 'chat.camera': 'Appareil photo', 'chat.video': 'Vidéo', 'chat.mic': 'Message vocal', 'chat.send': 'Envoyer',
+    'chat.attach': 'Joindre', 'chat.pdf': 'Document PDF', 'chat.photo': 'Photo', 'chat.camera': 'Appareil photo', 'chat.video': 'Vidéo', 'chat.mic': 'Message vocal', 'chat.send': 'Envoyer',
     'chat.slide': 'Glissez pour annuler', 'chat.recording': 'Enregistrement', 'chat.recCancel': 'Annuler l’enregistrement',
     'chat.recDenied': 'L’accès au micro a été refusé. Autorisez-le dans les réglages du navigateur.', 'chat.recNone': 'Les messages vocaux ne sont pas disponibles sur cet appareil.', 'chat.recShort': 'Maintenez pour enregistrer, relâchez pour envoyer.',
     'chat.retry': 'Réessayer', 'chat.failed': 'Non envoyé', 'chat.sending': 'Envoi', 'chat.queued': 'En attente de connexion',
@@ -74,7 +74,7 @@ Strings.add({
     'yas.r.who': 'Je suis YASER, l’assistant de Live X Digitale. Je réponds à vos questions et je vous conduis au bon écran.',
     'yas.r.deposit': 'Pour ajouter de l’argent à votre compte, écrivez à l’administrateur dans le chat. Il confirme votre dépôt dans la conversation et l’argent apparaît aussitôt dans votre solde.',
     'yas.r.credit': 'Vous pouvez demander un crédit de {min} à {max} OMR. L’administrateur étudie votre demande et décide. En cas d’accord, le montant est ajouté tout de suite à votre solde.',
-    'yas.r.boost': 'Avec Boost, vous placez une partie de votre solde dans le coffre et elle rapporte {rate} % par jour. Vous récupérez vos gains ou votre argent à tout moment.',
+    'yas.r.boost': 'Live X Digitale n’annonce aucun rendement non validé. Consultez les plans : un gain n’est affiché que si le modèle est défini et validé.',
     'yas.r.send': 'Pour envoyer de l’argent, choisissez Envoyer, saisissez le numéro de mobile du destinataire puis le montant. Votre code personnel ou Face ID confirme le transfert.',
     'yas.r.intl': 'Vous pouvez envoyer de l’argent vers plus de 60 pays avec le transfert international. Le délai habituel est de 48 à 72 heures.',
     'yas.r.balance': 'Votre solde disponible est de {bal}.', 'yas.r.balanceNo': 'Je ne peux pas lire votre solde pour le moment. Réessayez dans un instant.',
@@ -90,7 +90,7 @@ Strings.add({
     'chat.ph': 'اكتب رسالة', 'chat.today': 'اليوم', 'chat.yesterday': 'أمس',
     'chat.helpT': 'لإيداع الأموال اكتب هنا', 'chat.helpB': 'يؤكد المسؤول إيداعك داخل هذه المحادثة.', 'chat.askDep': 'طلب إيداع',
     'chat.depTpl': 'مرحباً، أرغب في إيداع مبلغ في حسابي. المبلغ: ___ ر.ع. يرجى إرشادي إلى الخطوات.',
-    'chat.attach': 'إرفاق', 'chat.photo': 'صورة', 'chat.camera': 'الكاميرا', 'chat.video': 'فيديو', 'chat.mic': 'رسالة صوتية', 'chat.send': 'إرسال',
+    'chat.attach': 'إرفاق', 'chat.pdf': 'مستند PDF', 'chat.photo': 'صورة', 'chat.camera': 'الكاميرا', 'chat.video': 'فيديو', 'chat.mic': 'رسالة صوتية', 'chat.send': 'إرسال',
     'chat.slide': 'اسحب للإلغاء', 'chat.recording': 'جارٍ التسجيل', 'chat.recCancel': 'إلغاء التسجيل',
     'chat.recDenied': 'تم رفض الوصول إلى الميكروفون. اسمح به من إعدادات المتصفح.', 'chat.recNone': 'الرسائل الصوتية غير متاحة على هذا الجهاز.', 'chat.recShort': 'اضغط مع الاستمرار للتسجيل ثم ارفع إصبعك للإرسال.',
     'chat.retry': 'إعادة المحاولة', 'chat.failed': 'لم تُرسل', 'chat.sending': 'جارٍ الإرسال', 'chat.queued': 'بانتظار الاتصال',
@@ -112,7 +112,7 @@ Strings.add({
     'yas.r.who': 'أنا ياسر، مساعد لايف إكس ديجيتال. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
     'yas.r.deposit': 'لإضافة أموال إلى حسابك اكتب للمسؤول في المحادثة. يؤكد المسؤول الإيداع هناك وتظهر الأموال في رصيدك فوراً.',
     'yas.r.credit': 'يمكنك طلب ائتمان من {min} إلى {max} ر.ع. يراجع المسؤول طلبك ويقرر. عند الموافقة يُضاف المبلغ إلى رصيدك مباشرة.',
-    'yas.r.boost': 'مع بوست تضع جزءاً من رصيدك في الخزنة فيحقق {rate}% يومياً. يمكنك جمع أرباحك أو سحب أموالك في أي وقت.',
+    'yas.r.boost': 'لا تعلن لايف إكس ديجيتال عن أي عائد غير معتمد. راجع الخطط: لا يظهر أي ربح إلا إذا كان النموذج محدداً ومعتمداً.',
     'yas.r.send': 'لإرسال أموال اختر إرسال، وأدخل رقم هاتف المستفيد ثم المبلغ. يؤكد رمزك الشخصي أو بصمة الوجه عملية التحويل.',
     'yas.r.intl': 'يمكنك إرسال أموال إلى أكثر من 60 دولة عبر التحويل الدولي. المدة المعتادة من 48 إلى 72 ساعة.',
     'yas.r.balance': 'رصيدك المتاح الآن هو {bal}.', 'yas.r.balanceNo': 'لا أستطيع قراءة رصيدك الآن. حاول مرة أخرى بعد قليل.',
@@ -175,7 +175,7 @@ function chClock(ts){ try { return new Date(ts).toLocaleTimeString(chLoc(), { ho
 function chDur(ms){ const s = Math.max(0, Math.round((ms || 0) / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 function chUuid(){ try { if (typeof uuid === 'function') return uuid(); } catch(e){ /* rien */ } return 'k' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10); }
 const CH_EXT = { jpg: 'image/jpeg', jpeg: 'image/jpeg', png: 'image/png', webp: 'image/webp', gif: 'image/gif', heic: 'image/heic', heif: 'image/heic', mp4: 'video/mp4', m4v: 'video/mp4', mov: 'video/quicktime', webm: 'video/webm' };
-const CH_MIME_EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/heic': 'heic', 'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm', 'audio/webm': 'webm', 'audio/mp4': 'm4a', 'audio/ogg': 'ogg', 'audio/mpeg': 'mp3', 'audio/aac': 'aac', 'audio/x-m4a': 'm4a', 'audio/wav': 'wav' };
+const CH_MIME_EXT = { 'application/pdf': 'pdf', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/heic': 'heic', 'video/mp4': 'mp4', 'video/quicktime': 'mov', 'video/webm': 'webm', 'audio/webm': 'webm', 'audio/mp4': 'm4a', 'audio/ogg': 'ogg', 'audio/mpeg': 'mp3', 'audio/aac': 'aac', 'audio/x-m4a': 'm4a', 'audio/wav': 'wav' };
 function chFileMime(f){
   let m = String(f.type || '').toLowerCase().split(';')[0];
   if (!m || m === 'application/octet-stream'){ const e = String(f.name || '').toLowerCase().split('.').pop(); m = CH_EXT[e] || ''; }
@@ -430,7 +430,8 @@ function chShell(o){
   h += '<footer class="chat-comp"><div class="chat-menu" hidden>' +
     '<button type="button" data-ch="pick-photo" style="--i:2">' + chIc('image', 20) + '<span>' + chEsc(t('chat.photo')) + '</span></button>' +
     '<button type="button" data-ch="pick-camera" style="--i:1">' + chIc('camera', 20) + '<span>' + chEsc(t('chat.camera')) + '</span></button>' +
-    '<button type="button" data-ch="pick-video" style="--i:0">' + chIc('video', 20) + '<span>' + chEsc(t('chat.video')) + '</span></button></div>' +
+    '<button type="button" data-ch="pick-video" style="--i:0">' + chIc('video', 20) + '<span>' + chEsc(t('chat.video')) + '</span></button>' +
+    '<button type="button" data-ch="pick-pdf" style="--i:3">' + chIc('list', 20) + '<span>' + chEsc(t('chat.pdf')) + '</span></button></div>' +
     '<div class="chat-row"><button type="button" class="chat-ib" data-ch="attach" aria-label="' + chEsc(t('chat.attach')) + '" aria-expanded="false">' + chIc('clip', 22) + '</button>' +
     '<div class="chat-tw"><textarea rows="1" dir="auto" maxlength="2000" placeholder="' + chEsc(t('chat.ph')) + '" aria-label="' + chEsc(t('chat.ph')) + '" enterkeyhint="send" autocomplete="off"></textarea></div>' +
     '<button type="button" class="chat-send" data-ch="send" aria-label="' + chEsc(t('chat.send')) + '">' + chIc('up', 22) + '</button>' +
@@ -439,7 +440,7 @@ function chShell(o){
     '<span class="chat-rec-dot"></span><b class="chat-rec-time" dir="ltr">0:00</b><div class="chat-rec-bars" aria-hidden="true">' + '<i></i>'.repeat(26) + '</div>' +
     '<span class="chat-rec-hint"><span class="dir-flip" style="display:inline-flex">' + icon('back', 14) + '</span>' + chEsc(t('chat.slide')) + '</span>' +
     '<button type="button" class="chat-rec-send" data-ch="rec-send" aria-label="' + chEsc(t('chat.send')) + '">' + chIc('up', 22) + '</button></div></footer>' +
-    '<input type="file" class="chat-file" data-f="photo" accept="image/*" hidden><input type="file" class="chat-file" data-f="camera" accept="image/*" capture="environment" hidden><input type="file" class="chat-file" data-f="video" accept="video/mp4,video/quicktime,video/webm,video/*" hidden></div>';
+    '<input type="file" class="chat-file" data-f="photo" accept="image/*" hidden><input type="file" class="chat-file" data-f="camera" accept="image/*" capture="environment" hidden><input type="file" class="chat-file" data-f="video" accept="video/mp4,video/quicktime,video/webm,video/*" hidden><input type="file" class="chat-file" data-f="pdf" accept="application/pdf,.pdf" hidden></div>';
   return h;
 }
 
@@ -471,6 +472,7 @@ function chThreadView(root, o){
     if (m.kind === 'image') return '<button type="button" class="chat-img" data-path="' + chEsc(m.path || '') + '" data-prev="' + chEsc(prev) + '" aria-label="' + chEsc(t('chat.photoMsg')) + '"><span class="chat-ph"></span><img alt="" decoding="async"></button>';
     if (m.kind === 'video') return '<div class="chat-vid" data-path="' + chEsc(m.path || '') + '" data-prev="' + chEsc(prev) + '"><span class="chat-ph"></span><video preload="metadata" playsinline controls></video>' + (m.dur ? '<em class="chat-vd" dir="ltr">' + chDur(m.dur) + '</em>' : '') + '</div>';
     if (m.kind === 'audio') return chPlayerHtml(m);
+    if (m.kind === 'file') return '<button type="button" class="chat-file-card" data-ch="open-file" data-path="' + chEsc(m.path || '') + '" aria-label="' + chEsc(t('chat.pdf')) + '"><i>' + chIc('list', 22) + '</i><span><b dir="auto">' + chEsc(m.body || 'PDF') + '</b><small>PDF' + (m.size ? ' · ' + Math.max(1, Math.round(m.size / 1024)) + ' KB' : '') + '</small></span></button>';
     return '';
   };
   const prog = m => (m.local && m.status === 'uploading' ? '<div class="chat-up" style="--p:' + (m.progress || 0) + '%"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="15"/><circle class="chat-up-c" cx="18" cy="18" r="15"/></svg></div>' : '');
@@ -687,6 +689,9 @@ function chThreadView(root, o){
       if (!c){ toast(t('chat.badType'), 'error'); return; }
       if (c.blob.size > CHAT_MAX){ toast(t('chat.tooBig'), 'error'); return; }
       previewSheet({ kind: 'image', blob: c.blob, mime: c.mime });
+    } else if (mime === 'application/pdf' || /\.pdf$/i.test(file.name || '')){
+      if (file.size > 10485760){ toast(t('chat.tooBig'), 'error'); return; }
+      V.sendMedia({ kind: 'file', blob: file.type === 'application/pdf' ? file : new Blob([file], { type: 'application/pdf' }), mime: 'application/pdf', caption: String(file.name || 'document.pdf').slice(0, 80) });
     } else if (/^video\//.test(mime)){
       if (!/^video\/(mp4|quicktime|webm)$/.test(mime)){ toast(t('chat.badType'), 'error'); return; }
       if (file.size > CHAT_MAX){ toast(t('chat.tooBig'), 'error'); try { Sfx.play('error'); } catch(e){ /* rien */ } return; }
@@ -782,6 +787,8 @@ function chThreadView(root, o){
     else if (a === 'pick-photo') root.querySelector('[data-f="photo"]').click();
     else if (a === 'pick-camera') root.querySelector('[data-f="camera"]').click();
     else if (a === 'pick-video') root.querySelector('[data-f="video"]').click();
+    else if (a === 'pick-pdf') root.querySelector('[data-f="pdf"]').click();
+    else if (a === 'open-file'){ const pth = el.getAttribute('data-path'); if (pth) chSigned(pth).then(u => { if (u) window.open(u, '_blank', 'noopener'); }); }
     else if (a === 'down'){ toBottom(true); V.unseen = 0; setDown(); try { Sfx.play('tick'); } catch(x){ /* rien */ } }
     else if (a === 'rec-cancel'){ recFinish(false); }
     else if (a === 'rec-send'){ recFinish(true); }
@@ -981,9 +988,14 @@ const Yaser = (() => {
     human: ['human', 'agent', 'admin', 'support', 'person', 'operator', 'contact', 'talk to', 'humain', 'conseiller', 'administrateur', 'assistance', 'parler', 'مسؤول', 'موظف', 'دعم', 'شخص', 'اداره', 'مشرف', 'تحدث'],
     thanks: ['thank', 'merci', 'شكرا', 'يعطيك', 'مشكور'],
     who: ['who are you', 'your name', 'qui es tu', 'qui etes', 'tu es qui', 'ton nom', 'من انت', 'اسمك', 'who is yaser'],
+    plans: ['plan', 'invest', 'essentiel', 'croissance', 'premium', 'placement', 'souscri', 'اشتراك', 'خطه', 'خطط', 'استثمار', 'النمو', 'الاساسيه', 'بريميوم'],
+    kyc: ['kyc', 'identity', 'identite', 'verification', 'verifier', 'selfie', 'piece d', 'id card', 'هويه', 'توثيق', 'تحقق', 'سيلفي'],
+    withdraw: ['withdraw', 'retrait', 'retirer', 'cash out', 'virement bancaire', 'iban', 'سحب', 'اسحب', 'ايبان'],
+    status: ['status', 'statut', 'suivi', 'dossier', 'where is', 'en est', 'حاله', 'حالة', 'طلبي', 'متابعه', 'وين'],
+    payment: ['paid', 'paiement', 'payer mon', 'recu', 'receipt', 'proof', 'justificatif', 'دفعت', 'ايصال', 'اثبات', 'حواله', 'دفع'],
     greet: ['hello', 'hi', 'hey', 'salut', 'bonjour', 'bonsoir', 'coucou', 'salam', 'مرحبا', 'اهلا', 'السلام', 'هلا']
   };
-  const ORDER = ['deposit', 'credit', 'boost', 'intl', 'send', 'balance', 'history', 'fees', 'security', 'human', 'thanks', 'who', 'greet'];
+  const ORDER = ['status', 'payment', 'kyc', 'withdraw', 'plans', 'deposit', 'credit', 'boost', 'intl', 'send', 'balance', 'history', 'fees', 'security', 'human', 'thanks', 'who', 'greet'];
   const norm = s => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[ً-ٰٟـ]/g, '').replace(/[إأآٱ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/[^a-z0-9؀-ۿ\s]/g, ' ').replace(/\s+/g, ' ').trim();
   function intentOf(text){
     const s = ' ' + norm(text) + ' '; let best = '', score = 0;
@@ -991,6 +1003,45 @@ const Yaser = (() => {
     return best || 'fallback';
   }
   const fill = (s, v) => String(s).replace(/(\s*)\{(\w+)\}/g, (m0, ws, k) => { const val = v[k]; if (k === 'n') return val ? ' ' + val : ''; return ws + (val == null ? '' : val); });
+  const dt = d => { try { return new Date(d).toLocaleDateString(LANG === 'ar' ? 'ar-OM-u-nu-latn' : LANG, { day: '2-digit', month: 'short', year: 'numeric' }); } catch(e){ return ''; } };
+  const pn = (pl) => { const n = pl && pl.name; return (n && (n[LANG] || n.en)) || (pl && pl.code) || ''; };
+  const stTxt = (k, st) => t('yas.st.' + k + '.' + st) || st;
+  /* réponses fondées UNIQUEMENT sur les vraies données du serveur : jamais de confirmation inventée */
+  async function replyServer(intent){
+    const actions = [];
+    const iso = v => (LANG === 'ar' && v ? '\u2066' + v + '\u2069' : v);
+    const [inv, kyc, wd, cr] = await Promise.all([Guardian.rpc('invest_overview', {}), Guardian.rpc('kyc_status', {}), Guardian.rpc('withdraw_overview', {}), Guardian.rpc('credit_overview', {})]);
+    if (intent === 'plans'){
+      const pl = inv.ok && inv.data && Array.isArray(inv.data.plans) ? inv.data.plans.filter(p => p.active) : [];
+      if (!pl.length) return { text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] };
+      const lines = pl.map(p => '• ' + pn(p) + ' : ' + iso(Money.int(p.min) + ' – ' + Money.int(p.max) + ' OMR') + ' · ' + p.days + ' ' + t('yas.days') + (p.model_validated && p.return_pct != null ? ' · ' + t('yas.ret') + ' ' + iso(Money.num(p.return_pct, 2) + '%') : '')).join('\n');
+      actions.push({ k: 'yas.openPlans', go: 'invest' });
+      return { text: t('yas.r.plans') + '\n' + lines + '\n' + t('yas.r.noGain'), actions };
+    }
+    if (intent === 'kyc'){
+      const st = kyc.ok && kyc.data ? String(kyc.data.status || 'UNVERIFIED') : '';
+      if (!st) return { text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] };
+      actions.push({ k: 'yas.openKyc', go: 'kyc' });
+      return { text: t('yas.r.kyc') + ' ' + stTxt('kyc', st) + (kyc.data.last && kyc.data.last.reason && st === 'REJECTED' ? ' (' + kyc.data.last.reason + ')' : ''), actions };
+    }
+    if (intent === 'withdraw'){
+      const items = wd.ok && wd.data && Array.isArray(wd.data.items) ? wd.data.items : null;
+      if (!items) return { text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] };
+      actions.push({ k: 'yas.openWithdraw', go: 'withdraw' });
+      const last = items[0];
+      return { text: t('yas.r.withdraw') + ' ' + iso(Money.num(wd.data.min, 0) + ' OMR') + '.' + (last ? '\n' + t('yas.r.last') + ' ' + last.reference + ' : ' + stTxt('wd', last.status) : '\n' + t('yas.r.none')), actions };
+    }
+    /* status / payment : tous les dossiers, avec leur vrai statut */
+    const lines = [];
+    if (inv.ok && inv.data && Array.isArray(inv.data.items)) inv.data.items.slice(0, 3).forEach(i => lines.push(i.reference + ' (' + iso(Money.fmt(i.amount, 'OMR')) + ') : ' + stTxt('inv', i.status) + (i.status === 'ACTIVE' && i.ends_at ? ' · ' + t('yas.until') + ' ' + dt(i.ends_at) : '')));
+    if (wd.ok && wd.data && Array.isArray(wd.data.items)) wd.data.items.slice(0, 2).forEach(w => lines.push(w.reference + ' (' + iso(Money.fmt(w.amount, 'OMR')) + ') : ' + stTxt('wd', w.status)));
+    if (cr.ok && cr.data && Array.isArray(cr.data.loans)) cr.data.loans.slice(0, 1).forEach(l => lines.push(t('yas.fin') + ' ' + iso(Money.fmt(l.approved, 'OMR')) + ' : ' + (l.closed ? t('yas.closed') : t('yas.outstanding') + ' ' + iso(Money.fmt(l.outstanding, 'OMR')))));
+    if (kyc.ok && kyc.data) lines.push(t('yas.r.kyc') + ' ' + stTxt('kyc', String(kyc.data.status || 'UNVERIFIED')));
+    if (!lines.length) return { text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] };
+    actions.push({ k: 'yas.openPlans', go: 'invest' }, { k: 'yas.openChat', go: 'chat' });
+    return { text: t(intent === 'payment' ? 'yas.r.payment' : 'yas.r.status') + '\n' + lines.map(x => '• ' + x).join('\n') + '\n' + t('yas.r.noFake'), actions };
+  }
+  const SERVER_INTENTS = ['plans', 'kyc', 'withdraw', 'status', 'payment'];
   function reply(intent){
     const name = Guardian.norm.str(Runtime.profile && Runtime.profile.firstName, 40), cfg = Cfg.get(), actions = [];
     const iso = v => (LANG === 'ar' && v ? '\u2066' + v + '\u2069' : v);      /* un montant latin reste d'un seul bloc dans une phrase arabe */
@@ -1006,13 +1057,13 @@ const Yaser = (() => {
     }
     if (intent === 'deposit') actions.push({ k: 'yas.openChat', go: 'chat' });
     if (intent === 'credit'){ actions.push({ k: 'yas.openCredit', go: 'credit' }); actions.push({ k: 'yas.openChat', go: 'chat' }); }
-    if (intent === 'boost') actions.push({ k: 'yas.openBoost', go: 'vault' });
+    if (intent === 'boost') actions.push({ k: 'yas.openPlans', go: 'invest' });
     if (intent === 'send') actions.push({ k: 'yas.openSend', go: 'country-select' });
     if (intent === 'intl') actions.push({ k: 'yas.openIntl', go: 'intl' });
     if (intent === 'human'){ actions.push({ k: 'yas.openChat', go: 'chat' }); auto = 'chat'; }
     return { text, actions, auto };
   }
-  const CHIPS = [['deposit', 'yas.c.deposit'], ['credit', 'yas.c.credit'], ['boost', 'yas.c.boost'], ['balance', 'yas.c.balance'], ['human', 'yas.c.human']];
+  const CHIPS = [['status', 'yas.c.status'], ['plans', 'yas.c.plans'], ['payment', 'yas.c.payment'], ['withdraw', 'yas.c.withdraw'], ['deposit', 'yas.c.deposit'], ['credit', 'yas.c.credit'], ['balance', 'yas.c.balance'], ['human', 'yas.c.human']];
   const hkey = () => 'yas_hist_' + chUid();
   function open(){ R.go('yaser', { force: true }); }
   function render(){
@@ -1052,9 +1103,9 @@ const Yaser = (() => {
     function ask(text, intent){
       if (busy) return; busy = true; text = String(text || '').trim().slice(0, 300); if (!text) { busy = false; return; }
       addUser(text); hist.push({ r: 'u', x: text, at: Date.now() }); chips.innerHTML = '';
-      const it = intent || intentOf(text); const r = reply(it); hist.push({ r: 'b', x: r.text, a: r.actions, at: Date.now() }); save();
+      const it = intent || intentOf(text); const rp = SERVER_INTENTS.indexOf(it) >= 0 ? replyServer(it).catch(() => ({ text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] })) : Promise.resolve(reply(it));
       const dots = document.createElement('div'); dots.className = 'yas-m bot yas-typing chat-in'; dots.setAttribute('aria-label', t('yas.typing')); dots.innerHTML = '<span class="yas-ava">' + yaserSvg(30, 'mini') + '</span><div class="yas-b"><i></i><i></i><i></i></div>'; list.appendChild(dots); bottom(); think(true);
-      later(() => { dots.remove(); think(false); botSay(r, false); }, 650 + Math.min(900, r.text.length * 4));
+      rp.then(r => { hist.push({ r: 'b', x: r.text, a: r.actions, at: Date.now() }); save(); later(() => { dots.remove(); think(false); botSay(r, false); }, 500); });
     }
     function restore(){
       hist.forEach(m => { if (m.r === 'u') addUser(m.x, true); else { const r = { text: m.x, actions: m.a || [] }; const el = botEl(); el.classList.remove('chat-in'); el.querySelector('.yas-b').textContent = m.x; const h = actionsHtml(r.actions); if (h) el.querySelector('.yas-b').insertAdjacentHTML('afterend', h); } });

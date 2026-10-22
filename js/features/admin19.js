@@ -156,7 +156,7 @@
         ok.onclick = async () => {
           const val = { text: q('text') ? q('text').value.trim() : '', amount: q('amount') ? parseFloat(String(q('amount').value).replace(',', '.')) : null };
           if (o.check && !q('check').checked){ q('err').textContent = o.check; Fx.shake(root); sound('error'); return; }
-          if (o.field && o.field.required && val.text.length < (o.field.min || 3)){ q('err').textContent = a('e_reason_required'); Fx.shake(root); sound('error'); return; }
+          if (o.field && o.field.required && val.text.length < (o.field.min || 3)){ q('err').textContent = o.field.err || a('e_reason_required'); Fx.shake(root); sound('error'); return; }
           if (o.amount && !(val.amount > 0)){ q('err').textContent = a('e_invalid_amount'); Fx.shake(root); sound('error'); return; }
           UIKit.loading(ok, true);
           const r = await o.run(val);
@@ -180,9 +180,11 @@
     let i = start || 0, z = 1, tx = 0, ty = 0;
     const html = '<div class="a19-vw"><div class="a19-vw-bar"><b data-v="cap"></b><span><button type="button" data-v="prev" aria-label="prev">' + icon('back', 18) + '</button><button type="button" data-v="next" aria-label="next"><span style="display:inline-flex;transform:scaleX(-1)">' + icon('back', 18) + '</span></button><button type="button" data-v="close" aria-label="' + esc(a('close')) + '">' + icon('close', 18) + '</button></span></div>' +
       '<div class="a19-vw-st" data-v="stage"><img data-v="img" alt="" draggable="false"></div><div class="a19-vw-ft"><button type="button" data-v="out">−</button><button type="button" data-v="rst">1:1</button><button type="button" data-v="in">+</button></div></div>';
-    const close = R.overlay.open(html, { kind: 'modal' });
+    const host = document.createElement('div'); host.innerHTML = html; const root = host.firstChild; document.body.appendChild(root);
+    const onKey = e => { if (e.key === 'Escape') close(); };
+    const close = () => { document.removeEventListener('keydown', onKey); root.remove(); };
+    document.addEventListener('keydown', onKey);
     setTimeout(() => {
-      const all = document.querySelectorAll('.a19-vw'), root = all[all.length - 1]; if (!root) return;
       const q = s => root.querySelector('[data-v="' + s + '"]'), img = q('img');
       const paint = () => { img.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + z + ')'; };
       const show = () => { z = 1; tx = ty = 0; img.src = list[i].url; q('cap').textContent = (list[i].label || '') + (list.length > 1 ? '  ' + (i + 1) + '/' + list.length : ''); paint(); };
@@ -355,7 +357,7 @@
       const sum = nm(it) + ' · ' + money(it.amount) + ' · ' + it.reference;
       if (act === 'approve'){ const ok = await ask({ title: a('wApproveT'), text: a('wApproveD') + '  ' + sum, field: { label: a('note'), required: false }, ok: a('approve'), run: async v => { const r = await Guardian.rpc('admin_withdrawal_decide', { p_id: it.id, p_approve: true, p_note: v.text || null }); return r.ok ? null : { error: srvErr(r.error) }; } }); if (ok){ logged(); c.reload(); } }
       else if (act === 'refuse'){ const ok = await ask({ title: a('wRefuseT'), text: a('wRefuseD') + '  ' + sum, field: { label: a('reason'), required: true }, ok: a('refuse'), danger: true, run: async v => { const r = await Guardian.rpc('admin_withdrawal_decide', { p_id: it.id, p_approve: false, p_note: v.text }); return r.ok ? null : { error: srvErr(r.error) }; } }); if (ok){ logged(); c.reload(); } }
-      else if (act === 'paid'){ const ok = await ask({ title: a('paidT'), text: a('paidD') + '  ' + sum, field: { label: a('paidRef'), required: true, min: 4, max: 60 }, check: a('cfPaid'), ok: a('markPaid'),
+      else if (act === 'paid'){ const ok = await ask({ title: a('paidT'), text: a('paidD') + '  ' + sum, field: { label: a('paidRef'), required: true, min: 4, max: 60, err: a('e_bank_reference_required') }, check: a('cfPaid'), ok: a('markPaid'),
           run: async v => { const r = await Guardian.rpc('admin_withdrawal_mark_paid', { p_id: it.id, p_bank_ref: v.text }); return r.ok ? null : { error: srvErr(r.error) }; } }); if (ok){ logged(); Fx.confetti(null, { n: 50 }); c.reload(); } }
     }
   };

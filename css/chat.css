@@ -341,3 +341,10 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 :root[data-theme="light"] .chat-rec,:root[data-theme="light"] .chat-comp,:root[data-theme="light"] .yas-comp,:root[data-theme="light"] .chat-head{background:color-mix(in srgb,#ffffff 92%,transparent)}
 :root[data-theme="light"] .chat-av-i{background:linear-gradient(150deg,#fff3d2,#ffe3a0);color:#6b4c08}
 :root[data-theme="light"] .chat-th,:root[data-theme="light"] .chat-q{background:#fff}
+
+/* 19.0.0 : pièce jointe PDF */
+.chat-file-card{display:flex;align-items:center;gap:12px;min-width:220px;max-width:100%;padding:10px 12px;border-radius:14px;background:var(--surf-2);border:1px solid var(--border);color:var(--text);text-align:start}
+.chat-file-card i{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:12px;background:var(--gold);color:var(--on-accent)}
+.chat-file-card span{display:flex;flex-direction:column;min-width:0}
+.chat-file-card b{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-file-card small{font-size:12px;color:var(--text-3)}

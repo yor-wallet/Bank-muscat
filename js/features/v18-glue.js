@@ -24,7 +24,7 @@ const V18 = (() => {
     let film = '';
     try { film = (typeof Cinema !== 'undefined' && Cinema.homeHtml) ? Cinema.homeHtml() : ((typeof Promos !== 'undefined') ? Promos.html() : ''); } catch(e){ film = ''; }
     const q = '<section class="v18-quick" aria-label="' + escapeHtml(t('v18.quick')) + '">' +
-      tile('vault', 'vault', t('v18.boost'), t('v18.boostD')) +
+      tile('invest', 'trend', t('v18.boost'), t('v18.boostD')) +
       tile('credit', 'coins', t('v18.credit'), tf('v18.creditD', { max: Money.int(cfg.credit_max) })) +
       tile('chat', 'chat', t('v18.chat'), t('v18.chatD')) +
       tile('yaser', 'bot', t('v18.yaser'), t('v18.yaserD')) +
