@@ -1,3 +1,16 @@
+# Live X Digitale 19.1.0 — assistants IA de l'administrateur (ils proposent, l'humain décide)
+
+## Nouveau
+- **Assistant sur chaque dossier** (paiement, identité, retrait) : résumé factuel, liste de ce qu'il faut vérifier soi-même, signaux d'alerte. Il ne confirme aucun paiement, n'accepte aucun retrait, ne valide aucune identité.
+- **Assistant service client** dans le chat administrateur : propose un brouillon de réponse fondé sur les vrais statuts du client. Le brouillon est déposé dans la zone de saisie — jamais envoyé automatiquement.
+- **Garde-fous serveur** : fonction `ai-assist` réservée aux administrateurs actifs (vérifié côté serveur), lecture seule sur les données, aucune écriture sur les soldes ni les décisions, 30 appels par heure et par administrateur.
+- **Journal `ai_assist_log`** en ajout seul : chaque appel est tracé (qui, quand, quel dossier, succès ou échec).
+- Les documents d'identité, IBAN et numéros de compte ne sont jamais transmis au modèle (IBAN masqué uniquement, pour repérer un doublon).
+
+## Configuration nécessaire
+- Secret `AI_API_KEY` à renseigner dans Supabase (Edge Functions → Secrets). Sans lui, le bouton reste présent et affiche « assistant non configuré ».
+- Secret `AI_MODEL` facultatif (par défaut `claude-sonnet-5-5`).
+
 # Live X Digitale 19.0.0 — refonte : plans, vérification d'identité, preuves de paiement, retraits, financement, espace admin
 
 ## Nouveau

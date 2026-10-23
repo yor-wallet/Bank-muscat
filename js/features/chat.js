@@ -433,6 +433,8 @@ function chShell(o){
     '<button type="button" data-ch="pick-video" style="--i:0">' + chIc('video', 20) + '<span>' + chEsc(t('chat.video')) + '</span></button>' +
     '<button type="button" data-ch="pick-pdf" style="--i:3">' + chIc('list', 20) + '<span>' + chEsc(t('chat.pdf')) + '</span></button></div>' +
     '<div class="chat-row"><button type="button" class="chat-ib" data-ch="attach" aria-label="' + chEsc(t('chat.attach')) + '" aria-expanded="false">' + chIc('clip', 22) + '</button>' +
+    /* administrateur : proposer un brouillon de réponse. Le brouillon n'est jamais envoyé tout seul. */
+    (admin ? '<button type="button" class="chat-ib chat-ai-b" data-ch="ai" aria-label="' + chEsc(t('ai.draft')) + '" title="' + chEsc(t('ai.draft')) + '">' + icon('sparkle', 22) + '</button>' : '') +
     '<div class="chat-tw"><textarea rows="1" dir="auto" maxlength="2000" placeholder="' + chEsc(t('chat.ph')) + '" aria-label="' + chEsc(t('chat.ph')) + '" enterkeyhint="send" autocomplete="off"></textarea></div>' +
     '<button type="button" class="chat-send" data-ch="send" aria-label="' + chEsc(t('chat.send')) + '">' + chIc('up', 22) + '</button>' +
     '<button type="button" class="chat-mic" data-ch="mic" aria-label="' + chEsc(t('chat.mic')) + '">' + chIc('mic', 22) + '</button></div>' +
@@ -658,6 +660,24 @@ function chThreadView(root, o){
   V.insert = text => { ta.value = (ta.value ? ta.value + ' ' : '') + text; autosize(); refreshMode(); try { ta.focus({ preventScroll: true }); } catch(e){ /* rien */ } const i = ta.value.indexOf('___'); if (i >= 0){ try { ta.setSelectionRange(i, i + 3); } catch(e){ /* rien */ } } };
   V.focus = () => { try { ta.focus({ preventScroll: true }); } catch(e){ /* rien */ } };
 
+  /* ---------- assistant : brouillon de réponse (administrateur) ----------
+     Le texte est DÉPOSÉ dans la zone de saisie, jamais envoyé : l'administrateur relit, corrige, puis envoie. */
+  async function aiDraft(b){
+    if (!V.admin || typeof AI19 === 'undefined' || !AI19.available()) return;
+    if (V.aiBusy) return; V.aiBusy = true;
+    try { UIKit.loading(b, true); } catch(e){ /* rien */ }
+    toast(t('ai.drafting'));
+    const r = await AI19.call({ mode: 'reply', user_id: V.thread });
+    V.aiBusy = false;
+    try { UIKit.loading(b, false); } catch(e){ /* rien */ }
+    if (!V.alive()) return;
+    if (!r.ok){ toast(AI19.errText(r.code), 'error'); try { Sfx.play('error'); } catch(e){ /* rien */ } return; }
+    ta.value = r.text; autosize(); refreshMode();
+    try { ta.focus({ preventScroll: true }); } catch(e){ /* rien */ }
+    toast(t('ai.draftIn'), 'success');
+    try { Sfx.play('pop'); } catch(e){ /* rien */ }
+  }
+
   const menu = root.querySelector('.chat-menu'), attachBtn = root.querySelector('[data-ch="attach"]');
   const toggleMenu = on => { const open = on == null ? menu.hidden : on; menu.hidden = !open; attachBtn.setAttribute('aria-expanded', open ? 'true' : 'false'); attachBtn.classList.toggle('is-open', open); if (open){ try { Sfx.play('pop'); } catch(e){ /* rien */ } } };
   V.closeMenu = () => toggleMenu(false);
@@ -795,6 +815,7 @@ function chThreadView(root, o){
     else if (a === 'reload'){ V.load(); }
     else if (a === 'yaser'){ try { Sfx.play('yaser'); } catch(x){ /* rien */ } Yaser.open(); }
     else if (a === 'askdep'){ V.insert(t('chat.depTpl')); try { Sfx.play('pop'); } catch(x){ /* rien */ } }
+    else if (a === 'ai'){ aiDraft(el); }
     else if (a === 'hidehelp'){ Guardian.store.set('chat_help_hidden_' + chUid(), true); const h = root.querySelector('.chat-help'); if (h){ h.classList.add('is-out'); setTimeout(() => h.remove(), 280); } }
     else if (a === 'copy'){ try { navigator.clipboard.writeText(el.getAttribute('data-copy')); } catch(x){ /* rien */ } toast(t('chat.copied')); try { Sfx.play('tick'); } catch(x){ /* rien */ } }
     else if (V.onAction) V.onAction(a, el);

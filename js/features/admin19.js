@@ -253,6 +253,22 @@
   const cell = (label, html) => '<div class="a19-c" data-l="' + esc(label) + '">' + html + '</div>';
   const btn = (act, label, cls, ic) => '<button type="button" class="btn ' + (cls || 'btn-secondary') + ' a19-b" data-act="' + act + '">' + (ic ? icon(ic, 16) : '') + '<span>' + esc(label) + '</span></button>';
   const chatBtn = () => '<button type="button" class="btn btn-ghost a19-b" data-chat>' + icon('chat', 16) + '<span>' + esc(a('chatWith')) + '</span></button>';
+  /* assistant : résume le dossier et rappelle ce qu'il faut vérifier. Ne décide rien. */
+  const aiBtn = () => (typeof AI19 !== 'undefined' && AI19.available()) ? btn('ai', t('ai.btn'), 'btn-ghost', 'sparkle') : '';
+  async function aiTriage(kind, it, b){
+    UIKit.loading(b, true);
+    const r = await AI19.call({ mode: 'triage', kind: kind, id: it.id });
+    UIKit.loading(b, false);
+    if (!r.ok){ toast(AI19.errText(r.code), 'error'); sound('error'); return; }
+    sound('open');
+    sheet('<h2>' + esc(t('ai.title')) + '</h2><p class="a19-sub">' + esc(nm(it)) + ' · ' + ltr(yid(it)) + '</p>' +
+      '<p class="ai-note">' + icon('info', 16) + '<span>' + esc(t('ai.note')) + '</span></p>' + AI19.html(r.text) +
+      '<div class="ai-foot"><button type="button" class="btn btn-secondary a19-b" data-f="cp">' + icon('copy', 16) + '<span>' + esc(t('ai.copy')) + '</span></button></div>',
+      (root) => {
+        const cp = root.querySelector('[data-f="cp"]');
+        if (cp) cp.onclick = () => { try { navigator.clipboard.writeText(r.text); } catch(x){ /* rien */ } toast(t('ai.copied'), 'success'); sound('tick'); };
+      });
+  }
   const copyBtn = (v) => v ? '<button type="button" class="a19-cp" data-copy="' + esc(v) + '" aria-label="' + esc(a('copy')) + '">' + icon('copy', 14) + '</button>' : '';
 
   /* ====================== PAIEMENTS / PLANS (dossiers) ====================== */
@@ -275,9 +291,10 @@
         '<div class="a19-act">' +
           (it.status === 'PROOF_SENT' ? '<div class="a19-proof" data-proof="' + esc(it.proof_message || '') + '"></div>' + btn('proof', a('viewProof'), 'btn-secondary', 'image') + btn('confirm', a('confirmFunds'), 'btn-primary', 'check') + btn('reject', a('rejectPay'), 'a19-danger', 'close') : '') +
           (it.status === 'AWAITING_PAYMENT' ? btn('reject', a('rejectPay'), 'a19-danger', 'close') : '') +
-          (isDue(it) ? btn('settle', a('settle'), 'btn-primary', 'banknote') : '') + chatBtn() + '</div>';
+          (isDue(it) ? btn('settle', a('settle'), 'btn-primary', 'banknote') : '') + aiBtn() + chatBtn() + '</div>';
     },
     act: async (act, it, c) => {
+      if (act === 'ai') return aiTriage('invest', it, c.btn);
       if (act === 'proof') return showProof(it, c.btn);
       if (act === 'confirm'){
         const ok = await ask({ title: a('cfFundsT'), text: a('cfFundsD') + '  ' + nm(it) + ' · ' + money(it.amount) + ' · ' + it.reference, check: a('cfChecked'), field: { label: a('note'), required: false }, ok: a('confirmFunds'),
@@ -314,8 +331,11 @@
     load: () => Guardian.rpc('admin_kyc_list', { p_status: null, p_limit: 300 }),
     row: it => person(it) + cell(a('date'), '<small>' + esc(fdt(it.created_at)) + '</small>' + (it.decided_at ? '<small>' + esc(fdt(it.decided_at)) + '</small>' : '')) +
       cell(a('status'), chip(it.status) + (it.reason ? '<small>' + esc(a('kReason')) + ' ' + esc(it.reason) + '</small>' : '')) +
-      '<div class="a19-act">' + btn('review', a('kReview'), it.status === 'PENDING' ? 'btn-primary' : 'btn-secondary', 'image') + chatBtn() + '</div>',
-    act: async (act, it, c) => { if (act === 'review') reviewKyc(it, c.reload); }
+      '<div class="a19-act">' + btn('review', a('kReview'), it.status === 'PENDING' ? 'btn-primary' : 'btn-secondary', 'image') + aiBtn() + chatBtn() + '</div>',
+    act: async (act, it, c) => {
+      if (act === 'ai') return aiTriage('kyc', it, c.btn);
+      if (act === 'review') reviewKyc(it, c.reload);
+    }
   };
   async function reviewKyc(it, reload){
     const close0 = sheet('<h2>' + esc(a('kReview')) + '</h2><div class="a19-skel"></div><div class="a19-skel"></div>');
@@ -352,8 +372,9 @@
       cell(a('holder'), '<b>' + esc(it.holder) + '</b><small>' + esc(it.bank_name) + '</small><small>' + esc(a('account')) + ': ' + ltr(it.account_number) + copyBtn(it.account_number) + '</small>' + (it.iban ? '<small>' + esc(a('iban')) + ': ' + ltr(it.iban) + copyBtn(it.iban) + '</small>' : '')) +
       cell(a('amount'), '<b class="a19-num">' + esc(money(it.amount)) + '</b><small>' + ltr(it.reference) + '</small><small>' + esc(fdt(it.created_at)) + '</small>') +
       cell(a('status'), chip(it.status) + (it.paid_ref ? '<small>' + esc(a('paidRefShow')) + ' ' + ltr(it.paid_ref) + '</small>' : '') + (it.admin_note ? '<small>' + esc(it.admin_note) + '</small>' : '')) +
-      '<div class="a19-act">' + (it.status === 'PENDING' ? btn('approve', a('approve'), 'btn-primary', 'check') + btn('refuse', a('refuse'), 'a19-danger', 'close') : '') + (it.status === 'APPROVED' ? btn('paid', a('markPaid'), 'btn-primary', 'bank') + btn('refuse', a('refuse'), 'a19-danger', 'close') : '') + chatBtn() + '</div>',
+      '<div class="a19-act">' + (it.status === 'PENDING' ? btn('approve', a('approve'), 'btn-primary', 'check') + btn('refuse', a('refuse'), 'a19-danger', 'close') : '') + (it.status === 'APPROVED' ? btn('paid', a('markPaid'), 'btn-primary', 'bank') + btn('refuse', a('refuse'), 'a19-danger', 'close') : '') + aiBtn() + chatBtn() + '</div>',
     act: async (act, it, c) => {
+      if (act === 'ai') return aiTriage('withdrawal', it, c.btn);
       const sum = nm(it) + ' · ' + money(it.amount) + ' · ' + it.reference;
       if (act === 'approve'){ const ok = await ask({ title: a('wApproveT'), text: a('wApproveD') + '  ' + sum, field: { label: a('note'), required: false }, ok: a('approve'), run: async v => { const r = await Guardian.rpc('admin_withdrawal_decide', { p_id: it.id, p_approve: true, p_note: v.text || null }); return r.ok ? null : { error: srvErr(r.error) }; } }); if (ok){ logged(); c.reload(); } }
       else if (act === 'refuse'){ const ok = await ask({ title: a('wRefuseT'), text: a('wRefuseD') + '  ' + sum, field: { label: a('reason'), required: true }, ok: a('refuse'), danger: true, run: async v => { const r = await Guardian.rpc('admin_withdrawal_decide', { p_id: it.id, p_approve: false, p_note: v.text }); return r.ok ? null : { error: srvErr(r.error) }; } }); if (ok){ logged(); c.reload(); } }
