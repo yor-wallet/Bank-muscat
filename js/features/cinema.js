@@ -81,7 +81,7 @@ const Cinema = (() => {
     const c = Cfg.get();
     return '<div class="cin-cardwrap" aria-hidden="true"><div class="cin-card3d"><i class="cin-card-sheen"></i>' +
       '<svg class="cin-chip" viewBox="0 0 40 30"><rect x="1" y="1" width="38" height="28" rx="6" fill="#CFE7FF" stroke="#22c55e" stroke-width="1.5"/><path d="M1 10h38M1 20h38M14 1v28M26 1v28" stroke="#22c55e" stroke-width="1" fill="none" opacity=".7"/></svg>' +
-      '<b class="cin-card-brand">LIVE X</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
+      '<b class="cin-card-brand">FREINDI PAY</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
       '<span class="cin-tag a">' + esc(Money.int(c.credit_min)) + '</span><span class="cin-tag b">' + esc(Money.int(c.credit_max)) + '</span></div>';
   }
   function artChat(){

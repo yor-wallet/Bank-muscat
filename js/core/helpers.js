@@ -227,4 +227,4 @@ async function copyText(text, okMsg){
    changed. Users see LXD-… everywhere, and may type LXD-, FRD-, FRIENDLY- or YOR- when searching for someone.
    ============================================================ */
 function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'FP-'); }
-function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(FP|LXD|LIVEX|LIVE X|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }
+function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(FP|LXD|LIVEX|FREINDI PAY|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }

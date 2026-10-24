@@ -1,3 +1,8 @@
+# FREINDI PAY 20.3.0 — nettoyage final de l'ancienne marque, chatbot
+
+- **Plus aucun « Live X » visible** : les textes restants (cartes, offres, publicités, tiroir, comptes, transfert, présentation) passent à « Freindi Pay » dans les trois langues. Les objets techniques internes (`LiveX`, noms de fichiers, tables, identifiants) sont inchangés.
+- **Message de bienvenue du chatbot** aux termes du brief : « Bienvenue sur Freindi Pay ! Je suis votre assistant financier. Comment puis-je vous aider aujourd'hui ? » (FR / EN / AR). Sous-titre « Votre assistant Freindi Pay ».
+- Les SMS ne sont pas modifiés.
 # FREINDI PAY 20.2.0 — identité verte émeraude
 
 ## Identité

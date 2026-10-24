@@ -174,7 +174,7 @@ function wire(id){
       const c = findContact(d);
       if (c) known.innerHTML = '<div class="sp-known glass-subtle">' + icon('check', 18) + '<span>' + escapeHtml(t('sp.known')) + '</span><b>' + escapeHtml(c.fullName || c.name || '') + '</b></div>';
       next.disabled = false;
-      /* 16.1.0 : si le numéro est celui d'un compte Live X, le système le reconnaît et affiche son nom ; l'argent lui est alors versé directement et il est averti */
+      /* 16.1.0 : si le numéro est celui d'un compte Freindi Pay, le système le reconnaît et affiche son nom ; l'argent lui est alors versé directement et il est averti */
       if (d.length === 8 && memberFor !== d){
         memberFor = d; member = null;
         const mine = d;

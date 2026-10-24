@@ -24,7 +24,7 @@ const OFFERS = [
     starts: '2026-10-01', ends: '2026-12-31',
     langs: null,                         // null = all languages, or e.g. ['fr','ar']
     countries: null,                     // null = all, or e.g. ['OM']
-    title: { fr: 'Offre Live X', en: 'Freindi Pay offer', ar: 'عرض Live X' },
+    title: { fr: 'Offre Freindi Pay', en: 'Freindi Pay offer', ar: 'عرض Freindi Pay' },
     body:  { fr: 'Texte court de l\u2019offre (une phrase).', en: 'Short offer text (one sentence).', ar: 'نص قصير للعرض.' },
     cta:   { fr: 'Voir', en: 'View', ar: 'عرض' },
     target: null                         // in-app screen id opened by the button, or null (no button)
