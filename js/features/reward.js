@@ -47,7 +47,7 @@ const Reward = (() => {
     el.setAttribute('aria-label', t('lx.rw.p'));
     let approx = '';
     try { const v = balanceView(amount, cur); if (v.converted) approx = '≈ ' + fmt(v.amount, v.currency); } catch(e){ /* rien */ }
-    el.innerHTML = '<div class="rwd-conf" aria-hidden="true">' + (reduced() ? '' : confetti(86)) + '</div>' +
+    el.innerHTML = '<div class="rwd-conf" aria-hidden="true">' + (reduced() ? '' : confetti(Math.max(18, Math.round(86 * (typeof Conductor !== 'undefined' ? Conductor.scale() : 1))))) + '</div>' +
       '<div class="rwd-medal" aria-hidden="true"><i class="rwd-ring"></i><i class="rwd-ring r2"></i><span class="rwd-coin">' + giftIcon + '</span></div>' +
       '<div class="rwd-k">' + escapeHtml(t('lx.rw.k')) + '</div>' +
       '<div class="rwd-amt" dir="ltr"><b id="rwd-n">0</b><span>' + escapeHtml(cur) + '</span></div>' +
@@ -71,7 +71,7 @@ const Reward = (() => {
     try { Sfx.play('reward'); } catch(e){ /* rien */ }
     try { if (navigator.vibrate && !(Runtime.settings && Runtime.settings.vibration === false)) navigator.vibrate([20, 50, 20, 50, 90]); } catch(e){ /* rien */ }
     /* deuxième salve de confettis */
-    if (!reduced()) setTimeout(() => { if (closed) return; const c = el.querySelector('.rwd-conf'); if (c) c.insertAdjacentHTML('beforeend', confetti(40)); }, 2300);
+    if (!reduced()) setTimeout(() => { if (closed) return; const c = el.querySelector('.rwd-conf'); if (c) c.insertAdjacentHTML('beforeend', confetti(Math.max(10, Math.round(40 * (typeof Conductor !== 'undefined' ? Conductor.scale() : 1))))); }, 2300);
     function close(){
       if (closed) return; closed = true; open = null;
       markLocal(o.id); markRead(o.id);

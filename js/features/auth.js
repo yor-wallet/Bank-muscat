@@ -61,7 +61,7 @@ const AuthEngine = (() => {
   }
   /* 16.0.2 : mise à jour en direct (argent reçu, solde modifié) : seules les 3 choses qui changent sont relues (soldes, opérations, alertes),
      au lieu des 14 lectures complètes à chaque alerte */
-  async function hydrateLive(){
+  async function hydrateLiveRaw(){
     const c = UserContext.get(); if (!c) return Runtime;
     const uid = c.uid;
     const [accounts, transactions, notifications] = await Promise.all([UserDataEngine.readAccounts(uid), UserDataEngine.readTransactions(uid), UserDataEngine.readNotifications(uid)]);
@@ -72,6 +72,9 @@ const AuthEngine = (() => {
     try { if (typeof Push !== 'undefined') Push.syncBadge(); } catch(e){}
     return Runtime;
   }
+  /* 20.4.0 : toute relecture passe par le centre de données (DataCenter) : deux demandes simultanées = une seule lecture, état et empreinte tenus à jour.
+     Sans DataCenter (chargement incomplet), on lit directement comme avant. */
+  function hydrateLive(){ return (typeof DataCenter !== 'undefined' && DataCenter.pull) ? DataCenter.pull('op') : hydrateLiveRaw(); }
   function applyAll(c, uid, res){
     const [profile, settingsDoc, securityDoc, accounts, transactions, receipts, notifications, cards, wallets, bankAccounts, contacts, beneficiaries, devices, sessions] = res;
     if (!UserContext.get() || UserContext.get().uid !== uid) return Runtime;   /* signed out meanwhile */
@@ -97,6 +100,8 @@ const AuthEngine = (() => {
         .subscribe();
     } catch(e){ console.warn('realtime unavailable', e); }
   }
+  /* 20.4.0 : après une longue absence, la connexion temps réel a pu tomber en silence : on la rétablit (appelé par le DataCenter) */
+  function reconnectRealtime(){ const c = UserContext.get(); if (c && c.uid) startRealtime(c.uid); }
   function onLive(n){
     const notifOn = !(Runtime.settings && Runtime.settings.notifications === false);
     if (n && notifOn){
@@ -123,6 +128,8 @@ const AuthEngine = (() => {
     clearTimeout(refreshTimer);
     refreshTimer = setTimeout(async () => {
       try {
+        /* 20.4.0 : le centre de données regroupe cette relecture avec les autres et redessine l'écran (sans interrompre une saisie) */
+        if (typeof DataCenter !== 'undefined' && DataCenter.request){ await DataCenter.request('live', { force: true }); return; }
         await hydrateLive();
         const cur = R.current();
         if (['home','history','notifications'].indexOf(cur) !== -1) R.go(cur, { force:true });      /* l'écran admin se rafraîchit lui-même (Admin.onNewUser) */
@@ -150,7 +157,7 @@ const AuthEngine = (() => {
         try { if (typeof AppLock !== 'undefined') AppLock.prefetch(); } catch(e){ /* rien */ }
         /* 19.0.0 : réouverture instantanée : si une copie chiffrée récente existe, l'accueil s'affiche tout de suite avec les dernières données connues,
            puis le serveur remet tout à jour en arrière-plan (la copie n'est jamais utilisée si elle est illisible ou d'une autre personne) */
-        let snap = null; try { if (typeof Snap !== 'undefined') snap = await Snap.load(user.id); } catch(e){ snap = null; }
+        let snap = null; try { if (typeof Snap !== 'undefined' && !(typeof Conductor !== 'undefined' && Conductor.isSafe())) snap = await Snap.load(user.id); } catch(e){ snap = null; }      /* 20.4.0 : en mode sûr (3 fins anormales en 10 min) la copie locale est ignorée */
         if (snap && snap[0] && snap[0].uid === user.id){
           const p0 = snap[0];
           const fast = { uid: user.id, userId: p0.userId, yorId: p0.yorId, role: p0.role || 'user', deviceId: DeviceEngine.ensure(), sessionId: SessionEngine.current() || SessionEngine.start() };
@@ -233,6 +240,6 @@ const AuthEngine = (() => {
     try { const { error } = await sb.auth.updateUser({ password: String(pw) }); return error ? { ok:false, error: errorKey(error) } : { ok:true }; }
     catch(e){ return { ok:false, error: errorKey(e) }; }
   }
-  return { subscribe, signIn, signUp, signOut, sendReset, updatePassword, hasValidContext, hydrateRuntime, hydrateLive };
+  return { subscribe, signIn, signUp, signOut, sendReset, updatePassword, hasValidContext, hydrateRuntime, hydrateLive, reconnectRealtime, _hydrateRaw: hydrateLiveRaw };
 })();
 
