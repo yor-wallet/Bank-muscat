@@ -1,3 +1,16 @@
+# FREINDI PAY 20.1.0 — reçu bancaire premium (PNG compact + PDF A4)
+
+## Reçu
+- **En-tête bleu profond** (dégradé #0057D9 → #003B8E) avec logo, mot-symbole Freindi Pay / فريندي باي, type de document (« TRANSACTION RECEIPT » / « REÇU DE TRANSACTION » / « إيصال معاملة ») et référence.
+- Pastille de statut à cheval sur le bandeau, montant mis en avant, lignes de détail alignées, pied de page bleu avec date et heure.
+- **Mention obligatoire** en pied : « Reçu de transaction Freindi Pay — ce n'est pas un document émis par une banque. » (3 langues). Un reçu Freindi Pay ne se fait jamais passer pour un document d'une banque tierce.
+- **PDF au format A4** (595 × 842 pt, reçu centré avec marges, réduit pour tenir sur une page) ; **PNG** = reçu compact à partager.
+- Statut réel uniquement (confirmé / en attente / échoué) : une opération échouée ou en attente n'est jamais exportée comme réussie, et une opération échouée n'affiche aucune ligne de débit.
+- Arabe RTL complet (en-tête, libellés, pied), références affichées en FP-….
+- Boutons déjà en place : PDF, PNG, Partager (fichier réel, partage iOS/natif), Copier la référence, Imprimer.
+
+## Vérifié réellement
+- Reçu rendu dans un navigateur en anglais et en arabe (RTL) : en-tête bleu, pastille verte « Confirmé », mention de pied présente, aucune erreur console.
 # FREINDI PAY 20.0.0 — nouvelle identité bleue, nouveau nom, nouveau logo
 
 ## Identité
