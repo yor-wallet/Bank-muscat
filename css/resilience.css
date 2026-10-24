@@ -19,5 +19,5 @@
   transform:translateY(-110%);opacity:0;transition:transform .32s cubic-bezier(.2,.9,.2,1),opacity .24s ease}
 #net-banner.is-on{transform:translateY(0);opacity:1}
 #net-banner.is-off{background:#B4532A}
-#net-banner.is-ok{background:#10b981}
+#net-banner.is-ok{background:#16A34A}
 @media (prefers-reduced-motion:reduce){.res-art{animation:none}#net-banner{transition:none}}

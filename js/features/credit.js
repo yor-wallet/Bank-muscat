@@ -250,7 +250,7 @@ const Credit = (() => {
 
   /* ---------- écran utilisateur ---------- */
   function ringHtml(){
-    return '<div class="cr-ring" id="cr-ring"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="crg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset=".6" stop-color="#a7f3d0"/><stop offset="1" stop-color="#6ee7b7"/></linearGradient></defs>' +
+    return '<div class="cr-ring" id="cr-ring"><svg viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="crg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8edde2"/><stop offset=".6" stop-color="#bae8eb"/><stop offset="1" stop-color="#8edde2"/></linearGradient></defs>' +
       '<circle class="cr-orbit" cx="100" cy="100" r="96"/><circle class="cr-track" cx="100" cy="100" r="84"/>' +
       '<circle class="cr-fill" id="cr-fill" cx="100" cy="100" r="84" stroke="url(#crg)" stroke-dasharray="' + RING_C.toFixed(2) + '" stroke-dashoffset="' + RING_C.toFixed(2) + '"/></svg>' +
       '<span class="cr-sp cr-sp1"></span><span class="cr-sp cr-sp2"></span><span class="cr-sp cr-sp3"></span>' +
@@ -456,7 +456,7 @@ const Credit = (() => {
   const LR = 2 * Math.PI * 44;
   function lringHtml(l){
     const pct = l.approved > 0 ? Math.max(0, Math.min(1, (l.repaid + l.forgiven) / l.approved)) : 0;
-    return '<div class="cr-lring" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><linearGradient id="crlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#6ee7b7"/></linearGradient></defs>' +
+    return '<div class="cr-lring" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><linearGradient id="crlg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8edde2"/><stop offset="1" stop-color="#8edde2"/></linearGradient></defs>' +
       '<circle class="cr-track" cx="50" cy="50" r="44"/><circle class="cr-fill" id="cr-lfill" cx="50" cy="50" r="44" stroke="url(#crlg)" stroke-dasharray="' + LR.toFixed(2) + '" stroke-dashoffset="' + LR.toFixed(2) + '" data-p="' + pct.toFixed(4) + '"/></svg>' +
       '<b class="ltr" dir="ltr">' + Math.round(pct * 100) + '<small>%</small></b></div>';
   }

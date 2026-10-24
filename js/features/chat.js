@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   CHAT (18.0.0) — messagerie utilisateur <-> administrateur (texte, photo, vidéo, vocal) et assistant YASER.
+   CHAT (18.0.0) — messagerie utilisateur <-> administrateur (texte, photo, vidéo, vocal) et assistant Freindi Pay.
    - Chat      : API publique { unread, start, stop, openSupport, openThread, onUnread } ; un seul canal realtime pour toute l'application.
    - Yaser     : assistant à règles (en / fr / ar), personnage SVG animé, mémoire locale par utilisateur ; ne dit que ce que lit l'application.
    - Écrans    : chat, yaser (utilisateur) ; admin-chat (boîte de réception), admin-chat-thread (conversation) pour l'administrateur.
@@ -20,7 +20,7 @@ Strings.add({
     'chat.retry': 'Retry', 'chat.failed': 'Not sent', 'chat.sending': 'Sending', 'chat.queued': 'Waiting for connection',
     'chat.tooBig': 'This file is larger than 25 MB.', 'chat.badType': 'This file type is not supported.', 'chat.caption': 'Add a caption', 'chat.cancel': 'Cancel', 'chat.close': 'Close',
     'chat.down': 'Latest messages', 'chat.deposit': 'Deposit confirmed', 'chat.credit': 'Credit granted', 'chat.ref': 'Ref.',
-    'chat.empty': 'Start the conversation. An administrator will answer you here.', 'chat.yaser': 'Ask YASER',
+    'chat.empty': 'Start the conversation. An administrator will answer you here.', 'chat.yaser': 'Ask Freindi Pay',
     'chat.photoMsg': 'Photo', 'chat.videoMsg': 'Video', 'chat.audioMsg': 'Voice message', 'chat.loadErr': 'Could not load messages.', 'chat.upErr': 'Upload failed. Try again.',
     'chat.aSent': 'Sent', 'chat.aRead': 'Read', 'chat.play': 'Play', 'chat.pause': 'Pause', 'chat.speed': 'Speed', 'chat.copied': 'Copied', 'chat.zoom': 'Zoom',
     'chat.in.title': 'Messages', 'chat.in.search': 'Search name, number or ID', 'chat.in.empty': 'No conversation yet.', 'chat.in.none': 'No result', 'chat.th.noThread': 'Open a conversation from the inbox.',
@@ -29,11 +29,11 @@ Strings.add({
     'chat.dep.review': 'Review', 'chat.dep.ask': 'Credit {a} to {n}?', 'chat.dep.go': 'Credit now', 'chat.dep.done': 'Deposit credited', 'chat.dep.bad': 'Enter a valid amount.', 'chat.dep.err': 'The deposit could not be recorded.',
     'chat.q.title': 'Quick replies', 'chat.q.edit': 'Edit', 'chat.q.add': 'Add a reply', 'chat.q.save': 'Save', 'chat.q.ph': 'Write a reply',
     'chat.q1': 'Hello, how can I help you?', 'chat.q2': 'Your deposit is being processed. I will confirm it here shortly.', 'chat.q3': 'Please send a photo of the transfer receipt.', 'chat.q4': 'Thank you for your trust.',
-    'yas.title': 'YASER', 'yas.sub': 'Your Freindi Pay assistant', 'yas.ph': 'Ask YASER', 'yas.typing': 'YASER is typing', 'yas.new': 'New conversation',
+    'yas.title': 'Freindi Pay', 'yas.sub': 'Your financial assistant', 'yas.ph': 'Ask Freindi Pay', 'yas.typing': 'Freindi Pay is typing', 'yas.new': 'New conversation',
     'yas.openChat': 'Open the chat', 'yas.openCredit': 'Request a credit', 'yas.openBoost': 'Open Boost', 'yas.openSend': 'Send money', 'yas.openIntl': 'International transfer',
     'yas.c.deposit': 'How do I add money?', 'yas.c.credit': 'I need a credit', 'yas.c.boost': 'Earn on my money', 'yas.c.balance': 'My balance', 'yas.c.human': 'Talk to a person',
-    'yas.r.hello': 'Hello {n}! I am YASER, your Freindi Pay assistant. How can I help you today?',
-    'yas.r.who': 'I am YASER, the assistant of Freindi Pay. I answer your questions and take you to the right screen.',
+    'yas.r.hello': 'Welcome to Freindi Pay!\n\nI am your financial assistant.\n\nHow can I help you today?',
+    'yas.r.who': 'I am your Freindi Pay financial assistant. I answer your questions and take you to the right screen.',
     'yas.r.deposit': 'To add money to your account, write to the administrator in the chat. The administrator confirms your deposit there, and the money appears in your balance right away.',
     'yas.r.credit': 'You can request a credit from {min} to {max} OMR. The administrator reviews your request and decides. If it is approved, the amount is added to your balance immediately.',
     'yas.r.boost': 'Freindi Pay does not announce any return that has not been validated. See the plans: gains are shown only when the model is defined and validated.',
@@ -58,7 +58,7 @@ Strings.add({
     'chat.retry': 'Réessayer', 'chat.failed': 'Non envoyé', 'chat.sending': 'Envoi', 'chat.queued': 'En attente de connexion',
     'chat.tooBig': 'Ce fichier dépasse 25 Mo.', 'chat.badType': 'Ce type de fichier n’est pas pris en charge.', 'chat.caption': 'Ajouter une légende', 'chat.cancel': 'Annuler', 'chat.close': 'Fermer',
     'chat.down': 'Derniers messages', 'chat.deposit': 'Dépôt confirmé', 'chat.credit': 'Crédit accordé', 'chat.ref': 'Réf.',
-    'chat.empty': 'Commencez la conversation. Un administrateur vous répondra ici.', 'chat.yaser': 'Demander à YASER',
+    'chat.empty': 'Commencez la conversation. Un administrateur vous répondra ici.', 'chat.yaser': 'Demander à Freindi Pay',
     'chat.photoMsg': 'Photo', 'chat.videoMsg': 'Vidéo', 'chat.audioMsg': 'Message vocal', 'chat.loadErr': 'Impossible de charger les messages.', 'chat.upErr': 'Échec de l’envoi. Réessayez.',
     'chat.aSent': 'Envoyé', 'chat.aRead': 'Lu', 'chat.play': 'Lecture', 'chat.pause': 'Pause', 'chat.speed': 'Vitesse', 'chat.copied': 'Copié', 'chat.zoom': 'Zoom',
     'chat.in.title': 'Messages', 'chat.in.search': 'Rechercher nom, numéro ou ID', 'chat.in.empty': 'Aucune conversation pour l’instant.', 'chat.in.none': 'Aucun résultat', 'chat.th.noThread': 'Ouvrez une conversation depuis la boîte de réception.',
@@ -67,11 +67,11 @@ Strings.add({
     'chat.dep.review': 'Vérifier', 'chat.dep.ask': 'Créditer {a} à {n} ?', 'chat.dep.go': 'Créditer maintenant', 'chat.dep.done': 'Dépôt crédité', 'chat.dep.bad': 'Saisissez un montant valide.', 'chat.dep.err': 'Le dépôt n’a pas pu être enregistré.',
     'chat.q.title': 'Réponses rapides', 'chat.q.edit': 'Modifier', 'chat.q.add': 'Ajouter une réponse', 'chat.q.save': 'Enregistrer', 'chat.q.ph': 'Écrivez une réponse',
     'chat.q1': 'Bonjour, comment puis-je vous aider ?', 'chat.q2': 'Votre dépôt est en cours de traitement. Je le confirme ici dans un instant.', 'chat.q3': 'Merci d’envoyer une photo du reçu du virement.', 'chat.q4': 'Merci pour votre confiance.',
-    'yas.title': 'YASER', 'yas.sub': 'Votre assistant Live X', 'yas.ph': 'Demandez à YASER', 'yas.typing': 'YASER écrit', 'yas.new': 'Nouvelle conversation',
+    'yas.title': 'Freindi Pay', 'yas.sub': 'Votre assistant financier', 'yas.ph': 'Demandez à Freindi Pay', 'yas.typing': 'Freindi Pay écrit', 'yas.new': 'Nouvelle conversation',
     'yas.openChat': 'Ouvrir le chat', 'yas.openCredit': 'Demander un crédit', 'yas.openBoost': 'Ouvrir Boost', 'yas.openSend': 'Envoyer de l’argent', 'yas.openIntl': 'Transfert international',
     'yas.c.deposit': 'Comment déposer de l’argent ?', 'yas.c.credit': 'J’ai besoin d’un crédit', 'yas.c.boost': 'Gagner sur mon argent', 'yas.c.balance': 'Mon solde', 'yas.c.human': 'Parler à une personne',
-    'yas.r.hello': 'Bonjour {n} ! Je suis YASER, votre assistant Live X. Comment puis-je vous aider aujourd’hui ?',
-    'yas.r.who': 'Je suis YASER, l’assistant de Freindi Pay. Je réponds à vos questions et je vous conduis au bon écran.',
+    'yas.r.hello': 'Bienvenue sur Freindi Pay !\n\nJe suis votre assistant financier.\n\nComment puis-je vous aider aujourd’hui ?',
+    'yas.r.who': 'Je suis votre assistant financier Freindi Pay. Je réponds à vos questions et je vous conduis au bon écran.',
     'yas.r.deposit': 'Pour ajouter de l’argent à votre compte, écrivez à l’administrateur dans le chat. Il confirme votre dépôt dans la conversation et l’argent apparaît aussitôt dans votre solde.',
     'yas.r.credit': 'Vous pouvez demander un crédit de {min} à {max} OMR. L’administrateur étudie votre demande et décide. En cas d’accord, le montant est ajouté tout de suite à votre solde.',
     'yas.r.boost': 'Freindi Pay n’annonce aucun rendement non validé. Consultez les plans : un gain n’est affiché que si le modèle est défini et validé.',
@@ -96,7 +96,7 @@ Strings.add({
     'chat.retry': 'إعادة المحاولة', 'chat.failed': 'لم تُرسل', 'chat.sending': 'جارٍ الإرسال', 'chat.queued': 'بانتظار الاتصال',
     'chat.tooBig': 'حجم هذا الملف أكبر من 25 ميغابايت.', 'chat.badType': 'نوع الملف غير مدعوم.', 'chat.caption': 'أضف تعليقاً', 'chat.cancel': 'إلغاء', 'chat.close': 'إغلاق',
     'chat.down': 'أحدث الرسائل', 'chat.deposit': 'تم تأكيد الإيداع', 'chat.credit': 'تم منح الائتمان', 'chat.ref': 'المرجع',
-    'chat.empty': 'ابدأ المحادثة. سيرد عليك مسؤول هنا.', 'chat.yaser': 'اسأل ياسر',
+    'chat.empty': 'ابدأ المحادثة. سيرد عليك مسؤول هنا.', 'chat.yaser': 'اسأل فريندي باي',
     'chat.photoMsg': 'صورة', 'chat.videoMsg': 'فيديو', 'chat.audioMsg': 'رسالة صوتية', 'chat.loadErr': 'تعذّر تحميل الرسائل.', 'chat.upErr': 'فشل الرفع. حاول مجدداً.',
     'chat.aSent': 'أُرسلت', 'chat.aRead': 'قُرئت', 'chat.play': 'تشغيل', 'chat.pause': 'إيقاف مؤقت', 'chat.speed': 'السرعة', 'chat.copied': 'تم النسخ', 'chat.zoom': 'تكبير',
     'chat.in.title': 'الرسائل', 'chat.in.search': 'ابحث بالاسم أو الرقم أو المعرّف', 'chat.in.empty': 'لا توجد محادثات بعد.', 'chat.in.none': 'لا نتائج', 'chat.th.noThread': 'افتح محادثة من صندوق الوارد.',
@@ -105,11 +105,11 @@ Strings.add({
     'chat.dep.review': 'مراجعة', 'chat.dep.ask': 'إضافة {a} إلى {n}؟', 'chat.dep.go': 'أضف الآن', 'chat.dep.done': 'تمت إضافة الإيداع', 'chat.dep.bad': 'أدخل مبلغاً صحيحاً.', 'chat.dep.err': 'تعذّر تسجيل الإيداع.',
     'chat.q.title': 'ردود سريعة', 'chat.q.edit': 'تعديل', 'chat.q.add': 'أضف رداً', 'chat.q.save': 'حفظ', 'chat.q.ph': 'اكتب رداً',
     'chat.q1': 'مرحباً، كيف أستطيع مساعدتك؟', 'chat.q2': 'إيداعك قيد المعالجة. سأؤكده هنا بعد قليل.', 'chat.q3': 'يرجى إرسال صورة إيصال التحويل.', 'chat.q4': 'شكراً لثقتك بنا.',
-    'yas.title': 'ياسر', 'yas.sub': 'مساعدك في فريندي باي', 'yas.ph': 'اسأل ياسر', 'yas.typing': 'ياسر يكتب', 'yas.new': 'محادثة جديدة',
+    'yas.title': 'فريندي باي', 'yas.sub': 'مساعدك المالي', 'yas.ph': 'اسأل فريندي باي', 'yas.typing': 'فريندي باي يكتب', 'yas.new': 'محادثة جديدة',
     'yas.openChat': 'فتح المحادثة', 'yas.openCredit': 'طلب ائتمان', 'yas.openBoost': 'فتح بوست', 'yas.openSend': 'إرسال أموال', 'yas.openIntl': 'التحويل الدولي',
     'yas.c.deposit': 'كيف أودع أموالاً؟', 'yas.c.credit': 'أحتاج إلى ائتمان', 'yas.c.boost': 'اربح من أموالي', 'yas.c.balance': 'رصيدي', 'yas.c.human': 'التحدث مع شخص',
-    'yas.r.hello': 'مرحباً {n}! أنا ياسر، مساعدك في فريندي باي. كيف أساعدك اليوم؟',
-    'yas.r.who': 'أنا ياسر، مساعد فريندي باي. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
+    'yas.r.hello': 'مرحباً بك في Freindi Pay!\n\nأنا مساعدك المالي.\n\nكيف يمكنني مساعدتك اليوم؟',
+    'yas.r.who': 'أنا مساعدك المالي في فريندي باي. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
     'yas.r.deposit': 'لإضافة أموال إلى حسابك اكتب للمسؤول في المحادثة. يؤكد المسؤول الإيداع هناك وتظهر الأموال في رصيدك فوراً.',
     'yas.r.credit': 'يمكنك طلب ائتمان من {min} إلى {max} ر.ع. يراجع المسؤول طلبك ويقرر. عند الموافقة يُضاف المبلغ إلى رصيدك مباشرة.',
     'yas.r.boost': 'لا تعلن فريندي باي عن أي عائد غير معتمد. راجع الخطط: لا يظهر أي ربح إلا إذا كان النموذج محدداً ومعتمداً.',
@@ -157,7 +157,7 @@ function chIc(name, size, cls){
 let chGid = 0;
 function chLogo(size){
   const n = ++chGid;
-  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" class="chat-logo" aria-hidden="true"><defs><linearGradient id="chl' + n + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#a7f3d0"/></linearGradient></defs>' +
+  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" class="chat-logo" aria-hidden="true"><defs><linearGradient id="chl' + n + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8edde2"/><stop offset="1" stop-color="#bae8eb"/></linearGradient></defs>' +
     '<circle cx="24" cy="24" r="24" fill="url(#chl' + n + ')"/><text x="24" y="30.5" text-anchor="middle" font-family="Manrope,Inter,sans-serif" font-weight="800" font-size="17" fill="#14110a">FP</text></svg>';
 }
 function chInitials(name){
@@ -975,23 +975,23 @@ Hooks.on('admin-chat', root => {
 });
 
 /* ============================================================
-   YASER — assistant à règles, personnage SVG animé
+   Freindi Pay — assistant à règles, personnage SVG animé
    ============================================================ */
 let yGid = 0;
 function yaserSvg(size, key){
   const n = ++yGid;
   const eye = cx => '<g class="yas-eye"><ellipse cx="' + cx + '" cy="56" rx="7.4" ry="9" fill="#fff"/><circle class="yas-pupil" cx="' + cx + '" cy="57" r="4.4" fill="#2a1d05"/><circle cx="' + (cx - 1.6) + '" cy="55" r="1.4" fill="#fff"/></g>';
   return '<svg class="yas-svg yas-' + key + '" viewBox="0 0 120 120" width="' + size + '" height="' + size + '" aria-hidden="true" focusable="false">' +
-    '<defs><radialGradient id="yg' + n + '" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".42" stop-color="#6ee7b7"/><stop offset="1" stop-color="#a7f3d0"/></radialGradient>' +
-    '<radialGradient id="yh' + n + '"><stop offset="0" stop-color="#6ee7b7" stop-opacity=".55"/><stop offset="1" stop-color="#6ee7b7" stop-opacity="0"/></radialGradient></defs>' +
+    '<defs><radialGradient id="yg' + n + '" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".42" stop-color="#8edde2"/><stop offset="1" stop-color="#bae8eb"/></radialGradient>' +
+    '<radialGradient id="yh' + n + '"><stop offset="0" stop-color="#8edde2" stop-opacity=".55"/><stop offset="1" stop-color="#8edde2" stop-opacity="0"/></radialGradient></defs>' +
     '<circle class="yas-halo" cx="60" cy="62" r="58" fill="url(#yh' + n + ')"/>' +
-    '<g class="yas-float"><line x1="60" y1="22" x2="60" y2="12" stroke="#a7f3d0" stroke-width="3" stroke-linecap="round"/><circle class="yas-ant" cx="60" cy="9" r="4.2" fill="#EAF5FF"/>' +
+    '<g class="yas-float"><line x1="60" y1="22" x2="60" y2="12" stroke="#bae8eb" stroke-width="3" stroke-linecap="round"/><circle class="yas-ant" cx="60" cy="9" r="4.2" fill="#EAF5FF"/>' +
     '<circle cx="60" cy="62" r="40" fill="url(#yg' + n + ')"/><ellipse cx="44" cy="40" rx="14" ry="8" fill="#fff" opacity=".28" transform="rotate(-28 44 40)"/>' +
     '<circle cx="37" cy="70" r="6" fill="#ff9d5c" opacity=".26"/><circle cx="83" cy="70" r="6" fill="#ff9d5c" opacity=".26"/>' +
     '<g class="yas-eyes">' + eye(47) + eye(73) + '</g>' +
     '<path class="yas-smile" d="M47 74 Q60 85 73 74" fill="none" stroke="#5b3a05" stroke-width="3.4" stroke-linecap="round"/>' +
     '<ellipse class="yas-open" cx="60" cy="76" rx="8" ry="5.5" fill="#5b3a05"/></g>' +
-    '<path class="yas-sp s1" d="M104 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#EAF5FF"/><path class="yas-sp s2" d="M14 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#6ee7b7"/><path class="yas-sp s3" d="M100 94l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#EAF5FF"/></svg>';
+    '<path class="yas-sp s1" d="M104 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#EAF5FF"/><path class="yas-sp s2" d="M14 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#8edde2"/><path class="yas-sp s3" d="M100 94l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#EAF5FF"/></svg>';
 }
 
 const Yaser = (() => {

@@ -1,10 +1,10 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 // ---- Fixed official sender: never configurable from outside ----
-// 16.0.0 : marque Live X Digitale (noir & or). Les e-mails de transaction n'affichent AUCUN solde (ni avant, ni après).
+// 20.3.0 : marque Freindi Pay (teal sur blanc). Les e-mails de transaction n'affichent AUCUN solde (ni avant, ni après).
 // UN SEUL e-mail « OK » par transfert (TX_SENDER) : l'ancien e-mail « le versement n'est pas encore effectué » n'est plus créé côté base.
 const FROM_EMAIL = "yordigitalefinance@gmail.com";   // adresse d'expédition vérifiée chez Brevo (inchangée)
-const FROM_NAME = "Live X Digitale";
+const FROM_NAME = "Freindi Pay";
 const REPLY_TO = FROM_EMAIL;
 const APP_URL = (Deno.env.get("APP_URL") || "https://live-x-digitale-app.vercel.app").trim();
 const BREVO_KEY = Deno.env.get("BREVO_API_KEY") ?? "";
@@ -18,66 +18,66 @@ type Lang = "fr" | "en" | "ar";
 type Row = Record<string, any>;
 
 // Palette de marque (identique à l'application)
-const GOLD = "#FFC83D", GOLD_DEEP = "#8F6400", INK = "#0A0A0B";
+const GOLD = "#48C2C9", GOLD_DEEP = "#0E8A94", INK = "#0A5F68";   // noms historiques conservés : GOLD = teal principal, INK = teal profond
 
 const T: Record<Lang, Row> = {
   fr: {
     dir: "ltr", locale: "fr-FR",
-    welcomeSubject: "Bienvenue sur Live X Digitale",
-    welcomeSubjectReward: (a: string) => `Bienvenue sur Live X Digitale — ${a} offerts`,
-    welcomeTitle: (n: string) => `Bienvenue sur Live X Digitale, ${n} !`,
-    welcomeBody: "Votre compte est confirmé. Vous pouvez dès maintenant envoyer, recevoir et gérer votre argent en toute sécurité avec Live X Digitale.",
+    welcomeSubject: "Bienvenue sur Freindi Pay",
+    welcomeSubjectReward: (a: string) => `Bienvenue sur Freindi Pay — ${a} offerts`,
+    welcomeTitle: (n: string) => `Bienvenue sur Freindi Pay, ${n} !`,
+    welcomeBody: "Votre compte est confirmé. Vous pouvez dès maintenant envoyer, recevoir et gérer votre argent en toute sécurité avec Freindi Pay.",
     rewardLine: (a: string) => `Cadeau de bienvenue : ${a} ont été ajoutés à votre portefeuille.`,
-    open: "Ouvrir Live X Digitale",
+    open: "Ouvrir Freindi Pay",
     supportLine: "Besoin d'aide ? Écrivez-nous :",
-    company: "Live X Digitale — la finance digitale.",
+    company: "Freindi Pay — la finance digitale.",
     privacy: "Confidentialité", terms: "Conditions",
     sentSubject: (a: string) => `Transaction réussie : ${a}`,
     recvSubject: (a: string) => `Vous avez reçu ${a}`,
     sentTitle: "Votre transaction a réussi", recvTitle: "Vous avez reçu de l'argent",
-    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "ID Live X", phone: "Téléphone", service: "Service", country: "Pays",
+    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "ID Freindi Pay", phone: "Téléphone", service: "Service", country: "Pays",
       address: "Adresse de destination", network: "Réseau", memo: "Mémo",
       rate: "Taux de change", dest: "Montant à recevoir", debited: "Montant débité", received: "Montant reçu",
       fee: "Frais", date: "Date", time: "Heure", ref: "Référence", status: "Statut", email: "E-mail", name: "Nom" },
     ok: "Réussie",
-    kinds: { FIAT_TRANSFER: "Transfert Live X ID", FIAT_EXTERNAL: "Transfert international", CRYPTO_TRANSFER: "Transfert crypto", ADMIN_DEPOSIT: "Dépôt", SIGNUP_BONUS: "Récompense de bienvenue",
+    kinds: { FIAT_TRANSFER: "Transfert Freindi Pay ID", FIAT_EXTERNAL: "Transfert international", CRYPTO_TRANSFER: "Transfert crypto", ADMIN_DEPOSIT: "Dépôt", SIGNUP_BONUS: "Récompense de bienvenue",
       CRYPTO_BUY: "Achat crypto", CRYPTO_SELL: "Vente crypto", CRYPTO_SWAP: "Échange crypto", CRYPTO_SEND: "Envoi crypto externe", CRYPTO_TO_BANK: "Crypto vers banque" },
     admin: { subject: (n: string) => `Nouveau membre : ${n}`, title: "Un nouveau membre vient de s'inscrire", intro: "Voici ses informations d'inscription." },
     sec: {
-      SEC_PASSWORD_CHANGED: ["Votre mot de passe a été modifié", "Le mot de passe de votre compte Live X Digitale vient d'être modifié."],
-      SEC_EMAIL_CHANGED: ["L'adresse e-mail de votre compte a changé", "L'adresse e-mail de votre compte Live X Digitale vient d'être modifiée"],
-      SEC_PIN_CHANGED: ["Votre code PIN a été modifié", "Le code PIN de votre compte Live X Digitale vient d'être modifié."],
-      SEC_NEW_DEVICE: ["Nouvelle connexion à votre compte", "Une connexion à votre compte Live X Digitale a été détectée depuis un nouvel appareil."],
+      SEC_PASSWORD_CHANGED: ["Votre mot de passe a été modifié", "Le mot de passe de votre compte Freindi Pay vient d'être modifié."],
+      SEC_EMAIL_CHANGED: ["L'adresse e-mail de votre compte a changé", "L'adresse e-mail de votre compte Freindi Pay vient d'être modifiée"],
+      SEC_PIN_CHANGED: ["Votre code PIN a été modifié", "Le code PIN de votre compte Freindi Pay vient d'être modifié."],
+      SEC_NEW_DEVICE: ["Nouvelle connexion à votre compte", "Une connexion à votre compte Freindi Pay a été détectée depuis un nouvel appareil."],
       warn: "Si ce n'est pas vous, contactez immédiatement notre support :",
     },
   },
   en: {
     dir: "ltr", locale: "en-GB",
-    welcomeSubject: "Welcome to Live X Digitale",
-    welcomeSubjectReward: (a: string) => `Welcome to Live X Digitale — ${a} on us`,
-    welcomeTitle: (n: string) => `Welcome to Live X Digitale, ${n}!`,
-    welcomeBody: "Your account is confirmed. You can now send, receive and manage your money securely with Live X Digitale.",
+    welcomeSubject: "Welcome to Freindi Pay",
+    welcomeSubjectReward: (a: string) => `Welcome to Freindi Pay — ${a} on us`,
+    welcomeTitle: (n: string) => `Welcome to Freindi Pay, ${n}!`,
+    welcomeBody: "Your account is confirmed. You can now send, receive and manage your money securely with Freindi Pay.",
     rewardLine: (a: string) => `Welcome gift: ${a} has been added to your wallet.`,
-    open: "Open Live X Digitale",
+    open: "Open Freindi Pay",
     supportLine: "Need help? Write to us:",
-    company: "Live X Digitale — digital finance.",
+    company: "Freindi Pay — digital finance.",
     privacy: "Privacy", terms: "Terms",
     sentSubject: (a: string) => `Transaction successful: ${a}`,
     recvSubject: (a: string) => `You received ${a}`,
     sentTitle: "Your transaction was successful", recvTitle: "You received money",
-    f: { type: "Type", amount: "Amount", to: "Recipient", from: "Sender", yor: "Live X ID", phone: "Phone", service: "Service", country: "Country",
+    f: { type: "Type", amount: "Amount", to: "Recipient", from: "Sender", yor: "Freindi Pay ID", phone: "Phone", service: "Service", country: "Country",
       address: "Destination address", network: "Network", memo: "Memo",
       rate: "Exchange rate", dest: "Amount to receive", debited: "Amount debited", received: "Amount received",
       fee: "Fees", date: "Date", time: "Time", ref: "Reference", status: "Status", email: "E-mail", name: "Name" },
     ok: "Successful",
-    kinds: { FIAT_TRANSFER: "Live X ID transfer", FIAT_EXTERNAL: "International transfer", CRYPTO_TRANSFER: "Crypto transfer", ADMIN_DEPOSIT: "Deposit", SIGNUP_BONUS: "Welcome reward",
+    kinds: { FIAT_TRANSFER: "Freindi Pay ID transfer", FIAT_EXTERNAL: "International transfer", CRYPTO_TRANSFER: "Crypto transfer", ADMIN_DEPOSIT: "Deposit", SIGNUP_BONUS: "Welcome reward",
       CRYPTO_BUY: "Crypto purchase", CRYPTO_SELL: "Crypto sale", CRYPTO_SWAP: "Crypto swap", CRYPTO_SEND: "External crypto send", CRYPTO_TO_BANK: "Crypto to bank" },
     admin: { subject: (n: string) => `New member: ${n}`, title: "A new member just signed up", intro: "Here are their sign-up details." },
     sec: {
-      SEC_PASSWORD_CHANGED: ["Your password was changed", "The password of your Live X Digitale account was just changed."],
-      SEC_EMAIL_CHANGED: ["Your account e-mail address changed", "The e-mail address of your Live X Digitale account was just changed"],
-      SEC_PIN_CHANGED: ["Your PIN was changed", "The PIN of your Live X Digitale account was just changed."],
-      SEC_NEW_DEVICE: ["New sign-in to your account", "A sign-in to your Live X Digitale account was detected from a new device."],
+      SEC_PASSWORD_CHANGED: ["Your password was changed", "The password of your Freindi Pay account was just changed."],
+      SEC_EMAIL_CHANGED: ["Your account e-mail address changed", "The e-mail address of your Freindi Pay account was just changed"],
+      SEC_PIN_CHANGED: ["Your PIN was changed", "The PIN of your Freindi Pay account was just changed."],
+      SEC_NEW_DEVICE: ["New sign-in to your account", "A sign-in to your Freindi Pay account was detected from a new device."],
       warn: "If this wasn't you, contact our support immediately:",
     },
   },
@@ -153,11 +153,11 @@ function layout(lang: Lang, title: string, intro: string, rows: [string, string]
     ? `<a href="${esc(APP_URL)}" style="color:#6b7280">${esc(t.privacy)}</a> · <a href="${esc(APP_URL)}" style="color:#6b7280">${esc(t.terms)}</a>`
     : `${esc(t.privacy)} · ${esc(t.terms)}`;
   return `<!doctype html><html lang="${lang}" dir="${t.dir}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>` +
-    `<body style="margin:0;background:#f5f4f1;font-family:Arial,Helvetica,sans-serif" dir="${t.dir}">` +
+    `<body style="margin:0;background:#F1FAFB;font-family:Arial,Helvetica,sans-serif" dir="${t.dir}">` +
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">` +
     `<table role="presentation" width="100%" style="max-width:560px;background:#fff;border-radius:16px;overflow:hidden" cellpadding="0" cellspacing="0">` +
-    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${GOLD}"><span style="display:inline-block;background:${GOLD};color:${INK};font-size:17px;font-weight:900;border-radius:9px;padding:6px 9px;letter-spacing:-.5px;vertical-align:middle">LX</span>` +
-    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">LIVE X</span><span style="color:${GOLD};font-size:12px;font-weight:600;letter-spacing:4px;vertical-align:middle">DIGITALE</span></td></tr>` +
+    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${GOLD}"><span style="display:inline-block;background:${GOLD};color:${INK};font-size:17px;font-weight:900;border-radius:9px;padding:6px 9px;letter-spacing:-.5px;vertical-align:middle">FP</span>` +
+    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">FREINDI</span><span style="color:${GOLD};font-size:12px;font-weight:600;letter-spacing:4px;vertical-align:middle">PAY</span></td></tr>` +
     `<tr><td style="padding:28px;text-align:${al}"><h1 style="margin:0 0 12px;font-size:21px;color:#111827">${esc(title)}</h1>` +
     `<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#374151">${esc(intro)}</p>` +
     (rows.length ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${body}</table>` : "") +
@@ -173,7 +173,7 @@ function button(label: string): string {
 }
 
 function rewardBox(text: string): string {
-  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#FFF7DB;border:1px solid ${GOLD};color:#5B4300;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
+  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#E6F6F7;border:1px solid ${GOLD};color:#0A5F68;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
 }
 
 async function langOf(userId: string | null): Promise<Lang> {

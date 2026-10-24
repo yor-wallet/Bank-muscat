@@ -1,3 +1,34 @@
+# FREINDI PAY 20.3.0 — identité teal, écran Comptes, barre du bas, assistant « Freindi Pay »
+
+## Identité
+- **Teal** à la place du vert émeraude de la 20.2.0 : couleur de référence #48C2C9 (accent), #0E8A94 (teal bancaire, texte blanc lisible), #0A5F68 (teal profond), #8EDDE2 / #BAE8EB (teal clair). 496 lignes de couleurs converties dans le CSS et le JS ; les verts de **succès** (#16A34A, pastilles « confirmé », coches) et les rouges d'erreur sont conservés.
+- **Avertissements corrigés** : la recoloration verte avait transformé l'orange d'avertissement en menthe / bleu pâle (`--warning`, `--st-wait`, `--fp-warn`) ; retour à l'ambre #F59E0B / #FBBF24 / #B45309.
+- **Logo conservé** (monogramme « F » + chevron de paiement, dessin original). Icônes iOS / PWA, favicon, tuile maskable, écrans de lancement, images de partage et mot-symboles régénérés en teal (`node scripts/dev/brand-assets.mjs`). Les images jointes (logo teal d'une autre application) ont servi de référence de couleur uniquement ; rien n'en est reproduit.
+- Manifeste PWA : `theme_color` #0E8A94, fond #F1FAFB.
+
+## Navigation et écrans
+- **Barre du bas : Accueil · Comptes · Transfert (centre) · Cartes · Plus** (avant : Accueil · Cartes · Envoyer · Historique · Services). L'historique reste accessible depuis l'accueil, « Plus » et l'écran Comptes ; l'onglet « Plus » s'allume sur l'historique.
+- **Nouvel écran Comptes** (`js/features/accounts.js`) : pour chaque compte, solde disponible (devise du compte, équivalent converti si la devise d'affichage diffère), montant réservé, statut, entrées et sorties **confirmées** des 30 derniers jours, coordonnées (type, devise, pays, Freindi Pay ID, date d'ouverture, dernière mise à jour), trois dernières opérations et accès Envoyer / Recevoir / Historique. Tout vient de `Runtime.accounts` (table `accounts`) et `Runtime.transactions` ; une valeur absente n'est pas affichée. Français, anglais, arabe RTL.
+- `readAccounts` expose `updatedAt` (colonne `accounts.updated_at`, lecture seule).
+
+## Assistant
+- L'assistant s'appelle **Freindi Pay** (avant : YASER) dans le chat, le film d'accueil et le hub ; message de bienvenue en trois langues : « Bienvenue sur Freindi Pay ! Je suis votre assistant financier. Comment puis-je vous aider aujourd'hui ? ». Ses règles ne changent pas : réponses fondées sur les vrais statuts, aucune confirmation inventée.
+
+## Anciens noms
+- Textes visibles « Live X » remplacés par Freindi Pay (cartes, publicités, comptes, transferts internes, carte du film, image « ID »).
+- **E-mails** (`supabase/functions/send-email`) : marque Freindi Pay, palette teal sur blanc (ils étaient encore noir et or), titre de notification push, consigne de l'assistant administrateur.
+- Conservés volontairement (identifiants techniques) : objet JS `LiveX`, fichiers `livex.*`, préfixes acceptés à la saisie (`LXD`, `LIVEX`…), base `YOR-…`, adresse d'expédition e-mail, URL `APP_URL` par défaut, comparaison `d.from === "Live X Digitale"` dans `push-send/lib.ts`.
+
+## Non fait (volontairement)
+- **Aucune fonction serveur n'a été déployée** : les modifications de `send-email`, `push-send` et `ai-assist` sont dans le dépôt, pas en production.
+- **« Ajouter des fonds » et « Transférer entre mes comptes »** : aucun flux serveur n'existe pour les deux ; aucun écran factice n'a été créé.
+- SMS : la fonction `send-notice` en production gère déjà Infobip (secrets `INFOBIP_API_KEY`, `INFOBIP_BASE_URL`, `SMS_SENDER`), la file d'envoi avec tentatives et le suivi de livraison ; son Sender ID par défaut est encore « FriendlyPay » et doit rester celui approuvé chez Infobip.
+
+## Vérifié réellement
+- `npm run build` passe (76 fichiers JS, 32 feuilles CSS).
+- Rendu Chromium 390 × 844 : écran Comptes en français et en arabe RTL, barre du bas à cinq onglets dans les deux langues, présentation en teal, reçu premium (français, arabe) avec en-tête teal profond, pastille verte et mention « pas un document émis par une banque ». Les chiffres de ces essais sont des données de test locales.
+- Pas testé : connexion réelle, transferts réels, SMS et e-mails réels, Safari iPhone.
+
 # FREINDI PAY 20.2.0 — identité verte émeraude
 
 ## Identité

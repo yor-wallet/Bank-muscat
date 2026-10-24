@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#10B981">
+<meta name="theme-color" content="#0E8A94">
 <meta name="apple-mobile-web-app-title" content="Freindi Pay">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://gebjmguoauvutiqvoswl.supabase.co" crossorigin>
@@ -73,7 +73,7 @@
 <script>
 /* last theme used on this phone, applied before the first paint (the app confirms it once the account is known) */
 (function(){try{var t=localStorage.getItem('fp_theme'),d=document.documentElement;
-  if(t==='light'||(t==='system'&&window.matchMedia&&!window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F2FBF6');}
+  if(t==='light'||(t==='system'&&window.matchMedia&&!window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#F1FAFB');}
 }catch(e){}})();
 </script>
 <meta name="mobile-web-app-capable" content="yes">
@@ -144,7 +144,7 @@
 </head>
 <body>
 
-<div id="splash" aria-live="polite"><svg viewBox="0 0 512 512" width="96" height="96" aria-hidden="true" style="width:min(28vmin,120px);height:auto;filter:drop-shadow(0 18px 36px rgba(107,76,8,.45))"><defs><linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9aa1c"/><stop offset="1" stop-color="#6b4c08"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#pre-g)"/><g transform="translate(-20 -9)" fill="none" stroke="#fff" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"><path d="M180 388V196a54 54 0 0 1 54-54H372"/><path d="M180 266H326"/></g><circle cx="318" cy="369" r="31" fill="#fff"/></svg></div>
+<div id="splash" aria-live="polite"><svg viewBox="0 0 512 512" width="96" height="96" aria-hidden="true" style="width:min(28vmin,120px);height:auto;filter:drop-shadow(0 18px 36px rgba(10,95,104,.45))"><defs><linearGradient id="pre-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e9aa1c"/><stop offset="1" stop-color="#6b4c08"/></linearGradient></defs><rect width="512" height="512" rx="120" fill="url(#pre-g)"/><g transform="translate(-20 -9)" fill="none" stroke="#fff" stroke-width="54" stroke-linecap="round" stroke-linejoin="round"><path d="M180 388V196a54 54 0 0 1 54-54H372"/><path d="M180 266H326"/></g><circle cx="318" cy="369" r="31" fill="#fff"/></svg></div>
 <noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#151411">Freindi Pay needs JavaScript. Please enable it and reload. · Freindi Pay nécessite JavaScript. · يتطلب فريندي باي تفعيل JavaScript.</div></noscript>
 
 <div id="app">
@@ -240,6 +240,7 @@
 <script src="js/ui/uikit.js" defer></script>
 <script src="js/features/push.js" defer></script>
 <script src="js/features/premium.js" defer></script>
+<script src="js/features/accounts.js" defer></script>
 <script src="js/features/v13.js" defer></script>
 <script src="js/wire.js" defer></script>
 <script src="js/layout/sidebar.js" defer></script>

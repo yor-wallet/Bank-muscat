@@ -22,7 +22,7 @@ const SHELL = [
   'js/screens/drawer.js', 'js/screens/transfer-flow.js', 'js/ui/receipt-export.js', 'js/screens/receipt.js', 'js/screens/history-cards.js',
   'js/screens/profile-settings.js', 'js/screens/info.js', 'js/screens/crypto-market.js', 'js/screens/crypto-trade.js', 'js/screens/crypto-receive-bank.js',
   'js/features/yor-chain.js', 'js/features/chain-notice.js', 'js/screens/chain-wallet.js', 'js/features/wallet-connect.js', 'js/features/v12.js',
-  'js/features/promos.js', 'js/features/reward.js', 'js/features/push.js', 'js/features/mobile.js', 'js/features/premium.js', 'js/features/v13.js', 'js/screens/intl.js', 'js/screens/admin.js', 'js/screens/register.js', 'js/features/livex.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
+  'js/features/promos.js', 'js/features/reward.js', 'js/features/push.js', 'js/features/mobile.js', 'js/features/premium.js', 'js/features/accounts.js', 'js/features/v13.js', 'js/screens/intl.js', 'js/screens/admin.js', 'js/screens/register.js', 'js/features/livex.js', 'js/ui/uikit.js', 'js/wire.js', 'js/layout/sidebar.js', 'js/layout/viewport.js', 'js/boot.js',
   'assets/brand/logo-mark.svg', 'assets/brand/wordmark-white.svg',
   'assets/fonts/manrope-latin-var.woff2', 'assets/fonts/manrope-latin-ext-var.woff2', 'assets/fonts/inter-latin-var.woff2',
   'assets/fonts/readex-pro-arabic-var.woff2', 'assets/fonts/readex-pro-latin-var.woff2',

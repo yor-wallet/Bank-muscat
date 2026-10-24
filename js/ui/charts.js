@@ -13,7 +13,7 @@ const Charts = (() => {
   const NS = 'http://www.w3.org/2000/svg';
   const reduced = () => { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } };
   const rtl = () => document.documentElement.getAttribute('dir') === 'rtl';
-  const COLORS = ['var(--ch-1,#22c55e)', 'var(--ch-2,#ffffff)', 'var(--ch-3,#8e8e98)', 'var(--ch-4,#a7f3d0)', 'var(--ch-5,#4a4a52)'];
+  const COLORS = ['var(--ch-1,#48c2c9)', 'var(--ch-2,#ffffff)', 'var(--ch-3,#8e8e98)', 'var(--ch-4,#bae8eb)', 'var(--ch-5,#4a4a52)'];
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const num = v => (Number.isFinite(Number(v)) ? Number(v) : 0);
   const defFmt = v => { try { return new Intl.NumberFormat('en-US', { maximumFractionDigits: Math.abs(v) >= 100 ? 0 : 3 }).format(v); } catch(e){ return String(v); } };
@@ -101,12 +101,12 @@ const Charts = (() => {
     const gid = 'chg' + Math.random().toString(36).slice(2, 7);
     const svg = mk('svg', { viewBox: '0 0 ' + W + ' ' + H, class: 'ch-line', role: 'img', preserveAspectRatio: 'none', 'aria-label': fmt(ys[0]) + ' → ' + fmt(ys[ys.length - 1]) });
     const defs = mk('defs', {}, svg), g = mk('linearGradient', { id: gid, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    mk('stop', { offset: '0%', 'stop-color': 'var(--ch-1,#22c55e)', 'stop-opacity': .32 }, g); mk('stop', { offset: '100%', 'stop-color': 'var(--ch-1,#22c55e)', 'stop-opacity': 0 }, g);
+    mk('stop', { offset: '0%', 'stop-color': 'var(--ch-1,#48c2c9)', 'stop-opacity': .32 }, g); mk('stop', { offset: '100%', 'stop-color': 'var(--ch-1,#48c2c9)', 'stop-opacity': 0 }, g);
     [0.25, 0.5, 0.75].forEach(f => mk('line', { x1: 0, x2: W, y1: pt + (H - pt - pb) * f, y2: pt + (H - pt - pb) * f, stroke: 'var(--border)', 'stroke-dasharray': '3 4' }, svg));
     const dPath = smooth(P);
     if (o.area !== false) mk('path', { d: dPath + 'L' + P[P.length - 1][0] + ' ' + (H - pb) + 'L' + P[0][0] + ' ' + (H - pb) + 'Z', fill: 'url(#' + gid + ')', class: 'ch-area' }, svg);
-    const path = mk('path', { d: dPath, fill: 'none', stroke: 'var(--ch-1,#22c55e)', 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }, svg);
-    const dot = mk('circle', { r: 4.5, fill: 'var(--ch-1,#22c55e)', stroke: 'var(--bg)', 'stroke-width': 2, opacity: 0 }, svg);
+    const path = mk('path', { d: dPath, fill: 'none', stroke: 'var(--ch-1,#48c2c9)', 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'vector-effect': 'non-scaling-stroke' }, svg);
+    const dot = mk('circle', { r: 4.5, fill: 'var(--ch-1,#48c2c9)', stroke: 'var(--bg)', 'stroke-width': 2, opacity: 0 }, svg);
     el.innerHTML = '<div class="ch-line-wrap"></div>'; const wrap = el.firstChild; wrap.appendChild(svg);
     const tip = document.createElement('div'); tip.className = 'ch-tip'; tip.hidden = true; wrap.appendChild(tip);
     function show(ev){
@@ -128,7 +128,7 @@ const Charts = (() => {
     if (v.length < 2){ el.innerHTML = ''; return; }
     const a = Math.min.apply(null, v), b = Math.max.apply(null, v) || 1, rng = (b - a) || 1;
     let P = v.map((y, i) => [i / (v.length - 1) * W, 2 + (1 - (y - a) / rng) * (H - 4)]); if (rtl()) P = P.map(p => [W - p[0], p[1]]);
-    el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="ch-spark" aria-hidden="true" preserveAspectRatio="none"><path d="' + smooth(P) + '" fill="none" stroke="' + (o.color || 'var(--ch-1,#22c55e)') + '" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>';
+    el.innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="ch-spark" aria-hidden="true" preserveAspectRatio="none"><path d="' + smooth(P) + '" fill="none" stroke="' + (o.color || 'var(--ch-1,#48c2c9)') + '" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg>';
   }
 
   /* ---------- progression ---------- */

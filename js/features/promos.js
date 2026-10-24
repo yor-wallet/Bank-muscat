@@ -21,7 +21,7 @@ const Promos = (() => {
       body:  { fr: 'Golfe, Afrique, USA et Canada — banque, mobile money ou retrait en espèces.', en: 'Gulf, Africa, USA and Canada — bank, mobile money or cash pickup.', ar: 'الخليج وأفريقيا وأمريكا وكندا — بنك أو محفظة هاتف أو استلام نقدي.' },
       cta:   { fr: 'Envoyer à l’étranger', en: 'Send abroad', ar: 'إرسال إلى الخارج' } },
     { id: 'card', tone: 'card', nav: 'cards', art: 'assets/ads/ad-card.svg',
-      title: { fr: 'Vos cartes Live X', en: 'Your Freindi Pay cards', ar: 'بطاقاتك من فريندي باي' },
+      title: { fr: 'Vos cartes Freindi Pay', en: 'Your Freindi Pay cards', ar: 'بطاقاتك من فريندي باي' },
       body:  { fr: 'Gelez ou dégelez une carte en un geste.', en: 'Freeze or unfreeze a card with one tap.', ar: 'جمّد البطاقة أو ألغِ التجميد بلمسة واحدة.' },
       cta:   { fr: 'Mes cartes', en: 'My cards', ar: 'بطاقاتي' } },
     { id: 'secure', tone: 'secure', nav: 'settings', art: 'assets/ads/ad-secure.svg',
@@ -36,7 +36,7 @@ const Promos = (() => {
   /* 16.0.0 : une carte peut dépendre d'une capacité serveur (cap) : elle n'est montrée que si le serveur la propose */
   const items = () => ITEMS_ALL.filter(it => !it.cap || (typeof LiveX !== 'undefined' && LiveX.caps[it.cap] === true));
   const UI = {
-    fr: { tag: 'Publicité', region: 'Publicités Live X', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
+    fr: { tag: 'Publicité', region: 'Publicités Freindi Pay', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
     en: { tag: 'Ad', region: 'Freindi Pay ads', hide: 'Hide', hideLbl: 'Hide ads', go: (i, n) => 'Go to card ' + i + ' of ' + n, slide: (i, n) => i + ' of ' + n },
     ar: { tag: 'إعلان', region: 'إعلانات فريندي باي', hide: 'إخفاء', hideLbl: 'إخفاء الإعلانات', go: (i, n) => 'الانتقال إلى البطاقة ' + i + ' من ' + n, slide: (i, n) => i + ' من ' + n },
   };

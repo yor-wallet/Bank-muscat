@@ -1,4 +1,4 @@
-/* push-send / lib.ts — logique PURE des notifications push (Web Push) de Live X Digitale.
+/* push-send / lib.ts — logique PURE des notifications push (Web Push) de Freindi Pay.
    Aucun accès réseau ni base de données ici : tout ce qui est testable est testé, y compris un aller-retour
    chiffrement / déchiffrement complet et la signature VAPID.
 
@@ -232,7 +232,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
     title = st === "OVERDUE" ? t.dueOver : st === "TODAY" ? t.dueToday : st === "CLOSED" || st === "FORGIVEN" ? t.dueClosed : t.dueSoon;
     body = st === "CLOSED" || st === "FORGIVEN" ? t.dueClosedBody : (amt ? fill(t.dueBody, { amt: iso(amt), d: iso(clean(d.due, 12)) }) : clean(n.message, 120));
   } else if (type === "ANNOUNCEMENT") {
-    title = clean(n.title, 60) || "Live X Digitale"; body = clean(n.message, 160);
+    title = clean(n.title, 60) || "Freindi Pay"; body = clean(n.message, 160);
   } else if (type === "NEW_USER") {
     /* alerte administrateur : nom, pays et numéro MASQUÉ sur l'écran verrouillé (le numéro complet reste dans la console admin) */
     title = t.newUser;

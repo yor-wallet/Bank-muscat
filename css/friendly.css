@@ -64,7 +64,7 @@ button:active svg.ic .d2,a:active svg.ic .d2,.fk-key:active svg.ic .d2{transform
 /* ---------- 3. balance: small, light, with a transparent eye ---------- */
 .ds-balance{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;row-gap:0;
   padding:calc(13px*var(--ui)) calc(14px*var(--ui)) calc(14px*var(--ui)) calc(18px*var(--ui))!important;border-radius:24px!important;
-  background:radial-gradient(70% 140% at 100% 0%,rgba(110,231,183,.28),transparent 62%),linear-gradient(135deg,#10b981 0%,#4f3806 58%,#2d2a25 100%)!important;
+  background:radial-gradient(70% 140% at 100% 0%,rgba(142,221,226,.28),transparent 62%),linear-gradient(135deg,#0e8a94 0%,#4f3806 58%,#2d2a25 100%)!important;
   border:1px solid rgba(255,255,255,.2)!important;
   box-shadow:0 18px 30px -18px rgba(45,42,37,.75),inset 0 1px 0 rgba(255,255,255,.28)!important}
 .ds-balance::before{animation-duration:9s!important}
@@ -142,7 +142,7 @@ button:active svg.ic .d2,a:active svg.ic .d2,.fk-key:active svg.ic .d2{transform
 
 /* ---------- 7. wallet connection block (now in Settings) ---------- */
 .nwc-wrap{position:relative;isolation:isolate;overflow:hidden;color:#fff;border-radius:24px;padding:calc(16px*var(--ui));margin:0 0 calc(var(--sp-3,12px));
-  background:radial-gradient(80% 120% at 100% 0%,rgba(110,231,183,.26),transparent 62%),linear-gradient(135deg,#10b981 0%,#4f3806 58%,#2d2a25 100%);
+  background:radial-gradient(80% 120% at 100% 0%,rgba(142,221,226,.26),transparent 62%),linear-gradient(135deg,#0e8a94 0%,#4f3806 58%,#2d2a25 100%);
   border:1px solid rgba(255,255,255,.18);box-shadow:0 18px 30px -20px rgba(45,42,37,.8),inset 0 1px 0 rgba(255,255,255,.26)}
 .nwc-wrap::after{content:"";position:absolute;right:-30px;top:-40px;width:120px;height:120px;border-radius:50%;z-index:-1;border:1.5px solid rgba(255,255,255,.14);pointer-events:none}
 .nwc-wrap .nwc{margin:0;padding:0;border:0}

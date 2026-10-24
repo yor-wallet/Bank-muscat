@@ -110,3 +110,10 @@ Les trois fichiers sont dans `SHELL` de `sw.js` ; la CSP n'autorise que `https:/
 - `LiveX` (`js/features/livex.js`) : détection des capacités (`caps.intl` par lecture de `intl_countries`), fenêtre bloquante du téléphone, garde des écrans, `onScreen`. `ADMIN_SCREENS` (router) sépare l'expérience admin.
 - `Sfx.play(nom)` : sons WebAudio ; branché sur `UIKit.haptic`, `Reward`, `onLive` (auth.js).
 - Serveur : voir `supabase/migrations/20261019_*` ; `intl_send` (idempotent, PIN, limites 0,5–3000 OMR) ; `bank_jobs` flux `INTL_TRANSFER` (48–72 h) ; tests dans `supabase/tests/README.md`.
+
+
+## Freindi Pay 20.3.0 (teal, écran Comptes)
+- Palette : jetons dans `css/freindi.css` (chargé en dernier) ; ne pas réintroduire de couleur en dur. Succès = `--success` / `--st-ok` (vert), avertissement = `--warning` / `--st-wait` (ambre) : ne jamais les remplacer par l'accent.
+- `js/features/accounts.js` (après `premium.js`, avant `wire.js`) : `Accounts.render()` ; enregistre l'écran `accounts` (`R.register`) et sa navigation (`R.meta({ accounts: { parent:'home', nav:'accounts' } })`). Fichier ajouté à `index.html` et à `SHELL` de `sw.js`. Styles `.ac-*` à la fin de `css/premium.css`.
+- Barre du bas (`buildNav`, `js/features/v12.js`) : home · accounts · country-select (centre) · cards · services (« Plus »).
+- Régénérer les visuels : `FP_CHROME=<chemin chromium> node scripts/dev/brand-assets.mjs`.

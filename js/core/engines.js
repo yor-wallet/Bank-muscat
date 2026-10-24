@@ -155,7 +155,8 @@ const UserDataEngine = (() => {
     return rows.map(a => ({
       id: a.id, type: a.type, name: a.name || ((a.type === 'MAIN' ? 'Main ' : a.type + ' ') + a.currency),
       currency: a.currency, balance: Number(a.balance), availableBalance: Number(a.available_balance),
-      reservedBalance: Number(a.reserved_balance || 0), status: a.status, country: a.country || 'OM', createdAt: ms(a.created_at)
+      reservedBalance: Number(a.reserved_balance || 0), status: a.status, country: a.country || 'OM', createdAt: ms(a.created_at),
+      updatedAt: a.updated_at ? new Date(a.updated_at).getTime() : null
     }));
   }
   async function readWallets(uid){

@@ -4,7 +4,7 @@
    de base.css et yor-ds.css, donc toute l'application change d'un coup et
    reste cohérente, sans réécrire chaque écran.
 
-   Identité : bleu bancaire sur blanc. Rien n'imite une autre marque :
+   Identité : teal bancaire sur blanc (référence #48C2C9). Rien n'imite une autre marque :
    aucun logo, nom ou écran d'un tiers n'est reproduit.
 
    1 palette  2 surfaces et thèmes  3 typographie  4 profondeur et verre
@@ -13,55 +13,55 @@
 
 /* ---------- 1. palette Freindi Pay ---------- */
 :root{
-  --fp-blue:#22c55e;          /* bleu principal */
-  --fp-bank:#10b981;          /* bleu bancaire */
-  --fp-deep:#059669;          /* bleu profond */
-  --fp-sky:#6ee7b7;           /* bleu ciel */
-  --fp-electric:#22c55e;      /* bleu électrique */
-  --fp-light:#EAF5FF;         /* bleu clair */
+  --fp-blue:#48c2c9;          /* teal principal (référence) */
+  --fp-bank:#0e8a94;          /* teal bancaire (blanc lisible dessus) */
+  --fp-deep:#0a5f68;          /* teal profond */
+  --fp-sky:#8edde2;           /* teal ciel */
+  --fp-electric:#48c2c9;      /* teal vif */
+  --fp-light:#EAF8F9;         /* teal clair */
   --fp-white:#FFFFFF;
   --fp-ink:#14243A;           /* texte principal */
   --fp-ink-2:#64748B;         /* texte secondaire */
   --fp-ok:#16A34A;
   --fp-bad:#EF4444;
-  --fp-warn:#a7f3d0;
+  --fp-warn:#F59E0B;
 
   /* dégradés de marque */
-  --fp-grad-brand:linear-gradient(135deg,#059669 0%,#10b981 52%,#22c55e 100%);
-  --fp-grad-card:linear-gradient(145deg,#059669 0%,#10b981 45%,#22c55e 78%,#6ee7b7 140%);
-  --fp-grad-btn:linear-gradient(180deg,#34d399 0%,#22c55e 58%,#10b981 100%);
-  --fp-grad-sky:linear-gradient(135deg,#6ee7b7 0%,#22c55e 100%);
-  --fp-glow:rgba(34,197,94,.34);
+  --fp-grad-brand:linear-gradient(135deg,#0a5f68 0%,#0e8a94 52%,#48c2c9 100%);
+  --fp-grad-card:linear-gradient(145deg,#0a5f68 0%,#0e8a94 45%,#48c2c9 78%,#8edde2 140%);
+  --fp-grad-btn:linear-gradient(180deg,#2bb3bb 0%,#48c2c9 58%,#0e8a94 100%);
+  --fp-grad-sky:linear-gradient(135deg,#8edde2 0%,#48c2c9 100%);
+  --fp-glow:rgba(72,194,201,.34);
 }
 
 /* ---------- 2. surfaces : clair par défaut (identité bancaire blanche) ---------- */
 :root,
 :root[data-theme="light"]{
-  --bg:#f2fbf6;--bg-1:#FFFFFF;--bg-2:#ecfdf5;--bg-3:#d7f3e4;
+  --bg:#f1fafb;--bg-1:#FFFFFF;--bg-2:#ecfafb;--bg-3:#d3eef0;
   --glass-1:rgba(255,255,255,.70);--glass-2:rgba(255,255,255,.84);--glass-3:rgba(255,255,255,.95);
   --glass-hl:rgba(255,255,255,.85);
-  --border:rgba(16,185,129,.12);--border-2:rgba(16,185,129,.22);
+  --border:rgba(14,138,148,.12);--border-2:rgba(14,138,148,.22);
 
-  --accent:#22c55e;--accent-600:#10b981;
-  --accent-soft:rgba(34,197,94,.10);--accent-glow:rgba(34,197,94,.26);
+  --accent:#48c2c9;--accent-600:#0e8a94;
+  --accent-soft:rgba(72,194,201,.10);--accent-glow:rgba(72,194,201,.26);
   --on-accent:#FFFFFF;
 
   --text:#14243A;--text-2:#64748B;--text-3:#94A3B8;
 
   --success:#16A34A;--success-bg:rgba(22,163,74,.10);
   --danger:#EF4444;--danger-bg:rgba(239,68,68,.10);
-  --warning:#a7f3d0;--warning-bg:rgba(245,158,11,.12);
-  --info:#22c55e;--info-bg:rgba(34,197,94,.10);
+  --warning:#F59E0B;--warning-bg:rgba(245,158,11,.12);
+  --info:#48c2c9;--info-bg:rgba(72,194,201,.10);
 
   --brand-grad:var(--fp-grad-brand);
   --btn-grad:var(--fp-grad-btn);
-  --btn-glow:rgba(16,185,129,.45);
-  --yor-violet:#10b981;--yor-deep:#059669;--yor-glow:#6ee7b7;--yor-mist:#EAF5FF;
+  --btn-glow:rgba(14,138,148,.45);
+  --yor-violet:#0e8a94;--yor-deep:#0a5f68;--yor-glow:#8edde2;--yor-mist:#EAF5FF;
 
-  /* ombres douces, teintées bleu : jamais de gris sale */
-  --el-1:0 1px 2px rgba(5,150,105,.07),0 0 0 1px rgba(16,185,129,.05);
-  --el-2:0 14px 34px -16px rgba(5,150,105,.26);
-  --el-3:0 30px 64px -26px rgba(5,150,105,.34);
+  /* ombres douces, teintées teal : jamais de gris sale */
+  --el-1:0 1px 2px rgba(10,95,104,.07),0 0 0 1px rgba(14,138,148,.05);
+  --el-2:0 14px 34px -16px rgba(10,95,104,.26);
+  --el-3:0 30px 64px -26px rgba(10,95,104,.34);
   --surf:var(--glass-1);--surf-2:var(--glass-2);--line:var(--border);
 
   --st-ok:#16A34A;--st-ok-bg:rgba(22,163,74,.11);
@@ -69,35 +69,35 @@
   --st-bad:#DC2626;--st-bad-bg:rgba(239,68,68,.10);
 }
 
-/* mode sombre : bleu nuit profond, jamais noir pur */
+/* mode sombre : teal nuit profond, jamais noir pur */
 :root[data-theme="dark"]{
-  --bg:#04140e;--bg-1:#061a14;--bg-2:#0a261e;--bg-3:#0f3428;
-  --glass-1:rgba(10,38,30,.62);--glass-2:rgba(10,38,30,.80);--glass-3:rgba(6,26,20,.92);
-  --glass-hl:rgba(110,231,183,.10);
-  --border:rgba(110,231,183,.14);--border-2:rgba(110,231,183,.24);
+  --bg:#051213;--bg-1:#06191a;--bg-2:#0a2426;--bg-3:#0f3234;
+  --glass-1:rgba(10,36,38,.62);--glass-2:rgba(10,36,38,.80);--glass-3:rgba(6,25,26,.92);
+  --glass-hl:rgba(142,221,226,.10);
+  --border:rgba(142,221,226,.14);--border-2:rgba(142,221,226,.24);
 
-  --accent:#6ee7b7;--accent-600:#22c55e;
-  --accent-soft:rgba(110,231,183,.14);--accent-glow:rgba(34,197,94,.38);
-  --on-accent:#04203F;
+  --accent:#8edde2;--accent-600:#48c2c9;
+  --accent-soft:rgba(142,221,226,.14);--accent-glow:rgba(72,194,201,.38);
+  --on-accent:#03282B;
 
   --text:#EAF2FF;--text-2:rgba(234,242,255,.66);--text-3:rgba(234,242,255,.42);
 
   --success:#22C55E;--success-bg:rgba(34,197,94,.14);
   --danger:#F87171;--danger-bg:rgba(248,113,113,.14);
-  --warning:#CFE7FF;--warning-bg:rgba(251,191,36,.14);
-  --info:#6ee7b7;--info-bg:rgba(110,231,183,.14);
+  --warning:#FBBF24;--warning-bg:rgba(251,191,36,.14);
+  --info:#8edde2;--info-bg:rgba(142,221,226,.14);
 
-  --brand-grad:linear-gradient(135deg,#04140e 0%,#059669 52%,#10b981 100%);
-  --btn-grad:linear-gradient(180deg,#6ee7b7,#22c55e 60%,#10b981);
-  --btn-glow:rgba(34,197,94,.55);
-  --yor-violet:#6ee7b7;--yor-deep:#04140e;--yor-glow:#6ee7b7;--yor-mist:#0a261e;
+  --brand-grad:linear-gradient(135deg,#051213 0%,#0a5f68 52%,#0e8a94 100%);
+  --btn-grad:linear-gradient(180deg,#8edde2,#48c2c9 60%,#0e8a94);
+  --btn-glow:rgba(72,194,201,.55);
+  --yor-violet:#8edde2;--yor-deep:#051213;--yor-glow:#8edde2;--yor-mist:#0a2426;
 
-  --el-1:inset 0 1px 0 rgba(110,231,183,.06),0 1px 2px rgba(0,0,0,.45);
+  --el-1:inset 0 1px 0 rgba(142,221,226,.06),0 1px 2px rgba(0,0,0,.45);
   --el-2:0 14px 34px -16px rgba(0,0,0,.66);
   --el-3:0 30px 64px -24px rgba(0,0,0,.76);
 
   --st-ok:#4ADE80;--st-ok-bg:rgba(74,222,128,.14);
-  --st-wait:#CFE7FF;--st-wait-bg:rgba(251,191,36,.14);
+  --st-wait:#FBBF24;--st-wait-bg:rgba(251,191,36,.14);
   --st-bad:#F87171;--st-bad-bg:rgba(248,113,113,.14);
 }
 
@@ -115,17 +115,17 @@ html[dir="rtl"] body{letter-spacing:0}
 
 /* ---------- 4. profondeur et verre ---------- */
 .card,.ds-card,.sheet,.panel,.rv-card{backdrop-filter:blur(var(--blur-md)) saturate(140%);-webkit-backdrop-filter:blur(var(--blur-md)) saturate(140%)}
-/* halo bleu discret derrière le contenu principal */
+/* halo teal discret derrière le contenu principal */
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(80% 42% at 50% -8%,rgba(34,197,94,.16),transparent 70%),
-    radial-gradient(60% 34% at 100% 0%,rgba(110,231,183,.12),transparent 72%);
+    radial-gradient(80% 42% at 50% -8%,rgba(72,194,201,.16),transparent 70%),
+    radial-gradient(60% 34% at 100% 0%,rgba(142,221,226,.12),transparent 72%);
 }
 :root[data-theme="dark"] body::before{
   background:
-    radial-gradient(80% 42% at 50% -8%,rgba(16,185,129,.30),transparent 70%),
-    radial-gradient(60% 34% at 100% 0%,rgba(110,231,183,.14),transparent 72%);
+    radial-gradient(80% 42% at 50% -8%,rgba(14,138,148,.30),transparent 70%),
+    radial-gradient(60% 34% at 100% 0%,rgba(142,221,226,.14),transparent 72%);
 }
 
 /* ---------- 5. contrôles ---------- */
@@ -142,7 +142,7 @@ body::before{
 /* ---------- 6. carte de solde ---------- */
 .ds-balance,.balance-card,.v13-bal,.home-balance{
   background:var(--fp-grad-card);color:#fff;
-  box-shadow:0 26px 54px -26px rgba(5,150,105,.62),inset 0 1px 0 rgba(255,255,255,.22);
+  box-shadow:0 26px 54px -26px rgba(10,95,104,.62),inset 0 1px 0 rgba(255,255,255,.22);
   position:relative;overflow:hidden;
 }
 /* reflet lumineux en diagonale */

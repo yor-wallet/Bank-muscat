@@ -71,19 +71,19 @@ const icon = (name, size) => svg(name, size);
 
 const FLAGS = {
   OM:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#DB0011"/><rect y="13.3" width="30" height="6.7" fill="#008000"/><rect width="8" height="20" fill="#DB0011"/><path d="M2.5 4L4 6.5 1 6.5z" fill="#fff"/></svg>',
-  AE:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#009A44"/><rect y="13.3" width="30" height="6.7" fill="#000"/><rect width="8" height="20" fill="#CE1126"/></svg>',
-  SA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#165D31"/><path d="M7 13h16M7 15h14" stroke="#fff" stroke-width="1.2"/></svg>',
+  AE:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#1D767D"/><rect y="13.3" width="30" height="6.7" fill="#000"/><rect width="8" height="20" fill="#CE1126"/></svg>',
+  SA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#16585D"/><path d="M7 13h16M7 15h14" stroke="#fff" stroke-width="1.2"/></svg>',
   QA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><path d="M0 0h8l2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2H0z" fill="#8D1B3D"/></svg>',
-  KW:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#007A3D"/><rect y="13.3" width="30" height="6.7" fill="#CE1126"/><path d="M0 0l7 6.7v6.7L0 20z" fill="#000"/></svg>',
+  KW:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#175E63"/><rect y="13.3" width="30" height="6.7" fill="#CE1126"/><path d="M0 0l7 6.7v6.7L0 20z" fill="#000"/></svg>',
   BH:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><path d="M0 0h8l3 2.5-3 2.5 3 2.5-3 2.5 3 2.5-3 2.5H0z" fill="#CE1126"/></svg>',
   US:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><g fill="#B22234"><rect width="30" height="1.54"/><rect y="3.08" width="30" height="1.54"/><rect y="6.16" width="30" height="1.54"/><rect y="9.24" width="30" height="1.54"/><rect y="12.32" width="30" height="1.54"/><rect y="15.4" width="30" height="1.54"/></g><rect width="12" height="10.78" fill="#3C3B6E"/></svg>',
   FR:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg>',
   GB:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#012169"/><path d="M0 0l30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3.6"/></svg>',
-  CI:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#FF8200"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#009A44"/></svg>',
-  ML:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#14B53A"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#CE1126"/></svg>',
-  BF:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="10" fill="#EF2B2D"/><rect y="10" width="30" height="10" fill="#009E49"/></svg>',
-  GN:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#CE1126"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#009460"/></svg>',
-  SD:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="6.7" fill="#D21034"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/><path d="M0 0l8 10-8 10z" fill="#007229"/></svg>',
+  CI:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#FF8200"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#1D767D"/></svg>',
+  ML:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#269BA3"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#CE1126"/></svg>',
+  BF:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="10" fill="#EF2B2D"/><rect y="10" width="30" height="10" fill="#1E7980"/></svg>',
+  GN:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#CE1126"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#1c7278"/></svg>',
+  SD:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="6.7" fill="#D21034"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/><path d="M0 0l8 10-8 10z" fill="#16585c"/></svg>',
   EG:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="6.7" fill="#CE1126"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/></svg>'
 };
 function flag(iso){ return FLAGS[iso] || FLAGS.US; }
@@ -110,7 +110,7 @@ function assetLogo(symbol, size, tint){
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#22c55e';
+  const tint = net.tint || '#48c2c9';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }

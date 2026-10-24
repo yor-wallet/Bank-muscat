@@ -6,7 +6,7 @@
    titre qui apparaît mot par mot, chiffres qui défilent, illustration animée, bouton d'appel à l'action.
    - Bannière intégrée   : Cinema.homeHtml() (à insérer dans une page) puis Cinema.mountAll(root) — ou rien : un hook monte tout seul les [data-cinema].
    - Plein écran         : Cinema.open(i) -> écran « cinema » (toucher gauche/droite, maintenir = pause, glisser vers le bas = fermer).
-   - Scènes              : annonces actives de l'administrateur (table announcements) puis Boost, Crédit, Chat, YASER, Transferts, Face ID.
+   - Scènes              : annonces actives de l'administrateur (table announcements) puis Boost, Crédit, Chat, Freindi Pay, Transferts, Face ID.
    - Les nombres (taux Boost, minimum / maximum du crédit) viennent de Cfg (get_app_config).
    - Sons doux (Sfx), haptique ; « réduire les animations » : scènes fixes, avance par minuterie seulement.
    ============================================================ */
@@ -18,7 +18,7 @@ Strings.add({
     'cin.credit.k': 'CREDIT', 'cin.credit.t': 'A credit from *{min}* to *{max}* OMR', 'cin.credit.s': 'Send your request in one minute. Our team reviews it and answers you quickly.', 'cin.credit.c': 'Request a credit', 'cin.credit.up': 'up to',
     'cin.chat.k': 'SUPPORT', 'cin.chat.t': 'Deposit simply through our *team* in the chat', 'cin.chat.s': 'Send your request, a photo of your receipt or a voice message. We credit your account right away.', 'cin.chat.c': 'Open the chat',
     'cin.chat.b1': 'Hello, I would like to deposit', 'cin.chat.b2': 'Of course, send us the receipt', 'cin.chat.b3': 'Done. Your account is credited.',
-    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*YASER*, your assistant, answers right away', 'cin.yaser.s': 'Ask about credit, Boost or transfers, any time of the day or night.', 'cin.yaser.c': 'Talk to YASER', 'cin.yaser.hi': 'How can I help you today?',
+    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*Freindi Pay*, your assistant, answers right away', 'cin.yaser.s': 'Ask about credit, Boost or transfers, any time of the day or night.', 'cin.yaser.c': 'Talk to Freindi Pay', 'cin.yaser.hi': 'How can I help you today?',
     'cin.send.k': 'TRANSFERS', 'cin.send.t': '*Instant* and international transfers', 'cin.send.s': 'Send money to a mobile number in seconds, or abroad in 48 to 72 hours.', 'cin.send.c': 'Send money', 'cin.send.a': 'Always on', 'cin.send.b': '48-72 h abroad',
     'cin.face.k': 'SECURITY', 'cin.face.t': 'Secured by *Face&nbsp;ID*', 'cin.face.s': 'Confirm in a glance. No code to type once Face ID is on.', 'cin.face.c': 'Open settings'
   },
@@ -29,7 +29,7 @@ Strings.add({
     'cin.credit.k': 'CRÉDIT', 'cin.credit.t': 'Un crédit de *{min}* à *{max}* OMR', 'cin.credit.s': 'Envoyez votre demande en une minute. Notre équipe l’étudie et vous répond vite.', 'cin.credit.c': 'Demander un crédit', 'cin.credit.up': 'jusqu’à',
     'cin.chat.k': 'ASSISTANCE', 'cin.chat.t': 'Déposez simplement via notre *équipe* dans le chat', 'cin.chat.s': 'Envoyez votre demande, la photo de votre reçu ou un message vocal. Nous créditons votre compte aussitôt.', 'cin.chat.c': 'Ouvrir le chat',
     'cin.chat.b1': 'Bonjour, je souhaite faire un dépôt', 'cin.chat.b2': 'Bien sûr, envoyez-nous le reçu', 'cin.chat.b3': 'C’est fait. Votre compte est crédité.',
-    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*YASER*, votre assistant, répond tout de suite', 'cin.yaser.s': 'Posez vos questions sur le crédit, Boost ou les transferts, de jour comme de nuit.', 'cin.yaser.c': 'Parler à YASER', 'cin.yaser.hi': 'Comment puis-je vous aider ?',
+    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*Freindi Pay*, votre assistant, répond tout de suite', 'cin.yaser.s': 'Posez vos questions sur le crédit, Boost ou les transferts, de jour comme de nuit.', 'cin.yaser.c': 'Parler à Freindi Pay', 'cin.yaser.hi': 'Comment puis-je vous aider ?',
     'cin.send.k': 'TRANSFERTS', 'cin.send.t': 'Transferts *instantanés* et internationaux', 'cin.send.s': 'Envoyez de l’argent vers un numéro de mobile en quelques secondes, ou à l’étranger en 48 à 72 heures.', 'cin.send.c': 'Envoyer de l’argent', 'cin.send.a': 'Toujours actif', 'cin.send.b': '48-72 h à l’étranger',
     'cin.face.k': 'SÉCURITÉ', 'cin.face.t': 'Protégé par *Face&nbsp;ID*', 'cin.face.s': 'Confirmez d’un regard. Aucun code à saisir quand Face ID est actif.', 'cin.face.c': 'Ouvrir les réglages'
   },
@@ -40,7 +40,7 @@ Strings.add({
     'cin.credit.k': 'ائتمان', 'cin.credit.t': 'ائتمان من *{min}* إلى *{max}* ر.ع', 'cin.credit.s': 'أرسل طلبك في دقيقة. يدرسه فريقنا ويردّ عليك بسرعة.', 'cin.credit.c': 'اطلب ائتماناً', 'cin.credit.up': 'حتى',
     'cin.chat.k': 'الدعم', 'cin.chat.t': 'أودِع بسهولة عبر *فريقنا* في المحادثة', 'cin.chat.s': 'أرسل طلبك وصورة الإيصال أو رسالة صوتية. نضيف الرصيد إلى حسابك فوراً.', 'cin.chat.c': 'افتح المحادثة',
     'cin.chat.b1': 'مرحباً، أريد إجراء إيداع', 'cin.chat.b2': 'بكل سرور، أرسل لنا الإيصال', 'cin.chat.b3': 'تم. أُضيف الرصيد إلى حسابك.',
-    'cin.yaser.k': 'المساعد', 'cin.yaser.t': '*YASER* مساعدك يجيب فوراً', 'cin.yaser.s': 'اسأل عن الائتمان أو بوست أو التحويلات، ليلاً أو نهاراً.', 'cin.yaser.c': 'تحدّث مع YASER', 'cin.yaser.hi': 'كيف يمكنني مساعدتك اليوم؟',
+    'cin.yaser.k': 'المساعد', 'cin.yaser.t': '*Freindi Pay* مساعدك يجيب فوراً', 'cin.yaser.s': 'اسأل عن الائتمان أو بوست أو التحويلات، ليلاً أو نهاراً.', 'cin.yaser.c': 'تحدّث مع Freindi Pay', 'cin.yaser.hi': 'كيف يمكنني مساعدتك اليوم؟',
     'cin.send.k': 'التحويلات', 'cin.send.t': 'تحويلات *فورية* ودولية', 'cin.send.s': 'أرسل المال إلى رقم هاتف خلال ثوانٍ، أو إلى الخارج خلال 48 إلى 72 ساعة.', 'cin.send.c': 'أرسل أموالاً', 'cin.send.a': 'متاح دائماً', 'cin.send.b': '48-72 ساعة للخارج',
     'cin.face.k': 'الأمان', 'cin.face.t': 'محمي بـ *Face&nbsp;ID*', 'cin.face.s': 'أكّد بنظرة واحدة. لا حاجة لكتابة الرمز عند تفعيل Face ID.', 'cin.face.c': 'افتح الإعدادات'
   }
@@ -71,17 +71,17 @@ const Cinema = (() => {
   const rm = () => Fx.reduced();
   function artBoost(){
     const bars = [0.30, 0.46, 0.40, 0.66, 0.9].map((h, i) => '<rect class="cin-bar" style="--i:' + i + '" x="' + (34 + i * 38) + '" y="' + (150 - h * 110) + '" width="24" height="' + (h * 110) + '" rx="7" fill="url(#cbg)"/>').join('');
-    const coins = [0, 1, 2].map(i => '<g class="cin-coin" style="--i:' + i + ';--tx:' + (60 + i * 62) + 'px"><circle r="15" cy="20" fill="url(#ccg)"/><circle r="9.5" cy="20" fill="none" stroke="#10b981" stroke-opacity=".5" stroke-width="2"/></g>').join('');
-    return '<svg class="cin-svg" viewBox="0 0 260 200" aria-hidden="true"><defs><linearGradient id="cbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C7E3FF"/><stop offset="1" stop-color="#a7f3d0"/></linearGradient><radialGradient id="ccg" cx=".35" cy=".3"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".6" stop-color="#a7f3d0"/><stop offset="1" stop-color="#6ee7b7"/></radialGradient></defs>' +
-      '<ellipse cx="130" cy="168" rx="104" ry="12" fill="#a7f3d0" opacity=".16"/>' + bars + coins +
+    const coins = [0, 1, 2].map(i => '<g class="cin-coin" style="--i:' + i + ';--tx:' + (60 + i * 62) + 'px"><circle r="15" cy="20" fill="url(#ccg)"/><circle r="9.5" cy="20" fill="none" stroke="#0e8a94" stroke-opacity=".5" stroke-width="2"/></g>').join('');
+    return '<svg class="cin-svg" viewBox="0 0 260 200" aria-hidden="true"><defs><linearGradient id="cbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C7E3FF"/><stop offset="1" stop-color="#bae8eb"/></linearGradient><radialGradient id="ccg" cx=".35" cy=".3"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".6" stop-color="#bae8eb"/><stop offset="1" stop-color="#8edde2"/></radialGradient></defs>' +
+      '<ellipse cx="130" cy="168" rx="104" ry="12" fill="#bae8eb" opacity=".16"/>' + bars + coins +
       '<path class="cin-line" d="M30 128 L72 112 L112 120 L152 84 L196 66 L232 34" fill="none" stroke="#EAF5FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
       '<circle class="cin-dot" cx="232" cy="34" r="7" fill="#EAF5FF"/></svg>';
   }
   function artCredit(){
     const c = Cfg.get();
     return '<div class="cin-cardwrap" aria-hidden="true"><div class="cin-card3d"><i class="cin-card-sheen"></i>' +
-      '<svg class="cin-chip" viewBox="0 0 40 30"><rect x="1" y="1" width="38" height="28" rx="6" fill="#CFE7FF" stroke="#22c55e" stroke-width="1.5"/><path d="M1 10h38M1 20h38M14 1v28M26 1v28" stroke="#22c55e" stroke-width="1" fill="none" opacity=".7"/></svg>' +
-      '<b class="cin-card-brand">LIVE X</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
+      '<svg class="cin-chip" viewBox="0 0 40 30"><rect x="1" y="1" width="38" height="28" rx="6" fill="#CFE7FF" stroke="#48c2c9" stroke-width="1.5"/><path d="M1 10h38M1 20h38M14 1v28M26 1v28" stroke="#48c2c9" stroke-width="1" fill="none" opacity=".7"/></svg>' +
+      '<b class="cin-card-brand">FREINDI PAY</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
       '<span class="cin-tag a">' + esc(Money.int(c.credit_min)) + '</span><span class="cin-tag b">' + esc(Money.int(c.credit_max)) + '</span></div>';
   }
   function artChat(){
@@ -92,25 +92,25 @@ const Cinema = (() => {
       '<div class="cin-bub me ok" style="--d:3.8s">' + esc(t('cin.chat.b3')) + tick + '</div></div>';
   }
   function artYaser(){
-    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><defs><radialGradient id="yog" cx=".4" cy=".3"><stop offset="0" stop-color="#d9d6ff"/><stop offset=".55" stop-color="#34d399"/><stop offset="1" stop-color="#2a2a9a"/></radialGradient></defs>' +
-      '<circle class="cin-halo" cx="100" cy="104" r="70" fill="#34d399" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="70" fill="none" stroke="#6ee7b7" stroke-width="2"/>' +
-      '<circle class="cin-orbit" cx="100" cy="104" r="86" fill="none" stroke="#6ee7b7" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
-      '<line x1="100" y1="34" x2="100" y2="20" stroke="#6ee7b7" stroke-width="4" stroke-linecap="round"/><circle class="cin-ant" cx="100" cy="16" r="6" fill="#6ee7b7"/>' +
+    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><defs><radialGradient id="yog" cx=".4" cy=".3"><stop offset="0" stop-color="#d9d6ff"/><stop offset=".55" stop-color="#2bb3bb"/><stop offset="1" stop-color="#2a2a9a"/></radialGradient></defs>' +
+      '<circle class="cin-halo" cx="100" cy="104" r="70" fill="#2bb3bb" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="70" fill="none" stroke="#8edde2" stroke-width="2"/>' +
+      '<circle class="cin-orbit" cx="100" cy="104" r="86" fill="none" stroke="#8edde2" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
+      '<line x1="100" y1="34" x2="100" y2="20" stroke="#8edde2" stroke-width="4" stroke-linecap="round"/><circle class="cin-ant" cx="100" cy="16" r="6" fill="#8edde2"/>' +
       '<g class="cin-bot"><circle cx="100" cy="104" r="58" fill="url(#yog)"/><rect class="cin-eye" x="74" y="92" width="14" height="22" rx="7" fill="#fff"/><rect class="cin-eye e2" x="112" y="92" width="14" height="22" rx="7" fill="#fff"/><path d="M80 130 Q100 146 120 130" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g></svg>' +
       '<div class="cin-say"><span>' + esc(t('cin.yaser.hi')) + '</span></div></div>';
   }
   function artGlobe(){
     const mer = [0, 1, 2].map(i => '<ellipse class="cin-mer" style="--i:' + i + '" cx="100" cy="100" rx="78" ry="78" fill="none" stroke="#bfe3ff" stroke-opacity=".5" stroke-width="1.4"/>').join('');
-    const mot = rm() ? '' : '<circle r="5" fill="#fff"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 120 Q100 10 168 70"/></circle><circle r="4" fill="#6ee7b7"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" path="M62 150 Q130 60 176 126"/></circle>';
-    return '<svg class="cin-svg" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="glg" cx=".35" cy=".3"><stop offset="0" stop-color="#34d399"/><stop offset=".6" stop-color="#059669"/><stop offset="1" stop-color="#0b1d46"/></radialGradient></defs>' +
+    const mot = rm() ? '' : '<circle r="5" fill="#fff"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 120 Q100 10 168 70"/></circle><circle r="4" fill="#8edde2"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" path="M62 150 Q130 60 176 126"/></circle>';
+    return '<svg class="cin-svg" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="glg" cx=".35" cy=".3"><stop offset="0" stop-color="#2bb3bb"/><stop offset=".6" stop-color="#0a5f68"/><stop offset="1" stop-color="#0b1d46"/></radialGradient></defs>' +
       '<circle cx="100" cy="100" r="82" fill="url(#glg)"/>' + mer + '<ellipse cx="100" cy="100" rx="78" ry="26" fill="none" stroke="#bfe3ff" stroke-opacity=".35"/><line x1="22" y1="100" x2="178" y2="100" stroke="#bfe3ff" stroke-opacity=".35"/>' +
-      '<path class="cin-arc" d="M40 120 Q100 10 168 70" fill="none" stroke="#6ee7b7" stroke-width="3" stroke-linecap="round"/><path class="cin-arc a2" d="M62 150 Q130 60 176 126" fill="none" stroke="#EAF5FF" stroke-width="2.5" stroke-linecap="round"/>' +
-      '<circle class="cin-pin" cx="40" cy="120" r="5" fill="#6ee7b7"/><circle class="cin-pin p2" cx="168" cy="70" r="5" fill="#6ee7b7"/><circle class="cin-pin p3" cx="176" cy="126" r="4" fill="#EAF5FF"/>' + mot + '</svg>';
+      '<path class="cin-arc" d="M40 120 Q100 10 168 70" fill="none" stroke="#8edde2" stroke-width="3" stroke-linecap="round"/><path class="cin-arc a2" d="M62 150 Q130 60 176 126" fill="none" stroke="#EAF5FF" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<circle class="cin-pin" cx="40" cy="120" r="5" fill="#8edde2"/><circle class="cin-pin p2" cx="168" cy="70" r="5" fill="#8edde2"/><circle class="cin-pin p3" cx="176" cy="126" r="4" fill="#EAF5FF"/>' + mot + '</svg>';
   }
   function artFace(){
-    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9af0c6"/><stop offset="1" stop-color="#1f9d6e"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
-      '<path class="cin-shield" d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z" fill="rgba(31,157,110,.14)" stroke="url(#fsg)" stroke-width="5" stroke-linejoin="round"/>' +
-      '<g class="cin-face" fill="none" stroke="#e9fff5" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 78V66a4 4 0 0 1 4-4h12M138 78V66a4 4 0 0 0-4-4h-12M62 128v12a4 4 0 0 0 4 4h12M138 128v12a4 4 0 0 1-4 4h-12"/><path d="M84 92v8M116 92v8M100 96v14h-5M86 122q14 10 28 0"/></g>' +
+    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a1e4e9"/><stop offset="1" stop-color="#249198"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
+      '<path class="cin-shield" d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z" fill="rgba(36,145,152,.14)" stroke="url(#fsg)" stroke-width="5" stroke-linejoin="round"/>' +
+      '<g class="cin-face" fill="none" stroke="#edfafb" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 78V66a4 4 0 0 1 4-4h12M138 78V66a4 4 0 0 0-4-4h-12M62 128v12a4 4 0 0 0 4 4h12M138 128v12a4 4 0 0 1-4 4h-12"/><path d="M84 92v8M116 92v8M100 96v14h-5M86 122q14 10 28 0"/></g>' +
       '<g clip-path="url(#fcl)"><rect class="cin-scan" x="20" y="40" width="160" height="14" fill="url(#fsg)" opacity=".55"/></g>' +
       '<circle class="cin-okc" cx="148" cy="166" r="22" fill="#1f9d6e"/><path class="cin-ok" d="M138 166l7 7 13-15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
@@ -150,7 +150,7 @@ const Cinema = (() => {
   function sceneHtml(sc, o){
     o = o || {};
     const c = copy(sc), th = THEMES[sc.type || sc.id] || 't-gold';
-    const art = sc.art ? sc.art() : '<div class="cin-annart" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="100" r="64" fill="#a7f3d0" opacity=".18"/><g transform="translate(-14 0)"><path d="M60 96v28h18l34 20V76L78 96z" fill="#6ee7b7"/><path class="cin-wave" d="M128 84q14 16 0 32M142 72q24 28 0 56" fill="none" stroke="#EAF5FF" stroke-width="5" stroke-linecap="round"/></g></svg></div>';
+    const art = sc.art ? sc.art() : '<div class="cin-annart" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="100" r="64" fill="#bae8eb" opacity=".18"/><g transform="translate(-14 0)"><path d="M60 96v28h18l34 20V76L78 96z" fill="#8edde2"/><path class="cin-wave" d="M128 84q14 16 0 32M142 72q24 28 0 56" fill="none" stroke="#EAF5FF" stroke-width="5" stroke-linecap="round"/></g></svg></div>';
     const secondary = (sc.id === 'send' && typeof LiveX !== 'undefined' && LiveX.caps && LiveX.caps.intl) ? '<button type="button" class="cin-cta2" data-cin-go="intl">' + esc(t('cin.intl')) + '</button>' : '';
     return '<div class="cin-scene ' + th + ' sc-' + esc(sc.type || sc.id) + '" data-id="' + esc(sc.id) + '">' +
       '<div class="cin-bg"><i class="cin-glow g1"></i><i class="cin-glow g2"></i><i class="cin-rings"></i><i class="cin-beams"></i>' + particles() + '</div>' +

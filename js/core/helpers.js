@@ -63,7 +63,7 @@ function sparklineSvg(symbol, w, h){
   const stepX = w / (n - 1);
   const path = pts.map((p, i) => (i === 0 ? 'M' : 'L') + (i * stepX).toFixed(2) + ' ' + ((1 - p) * h).toFixed(2)).join(' ');
   const up = pts[pts.length - 1] >= pts[0];
-  const color = up ? '#10B981' : '#EF4444';
+  const color = up ? '#0E8A94' : '#EF4444';
   const out = '<svg viewBox="0 0 ' + w + ' ' + h + '" fill="none" preserveAspectRatio="none"><path d="' + path + '" stroke="' + color + '" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   _sparkCache.set(key, out);
   return out;

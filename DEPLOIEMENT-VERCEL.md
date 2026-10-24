@@ -1,4 +1,4 @@
-# Mise en ligne YOR WALLET 12.1.0 sur Vercel
+# Mise en ligne Freindi Pay sur Vercel
 
 Ce dossier (`yor-wallet/`) est prêt à être déployé tel quel : site statique, aucune étape de build.
 Le projet Vercel `yor-wallet` existe déjà sur votre compte (il ne contient pour l'instant qu'une page de test).

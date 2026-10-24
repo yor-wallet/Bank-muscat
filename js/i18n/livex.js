@@ -23,7 +23,7 @@ Object.assign(TR.fr, {
   'lx.n.REWARD': 'Récompense de bienvenue', 'lx.n.NEW_USER': 'Nouveau membre', 'lx.n.TRANSFER_STATUS': 'Suivi du transfert',
   'op.INTL_TRANSFER': 'Transfert international', 'op.SIGNUP_BONUS': 'Récompense de bienvenue',
   'lx.appr.done': 'Confirmé et approuvé', 'lx.appr.ok': 'Confirmé et approuvé',
-  'lx.member': 'Compte Live X', 'lx.memberNote': 'transfert instantané, la personne sera avertie',
+  'lx.member': 'Compte Freindi Pay', 'lx.memberNote': 'transfert instantané, la personne sera avertie',
   'lx.nv.in': 'Argent reçu', 'lx.nv.out': 'Argent envoyé', 'lx.nv.dep': 'Argent ajouté',
   'lx.nv.inMsg': '{amt} de {from} · Réf. {ref}', 'lx.nv.outMsg': '{amt} à {to} · Réf. {ref}', 'lx.nv.depMsg': '{amt} ajoutés à votre compte · Réf. {ref}',
 });

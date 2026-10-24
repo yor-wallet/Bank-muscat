@@ -16,7 +16,7 @@ const Reward = (() => {
   let open = null;
 
   const giftIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="2"/><path d="M12 9v11M3 9h18v3H3zM12 9c-2-4-6-3-5 0M12 9c2-4 6-3 5 0"/></svg>';
-  const COLORS = ['#22c55e', '#a7f3d0', '#FFFFFF', '#a7f3d0', '#6ee7b7', '#a7f3d0'];
+  const COLORS = ['#48c2c9', '#bae8eb', '#FFFFFF', '#bae8eb', '#8edde2', '#bae8eb'];
   function confetti(n){
     const r = (a, b) => a + Math.random() * (b - a);
     let h = '';
