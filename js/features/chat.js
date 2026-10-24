@@ -157,7 +157,7 @@ function chIc(name, size, cls){
 let chGid = 0;
 function chLogo(size){
   const n = ++chGid;
-  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" class="chat-logo" aria-hidden="true"><defs><linearGradient id="chl' + n + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#7CC4FF"/></linearGradient></defs>' +
+  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" class="chat-logo" aria-hidden="true"><defs><linearGradient id="chl' + n + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#a7f3d0"/></linearGradient></defs>' +
     '<circle cx="24" cy="24" r="24" fill="url(#chl' + n + ')"/><text x="24" y="30.5" text-anchor="middle" font-family="Manrope,Inter,sans-serif" font-weight="800" font-size="17" fill="#14110a">FP</text></svg>';
 }
 function chInitials(name){
@@ -982,16 +982,16 @@ function yaserSvg(size, key){
   const n = ++yGid;
   const eye = cx => '<g class="yas-eye"><ellipse cx="' + cx + '" cy="56" rx="7.4" ry="9" fill="#fff"/><circle class="yas-pupil" cx="' + cx + '" cy="57" r="4.4" fill="#2a1d05"/><circle cx="' + (cx - 1.6) + '" cy="55" r="1.4" fill="#fff"/></g>';
   return '<svg class="yas-svg yas-' + key + '" viewBox="0 0 120 120" width="' + size + '" height="' + size + '" aria-hidden="true" focusable="false">' +
-    '<defs><radialGradient id="yg' + n + '" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".42" stop-color="#38BDF8"/><stop offset="1" stop-color="#7CC4FF"/></radialGradient>' +
-    '<radialGradient id="yh' + n + '"><stop offset="0" stop-color="#38BDF8" stop-opacity=".55"/><stop offset="1" stop-color="#38BDF8" stop-opacity="0"/></radialGradient></defs>' +
+    '<defs><radialGradient id="yg' + n + '" cx="36%" cy="28%" r="78%"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".42" stop-color="#6ee7b7"/><stop offset="1" stop-color="#a7f3d0"/></radialGradient>' +
+    '<radialGradient id="yh' + n + '"><stop offset="0" stop-color="#6ee7b7" stop-opacity=".55"/><stop offset="1" stop-color="#6ee7b7" stop-opacity="0"/></radialGradient></defs>' +
     '<circle class="yas-halo" cx="60" cy="62" r="58" fill="url(#yh' + n + ')"/>' +
-    '<g class="yas-float"><line x1="60" y1="22" x2="60" y2="12" stroke="#7CC4FF" stroke-width="3" stroke-linecap="round"/><circle class="yas-ant" cx="60" cy="9" r="4.2" fill="#EAF5FF"/>' +
+    '<g class="yas-float"><line x1="60" y1="22" x2="60" y2="12" stroke="#a7f3d0" stroke-width="3" stroke-linecap="round"/><circle class="yas-ant" cx="60" cy="9" r="4.2" fill="#EAF5FF"/>' +
     '<circle cx="60" cy="62" r="40" fill="url(#yg' + n + ')"/><ellipse cx="44" cy="40" rx="14" ry="8" fill="#fff" opacity=".28" transform="rotate(-28 44 40)"/>' +
     '<circle cx="37" cy="70" r="6" fill="#ff9d5c" opacity=".26"/><circle cx="83" cy="70" r="6" fill="#ff9d5c" opacity=".26"/>' +
     '<g class="yas-eyes">' + eye(47) + eye(73) + '</g>' +
     '<path class="yas-smile" d="M47 74 Q60 85 73 74" fill="none" stroke="#5b3a05" stroke-width="3.4" stroke-linecap="round"/>' +
     '<ellipse class="yas-open" cx="60" cy="76" rx="8" ry="5.5" fill="#5b3a05"/></g>' +
-    '<path class="yas-sp s1" d="M104 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#EAF5FF"/><path class="yas-sp s2" d="M14 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#38BDF8"/><path class="yas-sp s3" d="M100 94l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#EAF5FF"/></svg>';
+    '<path class="yas-sp s1" d="M104 28l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#EAF5FF"/><path class="yas-sp s2" d="M14 42l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#6ee7b7"/><path class="yas-sp s3" d="M100 94l1.4 3.4 3.4 1.4-3.4 1.4-1.4 3.4-1.4-3.4-3.4-1.4 3.4-1.4z" fill="#EAF5FF"/></svg>';
 }
 
 const Yaser = (() => {

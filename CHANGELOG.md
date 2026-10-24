@@ -1,3 +1,14 @@
+# FREINDI PAY 20.2.0 — identité verte émeraude
+
+## Identité
+- **Passage du bleu au vert émeraude** : vert principal #10B981, vert vif #16A34A / #22C55E, vert profond #059669 / #065F46, vert clair #6EE7B7, fond blanc verdâtre #F2FBF6.
+- **843 couleurs et transparences** converties du bleu au vert à luminosité égale, dans tout le CSS et le JS. Les rouges d'erreur et les ambres d'avertissement sont conservés ; le logo Visa (réseau tiers) et les couleurs de jetons tiers (Ethereum, USDC…) ne sont pas touchés.
+- **Logo** : même forme (« F » + chevron de paiement), recoloré en dégradé vert. Icônes iOS/PWA, favicon, tuile maskable, écrans de lancement et images de partage régénérés en vert.
+- Thème clair (fond blanc verdâtre) par défaut ; thème sombre = vert nuit profond. Couleur de barre d'état et manifeste en #10B981.
+- Reçus premium repris en vert (en-tête, logo, pied).
+
+## Vérifié réellement
+- Connexion, présentation (accueil, carte de solde, cartes), reçu rendus dans un navigateur : tout en vert, aucune erreur console. Visa reste bleu (logo réel du réseau).
 # FREINDI PAY 20.1.0 — reçu bancaire premium (PNG compact + PDF A4)
 
 ## Reçu

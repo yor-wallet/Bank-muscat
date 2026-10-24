@@ -18,7 +18,7 @@
   --st-bad:#FB7185;--st-bad-bg:rgba(251,113,133,.14);
   --ease-ds:cubic-bezier(.2,.8,.2,1);
   --t-ds-1:140ms;--t-ds-2:240ms;--t-ds-3:420ms;
-  --text-3:#7CC4FF;
+  --text-3:#a7f3d0;
 }
 :root[data-theme="light"]{
   --el-1:0 1px 2px rgba(20,20,20,.08);
@@ -27,26 +27,26 @@
   --st-ok:#0F7B4A;--st-ok-bg:rgba(15,123,74,.1);
   --st-wait:#8A5300;--st-wait-bg:rgba(245,158,11,.16);
   --st-bad:#B42318;--st-bad-bg:rgba(220,38,38,.1);
-  --text-3:#007AFF;
+  --text-3:#22c55e;
 }
 /* ---------- 1b. Freindi Pay palette (12.8.0): teal green / white — own identity, nothing copied ----------
-   Light (default) = white surfaces + teal accent (#0057D9, 4.9:1 on white) + deep-teal text. White text on the teal button.
-   Dark = deep teal-black surfaces + bright turquoise accent (#7CC4FF) + near-black text ON the accent (9.6:1).
+   Light (default) = white surfaces + teal accent (#10b981, 4.9:1 on white) + deep-teal text. White text on the teal button.
+   Dark = deep teal-black surfaces + bright turquoise accent (#a7f3d0) + near-black text ON the accent (9.6:1).
    --btn-grad / --on-accent are the single source for the primary button, so both themes keep readable contrast. */
 :root{
   --on-accent:#0f0e0c;
-  --accent:#7CC4FF;--accent-600:#38BDF8;
-  --yor-violet:#38BDF8;--yor-deep:#1a1815;--yor-glow:#38BDF8;--yor-mist:#EAF5FF;
-  --brand-grad:linear-gradient(135deg,#0c0b0a 0%,#463306 46%,#38BDF8 100%);
-  --btn-grad:linear-gradient(180deg,#38BDF8,#7CC4FF 62%,#38BDF8);
-  --btn-glow:rgba(56,189,248,.6);
+  --accent:#a7f3d0;--accent-600:#6ee7b7;
+  --yor-violet:#6ee7b7;--yor-deep:#1a1815;--yor-glow:#6ee7b7;--yor-mist:#EAF5FF;
+  --brand-grad:linear-gradient(135deg,#0c0b0a 0%,#463306 46%,#6ee7b7 100%);
+  --btn-grad:linear-gradient(180deg,#6ee7b7,#a7f3d0 62%,#6ee7b7);
+  --btn-glow:rgba(110,231,183,.6);
 }
 :root[data-theme="light"]{
   --on-accent:#FFFFFF;
-  --accent:#0057D9;--accent-600:#463306;
-  --yor-violet:#0057D9;--yor-deep:#312e28;
-  --brand-grad:linear-gradient(135deg,#23211d 0%,#0057D9 52%,#38BDF8 100%);
-  --btn-grad:linear-gradient(180deg,#0057D9,#0057D9 55%,#463306);
+  --accent:#10b981;--accent-600:#463306;
+  --yor-violet:#10b981;--yor-deep:#312e28;
+  --brand-grad:linear-gradient(135deg,#23211d 0%,#10b981 52%,#6ee7b7 100%);
+  --btn-grad:linear-gradient(180deg,#10b981,#10b981 55%,#463306);
   --btn-glow:rgba(107,76,8,.5);
 }
 html,body{font-feature-settings:"kern","liga"}
@@ -151,9 +151,9 @@ html,body{font-feature-settings:"kern","liga"}
 .rv-circ{background:var(--surf-2);border:1px solid var(--line)}
 .rv-bdg{background:var(--st-bad);color:#fff;border-color:var(--bg)}
 .ds-balance{position:relative;isolation:isolate;overflow:hidden;color:#fff;border-radius:var(--r-2xl);padding:calc(22px*var(--ui)) calc(22px*var(--ui)) calc(24px*var(--ui));
-  background:radial-gradient(90% 120% at 100% 0%,rgba(56,189,248,.34),transparent 58%),radial-gradient(70% 90% at 0% 110%,rgba(26,24,21,.55),transparent 62%),linear-gradient(160deg,#0057D9 0%,#3a2a05 55%,#23211d 100%);
+  background:radial-gradient(90% 120% at 100% 0%,rgba(110,231,183,.34),transparent 58%),radial-gradient(70% 90% at 0% 110%,rgba(26,24,21,.55),transparent 62%),linear-gradient(160deg,#10b981 0%,#3a2a05 55%,#23211d 100%);
   border:1px solid rgba(255,255,255,.14);
-  box-shadow:var(--el-2),0 0 0 1px rgba(56,189,248,.18),inset 0 1px 0 rgba(255,255,255,.2)}
+  box-shadow:var(--el-2),0 0 0 1px rgba(110,231,183,.18),inset 0 1px 0 rgba(255,255,255,.2)}
 .ds-balance::before{content:"";position:absolute;inset:-30% -60%;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.1) 50%,transparent 58%);transform:translateX(-30%);animation:dsSheen 7s ease-in-out 1.2s infinite}
 @keyframes dsSheen{0%,55%{transform:translateX(-30%)}85%,100%{transform:translateX(30%)}}
 .ds-bal-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -190,12 +190,12 @@ html,body{font-feature-settings:"kern","liga"}
 }
 
 /* ---------- 8. virtual cards (drawn in CSS; a "preview" until a real issuer issues them) ---------- */
-.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(234,245,255,.34),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(56,189,248,.30),transparent 62%),repeating-linear-gradient(128deg,rgba(234,245,255,.075) 0 1px,transparent 1px 6px),linear-gradient(155deg,#17141D 0%,#0A090E 52%,#040405 100%);--cfg:#EAF5FF;--cline:rgba(234,245,255,.4);--cchip:rgba(234,245,255,.13)}
+.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(234,245,255,.34),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(110,231,183,.30),transparent 62%),repeating-linear-gradient(128deg,rgba(234,245,255,.075) 0 1px,transparent 1px 6px),linear-gradient(155deg,#17141D 0%,#0A090E 52%,#040405 100%);--cfg:#EAF5FF;--cline:rgba(234,245,255,.4);--cchip:rgba(234,245,255,.13)}
 .th-obsidian .rv-wm{filter:sepia(.35) saturate(1.3) brightness(1.08)}
-.th-midnight{--cbg:radial-gradient(120% 90% at 100% 0%,rgba(56,189,248,.55),transparent 56%),linear-gradient(150deg,#171513 0%,#0f0e0c 60%,#07060F 100%);--cfg:#fff;--cline:rgba(255,255,255,.13);--cchip:rgba(255,255,255,.14)}
+.th-midnight{--cbg:radial-gradient(120% 90% at 100% 0%,rgba(110,231,183,.55),transparent 56%),linear-gradient(150deg,#171513 0%,#0f0e0c 60%,#07060F 100%);--cfg:#fff;--cline:rgba(255,255,255,.13);--cchip:rgba(255,255,255,.14)}
 .th-graphite{--cbg:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.075) 50%,transparent 62%),linear-gradient(150deg,#2D2D33 0%,#17171B 55%,#0B0B0D 100%);--cfg:#fff;--cline:rgba(255,255,255,.12);--cchip:rgba(255,255,255,.12)}
-.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.22),transparent 56%),linear-gradient(140deg,#312e28 0%,#38BDF8 55%,#38BDF8 100%);--cfg:#fff;--cline:rgba(255,255,255,.22);--cchip:rgba(255,255,255,.18)}
-.th-aurora{--cbg:radial-gradient(90% 90% at 0% 100%,rgba(124,196,255,.55),transparent 58%),radial-gradient(90% 80% at 100% 0%,rgba(56,189,248,.66),transparent 60%),linear-gradient(145deg,#181714,#25231f);--cfg:#fff;--cline:rgba(255,255,255,.2);--cchip:rgba(255,255,255,.16)}
+.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.22),transparent 56%),linear-gradient(140deg,#312e28 0%,#6ee7b7 55%,#6ee7b7 100%);--cfg:#fff;--cline:rgba(255,255,255,.22);--cchip:rgba(255,255,255,.18)}
+.th-aurora{--cbg:radial-gradient(90% 90% at 0% 100%,rgba(167,243,208,.55),transparent 58%),radial-gradient(90% 80% at 100% 0%,rgba(110,231,183,.66),transparent 60%),linear-gradient(145deg,#181714,#25231f);--cfg:#fff;--cline:rgba(255,255,255,.2);--cchip:rgba(255,255,255,.16)}
 .th-minimal{--cbg:linear-gradient(145deg,#FFFFFF 0%,#EDEDED 100%);--cfg:#111111;--cline:rgba(20,20,20,.16);--cchip:rgba(20,20,20,.07)}
 .th-metal{--cbg:linear-gradient(115deg,rgba(255,255,255,.5) 0%,transparent 26%,rgba(255,255,255,.34) 46%,transparent 64%,rgba(255,255,255,.4) 100%),linear-gradient(135deg,#8C909C,#D8DAE1 36%,#A3A7B3 60%,#E7E8EE 82%,#8A8E9A);--cfg:#17171C;--cline:rgba(23,23,28,.18);--cchip:rgba(23,23,28,.09)}
 .rv-face,.rv-swatch,.rv-mini{background:var(--cbg);background-size:100% 100%;color:var(--cfg,#fff)}
@@ -221,8 +221,8 @@ html,body{font-feature-settings:"kern","liga"}
 .rv-sws{flex-wrap:wrap;row-gap:12px}
 .rv-st{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--st-wait-bg);color:var(--st-wait)}
 .rv-st.s-active{background:var(--st-ok-bg);color:var(--st-ok)}
-.rv-st.s-frozen{background:rgba(59,130,246,.16);color:#6FB5FF}
-:root[data-theme="light"] .rv-st.s-frozen{color:#1D5FC4;background:rgba(59,130,246,.12)}
+.rv-st.s-frozen{background:rgba(52,211,153,.16);color:#6ee7b7}
+:root[data-theme="light"] .rv-st.s-frozen{color:#10b981;background:rgba(52,211,153,.12)}
 .rv-row2{min-height:calc(64px*var(--ui));transition:background-color var(--t-ds-1)}
 .rv-row2.static{cursor:default}
 .rv-row2 .rv-val{color:var(--text-2);font-weight:600;font-size:var(--fs-sm);text-align:end}
@@ -370,7 +370,7 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .th-minimal .rv-grain{opacity:.28}
 /* foil band: its position follows --mx/--my (finger or phone tilt) */
 .rv-foil{z-index:1;mix-blend-mode:screen;opacity:calc(var(--sh,.5)*.62);overflow:hidden;
-  background:linear-gradient(112deg,transparent 34%,rgba(56,189,248,.26) 42%,rgba(255,255,255,.34) 50%,rgba(186,230,253,.2) 57%,transparent 66%) var(--mx,30%) var(--my,0%)/260% 260% no-repeat}
+  background:linear-gradient(112deg,transparent 34%,rgba(110,231,183,.26) 42%,rgba(255,255,255,.34) 50%,rgba(186,230,253,.2) 57%,transparent 66%) var(--mx,30%) var(--my,0%)/260% 260% no-repeat}
 .th-minimal .rv-foil,.th-metal .rv-foil{mix-blend-mode:soft-light;opacity:calc(var(--sh,.5)*.9)}
 .rv-foil::before{content:"";position:absolute;inset:-20% -60%;background:linear-gradient(105deg,transparent 44%,rgba(255,255,255,.5) 50%,transparent 56%);transform:translateX(-70%);opacity:0}
 .rv-card.rv-enter .rv-foil::before{animation:rvSweep 1.5s .55s cubic-bezier(.3,.6,.2,1) both}
@@ -391,10 +391,10 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .rv-wm{filter:drop-shadow(0 1px 0 rgba(0,0,0,.4))}
 .rv-state{backdrop-filter:blur(6px) saturate(1.3);-webkit-backdrop-filter:blur(6px) saturate(1.3)}
 /* richer materials per design */
-.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(234,245,255,.4),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(56,189,248,.34),transparent 62%),repeating-linear-gradient(128deg,rgba(234,245,255,.07) 0 1px,transparent 1px 6px),linear-gradient(155deg,#1B1822 0%,#0B0A0A 50%,#030304 100%)}
+.th-obsidian{--cbg:radial-gradient(60% 50% at 88% 6%,rgba(234,245,255,.4),transparent 62%),radial-gradient(70% 60% at 0% 100%,rgba(110,231,183,.34),transparent 62%),repeating-linear-gradient(128deg,rgba(234,245,255,.07) 0 1px,transparent 1px 6px),linear-gradient(155deg,#1B1822 0%,#0B0A0A 50%,#030304 100%)}
 .th-metal{--cbg:linear-gradient(100deg,rgba(255,255,255,.62) 0%,transparent 22%,rgba(255,255,255,.4) 44%,transparent 62%,rgba(255,255,255,.5) 84%,rgba(255,255,255,.1) 100%),linear-gradient(135deg,#8A8E9B,#DADCE3 34%,#9CA0AD 58%,#EBECF1 80%,#868A97)}
 .th-graphite{--cbg:linear-gradient(115deg,transparent 36%,rgba(255,255,255,.1) 50%,transparent 64%),linear-gradient(150deg,#34343B 0%,#1A1A1F 52%,#0A0A0C 100%)}
-.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.3),transparent 56%),radial-gradient(80% 70% at 100% 100%,rgba(15,14,12,.45),transparent 62%),linear-gradient(140deg,#463306 0%,#38BDF8 52%,#38BDF8 100%)}
+.th-violet{--cbg:radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.3),transparent 56%),radial-gradient(80% 70% at 100% 100%,rgba(15,14,12,.45),transparent 62%),linear-gradient(140deg,#463306 0%,#6ee7b7 52%,#6ee7b7 100%)}
 /* back face: same finish */
 .rv-back{box-shadow:inset 0 0 0 1px var(--cline,rgba(255,255,255,.12)),inset 0 1.5px 0 rgba(255,255,255,.24),inset 0 -2px 3px rgba(0,0,0,.4)}
 .rv-back::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:overlay;opacity:.45;background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 3px)}
@@ -422,8 +422,8 @@ html[dir="rtl"] .settings-row[role="switch"][aria-checked="true"] .switch::after
 .rc-badge.st-success::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid currentColor;opacity:0;pointer-events:none;animation:rcRing .9s .5s ease-out}
 @keyframes rcRing{0%{opacity:.85;transform:scale(.8)}100%{opacity:0;transform:scale(1.9)}}
 .rc-badge.st-success::after{content:"";position:absolute;inset:-34%;border-radius:50%;pointer-events:none;opacity:0;
-  background:radial-gradient(circle at 50% 5%,currentColor 0 3px,transparent 3.6px),radial-gradient(circle at 88% 22%,#38BDF8 0 2.6px,transparent 3.2px),radial-gradient(circle at 95% 68%,currentColor 0 2.2px,transparent 2.8px),
-    radial-gradient(circle at 70% 95%,#38BDF8 0 3px,transparent 3.6px),radial-gradient(circle at 24% 92%,currentColor 0 2.4px,transparent 3px),radial-gradient(circle at 5% 62%,#38BDF8 0 2.6px,transparent 3.2px),radial-gradient(circle at 14% 18%,currentColor 0 2.2px,transparent 2.8px);
+  background:radial-gradient(circle at 50% 5%,currentColor 0 3px,transparent 3.6px),radial-gradient(circle at 88% 22%,#6ee7b7 0 2.6px,transparent 3.2px),radial-gradient(circle at 95% 68%,currentColor 0 2.2px,transparent 2.8px),
+    radial-gradient(circle at 70% 95%,#6ee7b7 0 3px,transparent 3.6px),radial-gradient(circle at 24% 92%,currentColor 0 2.4px,transparent 3px),radial-gradient(circle at 5% 62%,#6ee7b7 0 2.6px,transparent 3.2px),radial-gradient(circle at 14% 18%,currentColor 0 2.2px,transparent 2.8px);
   animation:rcBurst 1s .55s ease-out}
 @keyframes rcBurst{0%{opacity:0;transform:scale(.45)}30%{opacity:1}100%{opacity:0;transform:scale(1.12)}}
 .rc-badge.st-failed{animation:rcShake .55s .6s ease-in-out}

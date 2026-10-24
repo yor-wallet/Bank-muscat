@@ -32,7 +32,7 @@ const OpeningArt = (() => {
         '<div class="sp-mark" aria-hidden="true">' +
           '<i class="sp-halo"></i><i class="sp-ring sp-r1"></i><i class="sp-ring sp-r2"></i>' +
           '<svg class="sp-svg" viewBox="0 0 512 512" focusable="false">' +
-            '<defs><linearGradient id="sp-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7CC4FF"/><stop offset="1" stop-color="#0057D9"/></linearGradient>' +
+            '<defs><linearGradient id="sp-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7f3d0"/><stop offset="1" stop-color="#10b981"/></linearGradient>' +
             '<clipPath id="sp-clip"><rect width="512" height="512" rx="120"/></clipPath></defs>' +
             '<g class="sp-tile"><rect width="512" height="512" rx="120" fill="url(#sp-g)"/>' +
               '<g clip-path="url(#sp-clip)"><rect class="sp-shine" x="-200" y="-60" width="120" height="640" fill="#fff" opacity=".28"/></g></g>' +
@@ -49,17 +49,17 @@ const OpeningArt = (() => {
 
   /* ---------- illustrations de la présentation ---------- */
   const DEFS = '<svg class="oa-defs" width="0" height="0" aria-hidden="true" focusable="false"><defs>' +
-    '<linearGradient id="oa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7CC4FF"/><stop offset="1" stop-color="#0057D9"/></linearGradient>' +
-    '<linearGradient id="oa-teal-d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#463306"/></linearGradient>' +
-    '<linearGradient id="oa-amber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5BB2FF"/><stop offset="1" stop-color="#7CC4FF"/></linearGradient>' +
+    '<linearGradient id="oa-teal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7f3d0"/><stop offset="1" stop-color="#10b981"/></linearGradient>' +
+    '<linearGradient id="oa-teal-d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#463306"/></linearGradient>' +
+    '<linearGradient id="oa-amber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#a7f3d0"/></linearGradient>' +
     '<linearGradient id="oa-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#EAF5FF"/></linearGradient>' +
-    '<radialGradient id="oa-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#7CC4FF" stop-opacity=".42"/><stop offset="1" stop-color="#7CC4FF" stop-opacity="0"/></radialGradient>' +
+    '<radialGradient id="oa-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a7f3d0" stop-opacity=".42"/><stop offset="1" stop-color="#a7f3d0" stop-opacity="0"/></radialGradient>' +
     '<clipPath id="oa-tile"><rect x="105" y="73" width="110" height="110" rx="30"/></clipPath>' +
     '<filter id="oa-blur" x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="5"/></filter>' +
     '</defs></svg>';
 
   const spark = (x, y, s, d) => '<path class="oa-spark" style="--d:' + d + 's" transform="translate(' + x + ' ' + y + ') scale(' + s + ')" d="M0-10C1-3 3-1 10 0 3 1 1 3 0 10-1 3-3 1-10 0-3-1-1-3 0-10Z"/>';
-  const shadow = (cx, cy, rx) => '<ellipse class="oa-shadow" cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="8" fill="#0057D9" opacity=".22" filter="url(#oa-blur)"/>';
+  const shadow = (cx, cy, rx) => '<ellipse class="oa-shadow" cx="' + cx + '" cy="' + cy + '" rx="' + rx + '" ry="8" fill="#10b981" opacity=".22" filter="url(#oa-blur)"/>';
   const svg = (inner, cls) => '<svg class="oa-svg ' + (cls || '') + '" viewBox="26 12 268 236" aria-hidden="true" focusable="false">' + inner + '</svg>';
 
   /* 1 — bienvenue : la marque au centre, quatre objets qui tournent autour */
@@ -76,8 +76,8 @@ const OpeningArt = (() => {
       '</g>' +
       '<g class="oa-orbit">' +
         chip(160, 32, 'oa-c1', '<circle r="21" fill="url(#oa-amber)"/><circle r="14.5" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2"/><path d="M0-7 6 0 0 7-6 0Z" fill="#fff"/>') +
-        chip(256, 128, 'oa-c2', '<rect x="-21" y="-21" width="42" height="42" rx="13" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".18"/><path d="M0-11 10-6.5v5.5c0 6.5-4.5 10.5-10 12.5-5.5-2-10-6-10-12.5v-5.5z" fill="none" stroke="#0057D9" stroke-width="2.6" stroke-linejoin="round"/><path d="M-4.5 0 -1 3.5 5-3" fill="none" stroke="#0057D9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>') +
-        chip(160, 224, 'oa-c3', '<rect x="-21" y="-21" width="42" height="42" rx="13" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".18"/><path d="M10-10-2 2M10-10 4 11 0 3-8-1l18-9Z" transform="translate(-1 0)" fill="none" stroke="#0057D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>') +
+        chip(256, 128, 'oa-c2', '<rect x="-21" y="-21" width="42" height="42" rx="13" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".18"/><path d="M0-11 10-6.5v5.5c0 6.5-4.5 10.5-10 12.5-5.5-2-10-6-10-12.5v-5.5z" fill="none" stroke="#10b981" stroke-width="2.6" stroke-linejoin="round"/><path d="M-4.5 0 -1 3.5 5-3" fill="none" stroke="#10b981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>') +
+        chip(160, 224, 'oa-c3', '<rect x="-21" y="-21" width="42" height="42" rx="13" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".18"/><path d="M10-10-2 2M10-10 4 11 0 3-8-1l18-9Z" transform="translate(-1 0)" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>') +
         chip(64, 128, 'oa-c4', '<rect x="-25" y="-16" width="50" height="32" rx="8" fill="url(#oa-teal-d)"/><rect x="-25" y="-8" width="50" height="6" fill="#fff" opacity=".22"/><rect x="-19" y="4" width="11" height="7" rx="2" fill="#fff" opacity=".85"/>') +
       '</g>' +
       spark(60, 52, 1, 0) + spark(268, 60, .8, .8) + spark(274, 206, 1, 1.5) + spark(50, 206, .7, .4)
@@ -87,7 +87,7 @@ const OpeningArt = (() => {
   /* 2 — envoyer : une pièce traverse l'arc d'une personne à l'autre, le destinataire reçoit */
   function heroSend(){
     const person = (cx, cy, cls) =>
-      '<g class="' + cls + '"><circle cx="' + cx + '" cy="' + cy + '" r="36" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".2" stroke-width="1.5"/>' +
+      '<g class="' + cls + '"><circle cx="' + cx + '" cy="' + cy + '" r="36" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".2" stroke-width="1.5"/>' +
       '<circle cx="' + cx + '" cy="' + (cy - 8) + '" r="11" fill="url(#oa-teal)"/><path d="M' + (cx - 20) + ' ' + (cy + 24) + 'c2-12 10-17 20-17s18 5 20 17a36 36 0 0 1-40 0Z" fill="url(#oa-teal)"/></g>';
     return svg(
       '<circle class="oa-pulse" cx="160" cy="130" r="118" fill="url(#oa-glow)"/>' +
@@ -97,10 +97,10 @@ const OpeningArt = (() => {
       person(70, 150, 'oa-from') + person(250, 150, 'oa-to') +
       '<circle class="oa-ripple" cx="250" cy="150" r="38" fill="none" stroke="var(--accent)" stroke-width="3"/>' +
       '<g class="oa-coin"><g transform="translate(100 130)"><circle r="14" fill="url(#oa-amber)"/><circle r="9.5" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.8"/><path d="M0-4.5 4 0 0 4.5-4 0Z" fill="#fff"/></g></g>' +
-      '<g transform="translate(274 120)"><g class="oa-ok"><circle r="14" fill="#38BDF8"/><path d="M-6 0 -2 4 6-4" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g></g>' +
-      '<rect x="36" y="196" width="68" height="22" rx="11" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".18"/><rect x="216" y="196" width="68" height="22" rx="11" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".18"/>' +
-      '<text x="70" y="211.5" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" font-weight="700" fill="#0057D9" direction="ltr">FP-••••</text>' +
-      '<text x="250" y="211.5" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" font-weight="700" fill="#0057D9" direction="ltr">FP-••••</text>' +
+      '<g transform="translate(274 120)"><g class="oa-ok"><circle r="14" fill="#6ee7b7"/><path d="M-6 0 -2 4 6-4" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g></g>' +
+      '<rect x="36" y="196" width="68" height="22" rx="11" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".18"/><rect x="216" y="196" width="68" height="22" rx="11" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".18"/>' +
+      '<text x="70" y="211.5" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" font-weight="700" fill="#10b981" direction="ltr">FP-••••</text>' +
+      '<text x="250" y="211.5" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" font-weight="700" fill="#10b981" direction="ltr">FP-••••</text>' +
       spark(160, 28, .9, .2) + spark(40, 90, .7, 1) + spark(286, 84, .8, .6)
     , 'oa-send');
   }
@@ -112,16 +112,16 @@ const OpeningArt = (() => {
     return svg(
       '<circle class="oa-pulse" cx="160" cy="130" r="118" fill="url(#oa-glow)"/>' +
       shadow(160, 218, 58) +
-      '<g><ellipse cx="160" cy="208" rx="46" ry="14" fill="#38BDF8"/><rect x="114" y="190" width="92" height="18" fill="#7CC4FF"/><ellipse cx="160" cy="190" rx="46" ry="14" fill="url(#oa-amber)"/>' +
-        '<ellipse cx="160" cy="184" rx="46" ry="14" fill="#38BDF8"/><rect x="114" y="166" width="92" height="18" fill="#7CC4FF"/><ellipse cx="160" cy="166" rx="46" ry="14" fill="url(#oa-amber)"/>' +
-        '<ellipse cx="160" cy="160" rx="46" ry="14" fill="#38BDF8"/><rect x="114" y="142" width="92" height="18" fill="#7CC4FF"/><ellipse cx="160" cy="142" rx="46" ry="14" fill="url(#oa-amber)"/>' +
+      '<g><ellipse cx="160" cy="208" rx="46" ry="14" fill="#6ee7b7"/><rect x="114" y="190" width="92" height="18" fill="#a7f3d0"/><ellipse cx="160" cy="190" rx="46" ry="14" fill="url(#oa-amber)"/>' +
+        '<ellipse cx="160" cy="184" rx="46" ry="14" fill="#6ee7b7"/><rect x="114" y="166" width="92" height="18" fill="#a7f3d0"/><ellipse cx="160" cy="166" rx="46" ry="14" fill="url(#oa-amber)"/>' +
+        '<ellipse cx="160" cy="160" rx="46" ry="14" fill="#6ee7b7"/><rect x="114" y="142" width="92" height="18" fill="#a7f3d0"/><ellipse cx="160" cy="142" rx="46" ry="14" fill="url(#oa-amber)"/>' +
         '<ellipse cx="160" cy="142" rx="30" ry="8.5" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/></g>' +
       '<g class="oa-hover"><g transform="translate(160 84)"><g class="oa-flip">' + coinFace(34) + '</g></g></g>' +
-      '<g class="oa-chart"><rect x="28" y="112" width="84" height="102" rx="18" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".16"/>' +
+      '<g class="oa-chart"><rect x="28" y="112" width="84" height="102" rx="18" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".16"/>' +
         bar(42, 28, 0) + bar(61, 44, .12) + bar(80, 62, .24) +
         '</g>' +
-      '<g class="oa-swap" transform="translate(262 150)"><circle r="30" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".16"/>' +
-        '<g class="oa-swap-arrows" fill="none" stroke="#0057D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M-12-4h20m-6-6 6 6-6 6"/><path d="M12 6H-8m6-6-6 6 6 6" transform="translate(0 2)"/></g></g>' +
+      '<g class="oa-swap" transform="translate(262 150)"><circle r="30" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".16"/>' +
+        '<g class="oa-swap-arrows" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M-12-4h20m-6-6 6 6-6 6"/><path d="M12 6H-8m6-6-6 6 6 6" transform="translate(0 2)"/></g></g>' +
       spark(60, 44, .9, .3) + spark(276, 66, .8, 1) + spark(40, 232, .6, .7)
     , 'oa-crypto');
   }
@@ -136,12 +136,12 @@ const OpeningArt = (() => {
       '<g class="oa-float"><path d="M160 44 224 70v46c0 40-26 66-64 80-38-14-64-40-64-80V70z" fill="url(#oa-teal)"/>' +
         '<path d="M160 44 224 70v46c0 40-26 66-64 80z" fill="#fff" opacity=".12"/>' +
         '<path class="oa-check" pathLength="1" d="M132 118 152 138 190 98" fill="none" stroke="#fff" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/></g>' +
-      '<g transform="translate(52 62)"><g class="oa-face"><rect x="-26" y="-26" width="52" height="52" rx="14" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".16"/>' +
-        '<g fill="none" stroke="#0057D9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M-17-9v-6a2 2 0 0 1 2-2h6M17-9v-6a2 2 0 0 0-2-2h-6M-17 9v6a2 2 0 0 0 2 2h6M17 9v6a2 2 0 0 1-2 2h-6"/><path d="M-6-4v3M6-4v3M-5 7q5 5 10 0" stroke-width="2.6"/></g>' +
+      '<g transform="translate(52 62)"><g class="oa-face"><rect x="-26" y="-26" width="52" height="52" rx="14" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".16"/>' +
+        '<g fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M-17-9v-6a2 2 0 0 1 2-2h6M17-9v-6a2 2 0 0 0-2-2h-6M-17 9v6a2 2 0 0 0 2 2h6M17 9v6a2 2 0 0 1-2 2h-6"/><path d="M-6-4v3M6-4v3M-5 7q5 5 10 0" stroke-width="2.6"/></g>' +
         '<rect class="oa-scan" x="-18" y="-1" width="36" height="3" rx="1.5" fill="var(--accent)"/></g></g>' +
-      '<g transform="translate(268 70)"><g class="oa-lock"><rect x="-24" y="-24" width="48" height="48" rx="14" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".16"/>' +
-        '<rect x="-10" y="-3" width="20" height="15" rx="4" fill="url(#oa-teal-d)"/><path d="M-6-3v-4a6 6 0 0 1 12 0v4" fill="none" stroke="#0057D9" stroke-width="3" stroke-linecap="round"/></g></g>' +
-      '<rect x="90" y="196" width="140" height="36" rx="18" fill="url(#oa-card)" stroke="#0057D9" stroke-opacity=".18"/>' +
+      '<g transform="translate(268 70)"><g class="oa-lock"><rect x="-24" y="-24" width="48" height="48" rx="14" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".16"/>' +
+        '<rect x="-10" y="-3" width="20" height="15" rx="4" fill="url(#oa-teal-d)"/><path d="M-6-3v-4a6 6 0 0 1 12 0v4" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round"/></g></g>' +
+      '<rect x="90" y="196" width="140" height="36" rx="18" fill="url(#oa-card)" stroke="#10b981" stroke-opacity=".18"/>' +
       dot(112, 0) + dot(131, 1) + dot(150, 2) + dot(170, 3) + dot(189, 4) + dot(208, 5) +
       spark(40, 150, .8, .5) + spark(284, 150, .9, 1.1)
     , 'oa-secure');

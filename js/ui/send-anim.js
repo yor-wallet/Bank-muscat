@@ -28,7 +28,7 @@ const SendAnim = (() => {
     const recipient = '<circle class="sx-wait" cx="30" cy="56" r="16"/><circle class="sx-got" cx="30" cy="56" r="16"/><path class="sx-ok" d="M22 56l6 6 11-12" pathLength="100"/><path class="sx-no" d="M24 50l12 12M36 50L24 62" pathLength="100"/>';
     const d = 'M' + g.a + ' ' + Y + ' Q' + CTRL[0] + ' ' + CTRL[1] + ' ' + g.b + ' ' + Y;
     return '<svg class="sx-svg" viewBox="0 0 320 200" focusable="false" aria-hidden="true">' +
-      '<defs><linearGradient id="sxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7CC4FF"/><stop offset="1" stop-color="#0057D9"/></linearGradient></defs>' +
+      '<defs><linearGradient id="sxg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7f3d0"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>' +
       '<path class="sx-rail" d="' + d + '"/><path class="sx-rail-lit" pathLength="100" d="' + d + '"/>' +
       phone(g.a - 30, 'sx-pa', sender) + phone(g.b - 30, 'sx-pb', recipient) +
       '<circle class="sx-ripple" cx="' + g.b + '" cy="126" r="30"/>' +

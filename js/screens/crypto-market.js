@@ -4,7 +4,7 @@
    CRYPTO SCREENS
    ============================================================ */
 function assetRowC(r){
-  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#007AFF' };
+  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#22c55e' };
   return '<div class="asset-row-c" data-nav="crypto-spot" data-asset="' + r.assetId + '">' + assetLogo(r.symbol, 40, asset.tint) + '<div class="asset-info-c"><div class="asset-name-c">' + escapeHtml(r.name) + '</div><div class="asset-sym-c">' + r.symbol + ' · ' + r.network + '</div></div><div class="asset-right-c"><div class="asset-bal-c">' + escapeHtml(CurrencyEngine.formatCrypto(r.balance, r.symbol)) + '</div><div class="asset-fiat-c">' + escapeHtml(CurrencyEngine.format(r.fiatValue, 'USD')) + '</div></div><span class="asset-change-c ' + (r.change24h >= 0 ? 'up' : 'down') + '">' + (r.change24h >= 0 ? '+' : '') + r.change24h.toFixed(2) + '%</span></div>';
 }
 function renderCryptoPortfolio(){

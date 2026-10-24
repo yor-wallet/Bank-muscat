@@ -31,11 +31,11 @@ const PhoneArt = (() => {
       earned: 'لقد ربحت', cong: 'تمت إضافة مكافأة الترحيب إلى محفظتك', cta: 'رائع!', intl: 'التحويل الدولي', regions: ['الخليج', 'أفريقيا', 'أمريكا', 'كندا'], days: '48–72 ساعة', meth: ['بنك', 'محفظة هاتف', 'استلام نقدي'],
       arrives: 'يصل خلال 2–3 أيام', cards: 'البطاقات', online: 'الدفع عبر الإنترنت', contactless: 'الدفع اللاتلامسي', atm: 'السحب من الصراف', code: 'أدخل رمزك', fid: 'تم التعرف بـ Face ID', holder: 'YOUR NAME' },
   };
-  const FACES = [['#38BDF8', '#2A1A15'], ['#007AFF', '#1E120D'], ['#CFE7FF', '#6A4029'], ['#007AFF', '#2A1A15'], ['#6E4228', '#120A06'], ['#7CC4FF', '#5B3622']];
+  const FACES = [['#6ee7b7', '#2A1A15'], ['#22c55e', '#1E120D'], ['#CFE7FF', '#6A4029'], ['#22c55e', '#2A1A15'], ['#6E4228', '#120A06'], ['#a7f3d0', '#5B3622']];
   /* avatar illustré : tête, cheveux, épaules (SVG) */
   function face(k, size){
     const [skin, hair] = FACES[k % FACES.length];
-    return '<svg class="ph-face" viewBox="0 0 40 40" width="' + size + '" height="' + size + '" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#A9D4FF"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13z" fill="#14110A"/><rect x="17" y="21" width="6" height="8" rx="3" fill="' + skin + '"/><circle cx="20" cy="16" r="8" fill="' + skin + '"/><path d="M11.5 15.5c0-6 3.6-8.8 8.5-8.8s8.5 2.8 8.5 8.8c-2-3-4.6-4.2-8.5-4.2s-6.5 1.2-8.5 4.2z" fill="' + hair + '"/></svg>';
+    return '<svg class="ph-face" viewBox="0 0 40 40" width="' + size + '" height="' + size + '" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#d1fae5"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13z" fill="#14110A"/><rect x="17" y="21" width="6" height="8" rx="3" fill="' + skin + '"/><circle cx="20" cy="16" r="8" fill="' + skin + '"/><path d="M11.5 15.5c0-6 3.6-8.8 8.5-8.8s8.5 2.8 8.5 8.8c-2-3-4.6-4.2-8.5-4.2s-6.5 1.2-8.5 4.2z" fill="' + hair + '"/></svg>';
   }
   const regionName = (c, lang) => { try { return new Intl.DisplayNames([lang], { type: 'region' }).of(c); } catch(e){ return c; } };
   const flag = c => String.fromCodePoint(...[...c].map(ch => 127397 + ch.charCodeAt(0)));

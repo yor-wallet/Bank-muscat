@@ -104,13 +104,13 @@ function logoLockup(size){
 const ASSET_INITIALS = { BTC:'₿', ETH:'Ξ', USDT:'₮', USDC:'$', BNB:'BNB', SOL:'SOL', XRP:'XRP', LTC:'Ł' };
 function assetLogo(symbol, size, tint){
   size = size || 40;
-  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#007AFF' }).tint;
+  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#22c55e' }).tint;
   const init = ASSET_INITIALS[symbol] || symbol.slice(0, 2);
   return '<div class="asset-coin" style="width:' + size + 'px;height:' + size + 'px;background:' + bg + '">' + init + '</div>';
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#007AFF';
+  const tint = net.tint || '#22c55e';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }

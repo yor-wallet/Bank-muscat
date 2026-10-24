@@ -29,7 +29,7 @@ const AppLock = (() => {
       '.yl-title{font-size:22px;font-weight:700;margin:14px 0 6px;text-align:center}' +
       '.yl-sub{font-size:14px;opacity:.7;text-align:center;max-width:320px;line-height:1.5;margin:0 0 18px}' +
       '.yl-err{min-height:20px;font-size:13px;color:var(--danger,#ef4444);text-align:center;margin-bottom:10px;max-width:320px}' +
-      '.yl-out{margin-top:18px;background:none;border:0;color:var(--accent,#0057D9);font-size:15px;font-weight:600;padding:12px 16px;cursor:pointer;min-height:44px}' +
+      '.yl-out{margin-top:18px;background:none;border:0;color:var(--accent,#10b981);font-size:15px;font-weight:600;padding:12px 16px;cursor:pointer;min-height:44px}' +
       '@keyframes ylshake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}' +
       '.yl-shake{animation:ylshake .35s}' +
       '@media (max-height:640px){.yl-title{margin-top:6px}}' +

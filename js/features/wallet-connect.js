@@ -100,7 +100,7 @@ const NexWC = (function(){
       a.init({
         projectId: PROJECT_ID,
         themeMode: themeMode(),
-        themeVariables: { '--w3m-accent': '#0057D9', '--w3m-border-radius-master': '2px', '--w3m-z-index': 2000 },
+        themeVariables: { '--w3m-accent': '#10b981', '--w3m-border-radius-master': '2px', '--w3m-z-index': 2000 },
         metadata: { name: 'Freindi Pay', description: 'Freindi Pay — connect a TRON wallet (view only, no transaction).', url: location.origin, icons: [location.origin + '/assets/icons/icon-512.png'] }
       });
       if (!unsub) unsub = a.subscribe(() => paint());

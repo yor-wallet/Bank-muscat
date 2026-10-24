@@ -2,34 +2,34 @@
    FREINDI PAY 16.0.0 — identité noir & or. Chargé en DERNIER (après card-metal.css).
    Source unique des couleurs de marque : ce fichier redéfinit les jetons (--accent, --btn-grad, …) pour les deux thèmes ;
    les anciennes feuilles les lisent déjà. Texte SUR une surface or : toujours --on-accent (noir chaud), jamais du blanc.
-   Sombre (défaut) : noir chaud #0A0A0B, or #007AFF.   Clair : blanc cassé #F5F4F1, or profond #007AFF pour le texte, or vif pour les boutons.
+   Sombre (défaut) : noir chaud #0A0A0B, or #22c55e.   Clair : blanc cassé #F5F4F1, or profond #22c55e pour le texte, or vif pour les boutons.
    ========================================================================== */
 :root{
-  --lx-gold:#007AFF;--lx-gold-2:#7CC4FF;--lx-gold-3:#38BDF8;--lx-gold-hi:#7CC4FF;--lx-ink:#0A0A0B;--lx-navy:#2B2BC9;
+  --lx-gold:#22c55e;--lx-gold-2:#a7f3d0;--lx-gold-3:#6ee7b7;--lx-gold-hi:#a7f3d0;--lx-ink:#0A0A0B;--lx-navy:#2B2BC9;
   --on-accent:#14110A;
-  --accent:#007AFF;--accent-600:#7CC4FF;
-  --accent-soft:rgba(0,122,255,.14);--accent-subtle:rgba(0,122,255,.08);--accent-glow:rgba(0,122,255,.34);
-  --yor-violet:#7CC4FF;--yor-mint:#007AFF;--yor-gold:#007AFF;--yor-glow:#4DA6FF;--yor-mist:#EAF5FF;
-  --btn-grad:linear-gradient(180deg,#38BDF8 0%,#007AFF 58%,#7CC4FF 100%);
-  --brand-grad:linear-gradient(180deg,#38BDF8 0%,#007AFF 58%,#7CC4FF 100%);
-  --btn-glow:rgba(0,122,255,.42);
+  --accent:#22c55e;--accent-600:#a7f3d0;
+  --accent-soft:rgba(34,197,94,.14);--accent-subtle:rgba(34,197,94,.08);--accent-glow:rgba(34,197,94,.34);
+  --yor-violet:#a7f3d0;--yor-mint:#22c55e;--yor-gold:#22c55e;--yor-glow:#6ee7b7;--yor-mist:#EAF5FF;
+  --btn-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
+  --brand-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
+  --btn-glow:rgba(34,197,94,.42);
   --bg:#0A0A0B;--bg-1:#111113;--bg-2:#17171A;--bg-3:#1F1F23;
   --glass-1:#121214;--glass-2:#19191C;--surf:#121214;--surf-2:#19191C;
   --text:#F7F4EC;--text-2:#BDB7A8;--text-3:#8F8A7D;
-  --champagne:#007AFF;--champagne-soft:rgba(0,122,255,.20);
+  --champagne:#22c55e;--champagne-soft:rgba(34,197,94,.20);
 }
 :root[data-theme="light"]{
   --on-accent:#14110A;
-  --accent:#007AFF;--accent-600:#0057D9;
-  --accent-soft:rgba(56,189,248,.14);--accent-subtle:rgba(56,189,248,.08);--accent-glow:rgba(56,189,248,.30);
-  --yor-violet:#007AFF;--yor-mint:#7CC4FF;--yor-gold:#7CC4FF;
-  --btn-grad:linear-gradient(180deg,#38BDF8 0%,#007AFF 58%,#7CC4FF 100%);
-  --brand-grad:linear-gradient(180deg,#38BDF8 0%,#007AFF 58%,#7CC4FF 100%);
-  --btn-glow:rgba(124,196,255,.45);
+  --accent:#22c55e;--accent-600:#10b981;
+  --accent-soft:rgba(110,231,183,.14);--accent-subtle:rgba(110,231,183,.08);--accent-glow:rgba(110,231,183,.30);
+  --yor-violet:#22c55e;--yor-mint:#a7f3d0;--yor-gold:#a7f3d0;
+  --btn-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
+  --brand-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
+  --btn-glow:rgba(167,243,208,.45);
   --bg:#F5F4F1;--bg-1:#FFFFFF;--bg-2:#EFEDE8;--bg-3:#E5E2DA;
   --glass-1:#FFFFFF;--glass-2:#F3F1EC;--surf:#FFFFFF;--surf-2:#F3F1EC;
   --text:#0E0D0A;--text-2:#55524A;--text-3:#6B675D;
-  --champagne:#38BDF8;--champagne-soft:rgba(56,189,248,.16);
+  --champagne:#6ee7b7;--champagne-soft:rgba(110,231,183,.16);
 }
 /* boutons dorés : texte noir chaud, reflet doux */
 .btn-primary,.tile-solid,.nav-cta .nav-cta-tile,.nav-item.nav-cta .nav-cta-tile,.rv-act.p i,.rv-ava{background:var(--btn-grad)!important;color:var(--on-accent)!important}
@@ -39,7 +39,7 @@
 .progress-step.current .progress-step-dot,.select-check,.swipe-thumb{background:var(--btn-grad);color:var(--on-accent)}
 /* thème clair : l'accent sert au texte et aux icônes (contraste ≥ 4,5:1) ; les liens utilisent le bleu nuit de la marque */
 :root[data-theme="light"] .rv-h button,:root[data-theme="light"] .topbar-action,:root[data-theme="light"] .btn-ghost{color:var(--lx-navy)}
-:root[data-theme="light"] .tile{background:rgba(0,122,255,.22);color:#0057D9}
+:root[data-theme="light"] .tile{background:rgba(34,197,94,.22);color:#10b981}
 /* cartouche « ADMIN » : jamais de la même couleur que les badges utilisateur */
 .badge-admin,.px-chip.admin{background:#1F1F6B;color:#fff;border:1px solid rgba(255,255,255,.18);letter-spacing:.08em}
 
