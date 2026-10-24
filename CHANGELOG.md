@@ -1,3 +1,49 @@
+# FREINDI PAY 20.4.0 — moteur adaptatif, centre de données, mini-agents, reçu épuré, visite guidée
+
+## Reçu épuré (écran, PNG, PDF)
+- Plus de ligne d'**identifiant technique long** (UUID) ni de référence répétée trois fois : une seule **référence courte** (`FP-…`), avec son bouton « copier ».
+- Le montant (déjà en grand), le bénéficiaire (déjà dans sa carte) et le statut (déjà dans le badge et le titre) ne sont plus répétés en lignes. Il reste : *De* (nom + téléphone), *Le bénéficiaire reçoit* + taux (si conversion), frais / total seulement s'ils existent, *Date* (date et heure sur une ligne, arabe correct grâce aux isolats Unicode), *Référence*.
+- Mêmes lignes à l'écran et dans l'export (`v.rows`, `v.party`) ; en-tête et pied de l'export sans doublon ; taux affiché sans zéros inutiles (`1 OMR = 964 XOF`) ; actions en grille 2 × 2 (PDF, PNG, Partager, Imprimer).
+- Le nom du fichier exporté utilise la référence courte.
+
+## Conductor — moteur adaptatif (`js/core/conductor.js`)
+- **Palier d'effets** `high | mid | low` lu sur l'appareil (cœurs, mémoire, économie de données, « réduire les animations ») et posé sur `<html data-fx>` ; `css/fx.css` s'y adapte (flou et décor animé coupés en `low`).
+- **Fluidité réelle** : mesure d'images par seconde au repos ; 2 mesures faibles de suite = le palier descend, 3 stables = il remonte ; jamais plus d'un changement par 20 s.
+- **Planificateur** : une tâche à la fois, au repos du navigateur, jamais page cachée ; une tâche qui coûte plus de 80 ms espace ses passages (jusqu'à ×4).
+- **Cycle de vie** : signaux `hide`, `resume` (décalé de 120–500 ms au hasard), `online`, `offline` ; drapeau de fin normale de session.
+- **Mode sûr** : 3 fins anormales en 10 min → palier `low`, caches volatils vidés, copie locale ignorée, plus d'animations ; remis à zéro après 45 s sans erreur.
+- Les confettis de la récompense s'adaptent au palier (`Conductor.scale()`).
+
+## DataCenter — centre de données (`js/core/datacenter.js`)
+- **Un seul point** pour relire soldes, opérations et alertes. `AuthEngine.hydrateLive()` passe par `DataCenter.pull()` : tous les appels existants (transferts, crédit, crypto, international) en profitent.
+- `pull()` : lectures simultanées fusionnées en une. `request()` : demandes rapprochées regroupées, écart minimal selon le palier (4 / 7 / 12 s), nouvel essai avec délai croissant après échec (5 s à 5 min).
+- Déclencheurs : retour au premier plan après > 20 s, réseau retrouvé, alerte temps réel, minuterie lente (60 / 90 / 150 s), demande d'un mini-agent. Après > 2 min d'absence, le canal temps réel est rétabli (`AuthEngine.reconnectRealtime`).
+- **Réconciliation** : empreinte des soldes / opérations / alertes ; l'écran courant (accueil, historique, alertes, comptes) n'est redessiné que si elle change, jamais pendant une saisie, un transfert, une conversation, un reçu ou une fenêtre ouverte.
+- Lecture seule ; un échec réseau ne remplace rien de ce qui est affiché.
+
+## Sentinels — mini-agents (`js/features/sentinels.js`)
+- Huit agents au repos, silencieux, **lecture seule sur l'argent** : `balance` (disponible ≤ solde, réservé ≥ 0), `ledger` (références en double, montant confirmé ≤ 0, date future), `sync` (données trop anciennes, lectures en échec), `render` (nœuds DOM, notifications empilées, fluidité), `storage` (> 80 %, nettoyage Janitor), `shell` (service worker, vérification de version toutes les 6 h), `faults` (rafale d'erreurs), `i18n` (clé de traduction affichée telle quelle).
+- Une anomalie est notée sans montant ni nom, puis, selon le cas, une relecture du serveur est demandée (au plus une toutes les 5 min) ou un détail d'interface est rangé.
+- Paramètres › Diagnostic : phrase honnête (« Les 8 contrôles automatiques sont réussis » / « n contrôle(s) à vérifier »), vide tant qu'aucun agent n'est passé ; le rapport copiable contient l'état de Conductor, DataCenter et Sentinels.
+
+## Présentation et visite guidée
+- Présentation du premier lancement (déjà en place) : aurore vivante et ciel étoilé derrière les pages, lueur sur le point actif, reflet sur le bouton « Suivant » — transform / opacity seulement, coupé en paliers `mid` / `low` et sous « réduire les animations ».
+- **Visite guidée** (`js/features/tour.js`) : à la première ouverture d'un **nouveau compte** (moins de 7 jours, une seule fois par appareil), les cinq touches de la barre du bas sont éclairées l'une après l'autre ; « Passer » et Échap à tout moment ; FR / EN / AR RTL ; jamais pendant une récompense, une fenêtre ou le mode sûr ; une touche introuvable est sautée.
+
+## Corrections
+- `CONFIG.APP.version` indiquait encore 20.2.0 ; alignée sur la version.
+
+## Non fait (volontairement)
+- Aucune fonction serveur déployée, aucune base modifiée, aucune écriture d'argent côté client.
+- Les agents ne « réparent » pas les soldes : ils signalent et demandent au serveur, qui seul fait foi.
+- Pas testé : appareil réel (iPhone / Android), temps réel Supabase de bout en bout, Safari.
+
+## Vérifié réellement (Chromium, sources et `dist/`)
+- 46 vérifications automatisées : regroupement des lectures (3 `pull` = 1 appel, 3 `request` = 1 appel), échec réseau sans écrasement du solde, retard croissant, redessin seulement sur changement et jamais pendant « tx-review », détection de données incohérentes injectées, cycle de vie (arrière-plan 45 s → relecture, 5 s → aucune), réseau perdu / retrouvé, mode sûr, descente et remontée du palier, planificateur à une tâche à la fois.
+- Rendu : présentation (palier high et low), visite guidée en français et en arabe (étapes, focus, Échap, mémorisation, compte ancien non concerné), reçu sous les deux paliers.
+
+---
+
 # FREINDI PAY 20.3.0 — identité teal, écran Comptes, barre du bas, assistant « Freindi Pay »
 
 ## Identité

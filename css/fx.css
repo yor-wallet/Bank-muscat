@@ -1,0 +1,65 @@
+/* ==========================================================================
+   FREINDI PAY 20.4.0 — effets adaptatifs (palier <html data-fx="high|mid|low">, posé par le Conductor), couche « waouh » de la présentation et visite guidée.
+   Chargé en dernier. Seules transform / opacity sont animées (pas de filter, pas de layout) ; tout s'arrête sous prefers-reduced-motion.
+   ========================================================================== */
+
+/* ---------- 1. paliers : l'application s'allège toute seule sur un appareil modeste ou qui rame ---------- */
+/* mid : on garde le flou utile, on coupe les boucles purement décoratives */
+html[data-fx="mid"] .ob-slide.on .ph-wrap,html[data-fx="mid"] .ob-slide.on .ph-chip,html[data-fx="mid"] .su-gift::after,html[data-fx="mid"] .ob::after{animation:none}
+html[data-fx="mid"] .ob::before{animation-duration:28s}
+/* low : sobre — plus de flou d'arrière-plan (coûteux), plus de décor animé ; les panneaux translucides reprennent un fond plein pour rester lisibles */
+html[data-fx="low"] *,html[data-fx="low"] *::before,html[data-fx="low"] *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-fx="low"] .toast,html[data-fx="low"] .notif-ios,html[data-fx="low"] .glass,html[data-fx="low"] .glass-elevated,html[data-fx="low"] .glass-subtle,html[data-fx="low"] .ph-chip{background-color:var(--bg-1,#fff)}
+html[data-fx="low"] .ph-chip{background-color:rgba(26,26,30,.96)}
+html[data-fx="low"] #ambient,html[data-fx="low"] .ob::before,html[data-fx="low"] .ob::after{display:none}
+html[data-fx="low"] .ob-slide.on .ph-wrap,html[data-fx="low"] .ob-slide.on .ph-chip,html[data-fx="low"] .su-gift::after,html[data-fx="low"] .ph-conf i,html[data-fx="low"] .tr-spot::after{animation:none!important}
+/* mode sûr (3 fins anormales en 10 minutes) : plus aucune animation, l'essentiel seulement */
+html[data-safe="1"] *,html[data-safe="1"] *::before,html[data-safe="1"] *::after{animation:none!important;transition:none!important}
+
+/* ---------- 2. présentation : aurore vivante + ciel étoilé derrière les pages ---------- */
+.ob{isolation:isolate}
+.ob::before{content:"";position:absolute;inset:-18% -35% auto -35%;height:78%;z-index:-1;pointer-events:none;will-change:transform;
+  background:radial-gradient(38% 46% at 28% 42%,rgba(72,194,201,.38),transparent 70%),radial-gradient(34% 42% at 74% 30%,rgba(14,138,148,.46),transparent 70%),radial-gradient(30% 36% at 52% 70%,rgba(186,232,235,.16),transparent 72%);
+  animation:fxAurora 16s ease-in-out infinite alternate}
+.ob::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
+  background-image:radial-gradient(1.6px 1.6px at 22px 34px,#fff,transparent),radial-gradient(1px 1px at 84px 92px,#bae8eb,transparent),radial-gradient(1.4px 1.4px at 118px 22px,#8edde2,transparent),radial-gradient(1px 1px at 52px 120px,#fff,transparent);
+  background-size:150px 140px;animation:fxTwinkle 6s ease-in-out infinite alternate}
+@keyframes fxAurora{from{transform:translate3d(-5%,-2%,0) scale(1)}to{transform:translate3d(6%,5%,0) scale(1.14)}}
+@keyframes fxTwinkle{from{opacity:.28}to{opacity:.7}}
+/* point actif : s'étire avec une lueur ; la page qui arrive entre en fondu doux */
+.ob-dot.on{box-shadow:0 0 14px rgba(72,194,201,.7)}
+.ob-slide{transition:opacity .45s ease}
+.ob-slide:not(.on){opacity:.35}
+.ob-next{position:relative;overflow:hidden}
+.ob-next::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.38) 50%,transparent 60%);transform:translateX(-120%);animation:fxSheen 3.6s 1.4s ease-in-out infinite}
+@keyframes fxSheen{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+html[data-fx="mid"] .ob-next::after,html[data-fx="low"] .ob-next::after{animation:none}
+
+/* ---------- 3. visite guidée (première ouverture d'un nouveau compte) ---------- */
+.tr{position:fixed;inset:0;z-index:260;opacity:0;transition:opacity .22s ease}
+.tr.is-in{opacity:1}.tr.is-out{opacity:0}
+.tr-spot{position:fixed;border-radius:24px;pointer-events:none;box-shadow:0 0 0 100vmax rgba(4,24,28,.68);
+  transition:left .38s cubic-bezier(.22,1,.36,1),top .38s cubic-bezier(.22,1,.36,1),width .38s cubic-bezier(.22,1,.36,1),height .38s cubic-bezier(.22,1,.36,1)}
+.tr-spot::after{content:"";position:absolute;inset:-3px;border-radius:inherit;border:2px solid var(--accent,#48c2c9);animation:trPulse 1.9s ease-out infinite}
+@keyframes trPulse{0%{transform:scale(.97);opacity:.95}100%{transform:scale(1.16);opacity:0}}
+.tr-card{position:fixed;padding:16px 16px 14px;border-radius:22px;background:var(--bg-1,#fff);color:var(--text,#10242b);border:1px solid var(--border,rgba(0,0,0,.1));
+  box-shadow:0 24px 60px -18px rgba(0,0,0,.55);animation:trRise .45s cubic-bezier(.22,1,.36,1) both}
+.tr-card::after{content:"";position:absolute;bottom:-8px;left:var(--ax,50%);width:15px;height:15px;background:var(--bg-1,#fff);border-right:1px solid var(--border,rgba(0,0,0,.1));border-bottom:1px solid var(--border,rgba(0,0,0,.1));transform:translateX(-50%) rotate(45deg)}
+@keyframes trRise{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.tr-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tr-kick{direction:ltr;unicode-bidi:isolate;font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--accent-600,#0e8a94);font-variant-numeric:tabular-nums}
+.tr-skip{background:none;border:0;padding:6px 4px;font:inherit;font-size:13px;font-weight:700;color:var(--text-3,#6b7f86);cursor:pointer;min-height:32px}
+.tr-h{margin:6px 0 4px;font-size:20px;line-height:1.2;font-weight:800}
+.tr-p{margin:0;font-size:14.5px;line-height:1.5;color:var(--text-2,#3f565e)}
+.tr-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:14px}
+.tr-dots{display:flex;gap:6px}
+.tr-dots i{width:7px;height:7px;border-radius:50%;background:var(--border,rgba(0,0,0,.18));transition:width .3s cubic-bezier(.22,1,.36,1),background-color .25s}
+.tr-dots i.done{background:var(--accent,#48c2c9);opacity:.55}
+.tr-dots i.on{width:20px;border-radius:6px;background:var(--accent,#48c2c9)}
+.tr-next{min-width:118px;min-height:44px;font-weight:800}
+[dir="rtl"] .tr-kick{letter-spacing:0}
+
+@media (prefers-reduced-motion:reduce){
+  .ob::before,.ob::after,.ob-next::after,.tr-spot::after,.tr-card{animation:none!important}
+  .tr,.tr-spot,.tr-dots i,.ob-dot,.ob-slide{transition:none!important}
+}

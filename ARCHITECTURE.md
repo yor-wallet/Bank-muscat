@@ -117,3 +117,12 @@ Les trois fichiers sont dans `SHELL` de `sw.js` ; la CSP n'autorise que `https:/
 - `js/features/accounts.js` (après `premium.js`, avant `wire.js`) : `Accounts.render()` ; enregistre l'écran `accounts` (`R.register`) et sa navigation (`R.meta({ accounts: { parent:'home', nav:'accounts' } })`). Fichier ajouté à `index.html` et à `SHELL` de `sw.js`. Styles `.ac-*` à la fin de `css/premium.css`.
 - Barre du bas (`buildNav`, `js/features/v12.js`) : home · accounts · country-select (centre) · cards · services (« Plus »).
 - Régénérer les visuels : `FP_CHROME=<chemin chromium> node scripts/dev/brand-assets.mjs`.
+
+## Freindi Pay 20.4.0 (moteur adaptatif, centre de données, mini-agents)
+- Ordre de chargement (`index.html`) : `guardian` → `store19` → **`conductor`** → … → `auth` → **`datacenter`** → … → `accounts` → **`sentinels`** → **`tour`** → `wire` → `boot`. `css/fx.css` est la dernière feuille.
+- `Conductor` (`js/core/conductor.js`) : `on('hide'|'resume'|'online'|'offline'|'tier', fn)`, `task(nom, fn, { every, first, prio, heavy })` (fn COURTE : déléguer le réseau au DataCenter), `fx()`, `scale()` (0 / .25 / .55 / 1 pour confettis et particules), `isSafe()`, `stats()`. Palier sur `<html data-fx>`, réseau sur `data-net`, mode sûr sur `data-safe`. Clé locale `fp_life_v1`.
+- `DataCenter` (`js/core/datacenter.js`) : `pull(raison)` (immédiat, fusionné), `request(raison, { force, delay })` (regroupé, écart minimal, retard croissant), `status()`, `on('change'|'state')`. `AuthEngine.hydrateLive()` = `DataCenter.pull('op')` ; la lecture elle-même est `AuthEngine._hydrateRaw`. Raisons qui redessinent l'écran : `live`, `resume`, `online`, `poll`, `verify`, `manual` (pas `op`, pas `heal`).
+- `Sentinels` (`js/features/sentinels.js`) : `agent(id, every, first, fn)` interne ; `status()`, `summary()`, `line()`, `run(id)`, `runAll()`. Un agent ne modifie JAMAIS un solde ni une opération.
+- `Tour` (`js/features/tour.js`) : `maybe()` (boot, 2,6 s après l'accueil), `show(true)` pour la rejouer. Clé `fp_tour_<uid>`.
+- Reçu : `renderReceipt` construit `v.rows` / `v.party` ; `ReceiptExport.svg` les dessine (hauteur de ligne variable avec sous-ligne).
+- Ajouter un contrôle : `agent('nom', intervalle, premier passage, () => ({ ok, note }))` — note sans donnée personnelle.

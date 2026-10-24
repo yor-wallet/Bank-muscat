@@ -26,7 +26,8 @@ const DEEP_OK = ['cards', 'country-select', 'receive', 'history', 'notifications
 let _deepUsed = false;
 function openHome(){
   R.go('home', { reset:true, force:true });
-  setTimeout(() => { try { Reward.check(); } catch(e){ /* rien */ } try { LiveX.afterHome(); } catch(e){ /* rien */ } }, 700);     /* 16.0.0 : récompense de bienvenue réellement créditée par le serveur → célébration */
+  setTimeout(() => { try { Reward.check(); } catch(e){ /* rien */ } try { LiveX.afterHome(); } catch(e){ /* rien */ } }, 700);
+  setTimeout(() => { try { Tour.maybe(); } catch(e){ /* rien */ } }, 2600);          /* 20.4.0 : visite guidée, une seule fois, nouveaux comptes seulement */     /* 16.0.0 : récompense de bienvenue réellement créditée par le serveur → célébration */
   if (_deepUsed || !LAUNCH_HASH) return;
   _deepUsed = true;
   try {
