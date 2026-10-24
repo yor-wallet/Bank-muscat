@@ -11,23 +11,22 @@ const ReceiptExport = (() => {
     failed:  { fg:'#B42318', bg:'#FCE4E1', icon:'M-17 -17l34 34M17 -17l-34 34' }
   };
   const stateOf = (r, v) => (v && v.state) || txState(r.status);
+  /* 20.4.0 — reçu épuré : mêmes lignes que l'écran (v.rows), sans montant répété, sans statut en ligne, sans identifiant technique.
+     [libellé, valeur, style, sous-ligne]. Sans v.rows (appel ancien), on retombe sur un jeu minimal construit depuis v. */
   function rows(r, v){
     const st = stateOf(r, v), out = [];
-    if (v.who) out.push([v.partyLabel || t('receipt.beneficiary'), v.who]);
-    if (v.fromPhone) out.push([t('receipt.from'), v.fromPhone, 'mono']);
-    out.push([t(v.isIn ? 'receipt.amountReceived' : 'receipt.amountSent'), v.amtFmt]);
-    if (v.destFmt) out.push([t('transfer.receiving'), v.destFmt, 'acc']);
-    if (v.rate) out.push([t('transfer.rate'), v.rate]);
+    const party = v.party || { label: v.partyLabel || t('receipt.beneficiary'), name: v.who || '', sub: '' };
+    if (party.name) out.push([party.label, party.name, '', party.sub || '']);
+    if (Array.isArray(v.rows)){ v.rows.forEach(x => out.push([x.k, x.v, x.cls || '', x.sub || ''])); return out; }
+    if (v.destFmt) out.push([t('transfer.receiving'), v.destFmt, 'acc', v.rate || '']);
     if (!v.isIn && st !== 'failed'){      /* a failed operation draws no debit line: nothing was debited by it */
       if (r.fee) out.push([t('receipt.fees'), v.feeFmt]);
       if (v.vatFmt) out.push([t('receipt.vat'), v.vatFmt]);
-      if (v.hasCost !== false) out.push([t('receipt.totalDebit'), v.totalFmt, 'bold']);
+      if (v.hasCost !== false && r.fee) out.push([t('receipt.totalDebit'), v.totalFmt, 'bold']);
     }
-    out.push([t('receipt.date'), v.date]);
-    out.push([t('receipt.hour'), v.time]);
-    out.push([t('receipt.status'), v.statusTxt, 'st']);
-    out.push([t('receipt.id'), String(r.transactionId || r.id || '—'), 'mono']);
-    out.push([t('receipt.reference'), dispId(String(r.reference || '—')), 'mono']);
+    out.push([t('receipt.date'), v.date + ' · ' + v.time]);
+    const ref = dispId(String(r.reference || ''));
+    if (ref) out.push([t('receipt.reference'), ref, 'mono']);
     return out;
   }
   /* word wrap for the SVG (no automatic wrapping there); at most 3 lines */
@@ -39,7 +38,7 @@ const ReceiptExport = (() => {
   }
   function svg(r, v){
     const rtl = document.documentElement.dir === 'rtl', st = stateOf(r, v), pal = PAL[st];
-    const list = rows(r, v), rowH = 84;
+    const list = rows(r, v), rowH = 84, subH = 34;
     const xL = rtl ? W - 90 : 90, xV = rtl ? 90 : W - 90, aL = rtl ? 'end' : 'start', aV = rtl ? 'start' : 'end';
     const cx = W / 2;
     const HDR = 300;   /* bandeau bleu profond : identité bancaire */
@@ -51,14 +50,17 @@ const ReceiptExport = (() => {
     if (v.eyebrow){ y += 46; hero += '<text x="' + cx + '" y="' + y + '" font-size="24" font-weight="700" fill="#8A8A8A" text-anchor="middle"' + (rtl ? '' : ' letter-spacing="3"') + '>' + escapeHtml(rtl ? String(v.eyebrow) : String(v.eyebrow).toUpperCase()) + '</text>'; }
     wrap(v.sub, 46).forEach(line => { y += 40; hero += '<text x="' + cx + '" y="' + y + '" font-size="27" fill="#6B6B6B" text-anchor="middle">' + escapeHtml(line) + '</text>'; });
     const top = y + 56;                                           /* the dashed tear line */
-    const H = top + list.length * rowH + 240;
+    const H = top + list.reduce((n, x) => n + rowH + (x[3] ? subH : 0), 0) + 190;
     let ry = top;
     const body = list.map((x, i) => {
-      ry += rowH;
+      const hasSub = !!x[3];
+      ry += rowH + (hasSub ? subH : 0);
       const val = String(x[1]); const fs = val.length > 34 ? 22 : (val.length > 24 ? 26 : 32);
-      const isSt = x[2] === 'st', c = isSt ? pal.fg : x[2] === 'acc' ? '#0e8a94' : '#151411', w = (x[2] === 'bold' || isSt) ? 800 : 600;
-      return '<text x="' + xL + '" y="' + (ry - 26) + '" font-size="28" fill="#6B6B6B" text-anchor="' + aL + '">' + escapeHtml(x[0]) + '</text>' +
-        '<text x="' + xV + '" y="' + (ry - 26) + '" font-size="' + (x[2] === 'bold' ? 36 : fs) + '" font-weight="' + w + '" fill="' + c + '" text-anchor="' + aV + '" direction="ltr"' + (x[2] === 'mono' ? ' font-family="ui-monospace,Menlo,Consolas,monospace"' : '') + '>' + escapeHtml(val) + '</text>' +
+      const c = x[2] === 'acc' ? '#0e8a94' : '#151411', w = x[2] === 'bold' ? 800 : 600;
+      const by = ry - 26 - (hasSub ? subH : 0);                     /* ligne de base de la valeur */
+      return '<text x="' + xL + '" y="' + by + '" font-size="28" fill="#6B6B6B" text-anchor="' + aL + '">' + escapeHtml(x[0]) + '</text>' +
+        '<text x="' + xV + '" y="' + by + '" font-size="' + (x[2] === 'bold' ? 36 : fs) + '" font-weight="' + w + '" fill="' + c + '" text-anchor="' + aV + '" direction="ltr"' + (x[2] === 'mono' ? ' font-family="ui-monospace,Menlo,Consolas,monospace"' : '') + '>' + escapeHtml(val) + '</text>' +
+        (hasSub ? '<text x="' + xV + '" y="' + (by + subH) + '" font-size="24" fill="#8A8A8A" text-anchor="' + aV + '" direction="ltr">' + escapeHtml(String(x[3])) + '</text>' : '') +
         (i < list.length - 1 ? '<line x1="90" x2="' + (W - 90) + '" y1="' + (ry - 4) + '" y2="' + (ry - 4) + '" stroke="#EAEAEA" stroke-width="2"/>' : '');
     }).join('');
     const BRAND = rtl ? 'فريندي باي' : 'Freindi Pay';      /* reçu exporté en PNG : mot-symbole arabe, sans espacement des lettres */
@@ -73,8 +75,7 @@ const ReceiptExport = (() => {
       '<rect x="' + (rtl ? W - 90 - 76 : 90) + '" y="104" width="76" height="76" rx="22" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>' +
       '<text x="' + (rtl ? W - 90 - 38 : 128) + '" y="156" font-size="40" font-weight="800" fill="#FFFFFF" text-anchor="middle">F</text>' +
       '<text x="' + (rtl ? W - 182 : 182) + '" y="152" font-size="38" font-weight="800" fill="#FFFFFF" text-anchor="' + btxt + '"' + (rtl ? '' : ' letter-spacing=".5"') + '>' + BRAND + '</text>' +
-      '<text x="' + tx + '" y="128" font-size="23" font-weight="700" fill="rgba(255,255,255,.82)" text-anchor="' + ttxt + '"' + (rtl ? '' : ' letter-spacing="2.5"') + '>' + escapeHtml(docType) + '</text>' +
-      '<text x="' + tx + '" y="166" font-size="24" font-weight="600" fill="rgba(255,255,255,.95)" text-anchor="' + ttxt + '" direction="ltr">' + escapeHtml(dispId(String(r.reference || r.transactionId || r.id || '—'))) + '</text>' +
+      '<text x="' + tx + '" y="148" font-size="23" font-weight="700" fill="rgba(255,255,255,.82)" text-anchor="' + ttxt + '"' + (rtl ? '' : ' letter-spacing="2.5"') + '>' + escapeHtml(docType) + '</text>' +
       '<circle cx="' + cx + '" cy="' + (HDR + 40) + '" r="72" fill="#FFFFFF" stroke="' + pal.bg + '" stroke-width="10"/>' +
       '<circle cx="' + cx + '" cy="' + (HDR + 40) + '" r="50" fill="none" stroke="' + pal.fg + '" stroke-width="7"/>' +
       '<g transform="translate(' + cx + ' ' + (HDR + 40) + ')"><path d="' + pal.icon + '" stroke="' + pal.fg + '" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>';
@@ -88,9 +89,8 @@ const ReceiptExport = (() => {
       '<line x1="90" x2="' + (W - 90) + '" y1="' + top + '" y2="' + top + '" stroke="#D6D6D6" stroke-width="3" stroke-dasharray="14 12"/>' +
       '<circle cx="40" cy="' + top + '" r="26" fill="' + BG + '"/><circle cx="' + (W - 40) + '" cy="' + top + '" r="26" fill="' + BG + '"/>' +
       body +
-      '<text x="' + cx + '" y="' + (H - 136) + '" font-size="26" font-weight="700" fill="#0e8a94" text-anchor="middle">' + BRAND + '</text>' +
-      '<text x="' + cx + '" y="' + (H - 100) + '" font-size="22" fill="#8A8A8A" text-anchor="middle">' + escapeHtml(v.date + ' · ' + v.time) + '</text>' +
-      '<text x="' + cx + '" y="' + (H - 64) + '" font-size="19" fill="#A0A0A0" text-anchor="middle">' + escapeHtml(note) + '</text></svg>';
+      '<text x="' + cx + '" y="' + (H - 108) + '" font-size="26" font-weight="700" fill="#0e8a94" text-anchor="middle">' + BRAND + '</text>' +
+      '<text x="' + cx + '" y="' + (H - 68) + '" font-size="19" fill="#A0A0A0" text-anchor="middle">' + escapeHtml(note) + '</text></svg>';
   }
   function canvasOf(r, v){
     return new Promise((resolve, reject) => {
@@ -139,7 +139,7 @@ const ReceiptExport = (() => {
   async function run(kind){
     const r = window.__YOR_LAST_RECEIPT__, v = window.__YOR_LAST_RECEIPT_VIEW__;
     if (!r || !v) return;
-    const base = 'FREINDI-PAY-' + dispId(String(r.reference || r.transactionId || r.id || 'receipt')).replace(/[^\w-]/g, '');
+    const base = 'FREINDI-PAY-' + (typeof rcShortRef === 'function' && rcShortRef(r) || 'receipt').replace(/[^\w-]/g, '');
     try {
       const c = await canvasOf(r, v);
       if (kind === 'pdf'){ save(await pdfBlob(c), base + '.pdf'); toast(t('action.download'), 'success'); return; }

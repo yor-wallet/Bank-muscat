@@ -160,7 +160,15 @@ function rcRow(label, valueHtml, opts){
   opts = opts || {};
   return '<div class="receipt-row' + (opts.cls ? ' ' + opts.cls : '') + '"' + (opts.id ? ' id="' + opts.id + '"' : '') + '>' +
     '<span class="receipt-row-label">' + escapeHtml(label) + '</span>' +
-    '<span class="receipt-row-value' + (opts.vcls ? ' ' + opts.vcls : '') + '">' + valueHtml + '</span></div>';
+    '<span class="receipt-row-value' + (opts.vcls ? ' ' + opts.vcls : '') + '">' + valueHtml +
+      (opts.sub ? '<small class="receipt-row-sub' + (opts.subLtr ? ' ltr' : '') + '">' + escapeHtml(opts.sub) + '</small>' : '') + '</span>' + (opts.after || '') + '</div>';
+}
+/* 20.4.0 : une seule référence courte à l'écran et dans l'export. L'identifiant technique complet (UUID) n'est plus affiché : il reste dans les données. */
+function rcShortRef(r){
+  const ref = dispId(String(r.reference || ''));
+  if (ref) return ref;
+  const raw = String(r.transactionId || r.id || '').replace(/^tx-/i, '').replace(/[^a-z0-9]/gi, '');
+  return raw ? 'FP-' + raw.slice(0, 8).toUpperCase() : '';
 }
 
 function renderReceipt(){
@@ -209,7 +217,7 @@ function renderReceipt(){
   const hasCost = isCrypto || !!r.fee || !!r.vat || (r.total != null && Math.abs(Number(r.total) - Number(r.amount)) > 0.0005);
   const sameCur = !!(r.destinationCurrency && r.destinationCurrency === (r.currency || 'OMR'));
   const destFmt = (r.destinationAmount != null && !sameCur) ? CurrencyEngine.format(r.destinationAmount, r.destinationCurrency || (country ? country.cur : 'OMR')) : null;
-  const rateTxt = (r.exchangeRate && r.destinationCurrency && !sameCur) ? ('1 ' + (r.currency || 'OMR') + ' = ' + Number(r.exchangeRate).toFixed(4) + ' ' + r.destinationCurrency) : '';
+  const rateTxt = (r.exchangeRate && r.destinationCurrency && !sameCur) ? ('1 ' + (r.currency || 'OMR') + ' = ' + String(+Number(r.exchangeRate).toFixed(4)) + ' ' + r.destinationCurrency) : '';
   const fromPhone = (isCrypto || isIn) ? '' : receiptSenderPhone();
   const title = state === 'failed' ? t('receipt.failed_title') : state === 'pending' ? t('receipt.pending_title2')
     : isIn ? t('receipt.received_title') : isTransfer ? t('success.title') : t('receipt.done_title');
@@ -217,41 +225,48 @@ function renderReceipt(){
   const statusTxt = state === 'success' ? t('receipt.ok') : state === 'failed' ? t('tx.st.failed') : t('receipt.pending_status');
   const eyebrow = opLabel(r);
   const partyLabel = isIn ? t('receipt.sender') : t('receipt.beneficiary');
-  const ref = dispId(String(r.reference || r.id || ''));
-  const txId = dispId(String(r.transactionId || r.id || ''));
+  const ref = rcShortRef(r);
   window.__YOR_LAST_RECEIPT__ = r;
   window.__YOR_LAST_RECEIPT_VIEW__ = { amtFmt, feeFmt, vatFmt, totalFmt, hasCost, destFmt, fromPhone, date: fmtDate(r.createdAt), time: fmtTime(r.createdAt),
     statusTxt, state, title, sub, eyebrow, isIn, partyLabel,
     who: (r.beneficiary && (benName || r.beneficiary.phone || dispId(r.beneficiary.yorId))) || (country ? (country[LANG] || country.en) : (r.network || '')),
     rate: rateTxt };
 
-  /* amounts: a failed operation draws no "total debited" line (it would claim a debit that did not happen) */
-  let rows = '';
-  /* 18.0.0 : le propriétaire du compte est toujours nommé sur le reçu (son vrai nom, jamais un exemple) */
-  try { const op = Runtime.profile || {}, on = ((op.firstName || '') + ' ' + (op.lastName || '')).trim(); if (on) rows += rcRow(t('receipt.owner'), escapeHtml(on) + (Runtime.ctx && Runtime.ctx.yorId ? ' · <span class="ltr">' + escapeHtml(dispId(Runtime.ctx.yorId)) + '</span>' : ''), { id: 'receipt-owner' }); } catch(e){ /* rien */ }
-  if (fromPhone) rows += rcRow(t('receipt.from'), escapeHtml(typeof formatPhoneIntl === 'function' ? formatPhoneIntl(fromPhone) : fromPhone), { id: 'receipt-from', vcls: 'ltr' });
-  if (!isIn && !isCrypto) rows += rcRow(t('receipt.paidFrom'), escapeHtml(t('receipt.paidFromVal') + ' · ' + (r.currency || 'OMR')));
-  rows += rcRow(t(isIn ? 'receipt.amountReceived' : 'receipt.amountSent'), escapeHtml(amtFmt), { vcls: 'ltr' });
-  if (destFmt) rows += rcRow(t('transfer.receiving'), escapeHtml(destFmt), { vcls: 'ltr acc' });
-  if (rateTxt) rows += rcRow(t('transfer.rate'), escapeHtml(rateTxt), { vcls: 'ltr sm' });
-  if (!isIn && state !== 'failed'){
-    if (r.fee) rows += rcRow(t('receipt.fees'), escapeHtml(feeFmt), { vcls: 'ltr' });
-    if (vatFmt) rows += rcRow(t('receipt.vat'), escapeHtml(vatFmt), { vcls: 'ltr' });
+  /* 20.4.0 — reçu épuré : quelques lignes utiles, sans répétition.
+     Le montant est déjà dans l'en-tête, le bénéficiaire dans sa carte, le statut dans le badge et le titre : ils ne sont plus répétés en lignes.
+     Date et heure tiennent sur une ligne ; une seule référence courte ; l'identifiant technique complet n'est plus affiché. */
+  const clean = [];
+  const ownerName = (() => { try { const op = Runtime.profile || {}; return ((op.firstName || '') + ' ' + (op.lastName || '')).trim(); } catch(e){ return ''; } })();
+  const fromTxt = fromPhone ? (typeof formatPhoneIntl === 'function' ? formatPhoneIntl(fromPhone) : fromPhone) : '';
+  if (!isIn && !isCrypto && (ownerName || fromTxt)) clean.push({ k: t('receipt.from'), v: ownerName || fromTxt, sub: ownerName ? fromTxt : '', subLtr: true, id: 'receipt-from' });
+  if (destFmt) clean.push({ k: t('transfer.receiving'), v: destFmt, cls: 'acc', ltr: true, sub: rateTxt, subLtr: true });
+  if (!isIn && state !== 'failed'){        /* a failed operation draws no debit line: nothing was debited by it */
+    if (r.fee) clean.push({ k: t('receipt.fees'), v: feeFmt, ltr: true });
+    if (vatFmt) clean.push({ k: t('receipt.vat'), v: vatFmt, ltr: true });
     /* 12.12.0: no fees on transfers -> "total debited" would repeat the amount; it is drawn only when it differs (older operations, crypto) */
-    if (hasCost) rows += rcRow(t('receipt.totalDebit'), escapeHtml(totalFmt), { cls: 'total', vcls: 'ltr' });
+    if (hasCost) clean.push({ k: t('receipt.totalDebit'), v: totalFmt, ltr: true, total: true });
   }
+  clean.push({ k: t('receipt.date'), v: '\u2068' + fmtDate(r.createdAt) + '\u2069 · \u2066' + fmtTime(r.createdAt) + '\u2069' });   /* isolats Unicode : la date arabe et l'heure gardent chacune leur sens de lecture */
+  if (ref) clean.push({ k: t('receipt.reference'), v: ref, ltr: true, mono: true, copy: ref, id: 'receipt-ref' });
+  const partyName = benName || (r.beneficiary && r.beneficiary.phone ? (typeof formatPhoneIntl === 'function' ? formatPhoneIntl(r.beneficiary.phone) : r.beneficiary.phone) : '') || (r.beneficiary && r.beneficiary.yorId ? dispId(r.beneficiary.yorId) : '');
+  const partyPhone = benName && r.beneficiary && r.beneficiary.phone ? (typeof formatPhoneIntl === 'function' ? formatPhoneIntl(r.beneficiary.phone) : r.beneficiary.phone) : '';
+  const partyWhere = (country || isCrypto || r.network) ? [cName, (r.network && r.network !== cName ? r.network : '')].filter(Boolean).join(' · ') : '';
+  window.__YOR_LAST_RECEIPT_VIEW__.rows = clean.map(x => ({ k: x.k, v: x.v, sub: x.sub || '', cls: x.total ? 'bold' : x.cls === 'acc' ? 'acc' : x.mono ? 'mono' : '' }));
+  window.__YOR_LAST_RECEIPT_VIEW__.party = { label: partyLabel, name: partyName, sub: [partyPhone, partyWhere].filter(Boolean).join(' · ') };
+  const copyBtn = (val) => '<button type="button" class="rc-copy" data-action="copy-ref" data-copy="' + escapeHtml(val) + '" aria-label="' + escapeHtml(t('receipt.copy_ref')) + '">' + icon('copy', 14) + '</button>';
+  const rowsHtml = clean.map(x => rcRow(x.k, escapeHtml(x.v), { id: x.id, vcls: (x.ltr ? 'ltr' : '') + (x.cls === 'acc' ? ' acc' : '') + (x.mono ? ' mono' : ''), cls: x.total ? 'total' : '', sub: x.sub, subLtr: x.subLtr, after: x.copy ? copyBtn(x.copy) : '' })).join('');
   /* "Make another transfer": a fiat transfer goes back to the start of the transfer flow, a crypto send to the crypto send flow; never for an incoming operation */
   const anotherNav = isIn ? '' : !isCrypto ? 'country-select' : /SEND/.test(kindStr) ? 'crypto-send' : '';
-  const copyBtn = (val) => '<button type="button" class="rc-copy" data-action="copy-ref" data-copy="' + escapeHtml(val) + '" aria-label="' + escapeHtml(t('receipt.copy_ref')) + '">' + icon('copy', 14) + '</button>';
-  const statement =
-    '<div class="receipt-statement">' +
-      '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.date') + '</span><span class="receipt-line-value">' + escapeHtml(fmtDate(r.createdAt)) + '</span></div>' +
-      '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.hour') + '</span><span class="receipt-line-value">' + escapeHtml(fmtTime(r.createdAt)) + '</span></div>' +
-      '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.status') + '</span><span class="receipt-line-value">' + statusPill(state, true, statusTxt) + '</span></div>' +
-      '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.reference') + '</span><span class="receipt-line-value ltr mono" id="receipt-ref">' + escapeHtml(ref) + '</span>' + (ref ? copyBtn(ref) : '') + '</div>' +
-      (txId && txId !== ref ? '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.id') + '</span><span class="receipt-line-value ltr mono sm">' + escapeHtml(txId) + '</span>' + copyBtn(txId) + '</div>' : '') +
-    '</div>';
-
+  const partyHtml = (partyName || partyPhone || partyWhere)
+    ? '<div class="receipt-benef">' +
+        '<div class="receipt-avatar">' + icon(isCrypto ? 'crypto' : 'user', 22) + '</div>' +
+        '<div class="receipt-benef-body">' +
+          '<div class="receipt-benef-label">' + escapeHtml(partyLabel) + '</div>' +
+          (partyName ? '<div class="receipt-benef-name' + (benName ? '' : ' ltr') + '">' + escapeHtml(partyName) + '</div>' : '') +
+          (partyPhone ? '<div class="receipt-benef-phone ltr" dir="ltr">' + escapeHtml(partyPhone) + '</div>' : '') +
+          (partyWhere ? '<div class="receipt-benef-country">' + (country ? '<span class="receipt-flag">' + flag(country.iso) + '</span>' : '') + '<span>' + escapeHtml(partyWhere) + '</span></div>' : '') +
+        '</div>' +
+      '</div>' : '';
   return '<div class="receipt-view rc rc-' + state + '">' +
     '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Freindi Pay</small></div>' +
       '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 18) + '</button>' +
@@ -260,27 +275,13 @@ function renderReceipt(){
       '<div class="rc-amt ltr">' + escapeHtml(amtFmt) + '</div>' +
       (destFmt ? '<div class="rc-dest ltr">≈ ' + escapeHtml(destFmt) + '</div>' : '') +
       '<div class="receipt-title">' + escapeHtml(title) + '</div>' +
-      (state === 'failed' ? '' : '<div class="rc-approved" role="status">' + icon('check', 15) + '<span>' + escapeHtml(t(state === 'success' ? 'lx.appr.done' : 'lx.appr.ok')) + '</span></div>') +
       (eyebrow ? '<div class="rc-eyebrow">' + escapeHtml(eyebrow) + '</div>' : '') +
       (sub ? '<div class="receipt-sub">' + escapeHtml(sub) + '</div>' : '') +
     '</section>' +
     '<section class="rc-sheet receipt-panel">' +
-      '<div class="receipt-benef">' +
-        '<div class="receipt-avatar">' + icon(isCrypto ? 'crypto' : 'user', 22) + '</div>' +
-        '<div class="receipt-benef-body">' +
-          '<div class="receipt-benef-label">' + escapeHtml(partyLabel) + '</div>' +
-          (benName ? '<div class="receipt-benef-name">' + escapeHtml(benName) + '</div>' : '') +
-          (r.beneficiary && r.beneficiary.phone ? '<div class="receipt-benef-phone ltr" dir="ltr">' + escapeHtml(typeof formatPhoneIntl === 'function' ? formatPhoneIntl(r.beneficiary.phone) : r.beneficiary.phone) + '</div>' : '') +
-          (r.beneficiary && r.beneficiary.yorId ? '<div class="receipt-benef-yor ltr">' + escapeHtml(dispId(r.beneficiary.yorId)) + '</div>' : '') +
-
-          (country ? '<div class="receipt-benef-country"><span class="receipt-flag">' + flag(country.iso) + '</span><span>' + escapeHtml(cName) + '</span></div>' : ((isCrypto || r.network) ? '<div class="receipt-benef-country"><span>' + escapeHtml(cName) + '</span></div>' : '')) +
-        '</div>' +
-      '</div>' +
-      (r.network ? '<div class="receipt-service"><div class="receipt-service-body"><div class="receipt-benef-label">' + t('receipt.service') + '</div><div class="receipt-service-name">' + escapeHtml(r.network) + '</div></div></div>' : '') +
-      '<div class="rc-tear" aria-hidden="true"></div>' +
-      '<div class="rc-rows">' + rows + '</div>' +
-      '<div class="rc-tear" aria-hidden="true"></div>' +
-      statement +
+      partyHtml +
+      (partyHtml ? '<div class="rc-tear" aria-hidden="true"></div>' : '') +
+      '<div class="rc-rows">' + rowsHtml + '</div>' +
     '</section>' +
     /* 16.1.0 : le suivi des messages envoyés (SMS / e-mail) n'est plus affiché dans le reçu : l'envoi continue côté serveur, sans bruit à l'écran */
     '' +
@@ -289,7 +290,6 @@ function renderReceipt(){
       '<button class="btn btn-secondary rc-a" data-action="download-pdf" aria-label="' + escapeHtml(t('rc.pdfL')) + '">' + icon('download', 18) + '<span>' + escapeHtml(t('rc.pdf')) + '</span></button>' +
       '<button class="btn btn-secondary rc-a" data-action="download-receipt" aria-label="' + escapeHtml(t('rc.pngL')) + '">' + icon('download', 18) + '<span>' + escapeHtml(t('rc.png')) + '</span></button>' +
       '<button class="btn btn-secondary rc-a" data-action="share-receipt">' + icon('share', 18) + '<span>' + t('action.share') + '</span></button>' +
-      (ref ? '<button class="btn btn-secondary rc-a" data-action="copy-ref" data-copy="' + escapeHtml(ref) + '">' + icon('copy', 18) + '<span>' + escapeHtml(t('rc.copyRef')) + '</span></button>' : '') +
       '<button class="btn btn-ghost rc-a rc-print" data-action="print-receipt">' + icon('doc', 18) + '<span>' + t('receipt.print') + '</span></button>' +
     '</div>' +
     (anotherNav ? '<button class="btn btn-primary rc-another" data-nav="' + anotherNav + '">' + t('receipt.another') + '</button>' : '') +

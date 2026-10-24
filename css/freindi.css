@@ -191,3 +191,10 @@ body::before{
   .fp-rise,.fp-fade,.fp-stagger>*{animation-duration:1ms;animation-delay:0ms}
   body::before{background-attachment:scroll}
 }
+
+/* 20.4.0 — reçu épuré : sous-ligne discrète sous une valeur (téléphone, taux), grille 2 × 2 des actions */
+.receipt-row-sub{display:block;margin-top:3px;font-size:calc(12px*var(--ui,1));font-weight:500;color:var(--text-3);font-family:var(--font-ui);line-height:1.35}
+.rc-acts .rc-print{grid-column:auto}
+.rc-rows .receipt-row-value{display:block;min-width:0}
+.rc-rows .receipt-row{align-items:baseline}
+.rc-rows .receipt-row .rc-copy{align-self:center}
