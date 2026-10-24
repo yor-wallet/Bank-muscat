@@ -1,4 +1,4 @@
-/* Live X Digitale 12.7.0 — bloc « Connect Wallet » (dans la carte de solde de l'accueil). Charge apres yor-ds.css.
+/* Freindi Pay 12.7.0 — bloc « Connect Wallet » (dans la carte de solde de l'accueil). Charge apres yor-ds.css.
    La carte de solde est toujours sombre (texte blanc), en theme sombre comme clair. */
 .nwc{margin-top:calc(14px*var(--ui));padding-top:calc(14px*var(--ui));border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:10px;color:#fff}
 .nwc-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;min-width:0}
@@ -14,10 +14,10 @@
 .nwc-btn:disabled{opacity:.6}
 @media (hover:hover){.nwc-btn:hover:not(:disabled){background:rgba(255,255,255,.2)}}
 .nwc-primary{background:#fff;border-color:transparent;color:#3f2e05;box-shadow:0 10px 22px -10px rgba(15,14,12,.55)}
-@media (hover:hover){.nwc-primary:hover:not(:disabled){background:#fff5d8}}
+@media (hover:hover){.nwc-primary:hover:not(:disabled){background:#EAF5FF}}
 .nwc-ghost{background:transparent}
 .nwc-msg{margin:0;font-size:var(--fs-sm);font-weight:600;line-height:1.35;border-radius:12px;padding:8px 12px}
-.nwc-msg.warn{background:var(--st-wait-bg);color:#FBBF24}
+.nwc-msg.warn{background:var(--st-wait-bg);color:#CFE7FF}
 .nwc-msg.bad{background:var(--st-bad-bg);color:#FDA4AF}
 .nwc-note{margin:0;font-size:var(--fs-xs);opacity:.74;line-height:1.4}
 .nwc-help{border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);font-size:var(--fs-sm)}

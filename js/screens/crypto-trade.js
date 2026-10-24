@@ -4,19 +4,19 @@
 Object.assign(TR.en, {
   'crypto.addressUnusual':'This does not look like a standard {net} address. You can still continue, but check the address and the network carefully.',
   'crypto.addressLooksLike':'It looks like a {other} address.',
-  'errors.ADDRESS_NETWORK_MISMATCH':'This address belongs to a Live X Digitale wallet on another network. Pick the matching network.',
+  'errors.ADDRESS_NETWORK_MISMATCH':'This address belongs to a Freindi Pay wallet on another network. Pick the matching network.',
   'errors.UNSUPPORTED_NETWORK':'This coin is not available on this network.'
 });
 Object.assign(TR.fr, {
   'crypto.addressUnusual':'Cette adresse ne ressemble pas à une adresse {net} standard. Vous pouvez continuer, mais vérifiez bien l\'adresse et le réseau.',
   'crypto.addressLooksLike':'Elle ressemble à une adresse {other}.',
-  'errors.ADDRESS_NETWORK_MISMATCH':'Cette adresse est celle d\'un portefeuille Live X Digitale sur un autre réseau. Choisissez le réseau correspondant.',
+  'errors.ADDRESS_NETWORK_MISMATCH':'Cette adresse est celle d\'un portefeuille Freindi Pay sur un autre réseau. Choisissez le réseau correspondant.',
   'errors.UNSUPPORTED_NETWORK':'Cette crypto n\'est pas disponible sur ce réseau.'
 });
 Object.assign(TR.ar, {
   'crypto.addressUnusual':'هذا العنوان لا يشبه عنوان {net} المعتاد. يمكنك المتابعة، لكن تحقق جيداً من العنوان والشبكة.',
   'crypto.addressLooksLike':'يبدو أنه عنوان {other}.',
-  'errors.ADDRESS_NETWORK_MISMATCH':'هذا العنوان لمحفظة Live X Digitale على شبكة أخرى. اختر الشبكة المطابقة.',
+  'errors.ADDRESS_NETWORK_MISMATCH':'هذا العنوان لمحفظة Freindi Pay على شبكة أخرى. اختر الشبكة المطابقة.',
   'errors.UNSUPPORTED_NETWORK':'هذه العملة غير متاحة على هذه الشبكة.'
 });
 

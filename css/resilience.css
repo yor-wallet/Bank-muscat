@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FRIENDLY PAY 12.11.0 — écran de secours, bannière hors-ligne, démarrage impossible
+   FREINDI PAY 12.11.0 — écran de secours, bannière hors-ligne, démarrage impossible
    ========================================================================== */
 .res-screen,.res-fatal{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:calc(12px*var(--ui));
   min-height:70vh;padding:calc(28px*var(--ui)) calc(24px*var(--ui))}
@@ -19,5 +19,5 @@
   transform:translateY(-110%);opacity:0;transition:transform .32s cubic-bezier(.2,.9,.2,1),opacity .24s ease}
 #net-banner.is-on{transform:translateY(0);opacity:1}
 #net-banner.is-off{background:#B4532A}
-#net-banner.is-ok{background:#6b4c08}
+#net-banner.is-ok{background:#0057D9}
 @media (prefers-reduced-motion:reduce){.res-art{animation:none}#net-banner{transition:none}}

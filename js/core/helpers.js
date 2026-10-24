@@ -71,7 +71,7 @@ function sparklineSvg(symbol, w, h){
 
 function receiptToText(r){
   const lines = [];
-  lines.push('Live X Digitale — Receipt');
+  lines.push('Freindi Pay — Receipt');
   lines.push('─────────────────────');
   lines.push('Reference: ' + (r.reference || r.transactionId || r.id));
   lines.push('Date: ' + fmtDate(r.createdAt) + ' ' + fmtTime(r.createdAt));
@@ -91,7 +91,7 @@ function receiptToText(r){
   if (r.vat) lines.push('VAT: ' + CurrencyEngine.format(r.vat, r.currency || 'OMR'));
   lines.push('Total debited: ' + fmtA(r.total, r.asset));
   lines.push('─────────────────────');
-  lines.push('Live X Digitale');
+  lines.push('Freindi Pay');
   return lines.join('\n');
 }
 
@@ -222,9 +222,9 @@ async function copyText(text, okMsg){
 
 
 /* ============================================================
-   Live X ID display (12.9.0)
+   Freindi Pay ID display (12.9.0)
    The database keeps its identifiers as YOR-XXXXXX (profiles_yor_id_check) and YOR-TX-… (new_tx_reference): they are NOT
    changed. Users see LXD-… everywhere, and may type LXD-, FRD-, FRIENDLY- or YOR- when searching for someone.
    ============================================================ */
-function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'LXD-'); }
-function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(LXD|LIVEX|LIVE X|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }
+function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'FP-'); }
+function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(FP|LXD|LIVEX|LIVE X|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }

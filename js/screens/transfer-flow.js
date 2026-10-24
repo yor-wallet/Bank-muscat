@@ -29,7 +29,7 @@ function txRow(tx, mask){
 }
 /* ============================================================
    12.12.0 — SEND MONEY: one screen asks for ONE thing, the recipient's mobile number.
-   The country, the service and the Live X ID steps are gone: the app sends to Omani mobile numbers.
+   The country, the service and the Freindi Pay ID steps are gone: the app sends to Omani mobile numbers.
    How Oman does it (Central Bank of Oman, mobile-number payments): the sender types the recipient's mobile number, the app shows who the
    number belongs to when it knows, then the amount in rials with three decimals (baisa), then a confirmation protected by the personal code.
    Numbers: +968 then 8 digits; mobile numbers start with 7 or 9. The id "country-select" is kept for links, shortcuts and the dock.

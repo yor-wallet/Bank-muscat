@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LIVE X DIGITALE 16.0.0 — transfert international (écrans intl-*). Chargé après welcome.css.
+   FREINDI PAY 16.0.0 — transfert international (écrans intl-*). Chargé après welcome.css.
    Seules transform / opacity sont animées ; tout s'arrête sous prefers-reduced-motion.
    ========================================================================== */
 .ix-body{display:flex;flex-direction:column;gap:calc(12px*var(--ui));padding-top:calc(4px*var(--ui))}
@@ -9,12 +9,12 @@
 
 /* bandeau d'ouverture : globe doré en rotation */
 .ix-hero{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(18px*var(--ui)) calc(14px*var(--ui)) calc(18px*var(--ui)) calc(18px*var(--ui));border-radius:calc(24px*var(--ui));color:#fff;
-  background:radial-gradient(120% 120% at 100% 0%,rgba(255,200,61,.42),transparent 58%),linear-gradient(150deg,#262215,#0A0A0B 72%);box-shadow:0 22px 40px -24px rgba(0,0,0,.8),inset 0 0 0 1px rgba(255,200,61,.22)}
-.ix-hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,200,61,.05) 0 1px,transparent 1px 18px);pointer-events:none}
+  background:radial-gradient(120% 120% at 100% 0%,rgba(0,122,255,.42),transparent 58%),linear-gradient(150deg,#262215,#0A0A0B 72%);box-shadow:0 22px 40px -24px rgba(0,0,0,.8),inset 0 0 0 1px rgba(0,122,255,.22)}
+.ix-hero::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(0,122,255,.05) 0 1px,transparent 1px 18px);pointer-events:none}
 .ix-hero-t{position:relative;z-index:1;display:flex;flex-direction:column;gap:7px;align-items:flex-start;min-width:0}
 .ix-hero-t b{font-size:calc(20px*var(--ui));font-weight:800;letter-spacing:-.01em}
 .ix-hero-t span:not(.ix-eta){font-size:calc(13px*var(--ui));color:#D8D2C2;line-height:1.4}
-.ix-hero .ix-eta{background:rgba(255,200,61,.2);color:#FFE08A}
+.ix-hero .ix-eta{background:rgba(0,122,255,.2);color:#7CC4FF}
 .ix-globe{position:relative;z-index:1;flex:none;width:calc(104px*var(--ui));height:calc(104px*var(--ui));animation:ixFloat 6s ease-in-out infinite}
 .ix-orbit{transform-origin:60px 60px;animation:ixSpin 14s linear infinite}
 .ix-ring{transform-origin:60px 60px;animation:ixSpin 40s linear infinite reverse}

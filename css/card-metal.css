@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FRIENDLY PAY 12.14.0 — CARTE MÉTAL VISA. Chargé après pagelock.css.
+   FREINDI PAY 12.14.0 — CARTE MÉTAL VISA. Chargé après pagelock.css.
    Matières métal (acier brossé, titane, or, anodisé), tranche biseautée, puce EMV, symbole sans contact,
    marque Visa, reflets qui suivent le doigt / l'inclinaison du téléphone (--mx --my --ang), animations d'entrée,
    de retournement et de repos. Aucun CVV, aucun numéro complet.
@@ -8,15 +8,15 @@
 
 /* ---------- 1. matières : chaque design est un métal ---------- */
 .th-obsidian{--cbg:
-    radial-gradient(70% 55% at 85% 0%,rgba(255,217,125,.30),transparent 60%),
+    radial-gradient(70% 55% at 85% 0%,rgba(56,189,248,.30),transparent 60%),
     repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 2px),
     linear-gradient(155deg,#26232C 0%,#0E0D12 46%,#1B1A20 70%,#050506 100%);
-  --cfg:#fbf5e3;--cline:rgba(249,238,209,.34);--cchip:rgba(249,238,209,.13);--sheen:rgba(255,242,206,.55)}
+  --cfg:#fbf5e3;--cline:rgba(249,238,209,.34);--cchip:rgba(249,238,209,.13);--sheen:rgba(234,245,255,.55)}
 .th-midnight{--cbg:
-    radial-gradient(120% 90% at 100% 0%,rgba(233,170,28,.45),transparent 56%),
+    radial-gradient(120% 90% at 100% 0%,rgba(124,196,255,.45),transparent 56%),
     repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 2px),
-    linear-gradient(150deg,#24221d 0%,#131210 55%,#0b0a09 100%);
-  --cfg:#fff;--cline:rgba(255,255,255,.18);--cchip:rgba(255,255,255,.14);--sheen:rgba(255,228,160,.5)}
+    linear-gradient(150deg,#0A1F3D 0%,#003B8E 55%,#0057D9 100%);
+  --cfg:#fff;--cline:rgba(255,255,255,.18);--cchip:rgba(255,255,255,.14);--sheen:rgba(234,245,255,.5)}
 .th-graphite{--cbg:
     repeating-linear-gradient(0deg,rgba(255,255,255,.045) 0 1px,transparent 1px 2px),
     linear-gradient(100deg,rgba(255,255,255,0) 18%,rgba(255,255,255,.12) 34%,rgba(255,255,255,0) 48%,rgba(255,255,255,.08) 70%,rgba(255,255,255,0) 86%),
@@ -25,11 +25,11 @@
 .th-violet{--cbg:
     repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 2px),
     radial-gradient(90% 80% at 0% 0%,rgba(255,255,255,.34),transparent 56%),
-    linear-gradient(140deg,#333029 0%,#a8780d 48%,#654808 70%,#ffc84a 100%);
+    linear-gradient(140deg,#333029 0%,#38BDF8 48%,#0057D9 70%,#38BDF8 100%);
   --cfg:#fff;--cline:rgba(255,255,255,.3);--cchip:rgba(255,255,255,.18);--sheen:rgba(255,255,255,.6)}
 .th-aurora{--cbg:
     repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 2px),
-    radial-gradient(90% 90% at 0% 100%,rgba(233,170,28,.5),transparent 58%),
+    radial-gradient(90% 90% at 0% 100%,rgba(124,196,255,.5),transparent 58%),
     radial-gradient(90% 80% at 100% 0%,rgba(129,140,248,.45),transparent 60%),
     linear-gradient(145deg,#181714,#122E3F 60%,#0B1A26);
   --cfg:#fff;--cline:rgba(255,255,255,.22);--cchip:rgba(255,255,255,.16);--sheen:rgba(200,220,255,.6)}
@@ -49,9 +49,9 @@
     linear-gradient(135deg,#3B3E46 0%,#6E727C 32%,#4A4D55 55%,#80848D 78%,#33363D 100%);
   --cfg:#F4F5F8;--cline:rgba(255,255,255,.32);--cchip:rgba(255,255,255,.14);--sheen:rgba(255,255,255,.7)}
 .th-gold{--cbg:
-    repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 1px,rgba(120,80,10,.06) 1px 2px,transparent 2px 3px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 1px,rgba(0,87,217,.06) 1px 2px,transparent 2px 3px),
     linear-gradient(100deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 22%,rgba(255,250,230,.4) 44%,rgba(255,255,255,0) 62%,rgba(255,255,255,.5) 84%),
-    linear-gradient(135deg,#9C7A35 0%,#E9D196 30%,#B89049 54%,#F5E3AE 78%,#94712E 100%);
+    linear-gradient(135deg,#38BDF8 0%,#CFE7FF 30%,#38BDF8 54%,#EAF5FF 78%,#007AFF 100%);
   --cfg:#2B210D;--cline:rgba(255,246,214,.7);--cchip:rgba(60,40,5,.1);--sheen:rgba(255,248,220,.95)}
 .th-titanium .rv-wm{filter:drop-shadow(0 1px 0 rgba(0,0,0,.45))}
 .th-gold .rv-wm{filter:invert(1) sepia(.7) saturate(1.6) brightness(.55) drop-shadow(0 1px 0 rgba(255,255,255,.5))}

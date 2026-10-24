@@ -1,8 +1,13 @@
 {
   "name": "friendly-pay",
-  "version": "19.1.0",
+  "version": "20.0.0",
   "private": true,
-  "description": "Friendly Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
-  "scripts": { "build": "node scripts/build.mjs" },
-  "devDependencies": { "esbuild": "0.25.10" }
+  "description": "Freindi Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "playwright": "^1.49.1"
+  }
 }

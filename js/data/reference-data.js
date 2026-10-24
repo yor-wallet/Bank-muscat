@@ -4,7 +4,7 @@
    CONFIG / CURRENCIES / COUNTRIES / CRYPTO / NETWORKS / BANKS
    ============================================================ */
 const CONFIG = Object.freeze({
-  APP:{ name:'Live X Digitale', version:'19.1.0', schema:16, defaultLang:'en', defaultTheme:'dark' },
+  APP:{ name:'Freindi Pay', version:'20.0.0', schema:16, defaultLang:'en', defaultTheme:'light' },
   FEES:{ INTERNATIONAL:{ flatOMR:0 }, LOCAL:{ flat:0 },   /* 12.12.0 : AUCUN frais sur les transferts d'argent (le serveur débite le montant seul) */
     MOBILE_MONEY_PCT:0.01, CRYPTO_TRADE_PCT:0.005, CRYPTO_SWAP_PCT:0.003, CRYPTO_TO_BANK_PCT:0.015 },
   PUSH:{ vapidPublicKey:'BFRA_csXTUfSX06fZNTpqIlevcKO9jnrMOu5B6IJx-xTDj_78r-ZJXOfqfleGlK2OsLzkBRLnjAFjyVG3xg8yCs' },   /* 12.13.0 : clé PUBLIQUE VAPID des notifications push (la clé privée n'existe que sur le serveur) */
@@ -70,7 +70,7 @@ const CRYPTO_ASSETS = Object.freeze([
   { id:'eth', symbol:'ETH', name:'Ethereum', decimals:6, tint:'#627EEA' },
   { id:'usdt', symbol:'USDT', name:'Tether', decimals:2, tint:'#26A17B' },
   { id:'usdc', symbol:'USDC', name:'USD Coin', decimals:2, tint:'#2775CA' },
-  { id:'bnb', symbol:'BNB', name:'BNB', decimals:4, tint:'#F3BA2F' },
+  { id:'bnb', symbol:'BNB', name:'BNB', decimals:4, tint:'#7CC4FF' },
   { id:'sol', symbol:'SOL', name:'Solana', decimals:4, tint:'#14F195' },
   { id:'xrp', symbol:'XRP', name:'XRP', decimals:4, tint:'#23292F' },
   { id:'ltc', symbol:'LTC', name:'Litecoin', decimals:6, tint:'#345D9D' }
@@ -79,7 +79,7 @@ const CRYPTO_ASSETS = Object.freeze([
 const NETWORKS = Object.freeze([
   { id:'bitcoin', name:'Bitcoin', symbol:'BTC', supportedAssets:['BTC'], confirmations:2, eta:'~30 min', tint:'#F7931A' },
   { id:'ethereum', name:'Ethereum', symbol:'ETH', supportedAssets:['ETH','USDT','USDC'], confirmations:12, eta:'~5 min', tint:'#627EEA' },
-  { id:'bsc', name:'BNB Smart Chain', symbol:'BNB', supportedAssets:['BNB','USDT','USDC'], confirmations:15, eta:'~3 min', tint:'#F3BA2F' },
+  { id:'bsc', name:'BNB Smart Chain', symbol:'BNB', supportedAssets:['BNB','USDT','USDC'], confirmations:15, eta:'~3 min', tint:'#7CC4FF' },
   { id:'tron', name:'Tron', symbol:'TRX', supportedAssets:['USDT'], confirmations:20, eta:'~1 min', tint:'#FF0022' },
   { id:'solana', name:'Solana', symbol:'SOL', supportedAssets:['SOL','USDC'], confirmations:1, eta:'~15 sec', tint:'#14F195' },
   { id:'xrp', name:'XRP Ledger', symbol:'XRP', supportedAssets:['XRP'], confirmations:1, eta:'~5 sec', tint:'#23292F' },

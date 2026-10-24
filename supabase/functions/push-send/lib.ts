@@ -243,7 +243,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
     body = amt ? fill(t.depositBody, { amt: iso(amt) }) : clean(n.message, 120);
   }
   /* 16.1.0 : référence de la transaction dans le texte de l'alerte (montant, personne et référence) */
-  if (d.reference && (type === "TRANSFER_SENT" || type === "TRANSFER_RECEIVED" || type === "DEPOSIT") && amt) body += " · " + t.ref + " " + iso(String(d.reference).replace(/^YOR-/i, "LXD-"));
+  if (d.reference && (type === "TRANSFER_SENT" || type === "TRANSFER_RECEIVED" || type === "DEPOSIT") && amt) body += " · " + t.ref + " " + iso(String(d.reference).replace(/^YOR-/i, "FP-"));
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {

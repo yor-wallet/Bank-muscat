@@ -147,7 +147,7 @@ function boot(){
       resetRuntime();
       LANG = DeviceLang.get();                 /* the previous user's language does not survive; the device language is used */
       applyI18n();
-      applyTheme('dark');
+      applyTheme('light');
       renderSidebar();
       R.go('login', { reset:true, force:true });
     }

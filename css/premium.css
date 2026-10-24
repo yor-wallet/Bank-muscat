@@ -1,6 +1,6 @@
 /* ==========================================================================
-   FRIENDLY PAY 12.14.0 — premium layer (loaded LAST).
-   Own identity: deep petrol ink + Live X gold, a discreet champagne hairline, fine guilloché lines on the balance card.
+   FREINDI PAY 12.14.0 — premium layer (loaded LAST).
+   Own identity: deep petrol ink + Freindi Pay gold, a discreet champagne hairline, fine guilloché lines on the balance card.
    Nothing copied from a bank or another app. Only transform / opacity are animated; every motion stops under prefers-reduced-motion.
    1 fonts  2 tokens  3 type  4 surfaces + controls  5 top bar  6 home  7 lists  8 profile + settings  9 receive / search / result
    10 transfer animation  11 receipt  12 navigation + overlays  13 opening  14 motion  15 reduced motion + print
@@ -25,8 +25,8 @@
   --bg:#090807;--bg-1:#100f0d;--bg-2:#151311;--bg-3:#1c1b17;
   --glass-1:#12110e;--glass-2:#1a1815;--surf:#12110e;--surf-2:#1a1815;
   --border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.13);--line:rgba(255,255,255,.07);
-  --text:#faf4e5;--text-2:#c1b28e;--text-3:#a6956f;
-  --ink:#12110f;--ink-2:#25231e;--champagne:#D9BC7E;--champagne-soft:rgba(217,188,126,.22);
+  --text:#faf4e5;--text-2:#7CC4FF;--text-3:#38BDF8;
+  --ink:#12110f;--ink-2:#25231e;--champagne:#CFE7FF;--champagne-soft:rgba(56,189,248,.22);
   --px-r-card:26px;--px-r-tile:18px;
   --px-sh-1:0 1px 0 rgba(255,255,255,.04) inset,0 1px 2px rgba(0,0,0,.5);
   --px-sh-2:0 18px 40px -22px rgba(0,0,0,.85);
@@ -37,8 +37,8 @@
   --bg:#F4F6F5;--bg-1:#FFFFFF;--bg-2:#f4f1e7;--bg-3:#eee9db;
   --glass-1:#FFFFFF;--glass-2:#f7f4ec;--surf:#FFFFFF;--surf-2:#f7f4ec;
   --border:rgba(20,19,16,.075);--border-2:rgba(20,19,16,.14);--line:rgba(20,19,16,.075);
-  --text:#11100e;--text-2:#64583b;--text-3:#7f7050;
-  --champagne:#A9843E;--champagne-soft:rgba(169,132,62,.16);
+  --text:#11100e;--text-2:#64583b;--text-3:#007AFF;
+  --champagne:#38BDF8;--champagne-soft:rgba(56,189,248,.16);
   --px-sh-1:0 1px 2px rgba(17,16,14,.06),0 0 0 1px rgba(17,16,14,.04);
   --px-sh-2:0 18px 36px -22px rgba(24,23,20,.28),0 2px 6px -2px rgba(17,16,14,.06);
   --px-sh-card:0 30px 56px -28px rgba(22,21,18,.55),0 12px 24px -16px rgba(22,21,18,.35);
@@ -62,8 +62,8 @@ html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] h3,html[dir="rtl"] .topbar
 .tile{border-radius:12px}
 .btn{font-weight:700;letter-spacing:-.005em;border-radius:16px;min-height:52px;transition:transform .18s var(--px-ease),box-shadow .2s ease,background-color .2s ease,opacity .2s ease}
 .btn:active:not(:disabled){transform:scale(.975)}
-.btn-primary{background:linear-gradient(180deg,#6b4c08 0%,#5a4007 55%,#463306 100%);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 14px 26px -14px rgba(107,76,8,.75)}
-:root:not([data-theme="light"]) .btn-primary{background:linear-gradient(180deg,#ffc84a,#e9aa1c 60%,#be860f);color:#13120f;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 14px 30px -14px rgba(233,170,28,.55)}
+.btn-primary{background:linear-gradient(180deg,#0057D9 0%,#5a4007 55%,#463306 100%);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 14px 26px -14px rgba(107,76,8,.75)}
+:root:not([data-theme="light"]) .btn-primary{background:linear-gradient(180deg,#38BDF8,#007AFF 60%,#0057D9);color:#13120f;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 14px 30px -14px rgba(124,196,255,.55)}
 .btn-primary:disabled{opacity:.42;box-shadow:none;filter:saturate(.6)}
 .btn-secondary{background:var(--surf);border:1px solid var(--border-2);color:var(--text)}
 .btn-ghost{color:var(--text-2)}
@@ -105,11 +105,11 @@ html[dir="rtl"] .px-hello span,html[dir="rtl"] .px-hello b{font-family:var(--fon
 
 /* balance card — in both themes a deep petrol card with white text (AA on every stop of the gradient) */
 .ds-home .ds-balance.px-bal{display:block!important;position:relative;isolation:isolate;overflow:hidden;color:#fff;border-radius:var(--px-r-card)!important;padding:calc(20px*var(--ui)) calc(20px*var(--ui)) calc(16px*var(--ui))!important;border:0!important;
-  background:radial-gradient(120% 120% at 100% 0%,rgba(255,200,74,.30) 0%,rgba(255,200,74,0) 52%),radial-gradient(80% 100% at 0% 100%,rgba(217,188,126,.20) 0%,rgba(217,188,126,0) 60%),linear-gradient(152deg,rgb(43,40,35) 0%,rgb(27,25,22) 50%,rgb(16,15,13) 100%)!important;
+  background:radial-gradient(120% 120% at 100% 0%,rgba(56,189,248,.30) 0%,rgba(56,189,248,0) 52%),radial-gradient(80% 100% at 0% 100%,rgba(56,189,248,.20) 0%,rgba(56,189,248,0) 60%),linear-gradient(152deg,#0057D9 0%,#0046AE 50%,#003B8E 100%)!important;
   box-shadow:var(--px-sh-card),inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(255,255,255,.06)!important;animation:pxCardIn .7s var(--px-ease) both!important}
 .ds-home .ds-balance.px-bal::before{animation:none!important;content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;
   background:repeating-radial-gradient(circle at 112% -12%,rgba(255,255,255,0) 0 13px,rgba(255,255,255,.055) 13px 14px);-webkit-mask:linear-gradient(200deg,#000 10%,transparent 70%);mask:linear-gradient(200deg,#000 10%,transparent 70%)}
-.ds-balance.px-bal::after{content:"";position:absolute;inset-inline:22px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(217,188,126,.85),transparent);opacity:.75}
+.ds-balance.px-bal::after{content:"";position:absolute;inset-inline:22px;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(56,189,248,.85),transparent);opacity:.75}
 .px-bal-light{position:absolute;top:-40%;bottom:-40%;width:38%;inset-inline-start:-50%;z-index:-1;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.13),transparent);transform:skewX(-14deg);animation:pxSheen 1.6s .35s var(--px-ease) both}
 .px-bal-grain{display:none}
 .px-bal .ds-bal-top{display:flex;align-items:center;gap:8px}
@@ -126,7 +126,7 @@ html[dir="rtl"] .px-bal .ds-bal-label{font-family:var(--font-ar)}
 html[dir="rtl"] .px-chip{font-family:var(--font-ar)}
 .px-chip i{width:6px;height:6px;border-radius:50%;background:currentColor;display:block}
 .px-bal .px-chip.ok{background:rgba(52,211,153,.14);color:#9FF0CF;border-color:rgba(52,211,153,.25)}
-.px-bal .px-chip.warn{background:rgba(251,191,36,.14);color:#FCD98A;border-color:rgba(251,191,36,.3)}
+.px-bal .px-chip.warn{background:rgba(251,191,36,.14);color:#CFE7FF;border-color:rgba(251,191,36,.3)}
 .px-chip.ok{background:var(--st-ok-bg);color:var(--st-ok)}
 .px-chip.warn{background:var(--st-wait-bg);color:var(--st-wait)}
 .px-chip.bad{background:var(--st-bad-bg);color:var(--st-bad)}
@@ -141,8 +141,8 @@ html[dir="rtl"] .px-chip{font-family:var(--font-ar)}
 .px-acts{display:grid!important;grid-template-columns:repeat(4,1fr);gap:calc(10px*var(--ui))}
 .px-acts .rv-act{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;animation:pxRise .5s calc(.18s + var(--i,0)*.05s) var(--px-ease) both}
 .px-acts .rv-act i{width:calc(58px*var(--ui));height:calc(58px*var(--ui));border-radius:20px;display:grid;place-items:center;background:var(--surf);border:1px solid var(--line);box-shadow:var(--px-sh-1);color:var(--accent);transition:transform .18s var(--px-spring),box-shadow .2s ease}
-.px-acts .rv-act.p i{background:linear-gradient(160deg,#6b4c08,#463306);color:#fff;border-color:transparent;box-shadow:0 14px 24px -14px rgba(107,76,8,.8),inset 0 1px 0 rgba(255,255,255,.25)}
-:root:not([data-theme="light"]) .px-acts .rv-act.p i{background:linear-gradient(160deg,#ffc84a,#be860f);color:#13120f}
+.px-acts .rv-act.p i{background:linear-gradient(160deg,#0057D9,#463306);color:#fff;border-color:transparent;box-shadow:0 14px 24px -14px rgba(107,76,8,.8),inset 0 1px 0 rgba(255,255,255,.25)}
+:root:not([data-theme="light"]) .px-acts .rv-act.p i{background:linear-gradient(160deg,#38BDF8,#0057D9);color:#13120f}
 .px-acts .rv-act:active i{transform:scale(.9)}
 .px-acts .rv-act span{font-size:calc(12.5px*var(--ui));font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 
@@ -174,7 +174,7 @@ html[dir="rtl"] .rv-day{text-transform:none;letter-spacing:0}
 
 /* ---------- 8. profile + settings ---------- */
 .px-hero{position:relative;display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:calc(20px*var(--ui));border-radius:var(--px-r-card);background:var(--surf);border:1px solid var(--line);box-shadow:var(--px-sh-2);overflow:hidden;animation:pxRise .5s var(--px-ease) both}
-.px-hero::before{content:"";position:absolute;inset:0 0 auto 0;height:64px;background:linear-gradient(120deg,rgba(107,76,8,.16),rgba(217,188,126,.12));pointer-events:none}
+.px-hero::before{content:"";position:absolute;inset:0 0 auto 0;height:64px;background:linear-gradient(120deg,rgba(107,76,8,.16),rgba(56,189,248,.12));pointer-events:none}
 .px-hero > *{position:relative}
 .px-hero h1{font-size:calc(21px*var(--ui));font-weight:800;line-height:1.15;word-break:break-word}
 .px-hero-sub{display:block;margin-top:4px;color:var(--text-2);font-size:calc(13.5px*var(--ui))}
@@ -208,7 +208,7 @@ html[dir="rtl"] .settings-section{letter-spacing:0}
 
 /* ---------- 9. receive / search / transfer outcome ---------- */
 .px-rcv-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:calc(22px*var(--ui)) calc(18px*var(--ui));border-radius:var(--px-r-card);text-align:center;color:#fff;
-  background:radial-gradient(120% 120% at 100% 0%,rgba(255,200,74,.28),transparent 55%),linear-gradient(152deg,rgb(43,40,35),rgb(16,15,13));box-shadow:var(--px-sh-card);animation:pxRise .5s var(--px-ease) both}
+  background:radial-gradient(120% 120% at 100% 0%,rgba(56,189,248,.28),transparent 55%),linear-gradient(152deg,rgb(43,40,35),rgb(16,15,13));box-shadow:var(--px-sh-card);animation:pxRise .5s var(--px-ease) both}
 .px-rcv-card h2{font-size:calc(19px*var(--ui));font-weight:800}
 .px-rcv-card .px-ava{border-color:rgba(255,255,255,.2)}
 .px-rcv-card .btn-primary{background:#fff;color:#12110f;box-shadow:none;width:100%}
@@ -336,7 +336,7 @@ html[dir="rtl"] .toast{font-family:var(--font-ar)}
 @keyframes pxSheen{from{transform:translateX(0) skewX(-14deg)}to{transform:translateX(480%) skewX(-14deg)}}
 html[dir="rtl"] .px-bal-light{animation-name:pxSheenRtl}
 @keyframes pxSheenRtl{from{transform:translateX(0) skewX(14deg)}to{transform:translateX(-480%) skewX(14deg)}}
-@keyframes pxBump{0%{box-shadow:var(--px-sh-card),inset 0 0 0 1px rgba(255,255,255,.06)}35%{box-shadow:var(--px-sh-card),0 0 0 4px rgba(255,200,74,.35),inset 0 0 0 1px rgba(255,255,255,.2)}100%{box-shadow:var(--px-sh-card),inset 0 0 0 1px rgba(255,255,255,.06)}}
+@keyframes pxBump{0%{box-shadow:var(--px-sh-card),inset 0 0 0 1px rgba(255,255,255,.06)}35%{box-shadow:var(--px-sh-card),0 0 0 4px rgba(56,189,248,.35),inset 0 0 0 1px rgba(255,255,255,.2)}100%{box-shadow:var(--px-sh-card),inset 0 0 0 1px rgba(255,255,255,.06)}}
 
 /* ---------- 15. reduced motion + small screens + print ---------- */
 @media (prefers-reduced-motion:reduce){
@@ -359,7 +359,7 @@ html[dir="rtl"] .px-bal-light{animation-name:pxSheenRtl}
   .rc-sheet,.settings-group{box-shadow:none!important}
 }
 
-/* ---------- 16. Live X Digitale 13.0.0 ---------- */
+/* ---------- 16. Freindi Pay 13.0.0 ---------- */
 .v13-month{padding:calc(16px*var(--ui)) calc(18px*var(--ui));border-radius:var(--px-r-tile);background:var(--surf);border:1px solid var(--line);box-shadow:var(--px-sh-1);animation:pxRise .55s .22s var(--px-ease) both}
 .v13-mh{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px}
 .v13-mh h2{font-size:calc(16px*var(--ui));font-weight:800}

@@ -1,3 +1,18 @@
+# FREINDI PAY 20.0.0 — nouvelle identité bleue, nouveau nom, nouveau logo
+
+## Identité
+- **Nouveau nom partout** : Freindi Pay (فريندي باي en arabe) remplace Live X Digitale / LiveX / Friendly Pay / YOR Wallet dans l'application, le manifeste PWA, les titres, le partage, l'écran hors-ligne, la page d'installation et le chat.
+- **Identité bleue** : bleu principal #007AFF, bleu bancaire #0057D9, bleu profond #003B8E, bleu ciel #38BDF8, fond #F5F9FF, texte #14243A. Un seul fichier de tokens (`css/freindi.css`) chargé en dernier pilote toute l'application.
+- **Thème clair par défaut** (identité bancaire blanche) ; le thème sombre devient un bleu nuit profond, plus jamais noir.
+- **Toute l'ancienne palette noir / or est convertie** : 305 couleurs et 148 transparences remplacées par leur équivalent bleu, à luminosité égale. Les rouges d'erreur et les ambres d'avertissement sont conservés.
+- **Nouveau logo** : monogramme « F » suivi d'un chevron de paiement, sur dégradé bleu. Icônes iOS et PWA, favicon, tuile maskable, écrans de lancement iPhone et images de partage régénérés dans les trois langues.
+- **Typographie** : Inter (latin) et Tajawal (arabe), chiffres alignés en colonnes pour les montants.
+- **Identifiant affiché** : les références passent de `LXD-…` à `FP-…`. La base garde ses identifiants `YOR-…` inchangés ; la saisie accepte toujours les anciens préfixes.
+
+## Vérifié réellement
+- Écran de connexion et présentation rendus dans un navigateur (390 × 844) : thème clair bleu, accent #007AFF, police Inter, aucune erreur console.
+- Arabe : `dir="rtl"`, `lang="ar"`, police Tajawal, nom « فريندي باي ».
+
 # Live X Digitale 19.1.0 — assistants IA de l'administrateur (ils proposent, l'humain décide)
 
 ## Nouveau

@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================================================================
-   KEYPAD — pavé numérique virtuel Live X Digitale (12.9.0), commun à l'écran de verrouillage et à la confirmation de transfert.
+   KEYPAD — pavé numérique virtuel Freindi Pay (12.9.0), commun à l'écran de verrouillage et à la confirmation de transfert.
    - Touches « verre » rondes : la lumière suit le doigt, une onde part du point touché.
    - Le chiffre tapé s'envole de la touche vers son point dans la ligne de code (animation), le point s'allume et « atterrit ».
    - Touche « mélanger » : place les chiffres au hasard à chaque ouverture (anti-regard par-dessus l'épaule). Réglage mémorisé

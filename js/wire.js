@@ -286,7 +286,7 @@ function wire(id){
       /* The request starts AT ONCE; the animation shows what really happens (secured -> sending -> confirmed / not completed). */
       const out = await ProcessingEngine.run(async () => {
         if (b.yorId){
-          /* 16.1.0 : le numéro est celui d'un compte Live X : transfert interne instantané, le destinataire est crédité et averti (alerte + push) */
+          /* 16.1.0 : le numéro est celui d'un compte Freindi Pay : transfert interne instantané, le destinataire est crédité et averti (alerte + push) */
           const ri = await TransferEngine.sendFiat({ toYorId: b.yorId, amount: bd.amount, currency: 'OMR', idemKey: _idemKey, pinGrant: _pin.grant });
           if (!ri.ok) return { ok:false, error: ri.error, uncertain: false };
           const svi = ri.data;
@@ -604,7 +604,7 @@ function wire(id){
             shown = CurrencyEngine.formatCrypto(got, sym);
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: got, currency:'OMR', asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: Number(d.fiatAmount), costOMR: true,
-              beneficiary: { name, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
+              beneficiary: { name, networkName:'Freindi Pay' }, network:'Freindi Pay', reference: ref, createdAt: Date.now() };
           } else if (p.kind === 'SEND'){
             /* server result is authoritative: CONFIRMED = internal YOR transfer, PENDING = awaiting blockchain validation */
             const internal = !!row.internal; const pending = row.status === 'PENDING';
@@ -621,7 +621,7 @@ function wire(id){
             shown = CurrencyEngine.format(got, 'OMR');
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: Number(row.amount != null ? row.amount : d.amount), currency:'OMR', asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: got, costOMR: true,
-              beneficiary: { name, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
+              beneficiary: { name, networkName:'Freindi Pay' }, network:'Freindi Pay', reference: ref, createdAt: Date.now() };
           } else {
             const to = d.toAssetObj ? d.toAssetObj.symbol : '';
             const got = Number(row.destination_amount != null ? row.destination_amount : d.destinationAmount);
@@ -630,7 +630,7 @@ function wire(id){
             receipt = { id: ID.receipt(), transactionId: txId, status:'SUCCESS', amount: amt, currency: sym, asset: sym,
               fee: Number(row.fee != null ? row.fee : d.fee), total: amt,
               destinationAmount: got, destinationCurrency: to, exchangeRate: amt > 0 ? got / amt : null,
-              beneficiary: { name: d.toAssetObj ? d.toAssetObj.name : to, networkName:'Live X Digitale' }, network:'Live X Digitale', reference: ref, createdAt: Date.now() };
+              beneficiary: { name: d.toAssetObj ? d.toAssetObj.name : to, networkName:'Freindi Pay' }, network:'Freindi Pay', reference: ref, createdAt: Date.now() };
           }
           try { await recordLocalReceipt(receipt); } catch(e){ console.error(e); }
           resetCryptoFlow();

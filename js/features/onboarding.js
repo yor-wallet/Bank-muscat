@@ -12,19 +12,19 @@ const Onboarding = (() => {
   const KEY = 'yor_onboarded';
   const S = {
     en:{ skip:'Skip', next:'Next', create:'Create my account', have:'I already have an account', lang:'Language', page:(a, b) => 'Page ' + a + ' of ' + b, slides:[
-      { l1:'WELCOME TO', l2:'LIVE X DIGITALE', k:'Your money, simple & secure' },
+      { l1:'WELCOME TO', l2:'FREINDI PAY', k:'Your money, simple & secure' },
       { l1:'GET 10 OMR', l2:'ON US', k:'A welcome reward for every new account' },
       { l1:'SEND MONEY', l2:'ACROSS THE WORLD', k:'Gulf · Africa · USA · Canada' },
       { l1:'A METAL CARD', l2:'WITH VISA', k:'Tap, shop and pay online' },
       { l1:'PROTECTED BY', l2:'FACE ID & PIN', k:'Your money stays yours' } ] },
     fr:{ skip:'Passer', next:'Suivant', create:'Créer mon compte', have:'J\'ai déjà un compte', lang:'Langue', page:(a, b) => 'Page ' + a + ' sur ' + b, slides:[
-      { l1:'BIENVENUE CHEZ', l2:'LIVE X DIGITALE', k:'Votre argent, simple et sécurisé' },
+      { l1:'BIENVENUE CHEZ', l2:'FREINDI PAY', k:'Votre argent, simple et sécurisé' },
       { l1:'GAGNEZ 10 OMR', l2:'OFFERTS', k:'Une récompense pour chaque nouveau compte' },
       { l1:'ENVOYEZ DE L’ARGENT', l2:'DANS LE MONDE ENTIER', k:'Golfe · Afrique · USA · Canada' },
       { l1:'UNE CARTE EN MÉTAL', l2:'AVEC VISA', k:'Payez en magasin et en ligne' },
       { l1:'PROTÉGÉ PAR', l2:'FACE ID ET CODE', k:'Votre argent reste le vôtre' } ] },
     ar:{ skip:'تخطّي', next:'التالي', create:'إنشاء حسابي', have:'لدي حساب بالفعل', lang:'اللغة', page:(a, b) => 'الصفحة ' + a + ' من ' + b, slides:[
-      { l1:'مرحباً بك في', l2:'لايف إكس ديجيتال', k:'أموالك بشكل بسيط وآمن' },
+      { l1:'مرحباً بك في', l2:'فريندي باي', k:'أموالك بشكل بسيط وآمن' },
       { l1:'احصل على 10 ريال', l2:'هدية منّا', k:'مكافأة ترحيب لكل حساب جديد' },
       { l1:'أرسل الأموال', l2:'إلى أي مكان في العالم', k:'الخليج · أفريقيا · أمريكا · كندا' },
       { l1:'بطاقة معدنية', l2:'من فيزا', k:'ادفع في المتاجر وعبر الإنترنت' },
@@ -51,7 +51,7 @@ const Onboarding = (() => {
     function build(){
       const T = S[lang], rtl = lang === 'ar';
       el.setAttribute('dir', rtl ? 'rtl' : 'ltr'); el.setAttribute('lang', lang);
-      el.setAttribute('aria-label', rtl ? 'لايف إكس ديجيتال' : 'Live X Digitale');
+      el.setAttribute('aria-label', rtl ? 'فريندي باي' : 'Freindi Pay');
       el.innerHTML =
         '<div class="ob-top">' +
           '<div class="ob-lang" role="group" aria-label="' + escapeHtml(T.lang) + '">' +

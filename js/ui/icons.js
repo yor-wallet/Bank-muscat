@@ -80,9 +80,9 @@ const FLAGS = {
   FR:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg>',
   GB:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#012169"/><path d="M0 0l30 20M30 0L0 20" stroke="#fff" stroke-width="4"/><path d="M15 0v20M0 10h30" stroke="#fff" stroke-width="6"/><path d="M15 0v20M0 10h30" stroke="#C8102E" stroke-width="3.6"/></svg>',
   CI:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#FF8200"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#009A44"/></svg>',
-  ML:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#14B53A"/><rect x="10" width="10" height="20" fill="#FCD116"/><rect x="20" width="10" height="20" fill="#CE1126"/></svg>',
+  ML:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#14B53A"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#CE1126"/></svg>',
   BF:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="10" fill="#EF2B2D"/><rect y="10" width="30" height="10" fill="#009E49"/></svg>',
-  GN:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#CE1126"/><rect x="10" width="10" height="20" fill="#FCD116"/><rect x="20" width="10" height="20" fill="#009460"/></svg>',
+  GN:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="10" height="20" fill="#CE1126"/><rect x="10" width="10" height="20" fill="#CFE7FF"/><rect x="20" width="10" height="20" fill="#009460"/></svg>',
   SD:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="6.7" fill="#D21034"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/><path d="M0 0l8 10-8 10z" fill="#007229"/></svg>',
   EG:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="6.7" fill="#CE1126"/><rect y="6.7" width="30" height="6.6" fill="#fff"/><rect y="13.3" width="30" height="6.7" fill="#000"/></svg>'
 };
@@ -91,26 +91,26 @@ function flag(iso){ return FLAGS[iso] || FLAGS.US; }
 const isArabicUi = () => typeof LANG === 'string' && LANG === 'ar';
 function logoMark(size){
   size = size || 48;
-  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'لايف إكس ديجيتال' : 'Live X Digitale') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
+  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'فريندي باي' : 'Freindi Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
 }
 function logoLockup(size){
   size = size || 48;
-  /* arabe : mot-symbole « لايف إكس ديجيتال » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
+  /* arabe : mot-symbole « فريندي باي » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
   const word = isArabicUi()
-    ? '<span class="logo-name logo-name-ar">لايف إكس</span><span class="logo-sub logo-sub-ar">ديجيتال</span>'
-    : '<span class="logo-name">Live X</span><span class="logo-sub">DIGITALE</span>';
+    ? '<span class="logo-name logo-name-ar">فريندي</span><span class="logo-sub logo-sub-ar">باي</span>'
+    : '<span class="logo-name">FREINDI</span><span class="logo-sub">PAY</span>';
   return '<div class="logo-lockup">' + logoMark(size) + '<div class="logo-word">' + word + '</div></div>';
 }
 const ASSET_INITIALS = { BTC:'₿', ETH:'Ξ', USDT:'₮', USDC:'$', BNB:'BNB', SOL:'SOL', XRP:'XRP', LTC:'Ł' };
 function assetLogo(symbol, size, tint){
   size = size || 40;
-  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#8a630b' }).tint;
+  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#007AFF' }).tint;
   const init = ASSET_INITIALS[symbol] || symbol.slice(0, 2);
   return '<div class="asset-coin" style="width:' + size + 'px;height:' + size + 'px;background:' + bg + '">' + init + '</div>';
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#8a630b';
+  const tint = net.tint || '#007AFF';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }

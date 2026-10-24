@@ -8,7 +8,7 @@ function mainAccount(){
 }
 
 function renderLogin(){
-  return '<div class="topbar"><span class="topbar-title">Live X Digitale</span><span style="width:calc(44px*var(--ui))"></span></div>' +
+  return '<div class="topbar"><span class="topbar-title">Freindi Pay</span><span style="width:calc(44px*var(--ui))"></span></div>' +
     '<div class="screen-body" style="padding-top:var(--sp-4);max-width:calc(460px*var(--ui));margin:0 auto;width:100%">' +
       '<div style="display:flex;justify-content:center;padding:var(--sp-4) 0">' + logoLockup(56) + '</div>' +
       '<div class="field"><label class="field-label" for="au-email">' + t('auth.username') + '</label><div class="field-box"><input type="email" id="au-email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="ltr"></div></div>' +

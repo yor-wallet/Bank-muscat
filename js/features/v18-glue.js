@@ -56,7 +56,7 @@ const V18 = (() => {
       const d = n.data || {};
       if (n.type === 'CHAT_MESSAGE'){
         const onChat = ['chat', 'admin-chat-thread'].indexOf(R.current()) !== -1;
-        if (!onChat) InAppNotif.showCall({ title: t('v18.n.chat'), message: n.message, status: 'default', onClick: () => { try { R.go(isAdmin() && d.from !== 'Live X Digitale' ? 'admin-chat' : 'chat'); } catch(e){ /* rien */ } } });
+        if (!onChat) InAppNotif.showCall({ title: t('v18.n.chat'), message: n.message, status: 'default', onClick: () => { try { R.go(isAdmin() && d.from !== 'Freindi Pay' ? 'admin-chat' : 'chat'); } catch(e){ /* rien */ } } });
       } else if (n.type === 'CREDIT_DECISION'){
         const ok = d.status === 'APPROVED';
         InAppNotif.showCall({ title: t(ok ? 'v18.n.creditOk' : 'v18.n.creditNo'), message: ok ? Money.fmt(d.amount, d.currency || 'OMR') : (d.note || ''), status: ok ? 'success' : 'default', onClick: () => { try { R.go('credit'); } catch(e){ /* rien */ } } });
