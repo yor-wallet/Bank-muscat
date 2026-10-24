@@ -207,7 +207,9 @@ const Guardian = (() => {
   /* ---------- 8. diagnostic ---------- */
   function report(){
     const ua = (typeof navigator !== 'undefined' && navigator.userAgent) || '';
-    return JSON.stringify({ v: (typeof CONFIG !== 'undefined' && CONFIG.APP && CONFIG.APP.version) || '', at: new Date().toISOString(), online: navigator.onLine, screen: (typeof R !== 'undefined' && R.current && R.current()) || '', queue: queue.size(), ua: ua.slice(0, 120), log: log.slice(-30) }, null, 1);
+    /* 20.4.0 : état du moteur adaptatif, du centre de données et des mini-agents (aucun montant, aucun nom) */
+    let engine = {}; try { if (typeof Conductor !== 'undefined') engine.conductor = Conductor.stats(); if (typeof DataCenter !== 'undefined') engine.dataCenter = DataCenter.status(); if (typeof Sentinels !== 'undefined') engine.sentinels = Sentinels.summary(); } catch(e){ /* rien */ }
+    return JSON.stringify({ v: (typeof CONFIG !== 'undefined' && CONFIG.APP && CONFIG.APP.version) || '', at: new Date().toISOString(), online: navigator.onLine, screen: (typeof R !== 'undefined' && R.current && R.current()) || '', queue: queue.size(), ua: ua.slice(0, 120), engine, log: log.slice(-30) }, null, 1);
   }
 
   start();

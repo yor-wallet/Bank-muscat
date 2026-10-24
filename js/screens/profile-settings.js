@@ -198,7 +198,7 @@ function renderSettings(){
         '<div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('transfer.yor_id_label')) + '</div><div class="settings-row-sub">' + escapeHtml(faceIdText('tapCopy')) + '</div></div><span class="settings-value ltr">' + escapeHtml(yid) + '</span></div>' +
       settingsLinkRow({ icon:'user', title:t('px.edit'), sub:'', nav:'profile-edit' }) +
       settingsLinkRow({ icon:'help', title:t('settings.help'), sub:t('settings.helpDesc'), nav:'help' }) +
-      '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(typeof Guardian !== 'undefined' ? Guardian.report() : '') + '"><div class="tile">' + icon('info', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('g.diag')) + '</div><div class="settings-row-sub">' + escapeHtml(t('g.diagD')) + '</div></div></div>' +
+      '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(typeof Guardian !== 'undefined' ? Guardian.report() : '') + '"><div class="tile">' + icon('info', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('g.diag')) + '</div><div class="settings-row-sub">' + escapeHtml((typeof Sentinels !== 'undefined' && Sentinels.line()) || t('g.diagD')) + '</div></div></div>' +
       settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
     '</div>';
   html += '<details class="adv" id="set-adv"' + open + '><summary><i>' + icon('settings', 22) + '</i><span><b>' + escapeHtml(t('set17.adv')) + '</b><small>' + escapeHtml(t('set17.advD')) + '</small></span><em>' + icon('chev', 18) + '</em></summary>' +
