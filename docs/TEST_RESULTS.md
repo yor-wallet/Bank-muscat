@@ -1,4 +1,6 @@
-# TEST_RESULTS — Sanad Pay 21.1.0 (direction « Glass »)
+# TEST_RESULTS — Sanad Pay 21.2.0 (suite de 21.1.0 « Glass »)
+
+> **Résultats 21.2.0 : voir `STATUT_SANAD_PAY.md` §2 (suites exécutées), §3 (comparaison avec 20.3.0) et §4 (fluidité mesurée).** Le détail ci-dessous date de 21.1.0.
 
 Tout ce qui suit a été **exécuté** dans cette session (Chromium + Playwright, serveur Supabase simulé, **toute écriture refusée et journalisée**). Rien ici ne vaut test sur appareil réel ni en production. Commandes reproductibles depuis la racine (`npm i` puis build : `node scripts/build.mjs`).
 
