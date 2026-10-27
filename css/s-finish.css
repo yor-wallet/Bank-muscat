@@ -80,3 +80,8 @@ details>*:not(summary){animation:sxFade 240ms var(--sx-ease-out) both}
 .settings-row.logout,.settings-row.danger,[data-action="logout"]{color:var(--st-bad)}
 
 @media (prefers-reduced-motion:reduce){.logo-lockup .logo-mark,.sx-phero .px-ava,.sx-hero::before,.sx-hero .sx-amt{transform:none!important;transition:none!important}details>*:not(summary){animation:none}}
+
+/* cibles tactiles : zone d'appui élargie à 44 px sans changer le dessin */
+.rv-cp,.sx-pill,.chat-help-go,.chat-help-x{position:relative}
+.rv-cp::after,.sx-pill::after,.chat-help-go::after,.chat-help-x::after{content:"";position:absolute;inset:-6px;border-radius:inherit}
+.rv-cp{position:absolute}

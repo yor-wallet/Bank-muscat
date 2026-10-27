@@ -16,7 +16,7 @@
 /
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.d3e01351c0.css>; rel=preload; as=style
+  Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
   Link: </js/app1.818356a331.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
@@ -24,7 +24,7 @@
 /index.html
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.d3e01351c0.css>; rel=preload; as=style
+  Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
   Link: </js/app1.818356a331.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
@@ -43,11 +43,7 @@
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/brand/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/assets/cards/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/icons/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/assets/illustrations/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/share/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
