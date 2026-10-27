@@ -166,7 +166,7 @@ html[dir="rtl"] .cin-bar-s i{transform-origin:right center}
 .cin-bub.typing i:nth-child(2){animation-delay:.15s}.cin-bub.typing i:nth-child(3){animation-delay:.3s}
 @keyframes cinDots{50%{transform:translateY(-4px);opacity:1}}
 .cin-bub.ok{display:flex;align-items:center;gap:8px}.cin-tk{width:17px;height:11px;flex:none;color:#18395f}
-/* YASER */
+/* Amal */
 .cin-yas{position:relative;display:grid;place-items:center}
 .cin-halo{transform-box:fill-box;transform-origin:center;animation:cinHalo 3s ease-in-out infinite}
 .cin-halo.h2{animation-delay:-1.5s}

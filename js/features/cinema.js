@@ -6,7 +6,7 @@
    titre qui apparaît mot par mot, chiffres qui défilent, illustration animée, bouton d'appel à l'action.
    - Bannière intégrée   : Cinema.homeHtml() (à insérer dans une page) puis Cinema.mountAll(root) — ou rien : un hook monte tout seul les [data-cinema].
    - Plein écran         : Cinema.open(i) -> écran « cinema » (toucher gauche/droite, maintenir = pause, glisser vers le bas = fermer).
-   - Scènes              : annonces actives de l'administrateur (table announcements) puis Boost, Crédit, Chat, YASER, Transferts, Face ID.
+   - Scènes              : annonces actives de l'administrateur (table announcements) puis Boost, Crédit, Chat, Amal, Transferts, Face ID.
    - Les nombres (taux Boost, minimum / maximum du crédit) viennent de Cfg (get_app_config).
    - Sons doux (Sfx), haptique ; « réduire les animations » : scènes fixes, avance par minuterie seulement.
    ============================================================ */
@@ -18,7 +18,7 @@ Strings.add({
     'cin.credit.k': 'CREDIT', 'cin.credit.t': 'A credit from *{min}* to *{max}* OMR', 'cin.credit.s': 'Send your request in one minute. Our team reviews it and answers you quickly.', 'cin.credit.c': 'Request a credit', 'cin.credit.up': 'up to',
     'cin.chat.k': 'SUPPORT', 'cin.chat.t': 'Deposit simply through our *team* in the chat', 'cin.chat.s': 'Send your request, a photo of your receipt or a voice message. We credit your account right away.', 'cin.chat.c': 'Open the chat',
     'cin.chat.b1': 'Hello, I would like to deposit', 'cin.chat.b2': 'Of course, send us the receipt', 'cin.chat.b3': 'Done. Your account is credited.',
-    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*YASER*, your assistant, answers right away', 'cin.yaser.s': 'Ask about credit, Boost or transfers, any time of the day or night.', 'cin.yaser.c': 'Talk to YASER', 'cin.yaser.hi': 'How can I help you today?',
+    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*Amal*, your assistant, answers right away', 'cin.yaser.s': 'Ask about credit, Boost or transfers, any time of the day or night.', 'cin.yaser.c': 'Talk to Amal', 'cin.yaser.hi': 'How can I help you today?',
     'cin.send.k': 'TRANSFERS', 'cin.send.t': '*Instant* and international transfers', 'cin.send.s': 'Send money to a mobile number in seconds, or abroad in 48 to 72 hours.', 'cin.send.c': 'Send money', 'cin.send.a': 'Always on', 'cin.send.b': '48-72 h abroad',
     'cin.face.k': 'SECURITY', 'cin.face.t': 'Secured by *Face&nbsp;ID*', 'cin.face.s': 'Confirm in a glance. No code to type once Face ID is on.', 'cin.face.c': 'Open settings'
   },
@@ -29,7 +29,7 @@ Strings.add({
     'cin.credit.k': 'CRÉDIT', 'cin.credit.t': 'Un crédit de *{min}* à *{max}* OMR', 'cin.credit.s': 'Envoyez votre demande en une minute. Notre équipe l’étudie et vous répond vite.', 'cin.credit.c': 'Demander un crédit', 'cin.credit.up': 'jusqu’à',
     'cin.chat.k': 'ASSISTANCE', 'cin.chat.t': 'Déposez simplement via notre *équipe* dans le chat', 'cin.chat.s': 'Envoyez votre demande, la photo de votre reçu ou un message vocal. Nous créditons votre compte aussitôt.', 'cin.chat.c': 'Ouvrir le chat',
     'cin.chat.b1': 'Bonjour, je souhaite faire un dépôt', 'cin.chat.b2': 'Bien sûr, envoyez-nous le reçu', 'cin.chat.b3': 'C’est fait. Votre compte est crédité.',
-    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*YASER*, votre assistant, répond tout de suite', 'cin.yaser.s': 'Posez vos questions sur le crédit, Boost ou les transferts, de jour comme de nuit.', 'cin.yaser.c': 'Parler à YASER', 'cin.yaser.hi': 'Comment puis-je vous aider ?',
+    'cin.yaser.k': 'ASSISTANT', 'cin.yaser.t': '*Amal*, votre assistante, répond tout de suite', 'cin.yaser.s': 'Posez vos questions sur le crédit, Boost ou les transferts, de jour comme de nuit.', 'cin.yaser.c': 'Parler à Amal', 'cin.yaser.hi': 'Comment puis-je vous aider ?',
     'cin.send.k': 'TRANSFERTS', 'cin.send.t': 'Transferts *instantanés* et internationaux', 'cin.send.s': 'Envoyez de l’argent vers un numéro de mobile en quelques secondes, ou à l’étranger en 48 à 72 heures.', 'cin.send.c': 'Envoyer de l’argent', 'cin.send.a': 'Toujours actif', 'cin.send.b': '48-72 h à l’étranger',
     'cin.face.k': 'SÉCURITÉ', 'cin.face.t': 'Protégé par *Face&nbsp;ID*', 'cin.face.s': 'Confirmez d’un regard. Aucun code à saisir quand Face ID est actif.', 'cin.face.c': 'Ouvrir les réglages'
   },
@@ -40,7 +40,7 @@ Strings.add({
     'cin.credit.k': 'ائتمان', 'cin.credit.t': 'ائتمان من *{min}* إلى *{max}* ر.ع', 'cin.credit.s': 'أرسل طلبك في دقيقة. يدرسه فريقنا ويردّ عليك بسرعة.', 'cin.credit.c': 'اطلب ائتماناً', 'cin.credit.up': 'حتى',
     'cin.chat.k': 'الدعم', 'cin.chat.t': 'أودِع بسهولة عبر *فريقنا* في المحادثة', 'cin.chat.s': 'أرسل طلبك وصورة الإيصال أو رسالة صوتية. نضيف الرصيد إلى حسابك فوراً.', 'cin.chat.c': 'افتح المحادثة',
     'cin.chat.b1': 'مرحباً، أريد إجراء إيداع', 'cin.chat.b2': 'بكل سرور، أرسل لنا الإيصال', 'cin.chat.b3': 'تم. أُضيف الرصيد إلى حسابك.',
-    'cin.yaser.k': 'المساعد', 'cin.yaser.t': '*YASER* مساعدك يجيب فوراً', 'cin.yaser.s': 'اسأل عن الائتمان أو بوست أو التحويلات، ليلاً أو نهاراً.', 'cin.yaser.c': 'تحدّث مع YASER', 'cin.yaser.hi': 'كيف يمكنني مساعدتك اليوم؟',
+    'cin.yaser.k': 'المساعد', 'cin.yaser.t': '*أمل* مساعدتك تجيب فوراً', 'cin.yaser.s': 'اسأل عن الائتمان أو بوست أو التحويلات، ليلاً أو نهاراً.', 'cin.yaser.c': 'تحدّث مع Amal', 'cin.yaser.hi': 'كيف يمكنني مساعدتك اليوم؟',
     'cin.send.k': 'التحويلات', 'cin.send.t': 'تحويلات *فورية* ودولية', 'cin.send.s': 'أرسل المال إلى رقم هاتف خلال ثوانٍ، أو إلى الخارج خلال 48 إلى 72 ساعة.', 'cin.send.c': 'أرسل أموالاً', 'cin.send.a': 'متاح دائماً', 'cin.send.b': '48-72 ساعة للخارج',
     'cin.face.k': 'الأمان', 'cin.face.t': 'محمي بـ *Face&nbsp;ID*', 'cin.face.s': 'أكّد بنظرة واحدة. لا حاجة لكتابة الرمز عند تفعيل Face ID.', 'cin.face.c': 'افتح الإعدادات'
   }

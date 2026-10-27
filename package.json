@@ -4,7 +4,9 @@
   "private": true,
   "description": "Sanad Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
   "scripts": {
-    "build": "node scripts/build.mjs"
+    "build": "node scripts/build.mjs",
+    "test:agents": "node --test sanad-agents/agents.test.mjs sanad-agents/core.test.mjs sanad-agents/handler.test.mjs",
+    "sync:triage": "node scripts/dev/sync-triage.mjs"
   },
   "devDependencies": {
     "esbuild": "0.25.10",

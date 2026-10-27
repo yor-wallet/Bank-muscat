@@ -5,9 +5,9 @@
    (message, crédit, annonce), vue des notifications, démarrage / arrêt du chat, diagnostic. Aucune donnée d'exemple : tout vient du serveur.
    ============================================================ */
 Strings.add({
-  en: { 'v18.g.grow': 'Grow and get help', 'v18.credit': 'Credit', 'v18.creditD': 'Up to {max} OMR', 'v18.boost': 'Boost', 'v18.boostD': 'Earn every second', 'v18.chat': 'Support chat', 'v18.chatD': 'Deposits and help', 'v18.yaser': 'YASER', 'v18.yaserD': 'Your assistant', 'v18.cinema': 'Discover', 'v18.n.chat': 'New message', 'v18.n.creditOk': 'Credit approved', 'v18.n.creditNo': 'Credit declined', 'v18.n.creditReq': 'Credit request', 'v18.n.ann': 'Announcement', 'v18.quick': 'Quick access' },
-  fr: { 'v18.g.grow': 'Gagner et être aidé', 'v18.credit': 'Crédit', 'v18.creditD': 'Jusqu’à {max} OMR', 'v18.boost': 'Boost', 'v18.boostD': 'Gagnez chaque seconde', 'v18.chat': 'Chat assistance', 'v18.chatD': 'Dépôts et aide', 'v18.yaser': 'YASER', 'v18.yaserD': 'Votre assistant', 'v18.cinema': 'Découvrir', 'v18.n.chat': 'Nouveau message', 'v18.n.creditOk': 'Crédit accordé', 'v18.n.creditNo': 'Crédit refusé', 'v18.n.creditReq': 'Demande de crédit', 'v18.n.ann': 'Annonce', 'v18.quick': 'Accès rapide' },
-  ar: { 'v18.g.grow': 'اربح واحصل على المساعدة', 'v18.credit': 'الائتمان', 'v18.creditD': 'حتى {max} ر.ع', 'v18.boost': 'بوست', 'v18.boostD': 'اربح كل ثانية', 'v18.chat': 'دردشة الدعم', 'v18.chatD': 'الإيداع والمساعدة', 'v18.yaser': 'ياسر', 'v18.yaserD': 'مساعدك', 'v18.cinema': 'اكتشف', 'v18.n.chat': 'رسالة جديدة', 'v18.n.creditOk': 'تمت الموافقة على الائتمان', 'v18.n.creditNo': 'تم رفض الائتمان', 'v18.n.creditReq': 'طلب ائتمان', 'v18.n.ann': 'إعلان', 'v18.quick': 'وصول سريع' }
+  en: { 'v18.g.grow': 'Grow and get help', 'v18.credit': 'Credit', 'v18.creditD': 'Up to {max} OMR', 'v18.boost': 'Boost', 'v18.boostD': 'Earn every second', 'v18.chat': 'Support chat', 'v18.chatD': 'Deposits and help', 'v18.yaser': 'Amal', 'v18.yaserD': 'Your assistant', 'v18.cinema': 'Discover', 'v18.n.chat': 'New message', 'v18.n.creditOk': 'Credit approved', 'v18.n.creditNo': 'Credit declined', 'v18.n.creditReq': 'Credit request', 'v18.n.ann': 'Announcement', 'v18.quick': 'Quick access' },
+  fr: { 'v18.g.grow': 'Gagner et être aidé', 'v18.credit': 'Crédit', 'v18.creditD': 'Jusqu’à {max} OMR', 'v18.boost': 'Boost', 'v18.boostD': 'Gagnez chaque seconde', 'v18.chat': 'Chat assistance', 'v18.chatD': 'Dépôts et aide', 'v18.yaser': 'Amal', 'v18.yaserD': 'Votre assistant', 'v18.cinema': 'Découvrir', 'v18.n.chat': 'Nouveau message', 'v18.n.creditOk': 'Crédit accordé', 'v18.n.creditNo': 'Crédit refusé', 'v18.n.creditReq': 'Demande de crédit', 'v18.n.ann': 'Annonce', 'v18.quick': 'Accès rapide' },
+  ar: { 'v18.g.grow': 'اربح واحصل على المساعدة', 'v18.credit': 'الائتمان', 'v18.creditD': 'حتى {max} ر.ع', 'v18.boost': 'بوست', 'v18.boostD': 'اربح كل ثانية', 'v18.chat': 'دردشة الدعم', 'v18.chatD': 'الإيداع والمساعدة', 'v18.yaser': 'أمل', 'v18.yaserD': 'مساعدك', 'v18.cinema': 'اكتشف', 'v18.n.chat': 'رسالة جديدة', 'v18.n.creditOk': 'تمت الموافقة على الائتمان', 'v18.n.creditNo': 'تم رفض الائتمان', 'v18.n.creditReq': 'طلب ائتمان', 'v18.n.ann': 'إعلان', 'v18.quick': 'وصول سريع' }
 });
 
 const V18 = (() => {
@@ -78,7 +78,7 @@ const V18 = (() => {
   try {
     const so = AuthEngine.signOut;
     AuthEngine.signOut = async function(){
-      try { const u = Runtime.ctx && Runtime.ctx.uid; if (u) Guardian.store.del('yas_hist_' + u); } catch(e){ /* rien */ }      /* la conversation avec YASER contient des soldes : effacée à la déconnexion */
+      try { const u = Runtime.ctx && Runtime.ctx.uid; if (u) Guardian.store.del('yas_hist_' + u); } catch(e){ /* rien */ }      /* la conversation avec Amal contient des soldes : effacée à la déconnexion */
       try { if (typeof Chat !== 'undefined' && Chat.stop) Chat.stop(); } catch(e){ /* rien */ }
       return so.apply(this, arguments);
     };
