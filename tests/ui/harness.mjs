@@ -91,6 +91,8 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
   });
   await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, route => /supabase\.co/.test(route.request().url()) ? route.fallback() : route.abort());
   const page = await ctx.newPage();
+  /* l'invite « activer les notifications » dépend de PushManager : les tests n'en ont pas besoin (et elle masque l'écran) */
+  if (!(process.env.SANAD_TEST_PUSH)) await page.addInitScript(() => { try { delete window.PushManager; } catch (e) { /* rien */ } if ('PushManager' in window) { try { Object.defineProperty(window, 'Notification', { value: undefined, configurable: true }); delete window.Notification; } catch (e) { /* rien */ } } });
   const store = Object.assign({ fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
   await page.addInitScript(([s, session, logged, lang, theme]) => {
     try {

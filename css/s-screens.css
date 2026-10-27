@@ -330,47 +330,6 @@ html[dir="rtl"] .swipe-fill{background:linear-gradient(270deg,var(--sx-sky),var(
 .proc-view{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--sp-3);padding:calc(var(--safe-t) + var(--sp-6)) var(--sp-5) calc(var(--safe-b) + var(--sp-6));text-align:center}
 .hz-stage{width:min(100%,360px)}
 .hz-svg{width:100%;height:auto;overflow:visible}
-.hz-halo circle{fill:rgba(126,216,246,.35);transform-origin:160px 82px;animation:hzBreathe 2.6s ease-in-out infinite}
-@keyframes hzBreathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
-.hz-sq-bg{fill-opacity:.12;transition:fill-opacity var(--sx-t3) ease;transform-origin:160px 82px}
-.hz-sq-ring{fill:none;stroke:var(--sx-primary);stroke-width:3;stroke-dasharray:100;stroke-dashoffset:100;animation:hzRing 900ms var(--sx-ease-out) forwards}
-@keyframes hzRing{to{stroke-dashoffset:0}}
-.hz-lock{fill:none;stroke:var(--sx-deep);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;transition:opacity var(--sx-t2) ease}
-.hz-ck,.hz-x path{fill:none;stroke:#fff;stroke-width:12;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
-.hz-x{opacity:0}.hz-dots{opacity:0}.hz-dots circle{fill:var(--sx-deep)}
-.hz-line{fill:none;stroke:var(--fill-2);stroke-width:6;stroke-linecap:round}
-.hz-line-lit{fill:none;stroke:var(--sx-primary);stroke-width:6;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:hzLine 1000ms var(--sx-ease-out) 200ms forwards}
-@keyframes hzLine{to{stroke-dashoffset:0}}
-.hz-line-broken{fill:none;stroke:var(--st-bad);stroke-width:6;stroke-linecap:round;opacity:0}
-.hz-pulse rect{fill:#fff;opacity:0}
-.hz-pulse{transform:translate3d(0,0,0)}
-/* send : une impulsion court la ligne tant que le serveur n'a pas répondu */
-.proc-view[data-phase="send"] .hz-pulse rect{opacity:.95;animation:hzRun 1.5s var(--sx-ease) infinite}
-html[dir="rtl"] .proc-view[data-phase="send"] .hz-pulse{transform:scaleX(-1);transform-origin:160px 160px}
-@keyframes hzRun{0%{transform:translateX(-6px);opacity:0}15%{opacity:.95}85%{opacity:.95}100%{transform:translateX(212px);opacity:0}}
-.proc-view.hz-landing .hz-pulse rect{animation-duration:.42s}
-.proc-view[data-phase="send"] .hz-lock{opacity:1}
-.proc-view[data-phase="send"] .hz-sq-bg{fill-opacity:.2}
-/* success : seulement après la réponse confirmée */
-.proc-view[data-phase="success"] .hz-sq-bg{fill-opacity:1;animation:hzPop .5s var(--sx-spring)}
-@keyframes hzPop{from{transform:scale(.9)}to{transform:scale(1)}}
-.proc-view[data-phase="success"] .hz-lock{opacity:0}
-.proc-view[data-phase="success"] .hz-ck{animation:hzDraw .5s var(--sx-ease-out) .12s forwards}
-.proc-view[data-phase="success"] .hz-sq-ring{stroke:var(--sx-deep);animation:none;stroke-dashoffset:0}
-@keyframes hzDraw{to{stroke-dashoffset:0}}
-.proc-view[data-phase="success"] .hz-pulse rect{opacity:0;animation:none}
-/* échec : la ligne se brise, croix */
-.proc-view[data-phase="fail"] .hz-sq-bg{fill:#E84D65;fill-opacity:1}
-.proc-view[data-phase="fail"] .hz-lock{opacity:0}
-.proc-view[data-phase="fail"] .hz-x{opacity:1}.proc-view[data-phase="fail"] .hz-x path{animation:hzDraw .4s var(--sx-ease-out) .1s forwards}
-.proc-view[data-phase="fail"] .hz-line-lit,.proc-view[data-phase="fail"] .hz-line{opacity:0}.proc-view[data-phase="fail"] .hz-line-broken{opacity:1}
-.proc-view[data-phase="fail"] .hz-halo circle,.proc-view[data-phase="uncertain"] .hz-halo circle{animation:none}
-/* incertain : aucune coche, trois points */
-.proc-view[data-phase="uncertain"] .hz-sq-bg{fill:#F4A43B;fill-opacity:1}
-.proc-view[data-phase="uncertain"] .hz-lock{opacity:0}
-.proc-view[data-phase="uncertain"] .hz-dots{opacity:1}.proc-view[data-phase="uncertain"] .hz-dots circle{fill:#fff}
-.proc-view[data-phase="uncertain"] .hz-line-lit{stroke:#F4A43B}
-.proc-amount{font-size:calc(34px*var(--ui));font-weight:650;letter-spacing:-.04em}
 .hz-to{font-size:calc(14px*var(--ui));color:var(--text-2)}.hz-to b{color:var(--text)}
 .proc-label{font-size:calc(17px*var(--ui));font-weight:650}
 .hz-wait-note{font-size:calc(13px*var(--ui));color:var(--text-2);opacity:0;transition:opacity var(--sx-t3) ease;max-width:290px}
@@ -381,7 +340,6 @@ html[dir="rtl"] .proc-view[data-phase="send"] .hz-pulse{transform:scaleX(-1);tra
 .proc-view[data-phase="secure"] .hz-steps li[data-s="1"] i,.proc-view[data-phase="send"] .hz-steps li[data-s="1"] i,.proc-view[data-phase="send"] .hz-steps li[data-s="2"] i,.proc-view[data-wait="1"][data-phase="send"] .hz-steps li[data-s="3"] i,.proc-view[data-phase="success"] .hz-steps li i{background:var(--sx-primary)}
 .proc-view[data-phase="secure"] .hz-steps li[data-s="1"],.proc-view[data-phase="send"] .hz-steps li[data-s="2"],.proc-view[data-phase="success"] .hz-steps li[data-s="4"]{color:var(--text)}
 .proc-view[data-phase="fail"] .hz-steps,.proc-view[data-phase="uncertain"] .hz-steps{opacity:.4}
-@media (prefers-reduced-motion:reduce){.hz-halo circle,.proc-view[data-phase="send"] .hz-pulse rect{animation:none}.hz-ck,.hz-x path{stroke-dashoffset:0}.hz-sq-ring{animation:none;stroke-dashoffset:0}.hz-line-lit{animation:none;stroke-dashoffset:0}}
 
 /* ==========================================================================
    REÇU — feuille-ticket claire ; le glyphe de statut dessine la coche du logo
