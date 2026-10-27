@@ -27,7 +27,7 @@ const DeviceLang = (() => {
     const cur = get();
     const ov = document.createElement('div');
     ov.id = 'lang-picker'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true');
-    ov.style.cssText = 'position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;justify-content:center;gap:14px;box-sizing:border-box;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));background:var(--bg,#0A0A0A);color:var(--text,#fff);overflow-y:auto';
+    ov.style.cssText = 'position:fixed;inset:0;z-index:300;display:flex;flex-direction:column;justify-content:center;gap:14px;box-sizing:border-box;padding:calc(24px + env(safe-area-inset-top,0px)) 24px calc(24px + env(safe-area-inset-bottom,0px));background:var(--bg,#112235);color:var(--text,#fff);overflow-y:auto';
     const names = { en:'English', fr:'Français', ar:'العربية' };
     ov.innerHTML = '<div style="text-align:center;margin-bottom:8px"><div style="display:inline-block">' + logoLockup(72) + '</div></div>' +
       '<div style="text-align:center;font-weight:700;font-size:20px">Choose your language</div>' +
@@ -70,7 +70,7 @@ function applyTheme(mode){
   const eff = dark ? 'dark' : 'light';
   document.documentElement.setAttribute('data-theme', eff);
   const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute('content', eff === 'dark' ? '#059669' : '#f2fbf6');
+  if (meta) meta.setAttribute('content', eff === 'dark' ? '#102C4C' : '#EAF8FF');
   /* « Système » suit le téléphone en direct (nuit / jour), sans recharger */
   if (!_themeMq && window.matchMedia){
     try {

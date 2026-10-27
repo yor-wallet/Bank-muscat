@@ -5,7 +5,7 @@
 input[type=text],input[type=tel],input[type=number],input[type=password],input[type=email],input[type=search]{font-size:16px}
 /* bank card */
 .card-face{border-radius:26px;padding:clamp(16px,5vw,24px)}
-.card-front{background:radial-gradient(90% 70% at 100% 0%,rgba(255,255,255,.28),transparent 55%),radial-gradient(70% 60% at 0% 100%,rgba(52,211,153,.35),transparent 60%),linear-gradient(145deg,#312e28 0%,#22c55e 42%,#6ee7b7 75%,#6ee7b7 100%);border:1px solid rgba(255,255,255,.22);box-shadow:0 34px 64px -22px rgba(110,231,183,.6),inset 0 1px 0 rgba(255,255,255,.4)}
+.card-front{background:radial-gradient(90% 70% at 100% 0%,rgba(255,255,255,.28),transparent 55%),radial-gradient(70% 60% at 0% 100%,rgba(43,146,220,.35),transparent 60%),linear-gradient(145deg,#312e28 0%,#2081c7 42%,#73c3e2 75%,#73c3e2 100%);border:1px solid rgba(255,255,255,.22);box-shadow:0 34px 64px -22px rgba(115,195,226,.6),inset 0 1px 0 rgba(255,255,255,.4)}
 .card-back{background:linear-gradient(145deg,#06152B,#0A2A52);border:1px solid rgba(255,255,255,.14)}
 .card-brand{font-weight:800;letter-spacing:.18em;font-size:13px}
 .card-chip{width:46px;height:34px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.18)}

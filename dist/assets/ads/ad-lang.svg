@@ -2,21 +2,21 @@
 <filter id="blur2" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2"/></filter>
 <filter id="blur3" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="3"/></filter>
 <filter id="blur6" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
-<filter id="drop" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="2.6" flood-color="#171613" flood-opacity=".3"/></filter>
+<filter id="drop" x="-30%" y="-30%" width="170%" height="180%"><feDropShadow dx="0" dy="3" stdDeviation="2.6" flood-color="#14273e" flood-opacity=".3"/></filter>
 <linearGradient id="g-coin" x1="0.15" y1="0.05" x2="0.85" y2="1"><stop offset="0" stop-color="#FFE9A3"/><stop offset="1" stop-color="#F2A91D"/></linearGradient>
 <linearGradient id="g-coin2" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#FFD566"/><stop offset="1" stop-color="#D98A0B"/></linearGradient>
 <linearGradient id="g-teal" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#e8a91b"/><stop offset="1" stop-color="#6b4c08"/></linearGradient>
 <linearGradient id="g-deep" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#86600a"/><stop offset="1" stop-color="#312e28"/></linearGradient>
 <linearGradient id="g-white" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#f8edd1"/></linearGradient>
-<linearGradient id="g-phone" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#473b1e"/><stop offset="1" stop-color="#161412"/></linearGradient>
+<linearGradient id="g-phone" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#473b1e"/><stop offset="1" stop-color="#13273d"/></linearGradient>
 <linearGradient id="g-screen" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#fff8e3"/><stop offset="1" stop-color="#ffe8ad"/></linearGradient>
 <linearGradient id="g-screen-d" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#a5760d"/><stop offset="1" stop-color="#3a2a05"/></linearGradient>
 <linearGradient id="g-shield" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#fcbc2c"/><stop offset="1" stop-color="#6b4c08"/></linearGradient>
-<linearGradient id="g-card" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#bc850e"/><stop offset="1" stop-color="#2c2924"/></linearGradient>
+<linearGradient id="g-card" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#bc850e"/><stop offset="1" stop-color="#19324e"/></linearGradient>
 <linearGradient id="g-gold" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#FFE9A3"/><stop offset="1" stop-color="#E8A317"/></linearGradient>
 <linearGradient id="g-ice" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C9EEFF"/><stop offset="1" stop-color="#4FB0EA"/></linearGradient><radialGradient id="mo-sk" cx="0.36" cy="0.28" r="0.9"><stop offset="0" stop-color="#B07A55"/><stop offset="0.58" stop-color="#8C5A3B"/><stop offset="1" stop-color="#6A4029"/></radialGradient><linearGradient id="mo-nk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6A4029"/><stop offset="1" stop-color="#8C5A3B"/></linearGradient><linearGradient id="mo-tp" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#F7C85B"/><stop offset="1" stop-color="#E39F23"/></linearGradient><linearGradient id="mo-sh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.26"/></linearGradient><clipPath id="mo-nc"><path d="M49 70 L49 96 C49 103 54 107 60 107 C66 107 71 103 71 96 L71 70 Z"/></clipPath><clipPath id="mo-tc"><path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z"/></clipPath><linearGradient id="mo-hr" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#3A2A24"/><stop offset="1" stop-color="#120A07"/></linearGradient><radialGradient id="am-sk" cx="0.36" cy="0.28" r="0.9"><stop offset="0" stop-color="#F6D0A8"/><stop offset="0.58" stop-color="#E5AE80"/><stop offset="1" stop-color="#C98A5C"/></radialGradient><linearGradient id="am-nk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C98A5C"/><stop offset="1" stop-color="#E5AE80"/></linearGradient><linearGradient id="am-tp" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#b8820e"/><stop offset="1" stop-color="#6b4c08"/></linearGradient><linearGradient id="am-sh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.26"/></linearGradient><clipPath id="am-nc"><path d="M49 70 L49 96 C49 103 54 107 60 107 C66 107 71 103 71 96 L71 70 Z"/></clipPath><clipPath id="am-tc"><path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z"/></clipPath><linearGradient id="am-hj" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#FFF7EA"/><stop offset="1" stop-color="#E7CFA8"/></linearGradient><linearGradient id="am-hj2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E6C8"/><stop offset="1" stop-color="#D9BC8E"/></linearGradient><clipPath id="am-hc"><path d="M20 60 C14 19 38 3 60 3 C83 3 106 19 100 60 C100 75 105 90 110 106 C97 122 80 127 60 127 C40 127 23 122 10 106 C15 90 20 75 20 60Z"/></clipPath><radialGradient id="aw-sk" cx="0.36" cy="0.28" r="0.9"><stop offset="0" stop-color="#9C6846"/><stop offset="0.58" stop-color="#7B4B31"/><stop offset="1" stop-color="#5B3622"/></radialGradient><linearGradient id="aw-nk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5B3622"/><stop offset="1" stop-color="#7B4B31"/></linearGradient><linearGradient id="aw-tp" x1="0.15" y1="0" x2="0.85" y2="1"><stop offset="0" stop-color="#ffd060"/><stop offset="1" stop-color="#c58b0f"/></linearGradient><linearGradient id="aw-sh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.26"/></linearGradient><clipPath id="aw-nc"><path d="M49 70 L49 96 C49 103 54 107 60 107 C66 107 71 103 71 96 L71 70 Z"/></clipPath><clipPath id="aw-tc"><path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z"/></clipPath><linearGradient id="aw-wr" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#FFB347"/><stop offset="1" stop-color="#F0731F"/></linearGradient><linearGradient id="aw-wy" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#F6B52E"/></linearGradient></defs><circle cx="152" cy="108" r="86" fill="#6b4c08" opacity="0.08"/><circle cx="72" cy="150" r="60" fill="#6b4c08" opacity="0.06"/><circle cx="198" cy="172" r="40" fill="#6b4c08" opacity="0.07"/>
     <g transform="translate(-16 74) scale(0.84)">
-    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#11100e" opacity=".18" filter="url(#blur3)"/>
+    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#12253a" opacity=".18" filter="url(#blur3)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#mo-tp)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#mo-sh)"/>
     <ellipse cx="30" cy="110" rx="19" ry="6.5" fill="#fff" opacity=".2" transform="rotate(-24 30 110)"/>
@@ -54,7 +54,7 @@
          <path d="M52.6 66.2 Q60 67.3 67.4 66.2 Q65.4 70.4 60 70.4 Q54.6 70.4 52.6 66.2Z" fill="#fff"/>
          <ellipse cx="60" cy="74.2" rx="3.6" ry="1.9" fill="#E36C78"/>
   </g></g><g transform="translate(138 74) scale(0.84)">
-    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#11100e" opacity=".18" filter="url(#blur3)"/>
+    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#12253a" opacity=".18" filter="url(#blur3)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#aw-tp)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#aw-sh)"/>
     <ellipse cx="30" cy="110" rx="19" ry="6.5" fill="#fff" opacity=".2" transform="rotate(-24 30 110)"/>
@@ -81,8 +81,8 @@
   <g>
     <ellipse cx="45" cy="61.5" rx="5.6" ry="3.8" fill="#C9625A" opacity=".34"/>
     <ellipse cx="75" cy="61.5" rx="5.6" ry="3.8" fill="#C9625A" opacity=".34"/>
-    <path d="M42.5 41.6 Q48.5 38.2 55 40.6" fill="none" stroke="#1D110B" stroke-width="2.3" stroke-linecap="round"/>
-    <path d="M65 40.6 Q71.5 38.2 77.5 41.6" fill="none" stroke="#1D110B" stroke-width="2.3" stroke-linecap="round"/>
+    <path d="M42.5 41.6 Q48.5 38.2 55 40.6" fill="none" stroke="#13273d" stroke-width="2.3" stroke-linecap="round"/>
+    <path d="M65 40.6 Q71.5 38.2 77.5 41.6" fill="none" stroke="#13273d" stroke-width="2.3" stroke-linecap="round"/>
     <g>
       <ellipse cx="49.5" cy="49.5" rx="3.5" ry="4.5" fill="#2A1A15"/>
       <ellipse cx="70.5" cy="49.5" rx="3.5" ry="4.5" fill="#2A1A15"/>
@@ -95,7 +95,7 @@
          <path d="M52.6 66.2 Q60 67.3 67.4 66.2 Q65.4 70.4 60 70.4 Q54.6 70.4 52.6 66.2Z" fill="#fff"/>
          <ellipse cx="60" cy="74.2" rx="3.6" ry="1.9" fill="#E36C78"/>
   </g></g><g transform="translate(66 56) scale(0.96)">
-    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#11100e" opacity=".18" filter="url(#blur3)"/>
+    <ellipse cx="60" cy="149" rx="52" ry="5" fill="#12253a" opacity=".18" filter="url(#blur3)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#am-tp)"/>
     <path d="M6 150 C6 117 20 101 44 97.5 L76 97.5 C100 101 114 117 114 150 Z" fill="url(#am-sh)"/>
     <ellipse cx="30" cy="110" rx="19" ry="6.5" fill="#fff" opacity=".2" transform="rotate(-24 30 110)"/>
@@ -139,7 +139,7 @@
 <g transform="translate(124 24)" filter="url(#drop)">
   <rect x="-32" y="-12" width="64" height="24" rx="9.23076923076923" fill="#fff"/>
   <path d="M-22 11 L-26 20 L-13 11Z" fill="#fff"/>
-  <text x="0" y="4.3" text-anchor="middle" font-family="Inter,Segoe UI,Tahoma,Arial,sans-serif" font-size="12" font-weight="800" fill="#2d2a24">Bonjour</text>
+  <text x="0" y="4.3" text-anchor="middle" font-family="Inter,Segoe UI,Tahoma,Arial,sans-serif" font-size="12" font-weight="800" fill="#19324e">Bonjour</text>
   <rect x="-29" y="-9.6" width="58" height="6.7" rx="3.4" fill="#fff" opacity=".35"/>
 </g>
     

@@ -2,7 +2,7 @@
   "name": "friendly-pay",
   "version": "20.3.0",
   "private": true,
-  "description": "Freindi Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
+  "description": "Sanad Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
   "scripts": {
     "build": "node scripts/build.mjs"
   },

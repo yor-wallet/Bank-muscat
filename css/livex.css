@@ -5,31 +5,31 @@
    Sombre (défaut) : noir chaud #0A0A0B, or #22c55e.   Clair : blanc cassé #F5F4F1, or profond #22c55e pour le texte, or vif pour les boutons.
    ========================================================================== */
 :root{
-  --lx-gold:#22c55e;--lx-gold-2:#a7f3d0;--lx-gold-3:#6ee7b7;--lx-gold-hi:#a7f3d0;--lx-ink:#0A0A0B;--lx-navy:#2B2BC9;
-  --on-accent:#14110A;
-  --accent:#22c55e;--accent-600:#a7f3d0;
-  --accent-soft:rgba(34,197,94,.14);--accent-subtle:rgba(34,197,94,.08);--accent-glow:rgba(34,197,94,.34);
-  --yor-violet:#a7f3d0;--yor-mint:#22c55e;--yor-gold:#22c55e;--yor-glow:#6ee7b7;--yor-mist:#EAF5FF;
-  --btn-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
-  --brand-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
-  --btn-glow:rgba(34,197,94,.42);
-  --bg:#0A0A0B;--bg-1:#111113;--bg-2:#17171A;--bg-3:#1F1F23;
-  --glass-1:#121214;--glass-2:#19191C;--surf:#121214;--surf-2:#19191C;
+  --lx-gold:#2081c7;--lx-gold-2:#aadcf0;--lx-gold-3:#73c3e2;--lx-gold-hi:#aadcf0;--lx-ink:#112235;--lx-navy:#2B2BC9;
+  --on-accent:#122439;
+  --accent:#2081c7;--accent-600:#aadcf0;
+  --accent-soft:rgba(32,129,199,.14);--accent-subtle:rgba(32,129,199,.08);--accent-glow:rgba(32,129,199,.34);
+  --yor-violet:#aadcf0;--yor-mint:#2081c7;--yor-gold:#2081c7;--yor-glow:#73c3e2;--yor-mist:#EAF5FF;
+  --btn-grad:linear-gradient(180deg,#73c3e2 0%,#2081c7 58%,#aadcf0 100%);
+  --brand-grad:linear-gradient(180deg,#73c3e2 0%,#2081c7 58%,#aadcf0 100%);
+  --btn-glow:rgba(32,129,199,.42);
+  --bg:#112235;--bg-1:#13263c;--bg-2:#152941;--bg-3:#172e48;
+  --glass-1:#13263c;--glass-2:#152a43;--surf:#13263c;--surf-2:#152a43;
   --text:#F7F4EC;--text-2:#BDB7A8;--text-3:#8F8A7D;
-  --champagne:#22c55e;--champagne-soft:rgba(34,197,94,.20);
+  --champagne:#2081c7;--champagne-soft:rgba(32,129,199,.20);
 }
 :root[data-theme="light"]{
-  --on-accent:#14110A;
-  --accent:#22c55e;--accent-600:#10b981;
-  --accent-soft:rgba(110,231,183,.14);--accent-subtle:rgba(110,231,183,.08);--accent-glow:rgba(110,231,183,.30);
-  --yor-violet:#22c55e;--yor-mint:#a7f3d0;--yor-gold:#a7f3d0;
-  --btn-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
-  --brand-grad:linear-gradient(180deg,#6ee7b7 0%,#22c55e 58%,#a7f3d0 100%);
-  --btn-glow:rgba(167,243,208,.45);
+  --on-accent:#122439;
+  --accent:#2081c7;--accent-600:#1771b2;
+  --accent-soft:rgba(115,195,226,.14);--accent-subtle:rgba(115,195,226,.08);--accent-glow:rgba(115,195,226,.30);
+  --yor-violet:#2081c7;--yor-mint:#aadcf0;--yor-gold:#aadcf0;
+  --btn-grad:linear-gradient(180deg,#73c3e2 0%,#2081c7 58%,#aadcf0 100%);
+  --brand-grad:linear-gradient(180deg,#73c3e2 0%,#2081c7 58%,#aadcf0 100%);
+  --btn-glow:rgba(170,220,240,.45);
   --bg:#F5F4F1;--bg-1:#FFFFFF;--bg-2:#EFEDE8;--bg-3:#E5E2DA;
   --glass-1:#FFFFFF;--glass-2:#F3F1EC;--surf:#FFFFFF;--surf-2:#F3F1EC;
-  --text:#0E0D0A;--text-2:#55524A;--text-3:#6B675D;
-  --champagne:#6ee7b7;--champagne-soft:rgba(110,231,183,.16);
+  --text:#112337;--text-2:#55524A;--text-3:#6B675D;
+  --champagne:#73c3e2;--champagne-soft:rgba(115,195,226,.16);
 }
 /* boutons dorés : texte noir chaud, reflet doux */
 .btn-primary,.tile-solid,.nav-cta .nav-cta-tile,.nav-item.nav-cta .nav-cta-tile,.rv-act.p i,.rv-ava{background:var(--btn-grad)!important;color:var(--on-accent)!important}
@@ -39,13 +39,13 @@
 .progress-step.current .progress-step-dot,.select-check,.swipe-thumb{background:var(--btn-grad);color:var(--on-accent)}
 /* thème clair : l'accent sert au texte et aux icônes (contraste ≥ 4,5:1) ; les liens utilisent le bleu nuit de la marque */
 :root[data-theme="light"] .rv-h button,:root[data-theme="light"] .topbar-action,:root[data-theme="light"] .btn-ghost{color:var(--lx-navy)}
-:root[data-theme="light"] .tile{background:rgba(34,197,94,.22);color:#10b981}
+:root[data-theme="light"] .tile{background:rgba(32,129,199,.22);color:#1771b2}
 /* cartouche « ADMIN » : jamais de la même couleur que les badges utilisateur */
 .badge-admin,.px-chip.admin{background:#1F1F6B;color:#fff;border:1px solid rgba(255,255,255,.18);letter-spacing:.08em}
 
 /* ---- 16.0.1 : chaque action réussie est confirmée et approuvée visuellement ---- */
 .toast.toast-ok{display:flex;align-items:center;gap:10px;border:1px solid color-mix(in srgb,var(--accent) 55%,transparent);box-shadow:0 8px 28px rgba(0,0,0,.35),0 0 0 3px color-mix(in srgb,var(--accent) 14%,transparent)}
-.toast-ck{flex:none;width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);font-style:normal;font-weight:900;font-size:13px;line-height:1;animation:lxck .45s cubic-bezier(.2,1.4,.4,1) both}
+.toast-ck{flex:none;width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#122439);font-style:normal;font-weight:900;font-size:13px;line-height:1;animation:lxck .45s cubic-bezier(.2,1.4,.4,1) both}
 @keyframes lxck{0%{transform:scale(0) rotate(-40deg)}100%{transform:scale(1) rotate(0)}}
 .rc-approved{display:inline-flex;align-items:center;gap:7px;margin:10px auto 0;padding:7px 13px;border-radius:999px;font-size:calc(12.5px*var(--ui,1));font-weight:800;letter-spacing:.2px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);animation:lxck .5s .15s cubic-bezier(.2,1.4,.4,1) both}
 .rc-approved svg{flex:none}
@@ -53,7 +53,7 @@
 
 /* ---- 16.1.0 : destinataire reconnu par son numéro ---- */
 .sp-member{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
-.sp-ava{flex:none;width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;font-weight:800;font-size:14px;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A)}
+.sp-ava{flex:none;width:40px;height:40px;border-radius:50%;display:inline-grid;place-items:center;font-weight:800;font-size:14px;background:var(--btn-grad,var(--accent));color:var(--on-accent,#122439)}
 .sp-mb{display:flex;flex-direction:column;gap:2px;min-width:0;text-align:start}
 .sp-mb b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sp-mb small{font-size:12px;opacity:.75;line-height:1.35}
@@ -61,12 +61,12 @@
 
 /* ---- 16.1.0 : notifications obligatoires et installation iPhone ---- */
 .mb{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:26px 22px 22px;max-width:380px;margin:0 auto}
-.mb-ic{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);box-shadow:0 10px 30px color-mix(in srgb,var(--accent) 35%,transparent)}
+.mb-ic{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#122439);box-shadow:0 10px 30px color-mix(in srgb,var(--accent) 35%,transparent)}
 .mb h2{margin:4px 0 0;font-size:21px;font-weight:800}
 .mb p{margin:0;font-size:14.5px;line-height:1.6;opacity:.85}
 .mb .btn{width:100%}
 .mb-err{min-height:18px;color:var(--danger,#ef4444);font-size:13px}
 .mb-steps{list-style:none;margin:4px 0 6px;padding:0;width:100%;display:flex;flex-direction:column;gap:10px;text-align:start}
 .mb-steps li{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:14px;background:color-mix(in srgb,var(--accent) 9%,transparent);border:1px solid color-mix(in srgb,var(--accent) 25%,transparent)}
-.mb-steps b{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#14110A);font-size:13px}
+.mb-steps b{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--btn-grad,var(--accent));color:var(--on-accent,#122439);font-size:13px}
 .mb-steps span{font-size:14px;line-height:1.45}

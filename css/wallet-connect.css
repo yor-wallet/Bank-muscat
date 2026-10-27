@@ -13,7 +13,7 @@
 .nwc-btn:active{transform:scale(.97)}
 .nwc-btn:disabled{opacity:.6}
 @media (hover:hover){.nwc-btn:hover:not(:disabled){background:rgba(255,255,255,.2)}}
-.nwc-primary{background:#fff;border-color:transparent;color:#3f2e05;box-shadow:0 10px 22px -10px rgba(15,14,12,.55)}
+.nwc-primary{background:#fff;border-color:transparent;color:#3f2e05;box-shadow:0 10px 22px -10px rgba(18,35,56,.55)}
 @media (hover:hover){.nwc-primary:hover:not(:disabled){background:#EAF5FF}}
 .nwc-ghost{background:transparent}
 .nwc-msg{margin:0;font-size:var(--fs-sm);font-weight:600;line-height:1.35;border-radius:12px;padding:8px 12px}

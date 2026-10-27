@@ -15,8 +15,8 @@ Strings.add({
     'hub.t.members': 'Members', 'hub.d.members': 'Search, details, welcome reward', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat with every member', 'hub.t.credit': 'Credit requests', 'hub.d.credit': 'Approve or decline',
     'hub.t.boost': 'Boost and settings', 'hub.d.boost': 'Rate, limits, switches', 'hub.t.announce': 'Announcements', 'hub.d.announce': 'Broadcast to everyone', 'hub.t.deposit': 'Quick deposit', 'hub.d.deposit': 'Credit a member by ID',
     'hub.t.audit': 'Audit log', 'hub.d.audit': 'Latest actions', 'hub.t.sounds': 'Sounds', 'hub.d.sounds': 'Preview the sound bank', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Report for support',
-    'hub.dSub': 'Credits the member’s wallet right away. Recorded in the audit log.', 'hub.dId': 'Freindi Pay ID', 'hub.dAmt': 'Amount (OMR)', 'hub.dNote': 'Note (optional)', 'hub.dReview': 'Review', 'hub.dConfirm': 'Credit {a} to {n}?',
-    'hub.dGo': 'Credit now', 'hub.dBack': 'Back', 'hub.dDone': 'Deposit completed', 'hub.dRef': 'Reference', 'hub.dClose': 'Done', 'hub.dBadId': 'Enter a valid Freindi Pay ID.', 'hub.dBadAmt': 'Enter an amount above zero.',
+    'hub.dSub': 'Credits the member’s wallet right away. Recorded in the audit log.', 'hub.dId': 'Sanad Pay ID', 'hub.dAmt': 'Amount (OMR)', 'hub.dNote': 'Note (optional)', 'hub.dReview': 'Review', 'hub.dConfirm': 'Credit {a} to {n}?',
+    'hub.dGo': 'Credit now', 'hub.dBack': 'Back', 'hub.dDone': 'Deposit completed', 'hub.dRef': 'Reference', 'hub.dClose': 'Done', 'hub.dBadId': 'Enter a valid Sanad Pay ID.', 'hub.dBadAmt': 'Enter an amount above zero.',
     'hub.dNoMember': 'No member with this ID.', 'hub.dChecking': 'Checking…', 'hub.dWorking': 'Crediting…',
     'hub.aEmpty': 'No action yet', 'hub.aSession': 'The server did not return the log. Showing this session only.',
     'hub.a.ADMIN_DEPOSIT': 'Deposit', 'hub.a.CREDIT_APPROVED': 'Credit approved', 'hub.a.CREDIT_REJECTED': 'Credit declined', 'hub.a.CREDIT_REQUEST': 'Credit request', 'hub.a.SETTING': 'Setting changed',
@@ -34,8 +34,8 @@ Strings.add({
     'hub.t.members': 'Membres', 'hub.d.members': 'Recherche, fiches, récompense', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat avec chaque membre', 'hub.t.credit': 'Demandes de crédit', 'hub.d.credit': 'Accepter ou refuser',
     'hub.t.boost': 'Boost et réglages', 'hub.d.boost': 'Taux, limites, interrupteurs', 'hub.t.announce': 'Annonces', 'hub.d.announce': 'Diffuser à tout le monde', 'hub.t.deposit': 'Dépôt rapide', 'hub.d.deposit': 'Créditer un membre par ID',
     'hub.t.audit': 'Journal d’audit', 'hub.d.audit': 'Dernières actions', 'hub.t.sounds': 'Sons', 'hub.d.sounds': 'Écouter la banque de sons', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Rapport pour l’assistance',
-    'hub.dSub': 'Crédite aussitôt le portefeuille du membre. Enregistré dans le journal d’audit.', 'hub.dId': 'ID Freindi Pay', 'hub.dAmt': 'Montant (OMR)', 'hub.dNote': 'Note (facultatif)', 'hub.dReview': 'Vérifier', 'hub.dConfirm': 'Créditer {a} à {n} ?',
-    'hub.dGo': 'Créditer maintenant', 'hub.dBack': 'Retour', 'hub.dDone': 'Dépôt effectué', 'hub.dRef': 'Référence', 'hub.dClose': 'Terminé', 'hub.dBadId': 'Saisissez un ID Freindi Pay valide.', 'hub.dBadAmt': 'Saisissez un montant supérieur à zéro.',
+    'hub.dSub': 'Crédite aussitôt le portefeuille du membre. Enregistré dans le journal d’audit.', 'hub.dId': 'ID Sanad Pay', 'hub.dAmt': 'Montant (OMR)', 'hub.dNote': 'Note (facultatif)', 'hub.dReview': 'Vérifier', 'hub.dConfirm': 'Créditer {a} à {n} ?',
+    'hub.dGo': 'Créditer maintenant', 'hub.dBack': 'Retour', 'hub.dDone': 'Dépôt effectué', 'hub.dRef': 'Référence', 'hub.dClose': 'Terminé', 'hub.dBadId': 'Saisissez un ID Sanad Pay valide.', 'hub.dBadAmt': 'Saisissez un montant supérieur à zéro.',
     'hub.dNoMember': 'Aucun membre avec cet ID.', 'hub.dChecking': 'Vérification…', 'hub.dWorking': 'Crédit en cours…',
     'hub.aEmpty': 'Aucune action pour l’instant', 'hub.aSession': 'Le serveur n’a pas renvoyé le journal. Affichage de cette session seulement.',
     'hub.a.ADMIN_DEPOSIT': 'Dépôt', 'hub.a.CREDIT_APPROVED': 'Crédit accordé', 'hub.a.CREDIT_REJECTED': 'Crédit refusé', 'hub.a.CREDIT_REQUEST': 'Demande de crédit', 'hub.a.SETTING': 'Réglage modifié',
@@ -53,8 +53,8 @@ Strings.add({
     'hub.t.members': 'الأعضاء', 'hub.d.members': 'بحث وتفاصيل ومكافأة', 'hub.t.chat': 'الرسائل', 'hub.d.chat': 'محادثة مع كل عضو', 'hub.t.credit': 'طلبات الائتمان', 'hub.d.credit': 'قبول أو رفض',
     'hub.t.boost': 'بوست والإعدادات', 'hub.d.boost': 'النسبة والحدود والمفاتيح', 'hub.t.announce': 'الإعلانات', 'hub.d.announce': 'بث للجميع', 'hub.t.deposit': 'إيداع سريع', 'hub.d.deposit': 'أضف رصيداً لعضو بمعرّفه',
     'hub.t.audit': 'سجل التدقيق', 'hub.d.audit': 'آخر الإجراءات', 'hub.t.sounds': 'الأصوات', 'hub.d.sounds': 'استمع إلى مكتبة الأصوات', 'hub.t.diag': 'التشخيص', 'hub.d.diag': 'تقرير للدعم',
-    'hub.dSub': 'يُضاف فوراً إلى محفظة العضو. يُسجَّل في سجل التدقيق.', 'hub.dId': 'معرّف فريندي باي', 'hub.dAmt': 'المبلغ (ر.ع)', 'hub.dNote': 'ملاحظة (اختياري)', 'hub.dReview': 'مراجعة', 'hub.dConfirm': 'إضافة {a} إلى {n}؟',
-    'hub.dGo': 'أضف الآن', 'hub.dBack': 'رجوع', 'hub.dDone': 'تم الإيداع', 'hub.dRef': 'المرجع', 'hub.dClose': 'تم', 'hub.dBadId': 'أدخل معرّف فريندي باي صحيحاً.', 'hub.dBadAmt': 'أدخل مبلغاً أكبر من الصفر.',
+    'hub.dSub': 'يُضاف فوراً إلى محفظة العضو. يُسجَّل في سجل التدقيق.', 'hub.dId': 'معرّف سند باي', 'hub.dAmt': 'المبلغ (ر.ع)', 'hub.dNote': 'ملاحظة (اختياري)', 'hub.dReview': 'مراجعة', 'hub.dConfirm': 'إضافة {a} إلى {n}؟',
+    'hub.dGo': 'أضف الآن', 'hub.dBack': 'رجوع', 'hub.dDone': 'تم الإيداع', 'hub.dRef': 'المرجع', 'hub.dClose': 'تم', 'hub.dBadId': 'أدخل معرّف سند باي صحيحاً.', 'hub.dBadAmt': 'أدخل مبلغاً أكبر من الصفر.',
     'hub.dNoMember': 'لا يوجد عضو بهذا المعرّف.', 'hub.dChecking': 'جارٍ التحقق…', 'hub.dWorking': 'جارٍ الإضافة…',
     'hub.aEmpty': 'لا توجد إجراءات بعد', 'hub.aSession': 'لم يُرجع الخادم السجل. تُعرض هذه الجلسة فقط.',
     'hub.a.ADMIN_DEPOSIT': 'إيداع', 'hub.a.CREDIT_APPROVED': 'قبول ائتمان', 'hub.a.CREDIT_REJECTED': 'رفض ائتمان', 'hub.a.CREDIT_REQUEST': 'طلب ائتمان', 'hub.a.SETTING': 'تعديل إعداد',
@@ -200,7 +200,7 @@ const AdminHub = (() => {
         };
       }
       function done(a, nm, ref){
-        s2.innerHTML = '<div class="hub-ok"><svg viewBox="0 0 80 80" aria-hidden="true"><circle class="hub-ok-c" cx="40" cy="40" r="34" fill="none" stroke="#3DDC97" stroke-width="5"/><path class="hub-ok-p" d="M25 41l11 11 20-23" fill="none" stroke="#3DDC97" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+        s2.innerHTML = '<div class="hub-ok"><svg viewBox="0 0 80 80" aria-hidden="true"><circle class="hub-ok-c" cx="40" cy="40" r="34" fill="none" stroke="#3a9adf" stroke-width="5"/><path class="hub-ok-p" d="M25 41l11 11 20-23" fill="none" stroke="#3a9adf" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
           '<h3>' + esc(e('dDone')) + '</h3><b class="hub-ok-a ltr" dir="ltr">0.000</b><small>OMR → ' + esc(nm) + '</small>' + (ref ? '<small class="ltr" dir="ltr">' + esc(e('dRef')) + ' · ' + esc(dispId(ref)) + '</small>' : '') + '</div>' +
           '<button type="button" class="btn btn-primary" id="hd-close">' + esc(e('dClose')) + '</button>';
         try { Sfx.play('money'); Fx.haptic('success'); Fx.countUp(s2.querySelector('.hub-ok-a'), a, { dec: 3, ms: 1000 }); Fx.confetti(s2.querySelector('.hub-ok'), { n: 60 }); } catch(x){ /* rien */ }

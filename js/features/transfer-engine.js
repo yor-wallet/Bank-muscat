@@ -13,7 +13,7 @@ const TransferEngine = (() => {
     return { uid: null, userId: '', yorId: r.yor_id, name: r.display_name || dispId(r.yor_id),
              phone: '', country: r.country || 'OM', role: 'user', photo: r.photo || null };
   }
-  /* 16.1.0 : reconnaît un compte Freindi Pay à partir de son numéro de mobile (find_user_by_phone) -> { yorId, name, country } ou null */
+  /* 16.1.0 : reconnaît un compte Sanad Pay à partir de son numéro de mobile (find_user_by_phone) -> { yorId, name, country } ou null */
   async function resolvePhone(intl){
     if (!supabaseReady || !intl) return null;
     try {

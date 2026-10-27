@@ -41,9 +41,9 @@ Object.assign(TR.ar, {
 });
 
 /* 12.5.0 : "make another transfer" (12.6.0: the receipt no longer carries any balance) */
-Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Freindi Pay transaction receipt — not a bank-issued document.' });
-Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Freindi Pay — ce n\'est pas un document émis par une banque.' });
-Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من فريندي باي — وليس مستنداً صادراً عن بنك.' });
+Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Sanad Pay transaction receipt — not a bank-issued document.' });
+Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Sanad Pay — ce n\'est pas un document émis par une banque.' });
+Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من سند باي — وليس مستنداً صادراً عن بنك.' });
 
 /* 12.3.4 : the receipt shows the SENDER'S number ("From"), the same number the recipient sees in the SMS. */
 Object.assign(TR.en, { 'receipt.from':'From', 'receipt.owner':'Account holder' });
@@ -253,7 +253,7 @@ function renderReceipt(){
     '</div>';
 
   return '<div class="receipt-view rc rc-' + state + '">' +
-    '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Freindi Pay</small></div>' +
+    '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Sanad Pay</small></div>' +
       '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 18) + '</button>' +
     '</div>' +
     '<section class="receipt-hero">' + rcBadge(state) +

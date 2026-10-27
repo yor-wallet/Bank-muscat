@@ -31,11 +31,11 @@ const PhoneArt = (() => {
       earned: 'لقد ربحت', cong: 'تمت إضافة مكافأة الترحيب إلى محفظتك', cta: 'رائع!', intl: 'التحويل الدولي', regions: ['الخليج', 'أفريقيا', 'أمريكا', 'كندا'], days: '48–72 ساعة', meth: ['بنك', 'محفظة هاتف', 'استلام نقدي'],
       arrives: 'يصل خلال 2–3 أيام', cards: 'البطاقات', online: 'الدفع عبر الإنترنت', contactless: 'الدفع اللاتلامسي', atm: 'السحب من الصراف', code: 'أدخل رمزك', fid: 'تم التعرف بـ Face ID', holder: 'YOUR NAME' },
   };
-  const FACES = [['#6ee7b7', '#2A1A15'], ['#22c55e', '#1E120D'], ['#CFE7FF', '#6A4029'], ['#22c55e', '#2A1A15'], ['#6E4228', '#120A06'], ['#a7f3d0', '#5B3622']];
+  const FACES = [['#73c3e2', '#2A1A15'], ['#2081c7', '#1E120D'], ['#CFE7FF', '#6A4029'], ['#2081c7', '#2A1A15'], ['#6E4228', '#120A06'], ['#aadcf0', '#5B3622']];
   /* avatar illustré : tête, cheveux, épaules (SVG) */
   function face(k, size){
     const [skin, hair] = FACES[k % FACES.length];
-    return '<svg class="ph-face" viewBox="0 0 40 40" width="' + size + '" height="' + size + '" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#d1fae5"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13z" fill="#14110A"/><rect x="17" y="21" width="6" height="8" rx="3" fill="' + skin + '"/><circle cx="20" cy="16" r="8" fill="' + skin + '"/><path d="M11.5 15.5c0-6 3.6-8.8 8.5-8.8s8.5 2.8 8.5 8.8c-2-3-4.6-4.2-8.5-4.2s-6.5 1.2-8.5 4.2z" fill="' + hair + '"/></svg>';
+    return '<svg class="ph-face" viewBox="0 0 40 40" width="' + size + '" height="' + size + '" aria-hidden="true"><circle cx="20" cy="20" r="20" fill="#d1eefa"/><path d="M5 40c1-9 7-13 15-13s14 4 15 13z" fill="#122439"/><rect x="17" y="21" width="6" height="8" rx="3" fill="' + skin + '"/><circle cx="20" cy="16" r="8" fill="' + skin + '"/><path d="M11.5 15.5c0-6 3.6-8.8 8.5-8.8s8.5 2.8 8.5 8.8c-2-3-4.6-4.2-8.5-4.2s-6.5 1.2-8.5 4.2z" fill="' + hair + '"/></svg>';
   }
   const regionName = (c, lang) => { try { return new Intl.DisplayNames([lang], { type: 'region' }).of(c); } catch(e){ return c; } };
   const flag = c => String.fromCodePoint(...[...c].map(ch => 127397 + ch.charCodeAt(0)));
@@ -51,13 +51,13 @@ const PhoneArt = (() => {
     (t, lang) => shell(
       '<div class="ph-ui ph-home-ui">' +
         '<div class="ph-hd"><span class="ph-ava">FP</span><span class="ph-hello"><small>' + esc(t.hi) + '</small><b>' + esc(t.name) + '</b></span><span class="ph-ic">' + ic('search', 18) + '</span><span class="ph-ic">' + ic('bell', 18) + '<i class="ph-dot"></i></span></div>' +
-        '<div class="ph-bal"><small>' + esc(t.bal) + '</small><div class="ph-amt"><span>USD</span><b>26.01</b></div><em>10.000 OMR</em><div class="ph-bal-f"><span>FP-XXXXXX</span><span>' + esc(t.acts[2]) + ' ' + ic('chev', 12) + '</span></div></div>' +
+        '<div class="ph-bal"><small>' + esc(t.bal) + '</small><div class="ph-amt"><span>USD</span><b>26.01</b></div><em>10.000 OMR</em><div class="ph-bal-f"><span>SP-XXXXXX</span><span>' + esc(t.acts[2]) + ' ' + ic('chev', 12) + '</span></div></div>' +
         '<div class="ph-acts">' + ['send', 'recv', 'hist', 'grid'].map((n, i) => '<span class="ph-act' + (i === 0 ? ' p' : '') + '"><i>' + ic(n, 22) + '</i><small>' + esc(t.acts[i]) + '</small></span>').join('') + '</div>' +
         '<div class="ph-sec">' + esc(t.recent) + '</div>' +
         '<div class="ph-row"><i class="ph-tile">' + ic('gift', 18) + '</i><span><b>' + esc(t.rw) + '</b><small>' + esc(t.rwSub) + '</small></span><em class="up">+10.000 OMR</em></div>' +
         '<div class="ph-row"><span class="ph-av">' + face(0, 28) + '</span><span><b>' + esc(t.friend) + '</b><small>' + esc(t.rwSub) + '</small></span><em>-25.000 OMR</em></div>' +
         '<div class="ph-sec">' + esc(t.cards) + '</div>' +
-        '<div class="ph-strip"><span class="ph-mini g"><b>FREINDI PAY</b><img src="assets/brand/network/visa-blue.svg" alt="" height="9"></span><span class="ph-mini k"><b>FREINDI PAY</b><img src="assets/brand/network/visa-white.svg" alt="" height="9"></span></div>' +
+        '<div class="ph-strip"><span class="ph-mini g"><b>SANAD PAY</b><img src="assets/brand/network/visa-blue.svg" alt="" height="9"></span><span class="ph-mini k"><b>SANAD PAY</b><img src="assets/brand/network/visa-white.svg" alt="" height="9"></span></div>' +
       '</div>',
       chip('c1', '<span class="ph-av">' + face(0, 34) + '</span><span><b>' + esc(t.toastT) + '</b><small>' + esc(t.toastM) + '</small></span>')),
     /* 1 — récompense */
@@ -78,7 +78,7 @@ const PhoneArt = (() => {
     /* 3 — carte Visa en métal */
     (t) => shell(
       '<div class="ph-ui ph-cd-ui"><div class="ph-top"><b>' + esc(t.cards) + '</b></div>' +
-        '<div class="ph-card"><i class="ph-card-sheen"></i><div class="ph-card-top"><b>FREINDI</b><small>PAY</small></div><i class="ph-chip-emv"></i>' +
+        '<div class="ph-card"><i class="ph-card-sheen"></i><div class="ph-card-top"><b>SANAD</b><small>PAY</small></div><i class="ph-chip-emv"></i>' +
           '<div class="ph-card-num">•••• •••• •••• 4821</div><div class="ph-card-bot"><span>' + esc(t.holder) + '</span><img src="assets/brand/network/visa-blue.svg" alt="" height="14"></div></div>' +
         [['globeOn', t.online], ['card', t.contactless], ['hist', t.atm]].map(([n, l], i) => '<div class="ph-row ph-tg"><i class="ph-tile">' + ic(n === 'globeOn' ? 'globe' : n, 17) + '</i><span><b>' + esc(l) + '</b></span><i class="ph-sw on"></i></div>').join('') +
       '</div>',

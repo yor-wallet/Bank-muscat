@@ -1,5 +1,5 @@
 /* ===== YOR layout engine (full-screen, fluid, desktop grid) ===== */
-html,body{width:100%;min-height:100vh;min-height:100dvh;height:100%;margin:0;overflow:hidden;background:var(--bg,#0A0A0A)}
+html,body{width:100%;min-height:100vh;min-height:100dvh;height:100%;margin:0;overflow:hidden;background:var(--bg,#112235)}
 #app{width:100%;max-width:none;height:100vh;height:100dvh;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 *{overflow-wrap:anywhere}

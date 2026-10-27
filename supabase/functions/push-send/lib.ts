@@ -1,4 +1,4 @@
-/* push-send / lib.ts — logique PURE des notifications push (Web Push) de Live X Digitale.
+/* push-send / lib.ts — logique PURE des notifications push (Web Push) de Sanad Pay.
    Aucun accès réseau ni base de données ici : tout ce qui est testable est testé, y compris un aller-retour
    chiffrement / déchiffrement complet et la signature VAPID.
 
@@ -232,7 +232,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
     title = st === "OVERDUE" ? t.dueOver : st === "TODAY" ? t.dueToday : st === "CLOSED" || st === "FORGIVEN" ? t.dueClosed : t.dueSoon;
     body = st === "CLOSED" || st === "FORGIVEN" ? t.dueClosedBody : (amt ? fill(t.dueBody, { amt: iso(amt), d: iso(clean(d.due, 12)) }) : clean(n.message, 120));
   } else if (type === "ANNOUNCEMENT") {
-    title = clean(n.title, 60) || "Live X Digitale"; body = clean(n.message, 160);
+    title = clean(n.title, 60) || "Sanad Pay"; body = clean(n.message, 160);
   } else if (type === "NEW_USER") {
     /* alerte administrateur : nom, pays et numéro MASQUÉ sur l'écran verrouillé (le numéro complet reste dans la console admin) */
     title = t.newUser;
@@ -247,7 +247,7 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {
-    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Live X Digitale" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : (type === "CREDIT_DECISION" || type === "CREDIT_DUE") ? "#/credit" : "#/notifications",
+    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Sanad Pay" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : (type === "CREDIT_DECISION" || type === "CREDIT_DUE") ? "#/credit" : "#/notifications",
     badge: Math.max(0, Math.min(99, Math.floor(Number(unread) || 0))), lang, dir: lang === "ar" ? "rtl" : "ltr", ts: Date.now(), kind: type,
   };
 }

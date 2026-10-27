@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================================================================
-   Freindi Pay — « Connect Wallet » (Reown AppKit / WalletConnect), 12.7.0
+   Sanad Pay — « Connect Wallet » (Reown AppKit / WalletConnect), 12.7.0
    - CONNEXION SEULEMENT : cette fonction lit l'adresse publique du portefeuille. Elle n'envoie aucune transaction et ne
      demande aucune signature. Les cles privees / phrases de recuperation ne sont JAMAIS demandees ni stockees :
      elles restent dans le portefeuille de l'utilisateur (TronLink, etc.).
@@ -13,7 +13,7 @@ Object.assign(TR.en, {
   'wc.section':'Wallet','wc.connect':'Connect Wallet','wc.connecting':'Connecting…','wc.loading':'Loading…','wc.disconnect':'Disconnect','wc.change':'Manage',
   'wc.status.disconnected':'Not connected','wc.status.connecting':'Connecting…','wc.status.connected':'Connected','wc.status.reconnecting':'Reconnecting…',
   'wc.net.nile':'Nile Testnet','wc.net.wrong':'Wrong network ({net}). Switch your wallet to Nile Testnet.',
-  'wc.note':'Connecting only shares your public address. Freindi Pay never asks for your private key or recovery phrase, and nothing is sent without your approval in your wallet.',
+  'wc.note':'Connecting only shares your public address. Sanad Pay never asks for your private key or recovery phrase, and nothing is sent without your approval in your wallet.',
   'wc.copy':'Copy address','wc.copied':'Address copied','wc.disconnected':'Wallet disconnected',
   'wc.err.LOAD_FAILED':'Could not load the wallet connection. Check your internet connection and try again.',
   'wc.err.INIT_FAILED':'Wallet connection could not start. Try again later.',
@@ -23,7 +23,7 @@ Object.assign(TR.en, {
   'wc.err.NO_PROJECT':'Wallet connection is not configured.',
   'wc.help.title':'Trouble connecting?',
   'wc.help.1':'Tap “Connect Wallet”, then choose your wallet in the list or scan the QR code with it.',
-  'wc.help.2':'On iPhone, if your wallet does not open by itself, open Freindi Pay from your wallet’s built-in browser instead of Safari.',
+  'wc.help.2':'On iPhone, if your wallet does not open by itself, open Sanad Pay from your wallet’s built-in browser instead of Safari.',
   'wc.help.3':'This app uses the TRON Nile test network. Switch your wallet to Nile Testnet first. Not every wallet offers it; TronLink does.',
   'wc.help.4':'Nothing is sent when you connect, and you can disconnect at any time.'
 });
@@ -31,7 +31,7 @@ Object.assign(TR.fr, {
   'wc.section':'Portefeuille','wc.connect':'Connecter un portefeuille','wc.connecting':'Connexion…','wc.loading':'Chargement…','wc.disconnect':'Déconnecter','wc.change':'Gérer',
   'wc.status.disconnected':'Non connecté','wc.status.connecting':'Connexion…','wc.status.connected':'Connecté','wc.status.reconnecting':'Reconnexion…',
   'wc.net.nile':'Nile Testnet','wc.net.wrong':'Mauvais réseau ({net}). Passez votre portefeuille sur Nile Testnet.',
-  'wc.note':'La connexion partage uniquement votre adresse publique. Freindi Pay ne demande jamais votre clé privée ni votre phrase de récupération, et rien n\'est envoyé sans votre approbation dans votre portefeuille.',
+  'wc.note':'La connexion partage uniquement votre adresse publique. Sanad Pay ne demande jamais votre clé privée ni votre phrase de récupération, et rien n\'est envoyé sans votre approbation dans votre portefeuille.',
   'wc.copy':'Copier l\'adresse','wc.copied':'Adresse copiée','wc.disconnected':'Portefeuille déconnecté',
   'wc.err.LOAD_FAILED':'Impossible de charger la connexion de portefeuille. Vérifiez votre connexion internet puis réessayez.',
   'wc.err.INIT_FAILED':'La connexion de portefeuille n\'a pas pu démarrer. Réessayez plus tard.',
@@ -41,7 +41,7 @@ Object.assign(TR.fr, {
   'wc.err.NO_PROJECT':'La connexion de portefeuille n\'est pas configurée.',
   'wc.help.title':'Un problème pour vous connecter ?',
   'wc.help.1':'Touchez « Connecter un portefeuille », puis choisissez votre portefeuille dans la liste ou scannez le QR code avec lui.',
-  'wc.help.2':'Sur iPhone, si votre portefeuille ne s\'ouvre pas tout seul, ouvrez Freindi Pay depuis le navigateur intégré de votre portefeuille plutôt que depuis Safari.',
+  'wc.help.2':'Sur iPhone, si votre portefeuille ne s\'ouvre pas tout seul, ouvrez Sanad Pay depuis le navigateur intégré de votre portefeuille plutôt que depuis Safari.',
   'wc.help.3':'Cette application utilise le réseau de test TRON Nile. Passez d\'abord votre portefeuille sur Nile Testnet. Tous les portefeuilles ne le proposent pas ; TronLink le propose.',
   'wc.help.4':'Rien n\'est envoyé lors de la connexion, et vous pouvez vous déconnecter à tout moment.'
 });
@@ -49,7 +49,7 @@ Object.assign(TR.ar, {
   'wc.section':'المحفظة','wc.connect':'ربط المحفظة','wc.connecting':'جارٍ الاتصال…','wc.loading':'جارٍ التحميل…','wc.disconnect':'قطع الاتصال','wc.change':'إدارة',
   'wc.status.disconnected':'غير متصل','wc.status.connecting':'جارٍ الاتصال…','wc.status.connected':'متصل','wc.status.reconnecting':'جارٍ إعادة الاتصال…',
   'wc.net.nile':'شبكة Nile التجريبية','wc.net.wrong':'شبكة خاطئة ({net}). حوّل محفظتك إلى شبكة Nile التجريبية.',
-  'wc.note':'الربط يشارك عنوانك العام فقط. لا يطلب فريندي باي مفتاحك الخاص أو عبارة الاسترداد أبدًا، ولا يُرسل أي شيء دون موافقتك داخل محفظتك.',
+  'wc.note':'الربط يشارك عنوانك العام فقط. لا يطلب سند باي مفتاحك الخاص أو عبارة الاسترداد أبدًا، ولا يُرسل أي شيء دون موافقتك داخل محفظتك.',
   'wc.copy':'نسخ العنوان','wc.copied':'تم نسخ العنوان','wc.disconnected':'تم قطع اتصال المحفظة',
   'wc.err.LOAD_FAILED':'تعذّر تحميل ربط المحفظة. تحقق من اتصالك بالإنترنت وأعد المحاولة.',
   'wc.err.INIT_FAILED':'تعذّر بدء ربط المحفظة. أعد المحاولة لاحقًا.',
@@ -59,7 +59,7 @@ Object.assign(TR.ar, {
   'wc.err.NO_PROJECT':'ربط المحفظة غير مُعدّ.',
   'wc.help.title':'هل تواجه مشكلة في الربط؟',
   'wc.help.1':'اضغط «ربط المحفظة» ثم اختر محفظتك من القائمة أو امسح رمز QR بها.',
-  'wc.help.2':'على iPhone، إذا لم تُفتح محفظتك تلقائيًا، افتح فريندي باي من المتصفح المدمج في المحفظة بدل Safari.',
+  'wc.help.2':'على iPhone، إذا لم تُفتح محفظتك تلقائيًا، افتح سند باي من المتصفح المدمج في المحفظة بدل Safari.',
   'wc.help.3':'يستخدم هذا التطبيق شبكة TRON Nile التجريبية. حوّل محفظتك إلى Nile Testnet أولاً. ليست كل المحافظ توفّرها؛ TronLink توفّرها.',
   'wc.help.4':'لا يُرسل أي شيء عند الربط، ويمكنك قطع الاتصال في أي وقت.'
 });
@@ -100,8 +100,8 @@ const NexWC = (function(){
       a.init({
         projectId: PROJECT_ID,
         themeMode: themeMode(),
-        themeVariables: { '--w3m-accent': '#10b981', '--w3m-border-radius-master': '2px', '--w3m-z-index': 2000 },
-        metadata: { name: 'Freindi Pay', description: 'Freindi Pay — connect a TRON wallet (view only, no transaction).', url: location.origin, icons: [location.origin + '/assets/icons/icon-512.png'] }
+        themeVariables: { '--w3m-accent': '#1771b2', '--w3m-border-radius-master': '2px', '--w3m-z-index': 2000 },
+        metadata: { name: 'Sanad Pay', description: 'Sanad Pay — connect a TRON wallet (view only, no transaction).', url: location.origin, icons: [location.origin + '/assets/icons/icon-512.png'] }
       });
       if (!unsub) unsub = a.subscribe(() => paint());
       if (!a.getState().ready) { st.loadError = a.getState().error ? a.getState().error.code : 'INIT_FAILED'; paint(); throw new Error('INIT_FAILED'); }

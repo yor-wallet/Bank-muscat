@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Freindi Pay 16.0.0
+   Sanad Pay 16.0.0
    - « Ce mois-ci » : sums of CONFIRMED operations of the current month, read from Runtime.transactions (never estimated).
    - Pull to refresh (home, history, notifications): reloads the account from the server (AuthEngine.hydrateRuntime).
    - Recent recipients on the transfer screen: numbers the person really sent to (their own history), one tap fills the field.

@@ -1,4 +1,4 @@
-# Friendly Pay — site statique. dist/ est produit par `npm run build` (scripts/build.mjs) et fourni dans le dépôt :
+# Sanad Pay — site statique. dist/ est produit par `npm run build` (scripts/build.mjs) et fourni dans le dépôt :
 # Netlify le publie tel quel, sans lancer de build (aucune minute de build consommée).
 # Les en-têtes (sécurité + cache long) sont dans dist/_headers, générés par le build.
 [build]

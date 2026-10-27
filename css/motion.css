@@ -100,8 +100,8 @@
 .portfolio-hero>*:not(.crypto-orb){position:relative;z-index:1}
 .crypto-orb{position:absolute;inset-inline-end:calc(var(--sp-5)*.8);top:50%;width:calc(118px*var(--ui));height:calc(118px*var(--ui));margin-top:calc(-59px*var(--ui));perspective:calc(520px*var(--ui));pointer-events:none;z-index:0;transform:translate3d(0,var(--oty,0),0);opacity:.95}
 .co-sphere{position:absolute;inset:0;border-radius:50%;overflow:hidden;transform-style:preserve-3d;transform:rotateY(var(--oy,0deg)) rotateX(var(--ox,0deg));transition:transform 420ms var(--ease-out);
-  box-shadow:inset calc(-12px*var(--ui)) calc(-16px*var(--ui)) calc(30px*var(--ui)) rgba(0,0,0,.55),0 calc(18px*var(--ui)) calc(44px*var(--ui)) color-mix(in srgb,var(--accent) 30%,transparent);animation:orbFloat 9s ease-in-out infinite;background:#0C0C0C}
-.co-tex{position:absolute;inset:-25%;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),#6ee7b7 22%,#11100e 40%,var(--accent) 62%,#171613 82%,var(--accent));animation:orbSpin 26s linear infinite;will-change:transform;opacity:.9}
+  box-shadow:inset calc(-12px*var(--ui)) calc(-16px*var(--ui)) calc(30px*var(--ui)) rgba(0,0,0,.55),0 calc(18px*var(--ui)) calc(44px*var(--ui)) color-mix(in srgb,var(--accent) 30%,transparent);animation:orbFloat 9s ease-in-out infinite;background:#112337}
+.co-tex{position:absolute;inset:-25%;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),#73c3e2 22%,#12253a 40%,var(--accent) 62%,#14273e 82%,var(--accent));animation:orbSpin 26s linear infinite;will-change:transform;opacity:.9}
 .co-light{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.55),rgba(255,255,255,.08) 24%,transparent 46%),radial-gradient(circle at 70% 85%,rgba(0,0,0,.55),transparent 55%)}
 .co-ring{position:absolute;inset:-16%;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);transform:rotateX(74deg) rotateZ(0);animation:ringSpin 16s linear infinite;box-shadow:0 0 18px color-mix(in srgb,var(--accent) 22%,transparent)}
 @keyframes orbSpin{to{transform:rotate(360deg)}}
@@ -114,7 +114,7 @@
 /* orb v2: banded rotating texture + limb darkening */
 .crypto-orb{width:calc(88px*var(--ui));height:calc(88px*var(--ui));margin-top:calc(-44px*var(--ui));inset-inline-end:calc(var(--sp-5)*1.1)}
 .co-tex{inset:auto;top:0;bottom:0;left:0;width:300%;border-radius:0;opacity:1;
-  background:linear-gradient(90deg,#6ee7b7 0%,#6ee7b7 14%,#11100e 30%,#6ee7b7 46%,#171613 62%,#22c55e 80%,#6ee7b7 100%) 0 0/33.3333% 100% repeat-x;animation:orbSlide 22s linear infinite}
+  background:linear-gradient(90deg,#73c3e2 0%,#73c3e2 14%,#12253a 30%,#73c3e2 46%,#14273e 62%,#2081c7 80%,#73c3e2 100%) 0 0/33.3333% 100% repeat-x;animation:orbSlide 22s linear infinite}
 @keyframes orbSlide{to{transform:translate3d(-33.3333%,0,0)}}
 .co-light{background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.6),rgba(255,255,255,.08) 22%,transparent 42%),radial-gradient(circle at 50% 50%,transparent 46%,rgba(0,0,0,.62) 100%),radial-gradient(circle at 72% 88%,rgba(0,0,0,.45),transparent 52%)}
 .co-ring{inset:-24%}

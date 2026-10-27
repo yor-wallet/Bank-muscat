@@ -4,8 +4,8 @@
    bandeau d'avertissement en tête, sections distinctes, signaux en orange.
    ========================================================================== */
 .ai-note{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:10px 12px;border-radius:12px;
-  background:rgba(34,197,94,.1);box-shadow:inset 0 0 0 1px rgba(34,197,94,.34);color:var(--a-ink,#EEF0FF);font-size:12.5px;line-height:1.5}
-.ai-note svg{flex:none;margin-top:1px;color:var(--a-yel,#22c55e)}
+  background:rgba(32,129,199,.1);box-shadow:inset 0 0 0 1px rgba(32,129,199,.34);color:var(--a-ink,#EEF0FF);font-size:12.5px;line-height:1.5}
+.ai-note svg{flex:none;margin-top:1px;color:var(--a-yel,#2081c7)}
 
 .ai-sec{margin:0 0 14px}
 .ai-sec:last-child{margin-bottom:0}
@@ -15,13 +15,13 @@
 .ai-sec li{position:relative;padding-inline-start:20px;font-size:14px;line-height:1.55;color:var(--a-ink,#EEF0FF)}
 .ai-sec li::before{content:"";position:absolute;inset-inline-start:6px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--a-mute,#9AA0C8)}
 
-.ai-check li::before{background:var(--a-yel,#22c55e)}
-.ai-flag h3{color:var(--a-wait,#34d399)}
-.ai-flag li::before{background:var(--a-wait,#34d399)}
-.ai-flag li{color:var(--a-wait,#34d399)}
+.ai-check li::before{background:var(--a-yel,#2081c7)}
+.ai-flag h3{color:var(--a-wait,#2b92dc)}
+.ai-flag li::before{background:var(--a-wait,#2b92dc)}
+.ai-flag li{color:var(--a-wait,#2b92dc)}
 
 .ai-wait{display:flex;align-items:center;gap:10px;padding:18px 2px;color:var(--a-mute,#9AA0C8);font-size:14px}
-.ai-spin{width:18px;height:18px;flex:none;border-radius:50%;border:2px solid rgba(34,197,94,.25);border-top-color:var(--a-yel,#22c55e);animation:ai-rot .7s linear infinite}
+.ai-spin{width:18px;height:18px;flex:none;border-radius:50%;border:2px solid rgba(32,129,199,.25);border-top-color:var(--a-yel,#2081c7);animation:ai-rot .7s linear infinite}
 @keyframes ai-rot{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.ai-spin{animation-duration:2s}}
 
@@ -29,6 +29,6 @@
 
 /* bouton « Proposer une réponse » dans le chat administrateur */
 .chat-ai{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 12px;border-radius:999px;
-  background:rgba(34,197,94,.12);color:#22c55e;box-shadow:inset 0 0 0 1px rgba(34,197,94,.4);font-size:13px;font-weight:700;white-space:nowrap}
+  background:rgba(32,129,199,.12);color:#2081c7;box-shadow:inset 0 0 0 1px rgba(32,129,199,.4);font-size:13px;font-weight:700;white-space:nowrap}
 .chat-ai:disabled{opacity:.55}
-:root[data-theme="light"] .chat-ai{background:rgba(34,197,94,.1);color:#22c55e;box-shadow:inset 0 0 0 1px rgba(34,197,94,.35)}
+:root[data-theme="light"] .chat-ai{background:rgba(32,129,199,.1);color:#2081c7;box-shadow:inset 0 0 0 1px rgba(32,129,199,.35)}

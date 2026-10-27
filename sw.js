@@ -1,4 +1,4 @@
-/* Freindi Pay service worker (20.3.0) : coquille de l'application hors ligne + réception des notifications push.
+/* Sanad Pay service worker (20.3.0) : coquille de l'application hors ligne + réception des notifications push.
    - Il ne met JAMAIS en cache le trafic Supabase / API / chaîne : soldes et transactions viennent toujours du serveur.
    - 15.1.0 (vitesse) : les fichiers à empreinte (app.<hash>.js / .css), les polices et le client Supabase sont servis DEPUIS LE TÉLÉPHONE (copie locale d'abord,
      jamais de réseau tant qu'ils n'ont pas changé de nom) ; la page d'accueil aussi. Une nouvelle version = nouveau nom de cache : elle s'installe en arrière-plan
@@ -134,7 +134,7 @@ self.addEventListener('push', e => {
   try { d = e.data ? e.data.json() : {}; }
   catch (err) { try { d = { body: e.data.text() }; } catch (err2) { d = {}; } }
   if (!d || typeof d !== 'object') d = {};
-  const title = String(d.title || 'Freindi Pay').slice(0, 80);
+  const title = String(d.title || 'Sanad Pay').slice(0, 80);
   const opts = {
     body: String(d.body || '').slice(0, 200),
     icon: 'assets/icons/icon-192.png',

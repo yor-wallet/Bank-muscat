@@ -1,6 +1,6 @@
 'use strict';
 
-/* ===== FREINDI PAY 12.11.0 — robustesse =====
+/* ===== SANAD PAY 12.11.0 — robustesse =====
    - un écran dont l'affichage échoue montre un message clair (réessayer / accueil) au lieu de rester muet ;
    - les erreurs JavaScript et les promesses rejetées sont journalisées ; l'utilisateur voit au plus une petite notification
      toutes les 10 s, jamais le détail technique ;
@@ -35,9 +35,9 @@ const Resilience = (() => {
     const safeId = String(id || '').replace(/[^a-z0-9-]/gi, '');
     const isHome = safeId === 'home';
     return '<div class="res-screen" role="alert">' +
-      '<div class="res-art" aria-hidden="true"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="resg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a7f3d0"/><stop offset="1" stop-color="#10b981"/></linearGradient></defs>' +
+      '<div class="res-art" aria-hidden="true"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="resg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#aadcf0"/><stop offset="1" stop-color="#1771b2"/></linearGradient></defs>' +
         '<circle cx="60" cy="60" r="52" fill="url(#resg)" opacity=".14"/><circle cx="60" cy="60" r="38" fill="url(#resg)" opacity=".22"/>' +
-        '<g fill="none" stroke="#10b981" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M60 38v26"/></g><circle cx="60" cy="82" r="5" fill="#10b981"/></svg></div>' +
+        '<g fill="none" stroke="#1771b2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M60 38v26"/></g><circle cx="60" cy="82" r="5" fill="#1771b2"/></svg></div>' +
       '<h1 class="res-title">' + esc(t('res.title')) + '</h1>' +
       '<p class="res-body">' + esc(t('res.body')) + '</p>' +
       '<div class="res-actions">' +

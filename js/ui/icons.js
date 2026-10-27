@@ -72,7 +72,7 @@ const icon = (name, size) => svg(name, size);
 const FLAGS = {
   OM:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#DB0011"/><rect y="13.3" width="30" height="6.7" fill="#008000"/><rect width="8" height="20" fill="#DB0011"/><path d="M2.5 4L4 6.5 1 6.5z" fill="#fff"/></svg>',
   AE:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#009A44"/><rect y="13.3" width="30" height="6.7" fill="#000"/><rect width="8" height="20" fill="#CE1126"/></svg>',
-  SA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#165D31"/><path d="M7 13h16M7 15h14" stroke="#fff" stroke-width="1.2"/></svg>',
+  SA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#19375a"/><path d="M7 13h16M7 15h14" stroke="#fff" stroke-width="1.2"/></svg>',
   QA:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><path d="M0 0h8l2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2 2-2 2H0z" fill="#8D1B3D"/></svg>',
   KW:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.7" fill="#007A3D"/><rect y="13.3" width="30" height="6.7" fill="#CE1126"/><path d="M0 0l7 6.7v6.7L0 20z" fill="#000"/></svg>',
   BH:'<svg viewBox="0 0 30 20" preserveAspectRatio="none"><rect width="30" height="20" fill="#fff"/><path d="M0 0h8l3 2.5-3 2.5 3 2.5-3 2.5 3 2.5-3 2.5H0z" fill="#CE1126"/></svg>',
@@ -91,26 +91,26 @@ function flag(iso){ return FLAGS[iso] || FLAGS.US; }
 const isArabicUi = () => typeof LANG === 'string' && LANG === 'ar';
 function logoMark(size){
   size = size || 48;
-  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'فريندي باي' : 'Freindi Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
+  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'سند باي' : 'Sanad Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
 }
 function logoLockup(size){
   size = size || 48;
-  /* arabe : mot-symbole « فريندي باي » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
+  /* arabe : mot-symbole « سند باي » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
   const word = isArabicUi()
-    ? '<span class="logo-name logo-name-ar">فريندي</span><span class="logo-sub logo-sub-ar">باي</span>'
-    : '<span class="logo-name">FREINDI</span><span class="logo-sub">PAY</span>';
+    ? '<span class="logo-name logo-name-ar">سند</span><span class="logo-sub logo-sub-ar">باي</span>'
+    : '<span class="logo-name">SANAD</span><span class="logo-sub">PAY</span>';
   return '<div class="logo-lockup">' + logoMark(size) + '<div class="logo-word">' + word + '</div></div>';
 }
 const ASSET_INITIALS = { BTC:'₿', ETH:'Ξ', USDT:'₮', USDC:'$', BNB:'BNB', SOL:'SOL', XRP:'XRP', LTC:'Ł' };
 function assetLogo(symbol, size, tint){
   size = size || 40;
-  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#22c55e' }).tint;
+  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#2081c7' }).tint;
   const init = ASSET_INITIALS[symbol] || symbol.slice(0, 2);
   return '<div class="asset-coin" style="width:' + size + 'px;height:' + size + 'px;background:' + bg + '">' + init + '</div>';
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#22c55e';
+  const tint = net.tint || '#2081c7';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }

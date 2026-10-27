@@ -1,0 +1,184 @@
+/* ==========================================================================
+   SANAD PAY — SYSTÈME DE DESIGN 21.0.0   (chargée EN DERNIER, après freindi.css)
+   Direction : « airy sky banking » — bleu ciel léger, blanc pur, bleu profond de contraste.
+   Cette feuille ne change AUCUNE logique : elle ne fait que redéfinir des jetons et habiller des classes existantes.
+   Source de vérité des valeurs : brand/design-tokens.css du pack de marque + design/tokens/sanad-tokens.json.
+
+   1 polices   2 jetons de marque   3 surfaces & thèmes   4 typographie   5 contrôles   6 accueil & carte de solde
+   7 listes & statuts   8 navigation   9 présentation / ouverture / code   10 reçus   11 mouvement   12 mouvement réduit
+   ========================================================================== */
+
+/* ---------- 1. polices : Inter (latin) hébergée, Tajawal (arabe) hébergée — aucune requête vers un autre site ---------- */
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/tajawal-arabic-400.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:500;font-display:swap;src:url(../assets/fonts/tajawal-arabic-500.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:700;font-display:swap;src:url(../assets/fonts/tajawal-arabic-700.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+@font-face{font-family:"Tajawal";font-style:normal;font-weight:800;font-display:swap;src:url(../assets/fonts/tajawal-arabic-800.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+0870-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC}
+
+/* ---------- 2. jetons de marque (copie des valeurs du pack : brand/design-tokens.css) ---------- */
+:root{
+  --sanad-primary:#2596DE;--sanad-sky:#7ED8F6;--sanad-deep:#134F91;--sanad-ink:#102C4C;--sanad-ice:#EAF8FF;--sanad-white:#FFFFFF;--sanad-aqua:#38B9BE;
+  --sanad-success:#14A879;--sanad-warning:#F4A43B;--sanad-danger:#E84D65;
+  --sanad-radius-card:24px;--sanad-radius-button:16px;--sanad-radius-field:14px;
+  --sanad-motion-fast:160ms;--sanad-motion-normal:240ms;--sanad-motion-slow:380ms;
+  --sanad-ease:cubic-bezier(.22,.9,.24,1);--sanad-spring:cubic-bezier(.34,1.4,.5,1);
+  --sanad-sh-1:0 1px 2px rgba(19,79,145,.06),0 0 0 1px rgba(37,150,222,.07);
+  --sanad-sh-2:0 14px 30px -16px rgba(19,79,145,.28);
+  --sanad-sh-3:0 30px 60px -28px rgba(19,79,145,.36);
+  --sanad-grad:linear-gradient(135deg,#79DEFF 0%,#2596DE 55%,#238CDF 100%);
+  --sanad-grad-hero:linear-gradient(150deg,#2B9FE6 0%,#2596DE 38%,#1B76C4 72%,#134F91 100%);
+  --sanad-grad-btn:linear-gradient(180deg,#3DA8EA 0%,#2596DE 58%,#1E86CF 100%);
+}
+
+/* ---------- 3. surfaces & thèmes : on redéfinit les jetons existants, toute l'application suit ---------- */
+:root,:root[data-theme="light"]{
+  --fp-blue:#2596DE;--fp-bank:#1E86CF;--fp-deep:#134F91;--fp-sky:#7ED8F6;--fp-electric:#2596DE;--fp-light:#EAF8FF;--fp-white:#fff;
+  --fp-ink:#102C4C;--fp-ink-2:#4F6682;--fp-ok:#14A879;--fp-bad:#E84D65;--fp-warn:#F4A43B;
+  --fp-grad-brand:var(--sanad-grad-hero);--fp-grad-card:var(--sanad-grad-hero);--fp-grad-btn:var(--sanad-grad-btn);--fp-grad-sky:var(--sanad-grad);--fp-glow:rgba(37,150,222,.34);
+
+  --bg:#EAF8FF;--bg-1:#FFFFFF;--bg-2:#F3FAFF;--bg-3:#DCEFFB;
+  --glass-1:rgba(255,255,255,.78);--glass-2:rgba(255,255,255,.9);--glass-3:#fff;--glass-hl:rgba(255,255,255,.9);
+  --border:rgba(37,150,222,.14);--border-2:rgba(37,150,222,.26);
+  --accent:#2596DE;--accent-600:#1E7FC4;--accent-soft:rgba(37,150,222,.11);--accent-subtle:rgba(37,150,222,.07);--accent-glow:rgba(37,150,222,.28);--on-accent:#fff;
+  --text:#102C4C;--text-2:#4F6682;--text-3:#8197AF;
+  --success:#14A879;--success-bg:rgba(20,168,121,.11);--danger:#E84D65;--danger-bg:rgba(232,77,101,.1);
+  --warning:#F4A43B;--warning-bg:rgba(244,164,59,.14);--info:#2596DE;--info-bg:rgba(37,150,222,.1);
+  --brand-grad:var(--sanad-grad-hero);--btn-grad:var(--sanad-grad-btn);--btn-glow:rgba(37,150,222,.5);
+  --yor-violet:#2596DE;--yor-deep:#134F91;--yor-glow:#7ED8F6;--yor-mist:#EAF8FF;
+  --el-1:var(--sanad-sh-1);--el-2:var(--sanad-sh-2);--el-3:var(--sanad-sh-3);
+  --surf:#fff;--surf-2:#F6FBFF;--line:rgba(37,150,222,.13);
+  --st-ok:#0E8F66;--st-ok-bg:rgba(20,168,121,.12);--st-wait:#B26A0B;--st-wait-bg:rgba(244,164,59,.16);--st-bad:#D43A54;--st-bad-bg:rgba(232,77,101,.1);
+}
+:root[data-theme="dark"]{
+  --bg:#0A1B30;--bg-1:#0F2542;--bg-2:#132D50;--bg-3:#183A66;
+  --glass-1:rgba(16,44,76,.66);--glass-2:rgba(16,44,76,.82);--glass-3:rgba(11,33,64,.94);--glass-hl:rgba(126,216,246,.1);
+  --border:rgba(126,216,246,.16);--border-2:rgba(126,216,246,.28);
+  --accent:#7ED8F6;--accent-600:#2596DE;--accent-soft:rgba(126,216,246,.15);--accent-subtle:rgba(126,216,246,.08);--accent-glow:rgba(37,150,222,.42);--on-accent:#06223F;
+  --text:#EAF6FF;--text-2:rgba(234,246,255,.7);--text-3:rgba(234,246,255,.46);
+  --success:#2FD3A0;--success-bg:rgba(47,211,160,.14);--danger:#FF7A90;--danger-bg:rgba(255,122,144,.14);
+  --warning:#F9BE6B;--warning-bg:rgba(249,190,107,.15);--info:#7ED8F6;--info-bg:rgba(126,216,246,.14);
+  --brand-grad:linear-gradient(135deg,#0F2542 0%,#134F91 55%,#2596DE 100%);--btn-grad:linear-gradient(180deg,#5BC0F2,#2596DE 62%,#1E86CF);--btn-glow:rgba(37,150,222,.55);
+  --yor-violet:#7ED8F6;--yor-deep:#0A1B30;--yor-glow:#7ED8F6;--yor-mist:#132D50;
+  --el-1:inset 0 1px 0 rgba(126,216,246,.07),0 1px 2px rgba(0,0,0,.4);--el-2:0 14px 34px -16px rgba(0,0,0,.6);--el-3:0 30px 64px -24px rgba(0,0,0,.7);
+  --surf:rgba(19,45,80,.78);--surf-2:rgba(24,58,102,.7);--line:rgba(126,216,246,.14);
+  --st-ok:#2FD3A0;--st-ok-bg:rgba(47,211,160,.15);--st-wait:#F9BE6B;--st-wait-bg:rgba(249,190,107,.15);--st-bad:#FF7A90;--st-bad-bg:rgba(255,122,144,.15);
+}
+/* fond « ciel » : très légèrement bleuté, halos azur discrets (aucun filtre coûteux : dégradés statiques) */
+body{background:linear-gradient(180deg,#EAF8FF 0%,#F4FBFF 38%,#FFFFFF 100%) fixed}
+:root[data-theme="dark"] body{background:linear-gradient(180deg,#0A1B30 0%,#0C2140 100%) fixed}
+body::before{background:radial-gradient(70% 38% at 50% -6%,rgba(126,216,246,.38),transparent 70%),radial-gradient(52% 30% at 100% 2%,rgba(37,150,222,.14),transparent 72%)!important}
+:root[data-theme="dark"] body::before{background:radial-gradient(70% 38% at 50% -6%,rgba(37,150,222,.34),transparent 70%),radial-gradient(52% 30% at 100% 2%,rgba(126,216,246,.12),transparent 72%)!important}
+/* quadrillage hérité : on le retire (bruit graphique) */
+#ambient,#ambient::before,#ambient::after{background-image:none!important}
+
+/* ---------- 4. typographie : Inter + Tajawal, chiffres en colonnes ---------- */
+:root{--font:"Inter","SF Pro Text",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;--font-ar:"Tajawal","Inter","SF Arabic","Noto Sans Arabic",system-ui,sans-serif;--font-ui:var(--font);--font-num:"Inter",system-ui,sans-serif}
+html[dir="rtl"] body,html[lang="ar"] body{font-family:var(--font-ar)}
+html[dir="rtl"] .btn,html[dir="rtl"] .chip,html[dir="rtl"] button,html[dir="rtl"] input,html[dir="rtl"] select,html[dir="rtl"] textarea,html[dir="rtl"] p,html[dir="rtl"] .caption,html[dir="rtl"] .item-sub,html[dir="rtl"] .field-label{font-family:var(--font-ar)}
+/* montants, IBAN, OTP, références, numéros : toujours de gauche à droite, chiffres latins alignés */
+html[dir="rtl"] .ltr,html[dir="rtl"] [dir="ltr"],html[dir="rtl"] .amount,html[dir="rtl"] .item-amount,html[dir="rtl"] .rc-amt,html[dir="rtl"] .ds-bal-amt,html[dir="rtl"] .mono{font-family:var(--font-num);direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] .item-amount,html[dir="rtl"] .ds-bal-amt{text-align:end}
+h1,h2,.topbar-title{letter-spacing:-.02em;color:var(--text)}
+html[dir="rtl"] h1,html[dir="rtl"] h2,html[dir="rtl"] .topbar-title{letter-spacing:0}
+
+/* ---------- 5. contrôles : grille 4/8 px, cartes 24, boutons 16, champs 14 ---------- */
+.card,.ds-card,.sheet,.panel,.rv-card,.settings-group,.px-sec,.v13-month{border-radius:var(--sanad-radius-card)}
+.btn,.btn-primary,.btn-secondary{border-radius:var(--sanad-radius-button);min-height:52px}
+.btn-primary{background:var(--btn-grad)!important;color:#fff!important;border:0;box-shadow:0 12px 24px -12px var(--btn-glow),inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-primary[disabled],.btn-primary:disabled{background:linear-gradient(180deg,#B9D9EE,#A9CDE6)!important;color:rgba(255,255,255,.92)!important;box-shadow:none;opacity:1}
+.btn-secondary{background:#fff;color:var(--accent-600);box-shadow:inset 0 0 0 1px var(--border-2)}
+:root[data-theme="dark"] .btn-secondary{background:var(--glass-2);color:var(--accent)}
+.field-box,input.field,.field input{border-radius:var(--sanad-radius-field)}
+.field-box:focus-within,input:focus{border-color:var(--accent)!important;box-shadow:0 0 0 4px rgba(37,150,222,.16)!important}
+:focus-visible{outline:2px solid var(--sanad-primary);outline-offset:2px}
+/* puces de filtre : actif = bleu profond (contraste), jamais noir */
+.chip{border-radius:999px;background:#fff;color:var(--text-2);border:1px solid var(--border-2)}
+.chip[aria-pressed="true"],.chip.on,.chip.active,.chip.is-on,.chip[aria-selected="true"]{background:var(--sanad-deep)!important;color:#fff!important;border-color:var(--sanad-deep)!important;box-shadow:0 8px 16px -10px rgba(19,79,145,.7)}
+:root[data-theme="dark"] .chip{background:var(--glass-2);color:var(--text-2)}
+
+/* ---------- 6. accueil : en-tête, carte de solde, actions rapides ---------- */
+.px-ava,.rv-ava{background:var(--sanad-grad)!important;color:#fff!important;box-shadow:0 0 0 2px #fff,0 8px 18px -8px rgba(19,79,145,.55)}
+.px-circ,.rv-circ{background:#fff!important;color:var(--sanad-deep)!important;border:1px solid var(--border)!important;box-shadow:var(--sanad-sh-1)!important}
+:root[data-theme="dark"] .px-circ,:root[data-theme="dark"] .rv-circ{background:var(--glass-2)!important;color:var(--accent)!important}
+.rv-bdg{background:var(--sanad-danger)!important;color:#fff!important}
+.ds-home .ds-balance.px-bal{
+  background:radial-gradient(120% 120% at 100% 0%,rgba(126,216,246,.55) 0%,rgba(126,216,246,0) 56%),radial-gradient(80% 100% at 0% 100%,rgba(126,216,246,.22) 0%,rgba(126,216,246,0) 60%),var(--sanad-grad-hero)!important;
+  box-shadow:0 26px 48px -26px rgba(19,79,145,.62),inset 0 1px 0 rgba(255,255,255,.28)!important;border-radius:28px!important}
+.ds-home .ds-balance.px-bal::before{opacity:.35}
+.px-bal .px-chip.ok{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.34)}
+.px-bal .px-chip.ok i{background:#7CF2C8}
+.px-bal .px-chip.warn{background:rgba(255,255,255,.2);color:#FFE7C2;border-color:rgba(255,255,255,.34)}
+.px-bal .ds-bal-label,.px-bal .ds-bal-orig,.px-bal .ds-bal-sub{color:rgba(255,255,255,.88)}
+.px-bal .px-bal-foot{border-top-color:rgba(255,255,255,.22)}
+/* actions rapides : icônes toujours visibles (bleu profond sur blanc), l'action principale en dégradé ciel */
+.px-acts .rv-act i,.rv-act i{background:#fff!important;color:var(--sanad-deep)!important;border:1px solid var(--border)!important;box-shadow:var(--sanad-sh-1)!important}
+.px-acts .rv-act.p i,.rv-act.p i{background:var(--sanad-grad-btn)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 14px 24px -12px rgba(37,150,222,.7),inset 0 1px 0 rgba(255,255,255,.35)!important}
+.px-acts .rv-act i svg,.rv-act i svg{color:inherit;stroke:currentColor}
+:root[data-theme="dark"] .px-acts .rv-act i,:root[data-theme="dark"] .rv-act i{background:var(--glass-2)!important;color:var(--accent)!important}
+
+/* ---------- 7. listes & statuts : cartes blanches, texte encre ; le vert ne signifie que « succès » ---------- */
+.item,.rv-list,.ds-list,.settings-row,.v13-month,.px-sec{background:#fff;border-color:var(--border)}
+:root[data-theme="dark"] .item,:root[data-theme="dark"] .rv-list,:root[data-theme="dark"] .ds-list,:root[data-theme="dark"] .settings-row,:root[data-theme="dark"] .v13-month,:root[data-theme="dark"] .px-sec{background:var(--glass-2)}
+.rv-list .item.tx-row,.item.tx-row{background:transparent;box-shadow:none}
+.rv-list.ds-list{background:#fff;border:1px solid var(--border);border-radius:var(--sanad-radius-card);box-shadow:var(--sanad-sh-1);overflow:hidden}
+:root[data-theme="dark"] .rv-list.ds-list{background:var(--glass-2)}
+.tx-row .item-title{color:var(--text)!important}
+.tx-row .item-amount{color:var(--text)!important}
+.tx-row .item-amount.credit,.tx-row.tx-in.st-success .item-amount{color:var(--st-ok)!important}
+.tx-row.tx-out .tile{background:var(--accent-soft);color:var(--sanad-primary)}
+.tx-row.tx-in.st-success .tile{background:var(--st-ok-bg);color:var(--st-ok)}
+.tx-row.st-pending{background:transparent!important}
+.tx-row.st-pending .tile{background:var(--st-wait-bg);color:var(--st-wait)}
+.tx-row.st-failed .tile{background:var(--st-bad-bg);color:var(--st-bad)}
+.px-chip.ok,.badge-success,.st-ok{background:var(--st-ok-bg);color:var(--st-ok)}
+.rv-day{color:var(--text-3);letter-spacing:.06em}
+html[dir="rtl"] .rv-day{letter-spacing:0}
+/* barres du mois : sortant = bleu profond, entrant = ciel */
+.v13-bar.out{background:var(--sanad-deep)!important}.v13-bar.in{background:var(--sanad-sky)!important}
+
+/* ---------- 8. navigation : dock blanc translucide, onglet actif ciel ---------- */
+#bottom-nav .nav-dock,#bottom-nav.bottom-nav .nav-dock{background:rgba(255,255,255,.88)!important;border:1px solid var(--border)!important;box-shadow:0 18px 40px -20px rgba(19,79,145,.4)!important}
+:root[data-theme="dark"] #bottom-nav .nav-dock,:root[data-theme="dark"] #bottom-nav.bottom-nav .nav-dock{background:rgba(15,37,66,.86)!important}
+#bottom-nav .nav-item.active,#bottom-nav .nav-item[aria-current="page"]{color:var(--sanad-deep)!important}
+
+/* ---------- 3b. reprise des règles « thème clair » héritées (couches v17 / v19 / livex : encre + accent) — même spécificité, chargées après ---------- */
+:root[data-theme]{--ch-1:#2596DE;--ch-2:#134F91;--ch-3:#8197AF;--ch-4:#7ED8F6;--ch-5:#CFE6F5;--ink:#102C4C;--gold:#134F91;--champagne:#7ED8F6;--champagne-soft:rgba(126,216,246,.28)}
+:root[data-theme="light"] body,:root[data-theme="light"]{background-image:none}
+:root[data-theme="light"] body{background:linear-gradient(180deg,#EAF8FF 0%,#F4FBFF 38%,#FFFFFF 100%) fixed!important}
+:root[data-theme="dark"] body{background:linear-gradient(180deg,#0A1B30 0%,#0C2140 100%) fixed!important;background-image:linear-gradient(180deg,#0A1B30 0%,#0C2140 100%)!important}
+:root[data-theme="light"] .btn-primary{background:var(--btn-grad)!important;color:#fff!important}
+:root[data-theme="light"] .btn-secondary{background:#fff;color:var(--accent-600);border-color:var(--border-2)}
+:root[data-theme="light"] .chip[aria-pressed="true"]{background:var(--sanad-deep)!important;color:#fff!important;border-color:var(--sanad-deep)!important}
+:root[data-theme="light"] .switch[aria-checked="true"]{background:var(--sanad-primary);border-color:var(--sanad-primary)}
+:root[data-theme="light"] .switch[aria-checked="true"]::after{background:#fff}
+:root[data-theme="light"] .px-me,:root[data-theme="light"] .px-me .px-ava{background:transparent}
+:root[data-theme="light"] .v18-q i{background:var(--accent-soft);color:var(--sanad-deep)}
+:root[data-theme="light"] .rv-act i{color:var(--sanad-deep)!important;background:#fff!important}
+:root[data-theme="light"] .rv-act.p i{background:var(--sanad-grad-btn)!important;color:#fff!important}
+:root[data-theme="light"] .ds-home .ds-balance.px-bal{
+  background:radial-gradient(120% 120% at 100% 0%,rgba(126,216,246,.55) 0%,rgba(126,216,246,0) 56%),radial-gradient(80% 100% at 0% 100%,rgba(126,216,246,.22) 0%,rgba(126,216,246,0) 60%),var(--sanad-grad-hero)!important;color:#fff}
+:root[data-theme="light"] #bottom-nav .nav-dock{background:rgba(255,255,255,.9);border-color:var(--border-2);box-shadow:0 18px 40px -20px rgba(19,79,145,.4)}
+:root[data-theme="light"] #bottom-nav .nav-item[aria-current="page"]{color:var(--sanad-deep)}
+:root[data-theme="light"] #bottom-nav .nav-ind{background:rgba(37,150,222,.16)!important;border-color:rgba(37,150,222,.22)!important}
+:root[data-theme="light"] .qs-tile.is-on,:root[data-theme="light"] .qs-tile[aria-checked="true"]{background:var(--accent-soft);border-color:var(--sanad-sky);color:var(--sanad-deep)}
+:root[data-theme="light"] .qs-tile.is-on i,:root[data-theme="light"] .qs-tile[aria-checked="true"] i{background:var(--sanad-primary);color:#fff}
+:root[data-theme="light"] .side-item[aria-current="page"],:root[data-theme="light"] .side-item.active{background:var(--accent-soft);color:var(--sanad-deep)}
+:root[data-theme="light"] .field-box:focus-within{border-color:var(--sanad-primary);box-shadow:0 0 0 4px rgba(37,150,222,.16)}
+:root[data-theme="light"] :focus-visible{outline-color:var(--sanad-primary)}
+
+/* ---------- 11. mouvement : transform + opacity seulement ---------- */
+.btn,.chip,.item,.rv-act,.px-circ,.rv-circ,.settings-row,.nav-item,.fk-key,.v18-q,.qs-tile{-webkit-tap-highlight-color:transparent;transition:transform var(--sanad-motion-fast) var(--sanad-ease),background-color var(--sanad-motion-fast) ease,box-shadow var(--sanad-motion-normal) ease,opacity var(--sanad-motion-fast) ease}
+.btn:active,.chip:active,.item:active,.settings-row:active,.nav-item:active,.px-circ:active,.rv-circ:active,.v18-q:active,.qs-tile:active{transform:scale(.98)}
+.btn[aria-busy="true"],.btn.is-loading{pointer-events:none;opacity:.85}
+/* squelette : barre qui glisse (transform), jamais de recalcul de mise en page */
+.sanad-skel{position:relative;overflow:hidden;background:var(--accent-soft);border-radius:12px;min-height:14px}
+.sanad-skel::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);animation:sanadShimmer 1.4s infinite}
+html[dir="rtl"] .sanad-skel::after{transform:translateX(100%);animation-name:sanadShimmerRtl}
+@keyframes sanadShimmer{to{transform:translateX(100%)}}
+@keyframes sanadShimmerRtl{to{transform:translateX(-100%)}}
+
+/* ---------- 12. mouvement réduit ---------- */
+@media (prefers-reduced-motion:reduce){
+  .btn:active,.chip:active,.item:active,.settings-row:active,.nav-item:active{transform:none}
+  .sanad-skel::after{animation:none;opacity:0}
+  *,*::before,*::after{scroll-behavior:auto!important}
+}
