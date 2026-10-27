@@ -72,6 +72,28 @@ const Motion = (() => {
     return stop;
   }
 
+
+  /* saisie invalide : quand le code existant écrit un message dans un « .field-err » d'un écran d'accès, on rend la réaction lisible
+     (champ concerné encadré + léger tremblement + aria-invalid) ; rien n'est validé ni bloqué ici, c'est le même message qu'avant. */
+  function invalidFields(sheet) {
+    const all = [...sheet.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"])')].filter(i => i.offsetParent !== null);
+    const empty = all.filter(i => !String(i.value || '').trim());
+    return empty.length ? empty : all;
+  }
+  function flagInvalid(err) {
+    const sheet = err.closest('.sx-auth-sheet'); if (!sheet || !String(err.textContent || '').trim()) return;
+    invalidFields(sheet).forEach(i => {
+      i.setAttribute('aria-invalid', 'true'); if (err.id) i.setAttribute('aria-describedby', err.id);
+      const box = i.closest('.field-box'); if (!box) return;
+      box.classList.add('has-err');
+      if (!reduced()) { box.classList.remove('mo-shake'); void box.offsetWidth; box.classList.add('mo-shake'); setTimeout(() => box.classList.remove('mo-shake'), 360); }
+    });
+  }
+  function clearInvalid(e) {
+    const i = e.target; if (!i || !i.matches || !i.matches('[aria-invalid="true"]')) return;
+    i.removeAttribute('aria-invalid'); const box = i.closest('.field-box'); if (box) box.classList.remove('has-err');
+  }
+
   let started = false;
   function start() {
     if (started) return; started = true;
@@ -85,6 +107,10 @@ const Motion = (() => {
     watchAll();
     const scr = document.getElementById('screens'); let pend = 0;
     if (scr) new MutationObserver(() => { if (!pend) pend = requestAnimationFrame(() => { pend = 0; watchAll(scr); }); }).observe(scr, { childList: true, subtree: true });
+    if (scr) {
+      new MutationObserver(ms => { const seen = new Set(); ms.forEach(m => { const n = m.target.nodeType === 3 ? m.target.parentElement : m.target; const err = n && n.closest && n.closest('.field-err'); if (err && !seen.has(err)) { seen.add(err); flagInvalid(err); } }); }).observe(scr, { childList: true, characterData: true, subtree: true });
+      scr.addEventListener('input', clearInvalid, true);
+    }
     try { matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', apply); } catch (e) { /* rien */ }
   }
   return { start, reduced, tier, setTier, ms, watch, tilt, D };

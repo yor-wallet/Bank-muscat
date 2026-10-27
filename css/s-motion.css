@@ -67,3 +67,23 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 /* ---------- 8. inclinaison douce (cartes) : transform seulement, reflet qui suit le doigt ---------- */
 .mo-tilt{transform:perspective(900px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform 80ms linear;will-change:transform}
 .mo-tilt.mo-tilt-rest{transition:transform var(--mo-release) var(--mo-out)}
+
+/* ---------- 9. accès (connexion · inscription · réinitialisation) : entrée coordonnée, champ actif, saisie invalide ---------- */
+.sx-auth-mark{animation:moPop 560ms var(--mo-spring) 40ms backwards}
+.sx-auth-sky h1{animation:moRise var(--mo-reveal) var(--mo-out) 140ms backwards}
+.sx-auth-sky p{animation:moRise var(--mo-reveal) var(--mo-out) 200ms backwards}
+.sx-auth-bar{animation:moRise 320ms var(--mo-out) backwards}
+.sx-auth-sheet>*{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(260ms + var(--i,0)*var(--mo-stagger))}
+.sx-auth-sheet>*:nth-child(1){--i:0}.sx-auth-sheet>*:nth-child(2){--i:1}.sx-auth-sheet>*:nth-child(3){--i:2}.sx-auth-sheet>*:nth-child(4){--i:3}
+.sx-auth-sheet>*:nth-child(5){--i:4}.sx-auth-sheet>*:nth-child(6){--i:5}.sx-auth-sheet>*:nth-child(7){--i:6}.sx-auth-sheet>*:nth-child(n+8){--i:7}
+/* champ actif : l'étiquette prend la couleur de la marque, le cadre s'allume (la lueur existe déjà dans s-glass.css) */
+.field .field-label{transition:color var(--mo-release) var(--mo-out)}
+.field:focus-within .field-label{color:var(--sx-primary)}
+.field-box{transition:background-color var(--mo-release) var(--mo-out),box-shadow var(--mo-release) var(--mo-out),transform var(--mo-release) var(--mo-out)}
+.field-box:focus-within{transform:translate3d(0,-1px,0)}
+/* saisie invalide : cadre d'erreur, message qui apparaît sans saut */
+.field-err:not(:empty){animation:moRise 220ms var(--mo-out) backwards}
+.sx-auth-sheet .field-box.has-err{box-shadow:0 0 0 2px var(--danger),0 10px 24px -16px rgba(232,77,101,.6)!important}
+/* chargement : le bouton garde sa taille, le cercle suit la vraie requête (classe posée par UIKit.loading) */
+.btn.is-loading::after{animation-duration:.7s}
+@media (prefers-reduced-motion:reduce){.sx-auth-sheet>*,.sx-auth-mark,.sx-auth-sky h1,.sx-auth-sky p,.sx-auth-bar,.field-err:not(:empty){animation:none!important}}

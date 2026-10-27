@@ -72,5 +72,25 @@ async function boot(lang = 'en', o = {}) {
   ok('ouverture : démarrage impossible -> action de récupération visible, cinématique quittée', !r.sxo && r.fatal && r.btn && r.shown, JSON.stringify(r));
   await ctx.close();
 }
+/* 6. connexion : saisie invalide lisible, chargement lié à la vraie requête */
+{
+  const { ctx, page } = await newPage(b, url, { loggedIn: false, lang: 'en', extraStorage: { yor_onboarded: '1' } });
+  await page.goto(url + '/index.html', { waitUntil: 'load' }); await page.waitForSelector('#au-submit', { timeout: 8000 }); await page.waitForTimeout(900);
+  const clean = () => page.evaluate(() => document.querySelectorAll('.ov-root').forEach(e => e.remove()));
+  await clean(); await page.click('#au-submit'); await page.waitForTimeout(250);
+  const r = await page.evaluate(() => ({ err: document.getElementById('login-err').textContent, inv: [...document.querySelectorAll('#login input[aria-invalid="true"]')].length, box: document.querySelectorAll('#login .field-box.has-err').length, desc: document.getElementById('au-email').getAttribute('aria-describedby') }));
+  ok('connexion : champs vides -> message, cadre d\'erreur, aria-invalid', r.err && r.inv === 2 && r.box === 2 && r.desc === 'login-err', JSON.stringify(r));
+  await page.fill('#au-email', 'x@y.zz'); await page.waitForTimeout(80);
+  const r2 = await page.evaluate(() => ({ inv: document.querySelectorAll('#login input[aria-invalid="true"]').length }));
+  ok('connexion : l\'erreur s\'efface dès la saisie', r2.inv === 1, JSON.stringify(r2));
+  /* chargement : posé et retiré par la vraie requête (la requête de test est lente à dessein) */
+  await ctx.route(/\/auth\/v1\/token/, async route => { await new Promise(r => setTimeout(r, 900)); route.fulfill({ status: 400, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ error: 'invalid_grant', error_description: 'Invalid login credentials' }) }); });
+  await page.fill('#au-pass', 'secret-123'); await page.waitForTimeout(400); /* un toucher réel suit la saisie de plus de 100 ms ; un clic automatisé immédiat est perdu dès la 21.1.0 (blur du champ pendant l'appui), indépendamment du mouvement */ await clean(); await page.click('#au-submit'); await page.waitForTimeout(250);
+  const during = await page.evaluate(() => { const bt = document.getElementById('au-submit'); return { loading: bt.classList.contains('is-loading'), busy: bt.getAttribute('aria-busy') }; });
+  await page.waitForTimeout(1500);
+  const after = await page.evaluate(() => { const bt = document.getElementById('au-submit'); return { loading: bt.classList.contains('is-loading'), err: document.getElementById('login-err').textContent }; });
+  ok('connexion : chargement pendant la requête, retiré à la réponse, erreur affichée', during.loading && during.busy === 'true' && !after.loading && !!after.err, JSON.stringify({ during, after }));
+  await ctx.close();
+}
 await b.close(); srv.close();
 const bad = res.filter(r => !r[1]); console.log(`\n${res.length - bad.length}/${res.length} réussis`); process.exitCode = bad.length ? 1 : 0;
