@@ -161,22 +161,12 @@ const BalanceFx = (() => {
     last = { key, value: v };
     return (prev != null && isFinite(prev) && isFinite(v) && Math.abs(prev - v) > 0.0005) ? prev : null;
   }
+  /* Sanad Pay 21.2.0 : AUCUN solde intermédiaire. Quand le solde change réellement, la valeur exacte est déjà à l'écran ;
+     la carte réagit seulement par une impulsion de lumière (classe px-bump) pour signaler « ceci vient de changer ». */
   function run(el, from, main){
     if (!el || Runtime.hideBalance) return;
-    const card = el.closest('.ds-balance');
-    if (card){ card.classList.remove('px-bump'); void card.offsetWidth; card.classList.add('px-bump'); }
-    if (pxReduced()) return;
-    const finalHtml = el.innerHTML, to = Number(main.balance), t0 = performance.now(), dur = 700;
-    const step = now => {
-      if (!el.isConnected){ return; }
-      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3);
-      if (k >= 1){ el.innerHTML = finalHtml; return; }
-      const dv = balanceView(from + (to - from) * e, main.currency);
-      const code = String(dv.currency).toUpperCase();
-      el.innerHTML = splitMoney(CurrencyEngine.format(dv.amount, code), code);
-      requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    const card = el.closest('.sx-hero') || el.closest('.ds-balance');
+    if (card){ card.classList.remove('px-bump'); void card.offsetWidth; card.classList.add('px-bump'); setTimeout(() => card.classList.remove('px-bump'), 900); }
   }
   return { check, run };
 })();
@@ -442,7 +432,9 @@ const Premium = (() => {
         '<button class="sx-search-pill" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 18) + '<span>' + escapeHtml(t('px.search')) + '</span></button>' +
         '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 21) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
       '</header>' +
+      '<p class="sx-greet">' + escapeHtml(V12.vt('hello')) + (p.firstName || p.displayName ? (LANG === 'ar' ? '\u060C ' : ', ') + '<b>' + escapeHtml(p.firstName || p.displayName) + '</b>' : '') + '</p>' +
       '<section class="sx-hero" aria-label="' + escapeHtml(t('px.available')) + '">' +
+        '<i class="sx-rib" aria-hidden="true"></i><i class="sx-glare" aria-hidden="true"></i>' +
         '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' +
           '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 18) + '</button></div>' +
         '<div class="sx-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
@@ -598,6 +590,7 @@ const Premium = (() => {
     if (!root || root === document) return;
     if (id === 'home'){
       root.querySelectorAll('[data-px="search"]').forEach(b => { b.onclick = () => PxSearch.open(); });
+      try { const hero = root.querySelector('.sx-hero'); if (hero && typeof Motion !== 'undefined') Motion.tilt(hero, { max: 5 }); } catch(e){ /* effet décoratif */ }
       const el = document.getElementById('px-bal-amt');
       if (balFrom != null && el){ const from = balFrom; balFrom = null; BalanceFx.run(el, from, mainAccount()); }
     }

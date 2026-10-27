@@ -92,5 +92,27 @@ async function boot(lang = 'en', o = {}) {
   ok('connexion : chargement pendant la requête, retiré à la réponse, erreur affichée', during.loading && during.busy === 'true' && !after.loading && !!after.err, JSON.stringify({ during, after }));
   await ctx.close();
 }
+/* 7. tableau de bord : le solde est toujours la valeur exacte (aucun compteur), l'inclinaison de la carte se nettoie */
+{
+  const { ctx, page } = await boot();
+  await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(900);
+  const first = await page.evaluate(() => document.getElementById('px-bal-amt').textContent);
+  await page.evaluate(() => { const a = Runtime.accounts.find(x => x.type === 'MAIN') || Runtime.accounts[0]; a.balance = Number(a.balance) + 17.25; a.availableBalance = a.balance; });
+  await page.evaluate(() => { window.__seen = new Set(); const el0 = () => document.getElementById('px-bal-amt'); R.go('home', { force: true }); const t0 = performance.now(); const tick = () => { const e = el0(); if (e) window.__seen.add(e.textContent); if (performance.now() - t0 < 1000) requestAnimationFrame(tick); }; tick(); });
+  await page.waitForTimeout(1150);
+  const seen = await page.evaluate(() => [...window.__seen]);
+  ok('solde : une seule valeur affichée après un changement réel (aucune valeur intermédiaire)', seen.length === 1 && seen[0] !== first, JSON.stringify({ first, seen }));
+  const hero = await page.evaluate(() => { const h = document.querySelector('.sx-hero'); return { cls: h.className, bg: getComputedStyle(h).backgroundImage.slice(0, 20) }; });
+  ok('carte de solde : verre bleu profond avec inclinaison douce', /mo-tilt/.test(hero.cls) && /gradient/.test(hero.bg), JSON.stringify(hero));
+  await page.evaluate(() => document.querySelectorAll('.ov-root').forEach(e => e.remove()));
+  const at = await page.evaluate(() => { const e = document.elementFromPoint(200, 220); return e && (e.className || e.tagName); });
+  await page.mouse.move(200, 220); await page.mouse.move(260, 250, { steps: 4 }); await page.waitForTimeout(160);
+  const vars = await page.evaluate(() => { const h = document.querySelector('.sx-hero'); return [h.style.getPropertyValue('--tx'), h.style.getPropertyValue('--gx')]; });
+  ok('carte de solde : le reflet suit le pointeur', vars[0] !== '' && vars[1] !== '', JSON.stringify({ vars, at }));
+  await page.evaluate(() => R.go('history', { force: true })); await page.waitForTimeout(500);
+  const gone = await page.evaluate(() => document.querySelectorAll('.mo-tilt').length);
+  ok('carte de solde : inclinaison retirée en quittant l\'écran (écouteurs nettoyés)', gone === 0, 'restants=' + gone);
+  await ctx.close();
+}
 await b.close(); srv.close();
 const bad = res.filter(r => !r[1]); console.log(`\n${res.length - bad.length}/${res.length} réussis`); process.exitCode = bad.length ? 1 : 0;
