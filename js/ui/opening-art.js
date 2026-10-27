@@ -26,6 +26,7 @@ const OpeningArt = (() => {
   function splash(lang, m){
     lang = lang || (typeof LANG === 'string' ? LANG : 'en');
     m = m || mode();
+    if (typeof window.__sxoSplash === 'function') return window.__sxoSplash(lang, m);      /* balisage défini une seule fois, dans index.html */
     const ar = lang === 'ar';
     return '<div class="sxo sxo-' + m + '" aria-hidden="true">' +
       '<i class="sxo-horizon"></i>' +
@@ -41,17 +42,19 @@ const OpeningArt = (() => {
   }
   /* Démarre la séquence. onDone() est appelé une fois : quand le dessin est joué (ou sauté) — le CALLER attend aussi que l'application soit prête. */
   function start(host, cb){
-    const m = mode();
-    host.innerHTML = splash(LANG, m);
-    host.setAttribute('data-sxo', m);
-    const t0 = performance.now();
+    /* la première image est déjà à l'écran (script en ligne de index.html) : on la garde, et la durée se compte depuis son apparition */
+    const early = window.__sxoEarly && host.querySelector('.sxo') ? window.__sxoEarly : null;
+    const m = early ? early.mode : mode();
+    if (!early){ host.innerHTML = splash(LANG, m); host.setAttribute('data-sxo', m); }
+    else if (early.lang !== LANG){ host.innerHTML = splash(LANG, m); }      /* langue différente de celle devinée : seul le nom change, l'animation est déjà jouée */
+    const t0 = early ? early.t0 : performance.now();
     const dur = m === 'full' ? FULL_MS : m === 'short' ? SHORT_MS : REDUCED_MS;
     let finished = false, skipped = false, timer = 0;
     const finish = () => { if (finished) return; finished = true; clearTimeout(timer); host.removeEventListener('pointerdown', skip); cb && cb(skipped); };
     const skip = () => { skipped = true; finish(); };
     host.addEventListener('pointerdown', skip, { passive: true });
     if (m === 'full') markSeen();
-    timer = setTimeout(finish, dur);
+    timer = setTimeout(finish, Math.max(0, dur - (performance.now() - t0)));
     return { mode: m, duration: dur, elapsed: () => performance.now() - t0, skip };
   }
   return { splash, start, mode, seen, FULL_MS, SHORT_MS };
