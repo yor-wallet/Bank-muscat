@@ -14,7 +14,7 @@ function authSky(titleKey, subKey, back){
   const langs = '<div class="sx-lang" role="group" aria-label="' + escapeHtml(V12.vt('language')) + '">' + ['en', 'fr', 'ar'].map(l => '<button type="button" data-v12-lang="' + l + '" aria-pressed="' + (LANG === l) + '">' + (l === 'fr' ? 'FR' : l === 'en' ? 'EN' : 'عربي') + '</button>').join('') + '</div>';
   return '<header class="sx-auth-sky">' +
     '<div class="sx-auth-bar">' + (back ? '<button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip">' + icon('back', 20) + '</span></button>' : '<span></span>') + langs + '</div>' +
-    '<img class="sx-auth-mark" src="assets/brand/logo-mark.svg" alt="' + name + '" width="72" height="72">' +
+    '<img class="sx-auth-mark" src="assets/brand/sanad-s-192.png" alt="' + name + '" width="72" height="72">' +
     '<h1>' + escapeHtml(titleKey) + '</h1><p>' + escapeHtml(subKey) + '</p>' +
     '<div class="sx-auth-line" aria-hidden="true"><i></i></div></header>';
 }

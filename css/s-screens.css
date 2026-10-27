@@ -443,34 +443,21 @@ html[dir="rtl"] .proc-view[data-phase="send"] .hz-pulse{transform:scaleX(-1);tra
 #splash.is-hidden{opacity:0;transform:scale(1.02);pointer-events:none}
 .sxo{position:absolute;inset:0;display:grid;place-items:center}
 .sxo-stage{display:flex;flex-direction:column;align-items:center;gap:calc(22px*var(--ui));transform:translate3d(0,-4vh,0)}
-.sxo-mark{width:min(30vmin,148px);height:auto;overflow:visible;filter:drop-shadow(0 18px 26px rgba(19,79,145,.22))}
-.sxo-sq{fill-opacity:0;transform-origin:128px 128px;transform:scale(.84)}
-.sxo-ck{fill:none;stroke:#2596DE;stroke-width:24;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
-.sxo-hz{fill:none;stroke:#7ED8F6;stroke-width:10;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
-.sxo-horizon{position:absolute;left:0;right:0;top:calc(50% - 4vh + min(15vmin,74px));height:2px;background:linear-gradient(90deg,transparent,#7ED8F6 18%,#7ED8F6 82%,transparent);transform:scaleX(0);opacity:0}
+.sxo-mark{width:min(34vmin,168px);height:min(34vmin,168px);border-radius:28%;display:block;background:#fff;box-shadow:0 0 0 1px rgba(255,255,255,.7) inset,0 26px 44px -18px rgba(19,79,145,.45),0 4px 10px rgba(19,79,145,.12);opacity:0;transform:scale(.82) translate3d(0,10px,0)}
+.sxo-horizon{position:absolute;left:0;right:0;top:calc(50% - 4vh + min(17vmin,84px) - 19px);height:2px;background:linear-gradient(90deg,transparent,#7ED8F6 18%,#7ED8F6 82%,transparent);transform:scaleX(0);opacity:0}
 .sxo-word{font-size:calc(30px*var(--ui));font-weight:700;letter-spacing:-.035em;color:#102C4C;clip-path:inset(0 100% 0 0);white-space:nowrap}
 html[dir="rtl"] .sxo-word{clip-path:inset(0 0 0 100%)}
 .sxo-word-ar{font-family:var(--font-ar);letter-spacing:0;font-size:calc(34px*var(--ui))}
 :root[data-theme="dark"] .sxo-word{color:#fff}
-/* complète — 1,8 s */
-.sxo-full .sxo-ck{animation:sxoDraw 620ms var(--sx-ease-out) 140ms forwards,sxoWhite 320ms ease 1000ms forwards}
-.sxo-full .sxo-hz{animation:sxoDraw 360ms var(--sx-ease-out) 600ms forwards,sxoIce 300ms ease 1000ms forwards}
-.sxo-full .sxo-horizon{animation:sxoSpan 760ms var(--sx-ease-out) 480ms forwards}
-.sxo-full .sxo-sq{animation:sxoFill 460ms var(--sx-spring) 900ms forwards}
-.sxo-full .sxo-word{animation:sxoReveal 520ms var(--sx-ease-out) 1150ms forwards}
-/* courte — 0,6 s */
-.sxo-short .sxo-ck{animation:sxoDraw 260ms var(--sx-ease-out) 40ms forwards,sxoWhite 200ms ease 300ms forwards}
-.sxo-short .sxo-hz{animation:sxoDraw 200ms var(--sx-ease-out) 160ms forwards,sxoIce 200ms ease 300ms forwards}
-.sxo-short .sxo-sq{animation:sxoFill 280ms var(--sx-ease-out) 220ms forwards}
-.sxo-short .sxo-word{animation:sxoReveal 240ms var(--sx-ease-out) 300ms forwards}
-/* mouvement réduit : un simple fondu du logo fixe */
-.sxo-fade .sxo-sq{fill-opacity:1;transform:none}.sxo-fade .sxo-ck{stroke:#fff;stroke-dashoffset:0}.sxo-fade .sxo-hz{stroke:#DBF7FF;stroke-dashoffset:0}.sxo-fade .sxo-word{clip-path:none}
+.sxo-full .sxo-mark{animation:sxoLogoIn 760ms var(--sx-spring) 80ms forwards}
+.sxo-full .sxo-horizon{animation:sxoSpan 760ms var(--sx-ease-out) 520ms forwards}
+.sxo-full .sxo-word{animation:sxoReveal 520ms var(--sx-ease-out) 1000ms forwards}
+.sxo-short .sxo-mark{animation:sxoLogoIn 320ms var(--sx-ease-out) 20ms forwards}
+.sxo-short .sxo-word{animation:sxoReveal 240ms var(--sx-ease-out) 260ms forwards}
+.sxo-fade .sxo-mark{opacity:1;transform:none}.sxo-fade .sxo-word{clip-path:none}
 .sxo-fade .sxo-stage{animation:sxoFadeIn 240ms ease both}
-@keyframes sxoDraw{to{stroke-dashoffset:0}}
-@keyframes sxoWhite{to{stroke:#fff}}
-@keyframes sxoIce{to{stroke:#DBF7FF}}
+@keyframes sxoLogoIn{0%{opacity:0;transform:scale(.82) translate3d(0,10px,0)}60%{opacity:1}100%{opacity:1;transform:scale(1) translate3d(0,0,0)}}
 @keyframes sxoSpan{0%{transform:scaleX(0);opacity:0}25%{opacity:.9}70%{opacity:.7}100%{transform:scaleX(1);opacity:0}}
-@keyframes sxoFill{from{fill-opacity:0;transform:scale(.84)}to{fill-opacity:1;transform:scale(1)}}
 @keyframes sxoReveal{to{clip-path:inset(0 0 0 0)}}
 @keyframes sxoFadeIn{from{opacity:0}to{opacity:1}}
 #splash .res-fatal,#splash .res-title{color:var(--text)}#splash .res-body{color:var(--text-2)}

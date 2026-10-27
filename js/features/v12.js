@@ -195,7 +195,7 @@ const V12 = (() => {
     return '<div class="rv-home ds-home">' +
       '<header class="rv-top">' +
         '<button class="rv-ava" data-yb-drawer aria-label="menu">' + ava() + '</button>' +
-        '<div class="rv-hello"><span class="ds-hello-l"><img class="ds-mark" src="assets/brand/logo-mark.svg" alt="">' + vt('hello') + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
+        '<div class="rv-hello"><span class="ds-hello-l"><img class="ds-mark" src="assets/brand/sanad-s-192.png" alt="" width="28" height="28">' + vt('hello') + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
         '<button class="rv-circ" data-action="notifications" aria-label="' + escapeHtml(t('ui.notifications')) + '">' + icon('bell', 20) + (unread ? '<span class="rv-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
         '<button class="rv-circ" data-nav="settings" aria-label="' + escapeHtml(t('ds.settings')) + '">' + icon('settings', 20) + '</button>' +
       '</header>' +
@@ -385,7 +385,7 @@ const V12 = (() => {
     const oldLogo = body.querySelector('.logo-lockup'); if (oldLogo && oldLogo.parentElement !== body) oldLogo.parentElement.remove();
     const hero = document.createElement('div'); hero.className = 'rv-auth-hero';
     const brandName = LANG === 'ar' ? 'سند باي' : 'Sanad Pay';
-    hero.innerHTML = '<img class="rv-auth-mark" src="assets/brand/logo-mark.svg" alt="' + brandName + '"><h1>' + brandName + '</h1><p>' + vt(id === 'login' ? 'tagline' : id === 'signup' ? 'signupSub' : 'resetSub') + '</p>';
+    hero.innerHTML = '<img class="rv-auth-mark" src="assets/brand/sanad-s-192.png" alt="' + brandName + '"><h1>' + brandName + '</h1><p>' + vt(id === 'login' ? 'tagline' : id === 'signup' ? 'signupSub' : 'resetSub') + '</p>';
     body.insertBefore(hero, body.firstChild);
     if (id === 'signup'){ const tt = root.querySelector('.topbar-title'); if (tt) tt.textContent = vt('createAccount'); }
     if (id !== 'reset'){

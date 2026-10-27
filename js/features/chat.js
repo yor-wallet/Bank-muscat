@@ -154,11 +154,8 @@ function chIc(name, size, cls){
   if (!d) return (typeof icon === 'function') ? icon(name, size) : '';
   return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" class="ic' + (cls ? ' ' + cls : '') + '" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + d + '</svg>';
 }
-let chGid = 0;
 function chLogo(size){
-  const n = ++chGid;
-  return '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" class="chat-logo" aria-hidden="true"><defs><linearGradient id="chl' + n + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#73c3e2"/><stop offset="1" stop-color="#aadcf0"/></linearGradient></defs>' +
-    '<circle cx="24" cy="24" r="24" fill="url(#chl' + n + ')"/><text x="24" y="30.5" text-anchor="middle" font-family="Manrope,Inter,sans-serif" font-weight="800" font-size="17" fill="#122439">FP</text></svg>';
+  return '<img class="chat-logo" src="assets/brand/sanad-s-192.png" width="' + size + '" height="' + size + '" alt="" aria-hidden="true" decoding="async">';
 }
 function chInitials(name){
   const w = String(name || '?').trim().split(/\s+/).slice(0, 2).map(x => x.charAt(0)).join('').toUpperCase();

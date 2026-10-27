@@ -31,12 +31,7 @@ const OpeningArt = (() => {
     return '<div class="sxo sxo-' + m + '" aria-hidden="true">' +
       '<i class="sxo-horizon"></i>' +
       '<div class="sxo-stage">' +
-        '<svg class="sxo-mark" viewBox="0 0 256 256" focusable="false">' +
-          '<defs><linearGradient id="sxo-g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#79DEFF"/><stop offset="1" stop-color="#238CDF"/></linearGradient></defs>' +
-          '<rect class="sxo-sq" x="8" y="8" width="240" height="240" rx="62" fill="url(#sxo-g)"/>' +
-          '<path class="sxo-ck" d="M68 127l44 44 81-89" pathLength="100"/>' +
-          '<path class="sxo-hz" d="M68 185h125" pathLength="100"/>' +
-        '</svg>' +
+        '<img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async">' +
         '<div class="sxo-word' + (ar ? ' sxo-word-ar' : '') + '">' + (ar ? 'سند باي' : 'Sanad Pay') + '</div>' +
       '</div></div>';
   }
