@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   V18 CORE (18.0.0) — briques communes des nouveaux modules (crédit, coffre Boost, chat, YASER, cinéma, centre de contrôle).
+   V18 CORE (18.0.0) — briques communes des nouveaux modules (crédit, coffre Boost, chat, Amal, cinéma, centre de contrôle).
    - Hooks   : un module s'accroche à un écran sans toucher à wire.js : Hooks.on('chat', (root) => { ... }) ; appelé par LiveX.onScreen.
    - Strings : Strings.add({ en:{}, fr:{}, ar:{} }) ajoute des textes dans les trois langues.
    - Fx      : effets (confettis dorés, compteur animé, compteur qui grandit en direct, onde, secousse) — aucun emoji, aucune image.

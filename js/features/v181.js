@@ -53,7 +53,7 @@ Hooks.on('home', root => {
   } catch(e){ console.warn('monthly chart', e); }
 });
 
-/* YASER : textes des réponses fondées sur les vrais dossiers (en / fr / ar) */
+/* Amal : textes des réponses fondées sur les vrais dossiers (en / fr / ar) */
 Strings.add({
   en: { 'yas.c.status': 'Status of my requests', 'yas.c.plans': 'The plans', 'yas.c.payment': 'I made a payment', 'yas.c.withdraw': 'Withdraw money',
     'yas.openPlans': 'Open the plans', 'yas.openKyc': 'Verify my identity', 'yas.openWithdraw': 'Request a withdrawal',
@@ -84,7 +84,7 @@ Strings.add({
     'yas.st.wd.PENDING': 'قيد المراجعة', 'yas.st.wd.APPROVED': 'تمت الموافقة والتحويل قيد التنفيذ (لم يُدفع بعد)', 'yas.st.wd.PAID': 'تم الدفع (بتأكيد المسؤول)', 'yas.st.wd.REJECTED': 'مرفوض', 'yas.st.wd.CANCELLED': 'ملغى' }
 });
 
-/* film publicitaire : la scène « Boost » devient la scène « Plans » (aucun gain annoncé) ; YASER / accueil : plus de promesse de rendement */
+/* film publicitaire : la scène « Boost » devient la scène « Plans » (aucun gain annoncé) ; Amal / accueil : plus de promesse de rendement */
 Strings.add({
   en: { 'cin.boost.k': 'PLANS', 'cin.boost.t': 'Three plans, *one* clear framework', 'cin.boost.s': 'Essential, Growth and Premium: choose your amount and duration. Payments are checked by our team; no return is announced unless it is validated.', 'cin.boost.c': 'See the plans',
     'cin.yaser.s': 'Ask about your plans, payments or withdrawals, any time of the day or night.', 'v18.boost': 'Plans', 'v18.boostD': 'Choose your plan' },

@@ -94,6 +94,7 @@ function boot(){
   UIKit.init();
   try { SanadEngine.start(); } catch(e){ console.error(e); }
   try { Depth.start(); } catch(e){}
+  try { Motion.start(); } catch(e){}
   AppLock.init();
   YorDrawer.init();
   OfferSlot.init();

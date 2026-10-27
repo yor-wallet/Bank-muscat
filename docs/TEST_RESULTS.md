@@ -1,4 +1,6 @@
-# TEST_RESULTS — Sanad Pay 21.0.0
+# TEST_RESULTS — Sanad Pay 21.2.0 (suite de 21.1.0 « Glass »)
+
+> **Résultats 21.2.0 : voir `STATUT_SANAD_PAY.md` §2 (suites exécutées), §3 (comparaison avec 20.3.0) et §4 (fluidité mesurée).** Le détail ci-dessous date de 21.1.0.
 
 Tout ce qui suit a été **exécuté** dans cette session (Chromium + Playwright, serveur Supabase simulé, **toute écriture refusée et journalisée**). Rien ici ne vaut test sur appareil réel ni en production. Commandes reproductibles depuis la racine (`npm i` puis build : `node scripts/build.mjs`).
 
@@ -27,10 +29,10 @@ Défini ; `data-sx-tab` suit la route ; passage en arrière-plan → état d'int
 ## Performance (banc : iPhone 390×844 @2×, CPU ×4 plus lent, 1,6 Mbit/s, 150 ms RTT, gzip, 3 passes, médiane — service worker bloqué, données simulées)
 | Écran | FCP ms (avant → après) | LCP ms | CLS | TBT ms | INP ms | Poids transféré (Ko) |
 |---|---|---|---|---|---|---|
-| Connexion (démarrage à froid) | 2116 → 1684 | — → 2868 | 0 → 0 | 143 → 79 | 88 → 96 | JS 369.2 → 364.9 · CSS 85.8 → 55.1 · polices 71.8 → 47.3 |
-| Accueil (session ouverte, code saisi) | 2120 → 1684 | 3636 → 2868 | 0 → 0 | 122 → 123 | 80 → 88 | JS 369.2 → 364.9 · CSS 85.8 → 55.1 · polices 71.8 → 47.3 |
+| Connexion (démarrage à froid) | 2116 → 1760 | — → 2944 | 0 → 0 | 143 → 91 | 88 → 128 | JS 369.2 → 365.1 · CSS 85.8 → 58.9 · polices 71.8 → 47.3 |
+| Accueil (session ouverte, code saisi) | 2120 → 1760 | 3636 → 2944 | 0 → 0 | 122 → 138 | 80 → 112 | JS 369.2 → 365.1 · CSS 85.8 → 58.9 · polices 71.8 → 47.3 |
 
-Lecture honnête : INP (< 200 ms) et CLS (< 0,1) sont dans les objectifs ; **le LCP reste au-dessus de 2,5 s sous ce profil volontairement sévère** (avant : 3636 ms, après : 2868 ms, −21 %). Gains : première image de l'ouverture dessinée par un script en ligne, CSS transféré 85,8 → 55,1 Ko, polices 71,8 → 47,3 Ko. Le JS (≈ 365 Ko transférés) est inchangé et domine. Lighthouse officiel **non exécuté**.
+Lecture honnête : INP (< 200 ms) et CLS (< 0,1) sont dans les objectifs ; **le LCP reste au-dessus de 2,5 s sous ce profil volontairement sévère** (avant : 3636 ms, après 21.1.0 : 2944 ms). Gains : première image de l'ouverture dessinée par un script en ligne, CSS transféré 85,8 → 55,1 Ko, polices 71,8 → 47,3 Ko. Le JS (≈ 365 Ko transférés) est inchangé et domine. Lighthouse officiel **non exécuté**.
 
 ## Échecs rencontrés pendant le travail (et corrigés)
 - Écran Profil planté (`kycOf is not defined`) après un remplacement trop large → fonctions restaurées.
@@ -44,3 +46,7 @@ Lecture honnête : INP (< 200 ms) et CLS (< 0,1) sont dans les objectifs ; **le 
 
 ## Non vérifié / hors périmètre
 Safari/WebKit et appareils réels ; installation PWA et notifications push réelles ; envoi réel de SMS/e-mail (aucun envoi n'est fait par ce projet côté client et rien n'a été envoyé) ; déploiement des fonctions Edge ; PDF exporté ouvert dans un lecteur ; écrans crypto/administration (hérités, non repris visuellement) ; Lighthouse ; Figma.
+
+
+## Mise à jour 21.1.0 (Glass)
+Les suites ont été relancées sur le build 21.1.0 : contrôles d'interface 19/19, Face ID / code 8/8, SanadEngine 7/7, non-régression 15/15, 42 captures sans débordement ni erreur, parcours d'envoi jusqu'à l'échec réel. Contrôlé en plus : mode sombre, arabe (RTL), iPhone SE 320 px, tablette 820 px, ordinateur 1280 px (colonne centrée + barre latérale de verre), écran de code à touches rondes. **Non vérifié** : rendu du flou sur de vrais iPhone/Android bas de gamme (coût du `backdrop-filter`).

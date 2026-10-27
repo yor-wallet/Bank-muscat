@@ -1,0 +1,53 @@
+/* ============================================================
+   SANAD PAY — TABLEAU DE BORD (21.2.0)
+   Mise en scène : salutation -> carte de solde -> actions -> activité. Un seul élément principal : la carte.
+   La carte est en verre bleu profond ; deux rubans de lumière rappellent ceux du logo ; un reflet suit le doigt ou le pointeur (Motion.tilt).
+   Le solde affiché est TOUJOURS la valeur exacte : aucune animation de comptage, jamais de montant intermédiaire.
+   ============================================================ */
+.sx-greet{flex:none;margin:2px 4px 0;padding:0 var(--sp-2);font-size:calc(15px*var(--ui));font-weight:550;color:var(--text-2);animation:moRise var(--mo-reveal) var(--mo-out) 40ms backwards}
+.sx-greet b{color:var(--text);font-weight:750}
+
+.sx-hero{flex:none;position:relative;overflow:hidden;isolation:isolate;margin:8px 0 2px;padding:20px 20px 18px;gap:4px;align-items:flex-start;text-align:start;border-radius:32px;
+  background:linear-gradient(150deg,#2F8FDA 0%,#1B63B0 46%,#134F91 74%,#102C4C 100%);color:#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 0 0 1px rgba(255,255,255,.18) inset,0 28px 46px -26px rgba(19,79,145,.8),0 10px 20px -14px rgba(16,44,76,.55);
+  animation:moRise var(--mo-reveal) var(--mo-out) 90ms backwards}
+:root[data-theme="dark"] .sx-hero{background:linear-gradient(150deg,#1F6EB4 0%,#154A86 46%,#0F3262 74%,#0A1D3A 100%);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 0 0 1px rgba(126,216,246,.16) inset,0 28px 46px -26px rgba(0,0,0,.8)}
+.sx-hero::before{content:none}
+/* rubans : deux courbes translucides, l'une plus large (matière), l'autre plus fine (arête lumineuse) */
+.sx-rib{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 200' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M-10 168C70 170 118 52 196 70c68 16 86 92 154 52v90H-10z' fill='%23fff' fill-opacity='.06'/%3E%3Cpath d='M-10 150C74 160 122 62 202 84c64 18 96 82 150 46' fill='none' stroke='%23fff' stroke-opacity='.1' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M-10 150C74 160 122 62 202 84c64 18 96 82 150 46' fill='none' stroke='%237ED8F6' stroke-opacity='.42' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/cover no-repeat}
+html[dir="rtl"] .sx-rib{transform:scaleX(-1)}
+/* reflet : suit le pointeur / le doigt (--gx, --gy fixés par Motion.tilt) ; au repos il se place en haut à droite */
+.sx-glare{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at var(--gx,78%) var(--gy,18%),rgba(255,255,255,.34),rgba(255,255,255,0) 46%);mix-blend-mode:soft-light;opacity:.95}
+.sx-hero.px-bump .sx-glare{animation:moBump 820ms var(--mo-ease) 1}
+@keyframes moBump{0%{opacity:.95}35%{opacity:1;filter:brightness(1.8)}100%{opacity:.95;filter:none}}
+
+.sx-hero .sx-lbl{color:rgba(255,255,255,.82)}
+.sx-hero-top{width:100%;justify-content:space-between}
+.sx-hero .sx-eye{color:#fff;background:rgba(255,255,255,.14);width:36px;height:36px}
+.sx-hero .sx-amt{color:#fff;text-align:start;font-size:clamp(calc(40px*var(--ui)),12.5vw,calc(56px*var(--ui)));text-shadow:0 2px 16px rgba(16,44,76,.28)}
+html[dir="rtl"] .sx-hero .sx-amt{text-align:start}
+.sx-hero .sx-amt .rv-cur{color:rgba(255,255,255,.78)}
+.sx-hero .sx-amt .rv-dec{color:rgba(255,255,255,.7)}
+.sx-hero .sx-sub{color:rgba(255,255,255,.8)}
+.sx-hero .sx-chips{justify-content:flex-start;margin-top:12px}
+.sx-hero .sx-chip{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.26);color:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}
+.sx-hero .sx-chip.ok{background:rgba(20,168,121,.28);color:#d8fff0;border-color:rgba(20,168,121,.5)}
+.sx-hero .sx-chip.warn{background:rgba(244,164,59,.28);color:#fff1d6;border-color:rgba(244,164,59,.5)}
+.sx-hero .sx-month{justify-content:flex-start;margin-top:10px}
+.sx-hero .sx-month span{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.86);-webkit-backdrop-filter:none;backdrop-filter:none}
+.sx-hero .sx-month b{color:#fff}
+.sx-hero .sx-month i{background:#7ED8F6}.sx-hero .sx-month i.i{background:#fff}
+
+/* actions rapides : arrivent juste après la carte, en cascade courte */
+.sx-act{animation:moPop var(--mo-reveal) var(--mo-spring) backwards;animation-delay:calc(220ms + var(--i,0)*var(--mo-stagger))}
+.sx-act:nth-child(1){--i:0}.sx-act:nth-child(2){--i:1}.sx-act:nth-child(3){--i:2}.sx-act:nth-child(4){--i:3}
+.sx-act:nth-child(n){animation-delay:calc(220ms + var(--i,0)*var(--mo-stagger))}
+/* fil d'activité : les blocs arrivent dans l'ordre de lecture, après les actions */
+.sx-feed>*{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(380ms + var(--i,0)*var(--mo-stagger))}
+.sx-feed>*:nth-child(1){--i:0}.sx-feed>*:nth-child(2){--i:1}.sx-feed>*:nth-child(3){--i:2}.sx-feed>*:nth-child(4){--i:3}.sx-feed>*:nth-child(5){--i:4}.sx-feed>*:nth-child(6){--i:5}.sx-feed>*:nth-child(n+7){--i:6}
+html[data-fx="lite"] .sx-glare{mix-blend-mode:normal;opacity:.5}
+@media (prefers-reduced-motion:reduce){.sx-greet,.sx-hero,.sx-act,.sx-feed>*{animation:none!important}.sx-hero.px-bump .sx-glare{animation:none}}
+
+.sx-acts{padding:20px 12px 2px}
+.sx-feed{margin-top:-6px}

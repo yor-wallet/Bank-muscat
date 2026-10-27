@@ -53,7 +53,8 @@ export function sessionStorageValue() {
 }
 
 /* options.loggedIn : session de test pré-posée ; options.log : tableau recevant les requêtes bloquées */
-export async function newPage(browser, base, { loggedIn = false, lang = 'en', theme = 'light', viewport = { width: 390, height: 844 }, deviceScaleFactor = 2, userAgent, isMobile = true, hasTouch = true, log = [], extraStorage = {}, reducedMotion = 'no-preference' } = {}) {
+export async function newPage(browser, base, { loggedIn = false, lang = 'en', theme = 'light', viewport = { width: 390, height: 844 }, deviceScaleFactor = 2, userAgent, isMobile = true, hasTouch = true, log = [], extraStorage = {}, reducedMotion = 'no-preference', role = 'user' } = {}) {
+  const profile = role === 'user' ? FIXTURE.profile : { ...FIXTURE.profile, role, status: 'ACTIVE' };
   const ctx = await browser.newContext({ viewport, deviceScaleFactor, isMobile, hasTouch, userAgent, reducedMotion, serviceWorkers: 'block', locale: lang === 'ar' ? 'ar-OM' : lang === 'fr' ? 'fr-FR' : 'en-GB' });
   await ctx.route(/supabase\.co/, async route => {
     const req = route.request(), u = new URL(req.url()), m = req.method();
@@ -67,7 +68,7 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
     const wantsObject = /vnd\.pgrst\.object/.test(req.headers()['accept'] || '');
     const one = rows => wantsObject ? (rows.length ? json(rows[0]) : json({ message: 'no rows', code: 'PGRST116' }, 406)) : json(rows);
     if (m === 'GET' || m === 'HEAD') {
-      if (p === '/rest/v1/profiles') return one([FIXTURE.profile]);
+      if (p === '/rest/v1/profiles') return one([profile]);
       if (p === '/rest/v1/accounts') return json(FIXTURE.accounts);
       if (p === '/rest/v1/notifications') return json(FIXTURE.notifications);
       if (p === '/rest/v1/user_items' && /eq\.cards/.test(u.searchParams.get('collection') || '')) return json([{ item_id: 'CARD-0001', data: { label: 'Daily card', theme: 'midnight', number: '4532018800004821', holderName: 'AISHA AL BALUSHI', currency: 'OMR', createdAt: now - 864e5 * 9, issued: true, frozen: false } }]);
@@ -90,7 +91,10 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
   });
   await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, route => /supabase\.co/.test(route.request().url()) ? route.fallback() : route.abort());
   const page = await ctx.newPage();
-  const store = Object.assign({ fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
+  /* l'invite « activer les notifications » dépend de PushManager : les tests n'en ont pas besoin (et elle masque l'écran) */
+  if (!(process.env.SANAD_TEST_PUSH)) await page.addInitScript(() => { try { delete window.PushManager; } catch (e) { /* rien */ } if ('PushManager' in window) { try { Object.defineProperty(window, 'Notification', { value: undefined, configurable: true }); delete window.Notification; } catch (e) { /* rien */ } } });
+  /* le banc tourne en rendu logiciel : on fixe le niveau d'effets « full » pour que les contrôles voient l'interface complète (surcharge possible via extraStorage.sanad_fx) */
+  const store = Object.assign({ sanad_fx: 'full', fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
   await page.addInitScript(([s, session, logged, lang, theme]) => {
     try {
       for (const k in s) localStorage.setItem(k, s[k]);

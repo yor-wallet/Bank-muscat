@@ -1,0 +1,174 @@
+/* ============================================================
+   SANAD PAY — CHORÉGRAPHIE COMMUNE (21.2.0)
+   Dernière feuille : elle fixe le TEMPS de tout ce qui bouge. Les durées viennent de s-tokens.css (--mo-*) et ne servent qu'à l'œil :
+   aucune n'allonge, ne retarde ni ne remplace une durée métier. Seuls transform et opacity s'animent (jamais width/height/top/left).
+   Un seul élément important attire l'œil à la fois : la cascade s'arrête à 8 éléments, décalage de 40 ms.
+   Tout fonctionne sans animation : état final = état normal (« réduire les animations » coupe tout, voir s-tokens.css).
+   ============================================================ */
+
+/* ---------- 1. toucher : pression rapide, retour souple (un seul endroit pour toute l'interface) ---------- */
+.btn,.sx-act,.sx-act i,.sx-tab,.sx-send .nav-cta-tile,.chip,.item,.settings-row,.quick-item,.quick-item .quick-icon,.yb-svc,.yb-btn,.v18-q,.select-item,.rv-promo-cta,.fk-key,.sx-ibtn,.topbar-back,.topbar-action,.fid-orb,.qs-tile,.set-out,.v13-rc,.crypto-quick-amounts button,.yas-chip,.yas-act,.sx-chip{
+  transition-duration:var(--mo-release);transition-timing-function:var(--mo-out);-webkit-tap-highlight-color:transparent}
+.btn:active,.sx-act:active,.sx-act:active i,.sx-tab:active,.sx-send:active .nav-cta-tile,.chip:active,.item:active,.settings-row:active,.quick-item:active,.quick-item:active .quick-icon,.yb-svc:active,.yb-btn:active,.v18-q:active,.select-item:active,.rv-promo-cta:active,.fk-key:active,.fk-key.hit,.sx-ibtn:active,.topbar-back:active,.topbar-action:active,.fid-orb:active,.qs-tile:active,.set-out:active,.v13-rc:active,.crypto-quick-amounts button:active,.yas-chip:active,.yas-act:active,.sx-chip:active{
+  transition-duration:var(--mo-press);transition-timing-function:var(--mo-ease)}
+/* l'état occupé d'un bouton suit une VRAIE requête (classe posée par le code existant) : on ne fait que le rendre lisible */
+.btn.is-busy,.btn[aria-busy="true"]{cursor:progress}
+
+/* ---------- 2. écrans : entrée « axe partagé » 24 px + fondu ; retour = sens inverse ; onglets = fondu bref ---------- */
+.screen.active{animation-duration:var(--mo-screen);animation-timing-function:var(--mo-out)}
+html[data-sx-tab="1"] .screen.active{animation-duration:var(--mo-screen-tab)}
+
+/* ---------- 3. cascade d'apparition : décalage court, jamais au-delà de 8 éléments ---------- */
+@keyframes moRise{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+.mo-rise>*,.mo-rise-self{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*var(--mo-stagger))}
+.mo-rise>*:nth-child(1){--i:0}.mo-rise>*:nth-child(2){--i:1}.mo-rise>*:nth-child(3){--i:2}.mo-rise>*:nth-child(4){--i:3}
+.mo-rise>*:nth-child(5){--i:4}.mo-rise>*:nth-child(6){--i:5}.mo-rise>*:nth-child(7){--i:6}.mo-rise>*:nth-child(n+8){--i:7}
+/* écrans ordinaires : leur contenu arrive dans l'ordre de lecture (les écrans qui ont leur propre mise en scène — accueil, connexion — sont exclus) */
+.screen.active:not(#home):not(#login):not(#signup):not(#reset):not(#processing):not(#chat):not(#yaser)>.screen-body>*{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*var(--mo-stagger) + 60ms)}
+.screen.active>.screen-body>*:nth-child(1){--i:0}.screen.active>.screen-body>*:nth-child(2){--i:1}.screen.active>.screen-body>*:nth-child(3){--i:2}.screen.active>.screen-body>*:nth-child(4){--i:3}
+.screen.active>.screen-body>*:nth-child(5){--i:4}.screen.active>.screen-body>*:nth-child(6){--i:5}.screen.active>.screen-body>*:nth-child(7){--i:6}.screen.active>.screen-body>*:nth-child(n+8){--i:7}
+
+/* ---------- 4. fenêtres et panneaux : naissent de l'endroit touché, fond qui s'assombrit progressivement, fermeture plus courte ---------- */
+.ov-backdrop{transition:opacity var(--mo-backdrop) var(--mo-ease)}
+.ov:not(.is-open) .ov-backdrop{transition-duration:var(--mo-panel-out)}
+.ov-panel{transition-duration:var(--mo-panel);transition-timing-function:var(--mo-out);transform-origin:var(--mo-ox,50%) var(--mo-oy,100%)}
+.ov:not(.is-open) .ov-panel{transition-duration:var(--mo-panel-out);transition-timing-function:var(--mo-in)}
+.ov.is-modal .ov-panel{transform-origin:var(--mo-ox,50%) var(--mo-oy,50%);transform:translate3d(0,8px,0) scale(.94)}
+.ov.is-modal.is-open .ov-panel{transform:none}
+@media (min-width:1024px){.ov .ov-panel{transform-origin:var(--mo-ox,50%) var(--mo-oy,50%);transform:translate3d(0,8px,0) scale(.95)}.ov.is-open .ov-panel{transform:none}}
+/* contenu du panneau : arrive après lui, dans l'ordre */
+.ov.is-open .ov-panel>*{animation:moRise var(--mo-panel) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*30ms + 70ms)}
+.ov-panel>*:nth-child(1){--i:0}.ov-panel>*:nth-child(2){--i:1}.ov-panel>*:nth-child(3){--i:2}.ov-panel>*:nth-child(4){--i:3}.ov-panel>*:nth-child(5){--i:4}.ov-panel>*:nth-child(n+6){--i:5}
+
+/* tracés et impulsions partagés (reçu, résultat, Face ID, présentation) : une seule définition */
+@keyframes hzDraw{to{stroke-dashoffset:0}}
+@keyframes hzPop{from{transform:scale(.9)}to{transform:scale(1)}}
+@keyframes hzBreathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.08);opacity:1}}
+
+/* ---------- 5. états de chargement et de refus : ils décrivent la situation réelle, ils ne la fabriquent pas ---------- */
+@keyframes moShimmer{from{transform:translate3d(-100%,0,0)}to{transform:translate3d(100%,0,0)}}
+.mo-skel{position:relative;overflow:hidden;border-radius:12px;background:color-mix(in srgb,var(--sx-sky) 24%,transparent);min-height:14px}
+.mo-skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:moShimmer 1.3s linear infinite}
+html[dir="rtl"] .mo-skel::after{animation-direction:reverse}
+@keyframes moShake{0%,100%{transform:none}20%{transform:translate3d(-6px,0,0)}40%{transform:translate3d(5px,0,0)}60%{transform:translate3d(-3px,0,0)}80%{transform:translate3d(2px,0,0)}}
+.mo-shake{animation:moShake 320ms var(--mo-ease) both}
+@keyframes moPop{0%{transform:scale(.9);opacity:0}60%{transform:scale(1.03);opacity:1}100%{transform:none;opacity:1}}
+.mo-pop{animation:moPop var(--mo-reveal) var(--mo-spring) both}
+
+/* ---------- 6. hors écran : une animation qui tourne sans être vue ne coûte que de la batterie ---------- */
+.mo-off,.mo-off *,.mo-off::before,.mo-off::after{animation-play-state:paused!important}
+
+/* ---------- 7. rendu léger (appareil modeste, économie de données, ou choix de la personne) : même mise en page, verre sans flou, sans effets 3D ---------- */
+html[data-fx="lite"]{--glass-bg:rgba(255,255,255,.92);--glass-bg-2:#fff;--glass-nav:rgba(246,250,255,.98)}
+html[data-fx="lite"][data-theme="dark"]{--glass-bg:rgba(16,34,58,.95);--glass-bg-2:rgba(22,44,74,.98);--glass-nav:rgba(8,20,36,.99)}
+html[data-fx="lite"] *,html[data-fx="lite"] *::before,html[data-fx="lite"] *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-fx="lite"]::before{animation:none}
+html[data-fx="lite"] .mo-tilt{transform:none!important}
+@media (prefers-reduced-motion:reduce){
+  .mo-rise>*,.mo-rise-self,.screen.active>.screen-body>*,.ov.is-open .ov-panel>*{animation:none!important;opacity:1;transform:none}
+  .mo-skel::after{animation:none}
+}
+
+/* ---------- 8. inclinaison douce (cartes) : transform seulement, reflet qui suit le doigt ---------- */
+.mo-tilt{transform:perspective(900px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform 80ms linear;will-change:transform}
+.mo-tilt.mo-tilt-rest{transition:transform var(--mo-release) var(--mo-out)}
+
+/* ---------- 9. accès (connexion · inscription · réinitialisation) : entrée coordonnée, champ actif, saisie invalide ---------- */
+.sx-auth-mark{animation:moPop 560ms var(--mo-spring) 40ms backwards}
+.sx-auth-sky h1{animation:moRise var(--mo-reveal) var(--mo-out) 140ms backwards}
+.sx-auth-sky p{animation:moRise var(--mo-reveal) var(--mo-out) 200ms backwards}
+.sx-auth-bar{animation:moRise 320ms var(--mo-out) backwards}
+.sx-auth-sheet>*{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(260ms + var(--i,0)*var(--mo-stagger))}
+.sx-auth-sheet>*:nth-child(1){--i:0}.sx-auth-sheet>*:nth-child(2){--i:1}.sx-auth-sheet>*:nth-child(3){--i:2}.sx-auth-sheet>*:nth-child(4){--i:3}
+.sx-auth-sheet>*:nth-child(5){--i:4}.sx-auth-sheet>*:nth-child(6){--i:5}.sx-auth-sheet>*:nth-child(7){--i:6}.sx-auth-sheet>*:nth-child(n+8){--i:7}
+/* champ actif : l'étiquette prend la couleur de la marque, le cadre s'allume (la lueur existe déjà dans s-glass.css) */
+.field .field-label{transition:color var(--mo-release) var(--mo-out)}
+.field:focus-within .field-label{color:var(--sx-primary)}
+.field-box{transition:background-color var(--mo-release) var(--mo-out),box-shadow var(--mo-release) var(--mo-out),transform var(--mo-release) var(--mo-out)}
+.field-box:focus-within{transform:translate3d(0,-1px,0)}
+/* saisie invalide : cadre d'erreur, message qui apparaît sans saut */
+.field-err:not(:empty){animation:moRise 220ms var(--mo-out) backwards}
+.sx-auth-sheet .field-box.has-err{box-shadow:0 0 0 2px var(--danger),0 10px 24px -16px rgba(232,77,101,.6)!important}
+/* chargement : le bouton garde sa taille, le cercle suit la vraie requête (classe posée par UIKit.loading) */
+.btn.is-loading::after{animation-duration:.7s}
+@media (prefers-reduced-motion:reduce){.sx-auth-sheet>*,.sx-auth-mark,.sx-auth-sky h1,.sx-auth-sky p,.sx-auth-bar,.field-err:not(:empty){animation:none!important}}
+
+/* ---------- 10. navigation : l'indicateur rejoint l'onglet actif (position mesurée par V12.placeInd : juste en RTL, à toute largeur) ---------- */
+.nav-ind{display:block;position:absolute;left:0;top:6px;height:56px;border-radius:20px;pointer-events:none;opacity:0;z-index:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(126,216,246,.3));box-shadow:0 0 0 1px rgba(255,255,255,.75) inset,0 10px 20px -12px rgba(37,150,222,.75)}
+:root[data-theme="dark"] .nav-ind{background:linear-gradient(180deg,rgba(126,216,246,.22),rgba(37,150,222,.2));box-shadow:0 0 0 1px rgba(126,216,246,.28) inset,0 10px 20px -12px rgba(0,0,0,.6)}
+.nav-ind.ready{transition:transform var(--mo-tab) var(--mo-out),width var(--mo-tab) var(--mo-out),opacity var(--mo-release) var(--mo-ease)}
+.sx-tab{z-index:1}
+.sx-tab[aria-current="page"] .nav-ic svg{transition-duration:var(--mo-tab)}
+@media (prefers-reduced-motion:reduce){.nav-ind.ready{transition:none}}
+
+/* ---------- 11. menu latéral (bureau) : les sections arrivent l'une après l'autre ---------- */
+#sidebar #sidebar-logo,#sidebar .side-item,#sidebar #sidebar-profile,#sidebar #sidebar-layout{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(60ms + var(--i,0)*var(--mo-stagger))}
+#sidebar .side-item:nth-child(1){--i:1}#sidebar .side-item:nth-child(2){--i:2}#sidebar .side-item:nth-child(3){--i:3}#sidebar .side-item:nth-child(4){--i:4}
+#sidebar .side-item:nth-child(5){--i:5}#sidebar .side-item:nth-child(6){--i:6}#sidebar .side-item:nth-child(n+7){--i:7}
+#sidebar #sidebar-profile{--i:8}
+@media (prefers-reduced-motion:reduce){#sidebar *{animation:none!important}}
+
+/* ---------- 12. tracés hérités rétablis (21.0.0 les avait perdus en regroupant les feuilles : les animations qui les citaient restaient muettes) ----------
+   Réécrits transform/opacity seulement (plus de flou animé) et aux couleurs Sanad. tests/static/css-keyframes.mjs vérifie qu'aucune animation n'est orpheline. */
+@keyframes notifIn{from{opacity:0;transform:translate3d(0,-22px,0) scale(.96)}to{opacity:1;transform:none}}
+@keyframes notifOut{to{opacity:0;transform:translate3d(0,-18px,0) scale(.96)}}
+@keyframes callIn{0%{opacity:0;transform:translate3d(0,-34px,0) scale(.94)}60%{opacity:1}100%{opacity:1;transform:none}}
+@keyframes callBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+@keyframes elementReveal{from{opacity:0;transform:translate3d(0,10px,0) scale(.985)}to{opacity:1;transform:none}}
+@keyframes recogIn{from{opacity:0;transform:translate3d(0,6px,0) scale(.98)}to{opacity:1;transform:none}}
+@keyframes scanMove{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+@keyframes dsRise{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
+@keyframes pxRise{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+@keyframes pxBump{0%,100%{box-shadow:var(--px-sh-card,none)}35%{box-shadow:var(--px-sh-card,none),0 0 0 4px rgba(126,216,246,.45)}}
+@keyframes obRise{from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:none}}
+@keyframes v13Grow{from{transform:scaleX(0)}to{transform:none}}
+@keyframes v13Spin{to{transform:rotate(360deg)}}
+@keyframes v18Pop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes v18In{from{opacity:0;transform:translate3d(0,14px,0) scale(.98)}to{opacity:1;transform:none}}
+@keyframes suShine{0%,55%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
+@keyframes rwdCoin{from{transform:scale(.2) rotate(-40deg);opacity:0}to{transform:none;opacity:1}}
+@keyframes rwdFall{0%{opacity:0;transform:translate3d(0,0,0) rotate(0)}8%{opacity:1}100%{opacity:0;transform:translate3d(var(--dx,0),112vh,0) rotate(var(--r,540deg))}}
+@keyframes rwdRing{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+@keyframes rwdSpin{0%,100%{transform:rotateY(0)}50%{transform:rotateY(18deg)}}
+
+/* ---------- 13. états vides, erreurs, hors ligne : illustration + texte, l'image arrive doucement (jamais une exemple factice) ---------- */
+.ds-empty-art{display:block;width:min(200px,62%);height:auto;margin:0 auto var(--sp-2);animation:moRise var(--mo-reveal) var(--mo-out) backwards}
+.ds-empty h3,.ds-empty p{animation:moRise var(--mo-reveal) var(--mo-out) 90ms backwards}
+@media (prefers-reduced-motion:reduce){.ds-empty-art,.ds-empty h3,.ds-empty p{animation:none}}
+
+/* ---------- 14. historique : les lignes se recomposent quand on change de filtre (classe posée par Motion seulement après une action sur un filtre) ---------- */
+#history-list.mo-refilter .tx-row,#history-list.mo-refilter .rv-row,#history-list.mo-refilter .ds-empty{animation:moRise 320ms var(--mo-out) backwards;animation-delay:calc(var(--i,0)*30ms)}
+#history-list.mo-refilter .tx-row:nth-of-type(1){--i:0}#history-list.mo-refilter .tx-row:nth-of-type(2){--i:1}#history-list.mo-refilter .tx-row:nth-of-type(3){--i:2}#history-list.mo-refilter .tx-row:nth-of-type(4){--i:3}#history-list.mo-refilter .tx-row:nth-of-type(5){--i:4}#history-list.mo-refilter .tx-row:nth-of-type(n+6){--i:5}
+.chip{transition-property:background-color,color,box-shadow,transform}
+/* le détail s'ouvre depuis la ligne touchée : l'écran naît de ce point (--mo-px / --mo-py posés par Motion) */
+html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,50%);animation:moFromRow var(--mo-screen) var(--mo-out) both}
+@keyframes moFromRow{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#history-list.mo-refilter *,html[data-mo-row] .screen.active{animation:none!important}}
+
+/* ---------- 15. notifications dans l'application : identité Sanad, arrivée courte, fermeture inverse (les déclencheurs restent ceux du code) ---------- */
+.notif-logo{display:inline-block;border-radius:30%;vertical-align:-3px;margin-inline-end:6px;box-shadow:0 1px 3px rgba(16,44,76,.3)}
+.notif-ios{background:var(--glass-bg-2);border:1px solid var(--glass-bd);box-shadow:0 20px 44px -22px rgba(19,79,145,.65),0 2px 0 rgba(255,255,255,.7) inset;animation:notifIn var(--mo-panel) var(--mo-out) both}
+.notif-ios.dismiss{animation:notifOut var(--mo-panel-out) var(--mo-in) both}
+.notif-ios:active{transform:scale(.985);transition:transform var(--mo-press) var(--mo-ease)}
+.notif-ios-icon{border-radius:12px;background:var(--accent-soft);color:var(--accent)}
+.notif-ios-app{text-transform:none;letter-spacing:.02em;font-size:calc(11.5px*var(--ui));font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.notif-call{animation:callIn var(--mo-panel) var(--mo-out) both;box-shadow:0 26px 50px -24px rgba(19,79,145,.75),0 1px 0 rgba(255,255,255,.22) inset}
+.notif-call-app{text-transform:none;letter-spacing:.02em;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion:reduce){.notif-ios,.notif-call,.notif-ios.dismiss{animation:none!important}}
+.notif-call,.notif-call-title,.notif-call-msg,.notif-call-app,.notif-call-time{color:#fff}
+.notif-call-msg{opacity:.88}.notif-call-app{opacity:.95}.notif-call-time{opacity:.78}
+.notif-call-amt{color:#8EF0CF}
+
+/* ---------- 16. secours : écran d'erreur, démarrage impossible, bannière réseau (états réels : hors ligne / de retour) ---------- */
+.res-art img,.res-fatal-art{display:block;width:min(200px,60%);height:auto;margin:0 auto var(--sp-2)}
+.res-art{animation:moRise var(--mo-reveal) var(--mo-out) backwards}
+#net-banner.is-off{background:linear-gradient(180deg,#F7B658,#F4A43B);color:#4A2A00;box-shadow:0 10px 24px -14px rgba(244,164,59,.9)}
+#net-banner.is-ok{background:linear-gradient(180deg,#22BE8C,#14A879);color:#fff;box-shadow:0 10px 24px -14px rgba(20,168,121,.9)}
+#net-banner{transition-duration:var(--mo-panel);transition-timing-function:var(--mo-out)}
+
+/* ---------- 17. aide (FAQ) : un seul chevron ; il pivote à l'ouverture ---------- */
+.faq-item>summary::after{display:none}
+.faq-item .faq-chev{transition:transform var(--mo-release) var(--mo-out)}
+.faq-item[open] .faq-chev{transform:rotate(90deg)}
+html[dir="rtl"] .faq-item .faq-chev{transform:scaleX(-1)}html[dir="rtl"] .faq-item[open] .faq-chev{transform:scaleX(-1) rotate(90deg)}

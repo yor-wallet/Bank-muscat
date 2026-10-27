@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CHAT 18.0.0 — messagerie, YASER, boîte de réception administrateur.
+   CHAT 18.0.0 — messagerie, Amal, boîte de réception administrateur.
    Jetons de v17.css ; thème clair en bas ; miroir RTL par propriétés logiques (aucun left/right pour les bulles).
    ========================================================================== */
 .chat-wrap,.yas-wrap,.chat-inbox{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;
@@ -147,7 +147,7 @@ html[dir="rtl"] .chat-m.theirs .chat-b{transform-origin:100% 100%}
 .chat-loading i{width:9px;height:9px;border-radius:50%;background:var(--gold);animation:yasDot 1s ease-in-out infinite}
 .chat-loading i:nth-child(2){animation-delay:.15s}.chat-loading i:nth-child(3){animation-delay:.3s}
 
-/* ---------- aller en bas, bouton YASER ---------- */
+/* ---------- aller en bas, bouton Amal ---------- */
 .chat-down{position:absolute;inset-inline-end:14px;inset-block-end:calc(var(--chat-comp-h,64px) + 14px);z-index:4;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--surf);border:1px solid var(--border-2);color:var(--text);box-shadow:0 10px 22px -10px rgba(0,0,0,.6);animation:chatIn .3s both}
 .chat-down[hidden]{display:none}
 .chat-badge{position:absolute;inset-block-start:-6px;inset-inline-end:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:99px;background:var(--btn-grad);color:var(--on-accent);font-size:11px;font-weight:800;display:grid;place-items:center}
@@ -261,7 +261,7 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 .chat-th-r{flex:none;display:flex;flex-direction:column;align-items:flex-end;gap:6px;font-size:11.5px;color:var(--text-3)}
 .chat-th-n{min-width:22px;height:22px;padding:0 6px;border-radius:99px;display:grid;place-items:center;background:var(--btn-grad);color:var(--on-accent);font-style:normal;font-weight:800;font-size:12px}
 
-/* ---------- YASER ---------- */
+/* ---------- Amal ---------- */
 .yas-head{background:transparent;border-bottom:0;-webkit-backdrop-filter:none;backdrop-filter:none}
 .yas-hero{flex:none;display:grid;place-items:center;height:126px;transition:height .5s cubic-bezier(.2,.9,.2,1),opacity .4s;position:relative}
 .yas-wrap.has-msgs .yas-hero{height:78px}
@@ -348,3 +348,16 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 .chat-file-card span{display:flex;flex-direction:column;min-width:0}
 .chat-file-card b{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chat-file-card small{font-size:12px;color:var(--text-3)}
+
+/* ---------- Amal : le personnage fourni (PNG) remplace l'ancienne bulle dessinée ---------- */
+.sanad-amal{display:block;object-fit:cover;object-position:50% 14%;border-radius:50%;background:radial-gradient(circle at 50% 30%,#EAF8FF,#BFE3FA);box-shadow:0 0 0 2px rgba(255,255,255,.85) inset,0 10px 22px -10px rgba(19,79,145,.45)}
+.yas-hero .sanad-amal{width:112px;height:112px;animation:amalFloat 4.6s ease-in-out infinite}
+.yas-ava .sanad-amal,.chat-yb .sanad-amal,.chat-yfab .sanad-amal{box-shadow:0 0 0 1.5px rgba(255,255,255,.9) inset,0 4px 10px -4px rgba(19,79,145,.4)}
+.sanad-amal.is-think{filter:saturate(.9) brightness(.98)}
+.sanad-amal.is-happy{animation:amalHop .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes amalFloat{0%,100%{translate:0 0}50%{translate:0 -4px}}
+@keyframes amalHop{0%{translate:0 0;scale:1}40%{translate:0 -10px;scale:1.04}100%{translate:0 0;scale:1}}
+.yas-note{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:6px 16px 0;font-size:12px;line-height:1.4;color:var(--sx-ink-2,#4a6076)}
+.yas-note[hidden]{display:none}
+.yas-note button{appearance:none;background:none;border:0;padding:4px 0;font:inherit;font-weight:600;color:var(--sx-bank,#134F91);text-decoration:underline;text-underline-offset:2px;cursor:pointer;min-height:32px}
+@media (prefers-reduced-motion:reduce){.sanad-amal{animation:none!important}}

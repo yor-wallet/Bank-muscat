@@ -14,7 +14,7 @@ Strings.add({
     'hub.kMembers': 'Members', 'hub.kToday': 'New today', 'hub.kCredit': 'Credit requests waiting', 'hub.kBoost': 'Boost capital (OMR)',
     'hub.t.members': 'Members', 'hub.d.members': 'Search, details, welcome reward', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat with every member', 'hub.t.credit': 'Credit requests', 'hub.d.credit': 'Approve or decline',
     'hub.t.boost': 'Boost and settings', 'hub.d.boost': 'Rate, limits, switches', 'hub.t.announce': 'Announcements', 'hub.d.announce': 'Broadcast to everyone', 'hub.t.deposit': 'Quick deposit', 'hub.d.deposit': 'Credit a member by ID',
-    'hub.t.audit': 'Audit log', 'hub.d.audit': 'Latest actions', 'hub.t.sounds': 'Sounds', 'hub.d.sounds': 'Preview the sound bank', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Report for support',
+    'hub.t.agents': 'Assistants', 'hub.d.agents': 'Real state of the five roles', 'hub.t.audit': 'Audit log', 'hub.d.audit': 'Latest actions', 'hub.t.sounds': 'Sounds', 'hub.d.sounds': 'Preview the sound bank', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Report for support',
     'hub.dSub': 'Credits the member’s wallet right away. Recorded in the audit log.', 'hub.dId': 'Sanad Pay ID', 'hub.dAmt': 'Amount (OMR)', 'hub.dNote': 'Note (optional)', 'hub.dReview': 'Review', 'hub.dConfirm': 'Credit {a} to {n}?',
     'hub.dGo': 'Credit now', 'hub.dBack': 'Back', 'hub.dDone': 'Deposit completed', 'hub.dRef': 'Reference', 'hub.dClose': 'Done', 'hub.dBadId': 'Enter a valid Sanad Pay ID.', 'hub.dBadAmt': 'Enter an amount above zero.',
     'hub.dNoMember': 'No member with this ID.', 'hub.dChecking': 'Checking…', 'hub.dWorking': 'Crediting…',
@@ -22,7 +22,7 @@ Strings.add({
     'hub.a.ADMIN_DEPOSIT': 'Deposit', 'hub.a.CREDIT_APPROVED': 'Credit approved', 'hub.a.CREDIT_REJECTED': 'Credit declined', 'hub.a.CREDIT_REQUEST': 'Credit request', 'hub.a.SETTING': 'Setting changed',
     'hub.a.ANNOUNCEMENT': 'Announcement', 'hub.a.SIGNUP_BONUS': 'Welcome reward', 'hub.a.ADMIN_SET_SIGNUP_BONUS': 'Reward amount',
     'hub.sSub': 'Soft, short sounds. Tap one to preview.', 'hub.s.notify': 'Notification', 'hub.s.money': 'Money received', 'hub.s.newUser': 'New member', 'hub.s.reward': 'Reward', 'hub.s.success': 'Success',
-    'hub.s.msgRecv': 'Message received', 'hub.s.msgSend': 'Message sent', 'hub.s.collect': 'Collect earnings', 'hub.s.credit': 'Credit granted', 'hub.s.yaser': 'YASER', 'hub.s.error': 'Error', 'hub.s.tick': 'Tick',
+    'hub.s.msgRecv': 'Message received', 'hub.s.msgSend': 'Message sent', 'hub.s.collect': 'Collect earnings', 'hub.s.credit': 'Credit granted', 'hub.s.yaser': 'Amal', 'hub.s.error': 'Error', 'hub.s.tick': 'Tick',
     'hub.copy': 'Copy report',
     'hub.anTitle': 'Announcements', 'hub.anNew': 'New announcement', 'hub.anT': 'Title', 'hub.anB': 'Message', 'hub.anPrev': 'Preview in the film', 'hub.anPublish': 'Publish to everyone', 'hub.anHint': 'Every member gets a notification and the announcement opens the film.',
     'hub.anConfirm': 'Send this to every member as a notification and show it in the film?', 'hub.anSend': 'Send', 'hub.anDone': 'Published to {n} members', 'hub.anList': 'Published', 'hub.anStop': 'Stop', 'hub.anStopped': 'Announcement stopped',
@@ -33,7 +33,7 @@ Strings.add({
     'hub.kMembers': 'Membres', 'hub.kToday': 'Nouveaux aujourd’hui', 'hub.kCredit': 'Demandes de crédit en attente', 'hub.kBoost': 'Capital Boost (OMR)',
     'hub.t.members': 'Membres', 'hub.d.members': 'Recherche, fiches, récompense', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat avec chaque membre', 'hub.t.credit': 'Demandes de crédit', 'hub.d.credit': 'Accepter ou refuser',
     'hub.t.boost': 'Boost et réglages', 'hub.d.boost': 'Taux, limites, interrupteurs', 'hub.t.announce': 'Annonces', 'hub.d.announce': 'Diffuser à tout le monde', 'hub.t.deposit': 'Dépôt rapide', 'hub.d.deposit': 'Créditer un membre par ID',
-    'hub.t.audit': 'Journal d’audit', 'hub.d.audit': 'Dernières actions', 'hub.t.sounds': 'Sons', 'hub.d.sounds': 'Écouter la banque de sons', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Rapport pour l’assistance',
+    'hub.t.agents': 'Assistants', 'hub.d.agents': 'État réel des cinq rôles', 'hub.t.audit': 'Journal d’audit', 'hub.d.audit': 'Dernières actions', 'hub.t.sounds': 'Sons', 'hub.d.sounds': 'Écouter la banque de sons', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Rapport pour l’assistance',
     'hub.dSub': 'Crédite aussitôt le portefeuille du membre. Enregistré dans le journal d’audit.', 'hub.dId': 'ID Sanad Pay', 'hub.dAmt': 'Montant (OMR)', 'hub.dNote': 'Note (facultatif)', 'hub.dReview': 'Vérifier', 'hub.dConfirm': 'Créditer {a} à {n} ?',
     'hub.dGo': 'Créditer maintenant', 'hub.dBack': 'Retour', 'hub.dDone': 'Dépôt effectué', 'hub.dRef': 'Référence', 'hub.dClose': 'Terminé', 'hub.dBadId': 'Saisissez un ID Sanad Pay valide.', 'hub.dBadAmt': 'Saisissez un montant supérieur à zéro.',
     'hub.dNoMember': 'Aucun membre avec cet ID.', 'hub.dChecking': 'Vérification…', 'hub.dWorking': 'Crédit en cours…',
@@ -41,7 +41,7 @@ Strings.add({
     'hub.a.ADMIN_DEPOSIT': 'Dépôt', 'hub.a.CREDIT_APPROVED': 'Crédit accordé', 'hub.a.CREDIT_REJECTED': 'Crédit refusé', 'hub.a.CREDIT_REQUEST': 'Demande de crédit', 'hub.a.SETTING': 'Réglage modifié',
     'hub.a.ANNOUNCEMENT': 'Annonce', 'hub.a.SIGNUP_BONUS': 'Récompense de bienvenue', 'hub.a.ADMIN_SET_SIGNUP_BONUS': 'Montant de la récompense',
     'hub.sSub': 'Sons doux et courts. Touchez-en un pour l’écouter.', 'hub.s.notify': 'Notification', 'hub.s.money': 'Argent reçu', 'hub.s.newUser': 'Nouveau membre', 'hub.s.reward': 'Récompense', 'hub.s.success': 'Succès',
-    'hub.s.msgRecv': 'Message reçu', 'hub.s.msgSend': 'Message envoyé', 'hub.s.collect': 'Récupérer les gains', 'hub.s.credit': 'Crédit accordé', 'hub.s.yaser': 'YASER', 'hub.s.error': 'Erreur', 'hub.s.tick': 'Tic',
+    'hub.s.msgRecv': 'Message reçu', 'hub.s.msgSend': 'Message envoyé', 'hub.s.collect': 'Récupérer les gains', 'hub.s.credit': 'Crédit accordé', 'hub.s.yaser': 'Amal', 'hub.s.error': 'Erreur', 'hub.s.tick': 'Tic',
     'hub.copy': 'Copier le rapport',
     'hub.anTitle': 'Annonces', 'hub.anNew': 'Nouvelle annonce', 'hub.anT': 'Titre', 'hub.anB': 'Message', 'hub.anPrev': 'Aperçu dans le film', 'hub.anPublish': 'Publier à tout le monde', 'hub.anHint': 'Chaque membre reçoit une notification et l’annonce ouvre le film.',
     'hub.anConfirm': 'Envoyer ceci à chaque membre en notification et l’afficher dans le film ?', 'hub.anSend': 'Envoyer', 'hub.anDone': 'Publié pour {n} membres', 'hub.anList': 'Publiées', 'hub.anStop': 'Arrêter', 'hub.anStopped': 'Annonce arrêtée',
@@ -52,7 +52,7 @@ Strings.add({
     'hub.kMembers': 'الأعضاء', 'hub.kToday': 'جدد اليوم', 'hub.kCredit': 'طلبات ائتمان معلّقة', 'hub.kBoost': 'رأس مال بوست (ر.ع)',
     'hub.t.members': 'الأعضاء', 'hub.d.members': 'بحث وتفاصيل ومكافأة', 'hub.t.chat': 'الرسائل', 'hub.d.chat': 'محادثة مع كل عضو', 'hub.t.credit': 'طلبات الائتمان', 'hub.d.credit': 'قبول أو رفض',
     'hub.t.boost': 'بوست والإعدادات', 'hub.d.boost': 'النسبة والحدود والمفاتيح', 'hub.t.announce': 'الإعلانات', 'hub.d.announce': 'بث للجميع', 'hub.t.deposit': 'إيداع سريع', 'hub.d.deposit': 'أضف رصيداً لعضو بمعرّفه',
-    'hub.t.audit': 'سجل التدقيق', 'hub.d.audit': 'آخر الإجراءات', 'hub.t.sounds': 'الأصوات', 'hub.d.sounds': 'استمع إلى مكتبة الأصوات', 'hub.t.diag': 'التشخيص', 'hub.d.diag': 'تقرير للدعم',
+    'hub.t.agents': 'المساعدون', 'hub.d.agents': 'الحالة الفعلية للأدوار الخمسة', 'hub.t.audit': 'سجل التدقيق', 'hub.d.audit': 'آخر الإجراءات', 'hub.t.sounds': 'الأصوات', 'hub.d.sounds': 'استمع إلى مكتبة الأصوات', 'hub.t.diag': 'التشخيص', 'hub.d.diag': 'تقرير للدعم',
     'hub.dSub': 'يُضاف فوراً إلى محفظة العضو. يُسجَّل في سجل التدقيق.', 'hub.dId': 'معرّف سند باي', 'hub.dAmt': 'المبلغ (ر.ع)', 'hub.dNote': 'ملاحظة (اختياري)', 'hub.dReview': 'مراجعة', 'hub.dConfirm': 'إضافة {a} إلى {n}؟',
     'hub.dGo': 'أضف الآن', 'hub.dBack': 'رجوع', 'hub.dDone': 'تم الإيداع', 'hub.dRef': 'المرجع', 'hub.dClose': 'تم', 'hub.dBadId': 'أدخل معرّف سند باي صحيحاً.', 'hub.dBadAmt': 'أدخل مبلغاً أكبر من الصفر.',
     'hub.dNoMember': 'لا يوجد عضو بهذا المعرّف.', 'hub.dChecking': 'جارٍ التحقق…', 'hub.dWorking': 'جارٍ الإضافة…',
@@ -60,7 +60,7 @@ Strings.add({
     'hub.a.ADMIN_DEPOSIT': 'إيداع', 'hub.a.CREDIT_APPROVED': 'قبول ائتمان', 'hub.a.CREDIT_REJECTED': 'رفض ائتمان', 'hub.a.CREDIT_REQUEST': 'طلب ائتمان', 'hub.a.SETTING': 'تعديل إعداد',
     'hub.a.ANNOUNCEMENT': 'إعلان', 'hub.a.SIGNUP_BONUS': 'مكافأة الترحيب', 'hub.a.ADMIN_SET_SIGNUP_BONUS': 'مبلغ المكافأة',
     'hub.sSub': 'أصوات ناعمة وقصيرة. المس أحدها للاستماع.', 'hub.s.notify': 'إشعار', 'hub.s.money': 'استلام مبلغ', 'hub.s.newUser': 'عضو جديد', 'hub.s.reward': 'مكافأة', 'hub.s.success': 'نجاح',
-    'hub.s.msgRecv': 'رسالة واردة', 'hub.s.msgSend': 'رسالة مرسلة', 'hub.s.collect': 'سحب الأرباح', 'hub.s.credit': 'منح ائتمان', 'hub.s.yaser': 'YASER', 'hub.s.error': 'خطأ', 'hub.s.tick': 'نقرة',
+    'hub.s.msgRecv': 'رسالة واردة', 'hub.s.msgSend': 'رسالة مرسلة', 'hub.s.collect': 'سحب الأرباح', 'hub.s.credit': 'منح ائتمان', 'hub.s.yaser': 'Amal', 'hub.s.error': 'خطأ', 'hub.s.tick': 'نقرة',
     'hub.copy': 'نسخ التقرير',
     'hub.anTitle': 'الإعلانات', 'hub.anNew': 'إعلان جديد', 'hub.anT': 'العنوان', 'hub.anB': 'الرسالة', 'hub.anPrev': 'معاينة في الفيلم', 'hub.anPublish': 'انشر للجميع', 'hub.anHint': 'يصل إشعار لكل عضو ويظهر الإعلان في الفيلم.',
     'hub.anConfirm': 'إرسال هذا إلى كل عضو كإشعار وعرضه في الفيلم؟', 'hub.anSend': 'إرسال', 'hub.anDone': 'تم النشر لـ {n} عضواً', 'hub.anList': 'المنشورة', 'hub.anStop': 'إيقاف', 'hub.anStopped': 'تم إيقاف الإعلان',
@@ -131,7 +131,7 @@ const AdminHub = (() => {
     { k: 'chat', ic: 'chat', route: 'admin-chat', badge: 'chat' }, { k: 'credit', ic: 'cards', route: 'admin-credit', badge: 'credit' },
     { k: 'members', ic: 'users', route: 'admin' }, { k: 'boost', ic: 'vault', route: 'admin-boost' },
     { k: 'announce', ic: 'mega', route: 'admin-announce' }, { k: 'deposit', ic: 'banknote', sheet: 'deposit' },
-    { k: 'audit', ic: 'doc', sheet: 'audit' }, { k: 'sounds', ic: 'volume', sheet: 'sounds' }, { k: 'diag', ic: 'chart', sheet: 'diag' }
+    { k: 'audit', ic: 'doc', sheet: 'audit' }, { k: 'agents', ic: 'chat', route: 'admin-agents' }, { k: 'sounds', ic: 'volume', sheet: 'sounds' }, { k: 'diag', ic: 'chart', sheet: 'diag' }
   ];
   /* 19.0.0 : tuiles de l'espace administrateur 19 (plans, paiements, identités, retraits, utilisateurs, journal, notifications) */
   function allTiles(){

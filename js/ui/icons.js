@@ -157,7 +157,7 @@ function flag(iso){ return FLAGS[iso] || FLAGS.US; }
 const isArabicUi = () => typeof LANG === 'string' && LANG === 'ar';
 function logoMark(size){
   size = size || 48;
-  return '<img class="logo-mark" src="assets/brand/logo-mark.svg" alt="' + (isArabicUi() ? 'سند باي' : 'Sanad Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
+  return '<img class="logo-mark" src="assets/brand/sanad-s-192.png" alt="' + (isArabicUi() ? 'سند باي' : 'Sanad Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
 }
 function logoLockup(size){
   size = size || 48;

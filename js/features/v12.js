@@ -75,7 +75,7 @@ const V12 = (() => {
   /* ---------- card face (CSS-drawn: no network mark, no chip, no NFC symbol, no CVV) ---------- */
   /* 12.9.0: no "preview / not issued" wording is shown on cards; a label appears only for Frozen and Active */
   const stateLbl = s => (s === 'frozen' ? vt('frozen') : s === 'active' ? vt('active') : '');
-  function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : ''; }
+  function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : (s === 'preview' ? '<span class="rv-state s-preview" role="img" aria-label="' + escapeHtml(t('filter.pending')) + '">' + icon('clock', 14) + '</span>' : ''); }
   /* Slot for the card network. It stays EMPTY until the card data itself carries a real network AND a real issuer. */
   /* 15.0.0: card network mark (Visa, per the partnership). Light finishes take the blue mark, dark ones the silver mark. */
   const LIGHT_TH = ['minimal', 'metal', 'gold'];
@@ -85,7 +85,7 @@ const V12 = (() => {
     return '<div class="rv-card th-' + themeOf(c) + (st.enter ? ' rv-enter' : '') + '" data-card="' + escapeHtml(c.id) + '" data-state="' + cardState(c) + '" role="group" aria-label="' + escapeHtml((c.label || vt('defName')) + ' •••• ' + l4(c)) + '"><div class="rv-in">' +
       '<div class="rv-face rv-front">' +
         '<i class="rv-grain" aria-hidden="true"></i><i class="rv-foil" aria-hidden="true"></i><i class="rv-holo" aria-hidden="true"></i><i class="rv-edge" aria-hidden="true"></i>' +
-        '<div class="rv-top2"><img class="rv-wm" src="assets/brand/wordmark-white.svg" alt="Sanad Pay">' + stateChip(c) + '</div>' +
+        '<div class="rv-top2"><span class="rv-brand"><img class="rv-lg" src="assets/brand/sanad-s-192.png" alt="" width="26" height="26"><img class="rv-wm" src="assets/brand/wordmark-white.svg" alt="Sanad Pay"></span>' + stateChip(c) + '</div>' +
         '<div class="rv-mid"><span class="rv-emv" aria-hidden="true"><img class="rv-chip" src="assets/ui/chip.svg" alt=""><img class="rv-nfc" src="assets/ui/contactless.svg" alt=""></span><span class="rv-name">' + escapeHtml(c.label || vt('defName')) + '</span>' +
           '<span class="rv-num ltr" dir="ltr"><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>' + l4(c) + '</span></span></div>' +
         '<div class="rv-bot"><span class="rv-holder">' + escapeHtml(c.holderName || '') + '</span>' + netSlot(c) + '</div>' +
@@ -195,7 +195,7 @@ const V12 = (() => {
     return '<div class="rv-home ds-home">' +
       '<header class="rv-top">' +
         '<button class="rv-ava" data-yb-drawer aria-label="menu">' + ava() + '</button>' +
-        '<div class="rv-hello"><span class="ds-hello-l"><img class="ds-mark" src="assets/brand/logo-mark.svg" alt="">' + vt('hello') + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
+        '<div class="rv-hello"><span class="ds-hello-l"><img class="ds-mark" src="assets/brand/sanad-s-192.png" alt="" width="28" height="28">' + vt('hello') + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
         '<button class="rv-circ" data-action="notifications" aria-label="' + escapeHtml(t('ui.notifications')) + '">' + icon('bell', 20) + (unread ? '<span class="rv-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
         '<button class="rv-circ" data-nav="settings" aria-label="' + escapeHtml(t('ds.settings')) + '">' + icon('settings', 20) + '</button>' +
       '</header>' +
@@ -226,8 +226,10 @@ const V12 = (() => {
     /* Sanad Pay 21.0.0 — barre « rail » : 4 onglets (seul l'actif montre son libellé, la ligne d'horizon se trace dessous) et « Envoyer » = carré arrondi plein en bout de rail.
        Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
     const tab = (nav2, ic, lbl) => '<a class="nav-item sx-tab" data-nav="' + nav2 + '" aria-label="' + lbl + '"><span class="nav-ic">' + icon(ic, 24) + '</span><span class="nav-lb">' + lbl + '</span></a>';
-    const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 22) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
-    nav.innerHTML = '<div class="nav-dock sx-rail">' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + send + '<i class="nav-ind" aria-hidden="true"></i></div>';
+    /* Glass 21.1.0 — barre de verre à 5 entrées égales (style Revolut) : Accueil · Activité · Envoyer (bouton central rond) · Cartes · Services.
+       Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
+    const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 24) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
+    nav.innerHTML = '<div class="nav-dock sx-rail"><i class="nav-ind" aria-hidden="true"></i>' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + send + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + '</div>';
     requestAnimationFrame(placeInd);
   }
   /* The highlight pill glides under the active tab (12.9.0). Measured, so it also works in RTL and at any width. */
@@ -383,7 +385,7 @@ const V12 = (() => {
     const oldLogo = body.querySelector('.logo-lockup'); if (oldLogo && oldLogo.parentElement !== body) oldLogo.parentElement.remove();
     const hero = document.createElement('div'); hero.className = 'rv-auth-hero';
     const brandName = LANG === 'ar' ? 'سند باي' : 'Sanad Pay';
-    hero.innerHTML = '<img class="rv-auth-mark" src="assets/brand/logo-mark.svg" alt="' + brandName + '"><h1>' + brandName + '</h1><p>' + vt(id === 'login' ? 'tagline' : id === 'signup' ? 'signupSub' : 'resetSub') + '</p>';
+    hero.innerHTML = '<img class="rv-auth-mark" src="assets/brand/sanad-s-192.png" alt="' + brandName + '"><h1>' + brandName + '</h1><p>' + vt(id === 'login' ? 'tagline' : id === 'signup' ? 'signupSub' : 'resetSub') + '</p>';
     body.insertBefore(hero, body.firstChild);
     if (id === 'signup'){ const tt = root.querySelector('.topbar-title'); if (tt) tt.textContent = vt('createAccount'); }
     if (id !== 'reset'){

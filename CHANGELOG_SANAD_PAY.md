@@ -1,4 +1,33 @@
-# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.0.0
+# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.2.0
+
+## 21.2.0 — logo officiel, mouvement centralisé, assistance Amal, cinq rôles d'agents
+Reprise à partir de l'archive `sanad-pay-version-travail` et de la mission « transformation visuelle et animations complètes ». **Aucune fonction métier retirée** (`node tests/characterization/compare.mjs`, exceptions documentées en tête du fichier). Détail des animations : `SANAD_ANIMATIONS.md` ; état programmé / testé / connecté / déployé : `STATUT_SANAD_PAY.md`.
+- **Logo officiel** (ruban en S) partout : application, ouverture, icônes, favicons, manifeste, images de partage, reçus exportés, notifications, pages hors ligne / 404 / installation, `site.html` (nouveau).
+- **Système de mouvement** : jetons `--mo-*` (`css/s-tokens.css`), `css/s-motion.css` (couche finale), `js/ui/motion.js` (niveau `full`/`lite`, pause hors écran, origine des panneaux, inclinaison avec nettoyage). 20 `@keyframes` perdus depuis 21.0.0 restaurés ; contrôle statique ajouté.
+- **Ouverture** autour du vrai logo (lumière sur les courbes, 3 variantes), **présentation en 5 scènes**, tableau de bord sans compteur depuis 0, indicateur de navigation glissant (LTR + RTL), panneaux depuis leur origine, scène de traitement « courbe » indéterminée, cartes (inclinaison, états), historique / reçus (états vide, erreur ; coche seulement pour un succès réel ; **la pastille « Confirmé et approuvé » n'apparaît plus sur un reçu en attente**), notifications, publicités / cinéma aux couleurs de marque.
+- **Assistance Amal** : visuel PNG, états (accueil, traitement, réponse, indisponible, support humain), consentement, tri urgence / sensible sans appel au modèle (`js/features/amal-triage.js` généré), fonction `supabase/functions/sanad-agents` (**non déployée**), migration `20261101_sanad_agent_log.sql` (**non appliquée**), `sanad-agents/` (cinq rôles : assistance / contenu, données, supervision, diagnostic, maintenance) + écran admin avec l'état réel de chaque rôle.
+- **Nettoyages automatiques** : périmètre exact documenté dans `Janitor` ; coffre du code retiré du nettoyage ; clé de consentement Amal protégée (`amal_ai_<id>`).
+- **Qualité** : niveau `lite` automatique sur rendu logiciel ; banc de fluidité `tests/perf/motion.mjs` ; le banc fixe `sanad_fx=full`.
+- Aide : un seul chevron ; textes arabes de marque corrigés.
+- Version **21.2.0** (`package.json`, `package-lock.json`, `CONFIG.APP.version`, `sw.js`, cache `fp-shell-v21.2.0-…`).
+
+---
+
+## 21.1.0 — direction « Glass » (navigation et rendu à la Revolut, avec du verre dépoli)
+Demande du propriétaire : la refonte 21.0.0 « n'était pas jolie » ; nouvelle direction visuelle inspirée de Revolut avec de la transparence. **Présentation uniquement** : aucun écran, RPC, table, clé de stockage ni minuterie n'est touché (`compare.mjs` 15/15).
+- **Nouvelle feuille `css/s-glass.css`** (chargée en dernier) : jetons clair « jour de verre » et sombre « nuit de verre », fond « aurore » (4 halos bleu ciel / bleu / turquoise / bleu profond) porté par une couche fixe qui dérive lentement et suit l'inclinaison de l'appareil (transform seulement ; coupée en mouvement réduit).
+- **Navigation** : barre de verre à 5 entrées égales (Accueil · Historique · **Envoyer** (bouton rond central surélevé) · Cartes · Services) avec libellé sous chaque icône ; plus de pastille glissante. Les écrans du parcours d'envoi, du reçu et de la connexion masquent la barre (plein écran, comme les applications bancaires).
+- **Accueil** : barre du haut (avatar rond, **recherche en pilule**, cloche), **solde centré géant** (partie entière en grand, décimales plus petites, code monétaire discret), pastilles d'état / identifiant / mois, **4 boutons ronds** (Envoyer plein, Recevoir, Historique, Plus), puis cartes de verre (en cours, activité récente, graphique du mois, cartes, offres) qui apparaissent en cascade.
+- **Composants** : cartes et listes en verre (flou + reflet intérieur + ombre longue), pastilles **rondes** pour les opérations et réglages, boutons en **pilule** (dégradé bleu, ombre colorée), champs de verre, contrôles segmentés, barre de glissement en pilule avec poignée ronde, clavier de code à **touches rondes** et points ronds, feuilles et fenêtres en verre, barre latérale de verre sur grand écran, colonne centrée sur tablette / ordinateur.
+- **Accessibilité** : `prefers-reduced-transparency` et navigateurs sans flou → verre quasi opaque, mêmes formes ; `prefers-reduced-motion` coupe dérive, cascades et parallaxe.
+- **Ouverture** : fond d'aurore identique à celui de l'application ; images de lancement iOS régénérées (`scripts/dev/splash.py`, dégradés reproduits en calcul).
+- **Montants** : `splitMoney()` (présentation) sépare code, partie entière, décimales ; le texte exact et l'animation de solde sont conservés.
+- Correctifs : l'identifiant de la barre latérale affichait `YOR-…` au lieu de `SP-…` ; les noms latins tronqués en arabe (`unicode-bidi: plaintext`).
+- Version **21.1.0** (`package.json`, `CONFIG.APP.version`, cache `fp-shell-v21.1.0-…`).
+
+---
+## 21.0.0 — premier passage « Horizon » (conservé pour l'historique)
+
 
 Ce journal liste **tout** ce qui a changé, y compris les écarts et les limites. Les vérifications citées ont réellement été exécutées dans le banc local (voir `docs/TEST_RESULTS.md`) ; ce qui n'a pas pu être fait ou vérifié est dit explicitement dans « Limites et actions du propriétaire ».
 

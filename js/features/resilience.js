@@ -35,9 +35,7 @@ const Resilience = (() => {
     const safeId = String(id || '').replace(/[^a-z0-9-]/gi, '');
     const isHome = safeId === 'home';
     return '<div class="res-screen" role="alert">' +
-      '<div class="res-art" aria-hidden="true"><svg viewBox="0 0 120 120" width="112" height="112"><defs><linearGradient id="resg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#aadcf0"/><stop offset="1" stop-color="#1771b2"/></linearGradient></defs>' +
-        '<circle cx="60" cy="60" r="52" fill="url(#resg)" opacity=".14"/><circle cx="60" cy="60" r="38" fill="url(#resg)" opacity=".22"/>' +
-        '<g fill="none" stroke="#1771b2" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M60 38v26"/></g><circle cx="60" cy="82" r="5" fill="#1771b2"/></svg></div>' +
+      '<div class="res-art" aria-hidden="true"><img src="assets/illustrations/error.svg" width="200" height="150" alt="" decoding="async"></div>' +
       '<h1 class="res-title">' + esc(t('res.title')) + '</h1>' +
       '<p class="res-body">' + esc(t('res.body')) + '</p>' +
       '<div class="res-actions">' +
@@ -53,7 +51,7 @@ const Resilience = (() => {
     const splash = document.getElementById('splash');
     if (!splash) return;
     splash.classList.remove('is-hidden'); splash.style.display = '';
-    splash.innerHTML = '<div class="res-fatal" role="alert"><div class="res-fatal-logo">' + (typeof logoLockup === 'function' ? logoLockup(64) : '') + '</div>' +
+    splash.innerHTML = '<div class="res-fatal" role="alert"><div class="res-fatal-logo">' + (typeof logoLockup === 'function' ? logoLockup(64) : '') + '</div><img class="res-fatal-art" src="assets/illustrations/offline.svg" width="200" height="150" alt="" decoding="async">' +
       '<h1 class="res-title">' + esc(t('boot.failTitle')) + '</h1><p class="res-body">' + esc(t('boot.failBody')) + '</p>' +
       '<button type="button" class="btn btn-primary" data-res-reload>' + esc(t('boot.failRetry')) + '</button></div>';
   }

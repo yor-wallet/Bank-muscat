@@ -203,9 +203,12 @@ function txGroupedHtml(txs, mask){
   });
   return last !== null ? html + '</div>' : html;
 }
-/* empty state: icon + title + sentence (+ optional action HTML). Never shows a fake example. */
+/* empty state: illustration (SVG Sanad) ou icône + titre + phrase (+ action). Never shows a fake example. */
+const EMPTY_ART = { history:'empty-history', search:'empty-search', cards:'empty-cards', bell:'empty-notifications', error:'error', offline:'offline' };
 function emptyState(iconName, title, body, actionHtml){
-  return '<div class="ds-empty"><div class="ds-empty-ic">' + icon(iconName, 26) + '</div><h3>' + escapeHtml(title) + '</h3>' + (body ? '<p>' + escapeHtml(body) + '</p>' : '') + (actionHtml || '') + '</div>';
+  const art = EMPTY_ART[iconName];
+  const visual = art ? '<img class="ds-empty-art" src="assets/illustrations/' + art + '.svg" width="200" height="150" alt="" decoding="async">' : '<div class="ds-empty-ic">' + icon(iconName, 26) + '</div>';
+  return '<div class="ds-empty">' + visual + '<h3>' + escapeHtml(title) + '</h3>' + (body ? '<p>' + escapeHtml(body) + '</p>' : '') + (actionHtml || '') + '</div>';
 }
 /* copy to clipboard with a visible confirmation; never claims success when the browser refused */
 async function copyText(text, okMsg){

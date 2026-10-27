@@ -1,0 +1,569 @@
+{
+ "generated": "2026-10-27T21:07:43.423Z",
+ "method": "requestAnimationFrame intervals, Chromium headless, simulated backend",
+ "profiles": [
+  {
+   "id": "mobile-390-cpu4x",
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "cpuThrottle": 4
+  },
+  {
+   "id": "mobile-390-ar-cpu4x",
+   "viewport": {
+    "width": 390,
+    "height": 844
+   },
+   "cpuThrottle": 4
+  },
+  {
+   "id": "desktop-1280",
+   "viewport": {
+    "width": 1280,
+    "height": 800
+   },
+   "cpuThrottle": 1
+  },
+  {
+   "id": "desktop-1280-lite",
+   "viewport": {
+    "width": 1280,
+    "height": 800
+   },
+   "cpuThrottle": 1
+  },
+  {
+   "id": "desktop-1280-auto",
+   "viewport": {
+    "width": 1280,
+    "height": 800
+   },
+   "cpuThrottle": 1
+  }
+ ],
+ "passes": 3,
+ "results": {
+  "mobile-390-cpu4x": {
+   "opening": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.8,
+     16.7
+    ],
+    "worst": [
+     316.7,
+     150,
+     133.4
+    ],
+    "over20pct": [
+     2.5,
+     1.3,
+     0.8
+    ],
+    "over34pct": [
+     1.5,
+     1.3,
+     0.8
+    ],
+    "frames": [
+     200,
+     231,
+     236
+    ]
+   },
+   "screenTransitions": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     83.3,
+     66.7,
+     66.6
+    ],
+    "over20pct": [
+     3,
+     2.9,
+     2.6
+    ],
+    "over34pct": [
+     1.2,
+     1.5,
+     0.9
+    ],
+    "frames": [
+     338,
+     341,
+     343
+    ]
+   },
+   "panel": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     33.3,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     50.1,
+     50,
+     33.4
+    ],
+    "over20pct": [
+     9.3,
+     3.3,
+     3.2
+    ],
+    "over34pct": [
+     1.3,
+     0.4,
+     0
+    ],
+    "frames": [
+     226,
+     245,
+     247
+    ]
+   },
+   "tier": "full (fix\u00e9 par le banc)"
+  },
+  "mobile-390-ar-cpu4x": {
+   "opening": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.7,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     133.4,
+     116.6,
+     83.4
+    ],
+    "over20pct": [
+     2.1,
+     1.7,
+     1.7
+    ],
+    "over34pct": [
+     1.3,
+     1.3,
+     0.8
+    ],
+    "frames": [
+     234,
+     237,
+     238
+    ]
+   },
+   "screenTransitions": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.7,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     83.4,
+     100,
+     99.9
+    ],
+    "over20pct": [
+     2.6,
+     2.6,
+     3.3
+    ],
+    "over34pct": [
+     0.9,
+     0.6,
+     1.5
+    ],
+    "frames": [
+     345,
+     344,
+     336
+    ]
+   },
+   "panel": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     33.3,
+     33.3,
+     33.4
+    ],
+    "worst": [
+     50,
+     49.9,
+     50
+    ],
+    "over20pct": [
+     9.1,
+     7.7,
+     16
+    ],
+    "over34pct": [
+     0.9,
+     0.4,
+     0.5
+    ],
+    "frames": [
+     232,
+     233,
+     219
+    ]
+   },
+   "tier": "full (fix\u00e9 par le banc)"
+  },
+  "desktop-1280": {
+   "tier": "full",
+   "opening": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     49.9,
+     33.4,
+     33.4
+    ],
+    "over20pct": [
+     2.9,
+     2.9,
+     2.9
+    ],
+    "over34pct": [
+     0.4,
+     0,
+     0
+    ],
+    "frames": [
+     241,
+     242,
+     242
+    ]
+   },
+   "screenTransitions": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     33.4,
+     33.4,
+     33.4
+    ],
+    "worst": [
+     50.1,
+     50.1,
+     50.1
+    ],
+    "over20pct": [
+     27,
+     27.7,
+     27.5
+    ],
+    "over34pct": [
+     3.4,
+     2.7,
+     1.1
+    ],
+    "frames": [
+     263,
+     260,
+     265
+    ]
+   },
+   "panel": {
+    "median": [
+     33.4,
+     33.4,
+     33.4
+    ],
+    "p95": [
+     66.8,
+     66.7,
+     66.7
+    ],
+    "worst": [
+     149.9,
+     100.1,
+     116.8
+    ],
+    "over20pct": [
+     69.2,
+     68.9,
+     66
+    ],
+    "over34pct": [
+     47.1,
+     49.1,
+     49.5
+    ],
+    "frames": [
+     104,
+     106,
+     103
+    ]
+   }
+  },
+  "desktop-1280-lite": {
+   "tier": "lite",
+   "opening": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.7,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     33.3,
+     33.4,
+     33.4
+    ],
+    "over20pct": [
+     0.8,
+     1.2,
+     2.9
+    ],
+    "over34pct": [
+     0,
+     0,
+     0
+    ],
+    "frames": [
+     247,
+     245,
+     243
+    ]
+   },
+   "screenTransitions": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "worst": [
+     16.8,
+     16.8,
+     16.8
+    ],
+    "over20pct": [
+     0,
+     0,
+     0
+    ],
+    "over34pct": [
+     0,
+     0,
+     0
+    ],
+    "frames": [
+     339,
+     341,
+     344
+    ]
+   },
+   "panel": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.7,
+     16.7
+    ],
+    "worst": [
+     16.8,
+     16.8,
+     16.8
+    ],
+    "over20pct": [
+     0,
+     0,
+     0
+    ],
+    "over34pct": [
+     0,
+     0,
+     0
+    ],
+    "frames": [
+     254,
+     252,
+     250
+    ]
+   }
+  },
+  "desktop-1280-auto": {
+   "tier": "lite",
+   "opening": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.7,
+     16.8,
+     16.8
+    ],
+    "worst": [
+     50,
+     33.4,
+     50
+    ],
+    "over20pct": [
+     0.4,
+     0.8,
+     1.6
+    ],
+    "over34pct": [
+     0.4,
+     0,
+     0.4
+    ],
+    "frames": [
+     248,
+     246,
+     244
+    ]
+   },
+   "screenTransitions": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.7,
+     16.7
+    ],
+    "worst": [
+     33.3,
+     16.8,
+     16.8
+    ],
+    "over20pct": [
+     0.6,
+     0,
+     0
+    ],
+    "over34pct": [
+     0,
+     0,
+     0
+    ],
+    "frames": [
+     340,
+     342,
+     343
+    ]
+   },
+   "panel": {
+    "median": [
+     16.7,
+     16.7,
+     16.7
+    ],
+    "p95": [
+     16.8,
+     16.7,
+     16.7
+    ],
+    "worst": [
+     16.8,
+     16.8,
+     16.8
+    ],
+    "over20pct": [
+     0,
+     0,
+     0
+    ],
+    "over34pct": [
+     0,
+     0,
+     0
+    ],
+    "frames": [
+     254,
+     252,
+     250
+    ]
+   }
+  }
+ },
+ "checks": {
+  "reducedMotion": {
+   "running": 0,
+   "infiniteLoops": 0,
+   "names": []
+  },
+  "navigationLeak": {
+   "navigations": 120,
+   "listenerGrowth": {},
+   "animationsBefore": 49,
+   "animationsAfter": 36,
+   "nodesBefore": 1077,
+   "nodesAfter": 1072
+  },
+  "offscreen": {
+   "pausedWhenOffscreen": true,
+   "resumedWhenVisible": true
+  },
+  "liteTier": {
+   "attr": "lite",
+   "key": null
+  }
+ },
+ "caveat": "Banc Chromium. Non mesur\u00e9 sur appareil r\u00e9el (iOS Safari, Android bas de gamme).",
+ "note": "Profils mobiles mesur\u00e9s avant l'ajout de la d\u00e9tection de rendu logiciel (niveau fix\u00e9 \u00e0 full) ; profils bureau mesur\u00e9s apr\u00e8s, sur le build 21.2.0."
+}

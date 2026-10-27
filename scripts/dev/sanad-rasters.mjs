@@ -27,6 +27,8 @@ const shot = async (html, w, h, file, { type = 'png', omitBg = false, quality = 
 };
 const img = (svg, w, h) => `<div style="width:${w}px;height:${h}px">${svg.replace('<svg ', `<svg width="${w}" height="${h}" `)}</div>`;
 
+/* 1–3 : anciennes sorties (icônes carré/coche, mots-symboles, écrans de lancement) — remplacées par scripts/dev/logo-assets.py et scripts/dev/splash.py ; n'exécuter que `ONLY=og` */
+if (!process.env.ONLY) {
 /* 1. icônes (carré arrondi transparent = « any » ; pleine tuile = maskable / apple-touch) */
 for (const [f, s] of [['assets/icons/icon-512.png', 512], ['assets/icons/icon-192.png', 192], ['assets/brand/png/logo-mark-512.png', 512], ['assets/brand/png/logo-mark-ar-512.png', 512], ['assets/icons/ar/icon-512.png', 512], ['assets/icons/ar/icon-192.png', 192], ['assets/icons/favicon-16.png', 16], ['assets/icons/favicon-32.png', 32], ['assets/icons/favicon-48.png', 48]])
   await shot(img(MARK, s, s), s, s, f, { omitBg: true });
@@ -53,12 +55,13 @@ for (const [w, h] of sizes) for (const mode of ['light', 'dark']) {
   await shot(html, w, h, `assets/splash/ios-${w}x${h}-${mode}.jpg`, { type: 'jpeg', quality: 86 });
 }
 
+}
 /* 4. images de partage (Open Graph / Twitter) */
 const OG = { en: ['Send money to a mobile number in Oman. Simple and secure.', 'ltr', 'Sanad Pay'], fr: ['Envoyez de l’argent vers un numéro mobile à Oman. Simple et sûr.', 'ltr', 'Sanad Pay'], ar: ['أرسل الأموال إلى رقم هاتف في عُمان. بسيط وآمن.', 'rtl', 'سند باي'] };
 for (const [lang, [tag, dir, name]] of Object.entries(OG)) {
   const html = `<div dir="${dir}" style="position:relative;width:1200px;height:630px;background:linear-gradient(135deg,#EAF8FF 0%,#CFEBFF 55%,#BFE3FA 100%);overflow:hidden;font-family:${dir === 'rtl' ? 'Tajawal' : 'Inter'},Inter,system-ui">
     <div style="position:absolute;${dir === 'rtl' ? 'left' : 'right'}:-120px;top:-140px;width:620px;height:620px;border-radius:50%;background:radial-gradient(closest-side,rgba(126,216,246,.7),transparent)"></div>
-    <div style="position:absolute;${dir === 'rtl' ? 'right' : 'left'}:84px;top:96px;filter:drop-shadow(0 18px 34px rgba(19,79,145,.25))">${img(MARK, 150, 150)}</div>
+    <div style="position:absolute;${dir === 'rtl' ? 'right' : 'left'}:84px;top:96px;filter:drop-shadow(0 18px 34px rgba(19,79,145,.25))"><img src="data:image/png;base64,${fs.readFileSync(R('assets/brand/sanad-s-320.png')).toString('base64')}" width="170" height="170" style="border-radius:28%;box-shadow:0 20px 40px -14px rgba(19,79,145,.4)"></div>
     <div style="position:absolute;${dir === 'rtl' ? 'right' : 'left'}:84px;top:290px;font-size:104px;font-weight:800;color:#102C4C;letter-spacing:${dir === 'rtl' ? '0' : '-.02em'};line-height:1.1">${name}</div>
     <div style="position:absolute;${dir === 'rtl' ? 'right' : 'left'}:84px;${dir === 'rtl' ? 'left' : 'right'}:84px;top:430px;font-size:40px;font-weight:500;color:#134F91;line-height:1.35">${tag}</div></div>`;
   await shot(html, 1200, 630, `assets/share/og-${lang}.png`);
