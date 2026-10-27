@@ -145,3 +145,17 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,50%);animation:moFromRow var(--mo-screen) var(--mo-out) both}
 @keyframes moFromRow{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){#history-list.mo-refilter *,html[data-mo-row] .screen.active{animation:none!important}}
+
+/* ---------- 15. notifications dans l'application : identité Sanad, arrivée courte, fermeture inverse (les déclencheurs restent ceux du code) ---------- */
+.notif-logo{display:inline-block;border-radius:30%;vertical-align:-3px;margin-inline-end:6px;box-shadow:0 1px 3px rgba(16,44,76,.3)}
+.notif-ios{background:var(--glass-bg-2);border:1px solid var(--glass-bd);box-shadow:0 20px 44px -22px rgba(19,79,145,.65),0 2px 0 rgba(255,255,255,.7) inset;animation:notifIn var(--mo-panel) var(--mo-out) both}
+.notif-ios.dismiss{animation:notifOut var(--mo-panel-out) var(--mo-in) both}
+.notif-ios:active{transform:scale(.985);transition:transform var(--mo-press) var(--mo-ease)}
+.notif-ios-icon{border-radius:12px;background:var(--accent-soft);color:var(--accent)}
+.notif-ios-app{text-transform:none;letter-spacing:.02em;font-size:calc(11.5px*var(--ui));font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
+.notif-call{animation:callIn var(--mo-panel) var(--mo-out) both;box-shadow:0 26px 50px -24px rgba(19,79,145,.75),0 1px 0 rgba(255,255,255,.22) inset}
+.notif-call-app{text-transform:none;letter-spacing:.02em;display:inline-flex;align-items:center}
+@media (prefers-reduced-motion:reduce){.notif-ios,.notif-call,.notif-ios.dismiss{animation:none!important}}
+.notif-call,.notif-call-title,.notif-call-msg,.notif-call-app,.notif-call-time{color:#fff}
+.notif-call-msg{opacity:.88}.notif-call-app{opacity:.95}.notif-call-time{opacity:.78}
+.notif-call-amt{color:#8EF0CF}
