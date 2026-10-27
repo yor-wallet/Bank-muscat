@@ -41,9 +41,9 @@ Object.assign(TR.ar, {
 });
 
 /* 12.5.0 : "make another transfer" (12.6.0: the receipt no longer carries any balance) */
-Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Freindi Pay transaction receipt — not a bank-issued document.' });
-Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Freindi Pay — ce n\'est pas un document émis par une banque.' });
-Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من فريندي باي — وليس مستنداً صادراً عن بنك.' });
+Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Sanad Pay transaction receipt — not a bank-issued document.' });
+Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Sanad Pay — ce n\'est pas un document émis par une banque.' });
+Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من سند باي — وليس مستنداً صادراً عن بنك.' });
 
 /* 12.3.4 : the receipt shows the SENDER'S number ("From"), the same number the recipient sees in the SMS. */
 Object.assign(TR.en, { 'receipt.from':'From', 'receipt.owner':'Account holder' });
@@ -148,13 +148,14 @@ async function wireReceiptNotice(r){
    Every value comes from the transaction / receipt snapshot; a line without data is simply not drawn.
    ============================================================ */
 const RC_BADGE_PATH = {
-  success: '<path class="rc-k" d="M20 33l9 9 17-19"/>',
-  pending: '<path class="rc-k" d="M32 17v16l10 6"/>',
-  failed:  '<path class="rc-k" d="M23 23l18 18M41 23L23 41"/>'
+  success: '<path class="rc-k" d="M14 33l11 11 25-29" pathLength="100"/>',
+  pending: '<path class="rc-k" d="M32 18v15l9 6" pathLength="100"/>',
+  failed:  '<path class="rc-k" d="M21 21l22 22M43 21L21 43" pathLength="100"/>'
 };
+/* Sanad Pay 21.0.0 — glyphe de statut : le carré arrondi du logo ; la coche (réussi) se TRACE, l'horloge (en cours) bat, la croix (échoué) se dessine */
 function rcBadge(state){
-  return '<div class="rc-badge st-' + state + '" role="img" aria-label="' + escapeHtml(t('tx.st.' + state)) + '">' +
-    '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><circle class="rc-c" cx="32" cy="32" r="29"/>' + RC_BADGE_PATH[state] + '</svg></div>';
+  return '<div class="rc-badge sx-glyph st-' + state + '" role="img" aria-label="' + escapeHtml(t('tx.st.' + state)) + '">' +
+    '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="rc-c" x="3" y="3" width="58" height="58" rx="17"/>' + RC_BADGE_PATH[state] + '</svg></div>';
 }
 function rcRow(label, valueHtml, opts){
   opts = opts || {};
@@ -252,11 +253,11 @@ function renderReceipt(){
       (txId && txId !== ref ? '<div class="receipt-line"><span class="receipt-line-label">' + t('receipt.id') + '</span><span class="receipt-line-value ltr mono sm">' + escapeHtml(txId) + '</span>' + copyBtn(txId) + '</div>' : '') +
     '</div>';
 
-  return '<div class="receipt-view rc rc-' + state + '">' +
-    '<div class="receipt-head">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Freindi Pay</small></div>' +
-      '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 18) + '</button>' +
+  return '<div class="receipt-view rc sx-rc rc-' + state + '">' +
+    '<div class="receipt-head sx-rc-bar">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Sanad Pay</small></div>' +
+      '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 20) + '</button>' +
     '</div>' +
-    '<section class="receipt-hero">' + rcBadge(state) +
+    '<section class="receipt-hero sx-rc-hero">' + rcBadge(state) +
       '<div class="rc-amt ltr">' + escapeHtml(amtFmt) + '</div>' +
       (destFmt ? '<div class="rc-dest ltr">≈ ' + escapeHtml(destFmt) + '</div>' : '') +
       '<div class="receipt-title">' + escapeHtml(title) + '</div>' +
@@ -264,15 +265,14 @@ function renderReceipt(){
       (eyebrow ? '<div class="rc-eyebrow">' + escapeHtml(eyebrow) + '</div>' : '') +
       (sub ? '<div class="receipt-sub">' + escapeHtml(sub) + '</div>' : '') +
     '</section>' +
-    '<section class="rc-sheet receipt-panel">' +
+    '<section class="rc-sheet receipt-panel sx-rc-sheet">' +
       '<div class="receipt-benef">' +
-        '<div class="receipt-avatar">' + icon(isCrypto ? 'crypto' : 'user', 22) + '</div>' +
+        '<div class="receipt-avatar tile">' + icon(isCrypto ? 'crypto' : 'user', 22) + '</div>' +
         '<div class="receipt-benef-body">' +
           '<div class="receipt-benef-label">' + escapeHtml(partyLabel) + '</div>' +
           (benName ? '<div class="receipt-benef-name">' + escapeHtml(benName) + '</div>' : '') +
           (r.beneficiary && r.beneficiary.phone ? '<div class="receipt-benef-phone ltr" dir="ltr">' + escapeHtml(typeof formatPhoneIntl === 'function' ? formatPhoneIntl(r.beneficiary.phone) : r.beneficiary.phone) + '</div>' : '') +
           (r.beneficiary && r.beneficiary.yorId ? '<div class="receipt-benef-yor ltr">' + escapeHtml(dispId(r.beneficiary.yorId)) + '</div>' : '') +
-
           (country ? '<div class="receipt-benef-country"><span class="receipt-flag">' + flag(country.iso) + '</span><span>' + escapeHtml(cName) + '</span></div>' : ((isCrypto || r.network) ? '<div class="receipt-benef-country"><span>' + escapeHtml(cName) + '</span></div>' : '')) +
         '</div>' +
       '</div>' +
@@ -282,10 +282,7 @@ function renderReceipt(){
       '<div class="rc-tear" aria-hidden="true"></div>' +
       statement +
     '</section>' +
-    /* 16.1.0 : le suivi des messages envoyés (SMS / e-mail) n'est plus affiché dans le reçu : l'envoi continue côté serveur, sans bruit à l'écran */
-    '' +
-    /* 12.14.0 — order: download (PDF / PNG), share, copy the reference, print; then another operation and home */
-    '<div class="receipt-actions rc-acts">' +
+    '<div class="receipt-actions rc-acts sx-rc-acts">' +
       '<button class="btn btn-secondary rc-a" data-action="download-pdf" aria-label="' + escapeHtml(t('rc.pdfL')) + '">' + icon('download', 18) + '<span>' + escapeHtml(t('rc.pdf')) + '</span></button>' +
       '<button class="btn btn-secondary rc-a" data-action="download-receipt" aria-label="' + escapeHtml(t('rc.pngL')) + '">' + icon('download', 18) + '<span>' + escapeHtml(t('rc.png')) + '</span></button>' +
       '<button class="btn btn-secondary rc-a" data-action="share-receipt">' + icon('share', 18) + '<span>' + t('action.share') + '</span></button>' +
@@ -294,5 +291,6 @@ function renderReceipt(){
     '</div>' +
     (anotherNav ? '<button class="btn btn-primary rc-another" data-nav="' + anotherNav + '">' + t('receipt.another') + '</button>' : '') +
     '<button class="btn ' + (anotherNav ? 'btn-secondary' : 'btn-primary') + ' rc-done" data-action="done">' + t('receipt.back_home') + '</button>' +
+    '<div class="sx-end"></div>' +
   '</div>';
 }

@@ -54,14 +54,14 @@ const CryptoBuyEngine = (() => {
   const sell = ({ symbol, amount, idemKey, pinGrant })    => call('crypto_sell', { p_asset: String(symbol).toUpperCase(), p_amount: Number(amount) }, idemKey, pinGrant);
   const swap = ({ from, to, amount, idemKey, pinGrant })  => call('crypto_swap', { p_from: String(from).toUpperCase(), p_to: String(to).toUpperCase(), p_amount: Number(amount) }, idemKey, pinGrant);
   /* crypto_send_external(p_asset, p_network, p_address, p_memo, p_amount, key, pin): the SERVER decides.
-     - address belongs to a Freindi Pay wallet -> instant internal transfer, recipient credited, status CONFIRMED, fee 0
+     - address belongs to a Sanad Pay wallet -> instant internal transfer, recipient credited, status CONFIRMED, fee 0
      - unknown address                 -> debit amount + network fee, status PENDING (blockchain validation) */
   const sendExternal = ({ symbol, network, address, memo, amount, idemKey, pinGrant }) => call('crypto_send_external',
     { p_asset: String(symbol).toUpperCase(), p_network: String(network).toLowerCase(), p_address: AddressEngine.clean(address), p_memo: memo || null, p_amount: Number(amount) }, idemKey, pinGrant);
   /* crypto_to_bank(p_asset, p_network, p_amount, p_bank_id, p_bank_name, p_currency, key, pin): server debits the wallet (fee 1.5%), writes a PENDING CRYPTO_TO_BANK transaction + notification. */
   const toBank = ({ symbol, network, amount, bankId, bankName, currency, idemKey, pinGrant }) => call('crypto_to_bank',
     { p_asset: String(symbol).toUpperCase(), p_network: String(network || '').toLowerCase(), p_amount: Number(amount), p_bank_id: String(bankId || ''), p_bank_name: String(bankName || ''), p_currency: String(currency || '').toUpperCase() }, idemKey, pinGrant);
-  /* get_receive_address creates the wallet row if needed and returns the REAL deposit address (the one other Freindi Pay users can send to). */
+  /* get_receive_address creates the wallet row if needed and returns the REAL deposit address (the one other Sanad Pay users can send to). */
   async function receiveAddress(symbol, network){
     if (!supabaseReady) return null;
     try {

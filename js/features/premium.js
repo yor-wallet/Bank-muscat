@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Freindi Pay 12.14.0 — premium layer
+   Sanad Pay 12.14.0 — premium layer
    Home, Receive, global search, Profile (+ edit), transfer outcome screen (refused / uncertain), balance change animation.
    Rules kept from earlier versions: every number shown is read from the server data in Runtime; nothing is invented, no balance,
    reference, status or verification state is ever simulated. Loaded after js/screens/register.js (it registers the screens it owns)
@@ -13,14 +13,14 @@ Object.assign(TR.en, {
   'px.recent':'Recent activity','px.seeAll':'See all','px.search':'Search','px.searchPh':'Transactions, references, settings…',
   'px.sTx':'Transactions','px.sPeople':'Recipients','px.sScreens':'Screens and settings','px.sNone':'No result for “{q}”','px.sHint':'Search your real transactions by name, number, reference or amount.',
   'px.profile':'Profile','px.openProfile':'Open my profile','px.notifs':'Notifications',
-  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Freindi Pay balance appears here and in your history, with its real status.',
-  'px.rcvId':'Your Freindi Pay ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
-  'px.rcvNote':'Sending to a number registered on Freindi Pay credits that person instantly and notifies them. Other numbers are told by SMS.',
+  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Sanad Pay balance appears here and in your history, with its real status.',
+  'px.rcvId':'Your Sanad Pay ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
+  'px.rcvNote':'Sending to a number registered on Sanad Pay credits that person instantly and notifies them. Other numbers are told by SMS.',
   'px.rcvRecent':'Money received','px.rcvNone':'Nothing received yet','px.rcvNoneD':'Confirmed credits will be listed here.',
-  'px.shareText':'My Freindi Pay details — Freindi Pay ID: {id}',
+  'px.shareText':'My Sanad Pay details — Sanad Pay ID: {id}',
   'px.edit':'Edit profile','px.personal':'Personal information','px.first':'First name','px.last':'Last name','px.phone':'Mobile number','px.email':'E-mail','px.country':'Country','px.accountId':'Account ID',
   'px.verif':'Account verification','px.kyc.VERIFIED':'Verified','px.kyc.PENDING':'Verification in progress','px.kyc.REJECTED':'Verification refused','px.kyc.UNVERIFIED':'Not verified',
-  'px.kycD.VERIFIED':'Your identity has been confirmed by Freindi Pay.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
+  'px.kycD.VERIFIED':'Your identity has been confirmed by Sanad Pay.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
   'px.kycD.REJECTED':'Your verification was not accepted. Contact support to know what is needed.','px.kycD.UNVERIFIED':'Identity verification is not offered in the app yet. No document is requested for now.',
   'px.security':'Security','px.pinChange':'Change personal code','px.pinChangeD':'6 digits, asked to confirm every transfer','px.pinOldT':'Current code','px.pinOldS':'Enter your current 6-digit code.','px.pinNewT':'New code','px.pinSame':'Choose a code different from the current one.','px.pinDone':'Personal code changed',
   'px.prefs':'Preferences','px.language':'Language','px.theme':'Theme','px.dispCur':'Display currency','px.support':'Help and information','px.version':'Version {v}',
@@ -38,14 +38,14 @@ Object.assign(TR.fr, {
   'px.recent':'Activité récente','px.seeAll':'Voir tout','px.search':'Rechercher','px.searchPh':'Opérations, références, réglages…',
   'px.sTx':'Opérations','px.sPeople':'Bénéficiaires','px.sScreens':'Écrans et réglages','px.sNone':'Aucun résultat pour « {q} »','px.sHint':'Retrouvez vos vraies opérations par nom, numéro, référence ou montant.',
   'px.profile':'Profil','px.openProfile':'Ouvrir mon profil','px.notifs':'Notifications',
-  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Freindi Pay apparaît ici et dans l’historique, avec son statut réel.',
-  'px.rcvId':'Votre Freindi Pay ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
-  'px.rcvNote':'Un transfert vers un numéro inscrit sur Freindi Pay crédite aussitôt son solde et le prévient. Les autres numéros sont prévenus par SMS.',
+  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Sanad Pay apparaît ici et dans l’historique, avec son statut réel.',
+  'px.rcvId':'Votre Sanad Pay ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
+  'px.rcvNote':'Un transfert vers un numéro inscrit sur Sanad Pay crédite aussitôt son solde et le prévient. Les autres numéros sont prévenus par SMS.',
   'px.rcvRecent':'Argent reçu','px.rcvNone':'Rien reçu pour l’instant','px.rcvNoneD':'Les crédits confirmés seront listés ici.',
-  'px.shareText':'Mes informations Freindi Pay — Freindi Pay ID : {id}',
+  'px.shareText':'Mes informations Sanad Pay — Sanad Pay ID : {id}',
   'px.edit':'Modifier le profil','px.personal':'Informations personnelles','px.first':'Prénom','px.last':'Nom','px.phone':'Numéro de mobile','px.email':'E-mail','px.country':'Pays','px.accountId':'Identifiant du compte',
   'px.verif':'Vérification du compte','px.kyc.VERIFIED':'Vérifié','px.kyc.PENDING':'Vérification en cours','px.kyc.REJECTED':'Vérification refusée','px.kyc.UNVERIFIED':'Non vérifié',
-  'px.kycD.VERIFIED':'Votre identité a été confirmée par Freindi Pay.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
+  'px.kycD.VERIFIED':'Votre identité a été confirmée par Sanad Pay.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
   'px.kycD.REJECTED':'Votre vérification n’a pas été acceptée. Contactez l’assistance pour savoir quoi fournir.','px.kycD.UNVERIFIED':'La vérification d’identité n’est pas encore proposée dans l’application. Aucun document n’est demandé pour le moment.',
   'px.security':'Sécurité','px.pinChange':'Modifier le code personnel','px.pinChangeD':'6 chiffres, demandé pour confirmer chaque transfert','px.pinOldT':'Code actuel','px.pinOldS':'Saisissez votre code actuel à 6 chiffres.','px.pinNewT':'Nouveau code','px.pinSame':'Choisissez un code différent du code actuel.','px.pinDone':'Code personnel modifié',
   'px.prefs':'Préférences','px.language':'Langue','px.theme':'Thème','px.dispCur':'Devise d’affichage','px.support':'Aide et informations','px.version':'Version {v}',
@@ -63,14 +63,14 @@ Object.assign(TR.ar, {
   'px.recent':'آخر العمليات','px.seeAll':'عرض الكل','px.search':'بحث','px.searchPh':'العمليات، المراجع، الإعدادات…',
   'px.sTx':'العمليات','px.sPeople':'المستفيدون','px.sScreens':'الشاشات والإعدادات','px.sNone':'لا نتائج لـ «{q}»','px.sHint':'ابحث في عملياتك الحقيقية بالاسم أو الرقم أو المرجع أو المبلغ.',
   'px.profile':'الملف الشخصي','px.openProfile':'فتح ملفي الشخصي','px.notifs':'الإشعارات',
-  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في فريندي باي يظهر هنا وفي السجل بحالته الحقيقية.',
-  'px.rcvId':'معرّف فريندي باي الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
-  'px.rcvNote':'عند التحويل إلى رقم هاتف مسجّل في فريندي باي يصل المبلغ فوراً إلى رصيد صاحبه ويُشعَر به. أما الأرقام غير المسجّلة فيُبلَّغ أصحابها برسالة نصية.',
+  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في سند باي يظهر هنا وفي السجل بحالته الحقيقية.',
+  'px.rcvId':'معرّف سند باي الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
+  'px.rcvNote':'عند التحويل إلى رقم هاتف مسجّل في سند باي يصل المبلغ فوراً إلى رصيد صاحبه ويُشعَر به. أما الأرقام غير المسجّلة فيُبلَّغ أصحابها برسالة نصية.',
   'px.rcvRecent':'الأموال المستلمة','px.rcvNone':'لم يصلك شيء بعد','px.rcvNoneD':'ستظهر هنا المبالغ المؤكدة.',
-  'px.shareText':'بياناتي في فريندي باي — المعرّف: {id}',
+  'px.shareText':'بياناتي في سند باي — المعرّف: {id}',
   'px.edit':'تعديل الملف','px.personal':'المعلومات الشخصية','px.first':'الاسم الأول','px.last':'اسم العائلة','px.phone':'رقم الهاتف','px.email':'البريد الإلكتروني','px.country':'الدولة','px.accountId':'معرّف الحساب',
   'px.verif':'التحقق من الحساب','px.kyc.VERIFIED':'تم التحقق','px.kyc.PENDING':'التحقق جارٍ','px.kyc.REJECTED':'رُفض التحقق','px.kyc.UNVERIFIED':'لم يتم التحقق',
-  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل فريندي باي.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
+  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل سند باي.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
   'px.kycD.REJECTED':'لم يُقبل التحقق. تواصل مع الدعم لمعرفة المطلوب.','px.kycD.UNVERIFIED':'التحقق من الهوية غير متاح في التطبيق بعد. لا تُطلب أي وثيقة حالياً.',
   'px.security':'الأمان','px.pinChange':'تغيير الرمز الشخصي','px.pinChangeD':'6 أرقام، يُطلب لتأكيد كل تحويل','px.pinOldT':'الرمز الحالي','px.pinOldS':'أدخل رمزك الحالي المكوّن من 6 أرقام.','px.pinNewT':'الرمز الجديد','px.pinSame':'اختر رمزاً مختلفاً عن الرمز الحالي.','px.pinDone':'تم تغيير الرمز الشخصي',
   'px.prefs':'التفضيلات','px.language':'اللغة','px.theme':'المظهر','px.dispCur':'عملة العرض','px.support':'المساعدة والمعلومات','px.version':'الإصدار {v}',
@@ -111,7 +111,7 @@ function pxInitials(p){
   p = p || {};
   const a = (p.firstName || p.displayName || '').trim(), b = (p.lastName || '').trim();
   const s = ((a[0] || '') + (b[0] || '')).toUpperCase();
-  return s || 'FP';
+  return s || 'SP';
 }
 function pxAvatar(p, cls){
   p = p || {};
@@ -324,14 +324,14 @@ const PxSearch = (() => {
 
 
 /* ============================================================
-   INSTALL WITHOUT AN APP STORE (12.14.0) — Freindi Pay is a web app (PWA): it is added to the home screen from its HTTPS address.
+   INSTALL WITHOUT AN APP STORE (12.14.0) — Sanad Pay is a web app (PWA): it is added to the home screen from its HTTPS address.
    iPhone / iPad (Safari): Apple offers no install button to web pages; the card shows the two real steps (Share → Add to Home Screen).
    Android / desktop Chrome / Edge: the browser's own install prompt (beforeinstallprompt) is used when it is offered.
    Nothing is shown once the app runs from its icon (standalone). "Later" hides the card for 14 days on this device.
    ============================================================ */
-Object.assign(TR.en, { 'pi.title':'Install Freindi Pay on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Freindi Pay from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Freindi Pay to your home screen', 'pi.note':'Freindi Pay is a web app: it is not an App Store app and it uses only what Safari allows.' });
-Object.assign(TR.fr, { 'pi.title':'Installer Freindi Pay sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Freindi Pay depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Freindi Pay à l’écran d’accueil', 'pi.note':'Freindi Pay est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
-Object.assign(TR.ar, { 'pi.title':'ثبّت فريندي باي على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح فريندي باي من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف فريندي باي إلى الشاشة الرئيسية', 'pi.note':'فريندي باي تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
+Object.assign(TR.en, { 'pi.title':'Install Sanad Pay on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Sanad Pay from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Sanad Pay to your home screen', 'pi.note':'Sanad Pay is a web app: it is not an App Store app and it uses only what Safari allows.' });
+Object.assign(TR.fr, { 'pi.title':'Installer Sanad Pay sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Sanad Pay depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Sanad Pay à l’écran d’accueil', 'pi.note':'Sanad Pay est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
+Object.assign(TR.ar, { 'pi.title':'ثبّت سند باي على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح سند باي من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف سند باي إلى الشاشة الرئيسية', 'pi.note':'سند باي تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
 const PxInstall = (() => {
   let deferred = null;
   const KEY = 'fp_install_later';
@@ -412,42 +412,47 @@ const Premium = (() => {
       : st ? '<span class="px-chip warn"><i></i>' + escapeHtml(tf('px.acctOther', { s: st.toLowerCase() })) + '</span>' : '';
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     balFrom = BalanceFx.check(main);
-    let ai = 0;
-    const act = (nav, ic, lbl, pr) => '<button class="rv-act px-act' + (pr ? ' p' : '') + '" style="--i:' + (ai++) + '" data-nav="' + nav + '"><i>' + icon(ic, 24) + '</i><span>' + escapeHtml(lbl) + '</span></button>';
-    const cardsHtml = (Runtime.cards || []).length ? '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(V12.vt('cards')) + '</h2><button data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="rv-strip">' +
-      Runtime.cards.map(c => '<button class="rv-mini th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><span class="ltr">•••• ' + escapeHtml(String(c.number || '0000').slice(-4)) + '</span>' + V12.netSlot(c) + '</button>').join('') +
-      '<button class="rv-mini rv-mini-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
+    /* Sanad Pay 21.0.0 — composition « ciel + feuille » : le solde est posé sur le ciel (pas de carte), la feuille blanche remonte par-dessus. */
+    const tile = (nav, ic, lbl, pr) => '<button class="sx-act' + (pr ? ' is-main' : '') + '" data-nav="' + nav + '"><i>' + icon(ic, 22) + '</i><span>' + escapeHtml(lbl) + '</span></button>';
+    const pend = txs.filter(x => txState(x.status) === 'pending');
+    const pendHtml = pend.length ? '<section class="sx-pend" aria-label="' + escapeHtml(t('filter.pending')) + '"><div class="sx-h"><h2>' + escapeHtml(t('filter.pending')) + '</h2></div>' +
+      '<div class="sx-list">' + pend.slice(0, 3).map(x => txRow(x, hide)).join('') + '</div></section>' : '';
+    const cardsHtml = (Runtime.cards || []).length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('cards')) + '</h2><button class="sx-more" data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="sx-strip">' +
+      Runtime.cards.map(c => '<button class="sx-minicard th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><b>' + escapeHtml(c.label || V12.vt('defName')) + '</b><span class="ltr">•••• ' + escapeHtml(String(c.number || '').slice(-4)) + '</span></button>').join('') +
+      '<button class="sx-minicard sx-minicard-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
     /* other money accounts (e.g. XOF): shown in the display currency, original amount always visible (same rules as 12.6.0) */
     const others = (Runtime.accounts || []).filter(a => a.type !== 'CRYPTO' && a.type !== 'MAIN' && a.type !== 'WEST_AFRICA').slice(0, 4);   /* 16.0.0 : le compte « West Africa » n'apparaît plus sur l'accueil */
-    const othersHtml = others.length ? '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="rv-grid2">' +
-      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="rv-tile"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
-        (!hide && v.converted ? '<span class="rv-cap ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
-    return '<div class="rv-home ds-home px-home">' +
-      '<header class="px-top">' +
-        '<button class="px-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<div class="px-hello"><span>' + escapeHtml(pxGreeting()) + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Freindi Pay') + '</b></div>' +
-        '<button class="rv-circ px-circ" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 20) + '</button>' +
-        '<button class="rv-circ px-circ" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 20) + (unread ? '<span class="rv-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
+    const othersHtml = others.length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="sx-tiles">' +
+      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="sx-acct"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
+        (!hide && v.converted ? '<span class="ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
+    const ms = (typeof V13 !== 'undefined' && V13.monthStats) ? V13.monthStats() : null;
+    const monthLine = ms ? '<div class="sx-month ltr" dir="ltr" aria-label="' + escapeHtml(t('v13.month')) + '"><span><i class="o"></i>' + escapeHtml(t('v13.sent')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.sent, ms.cur))) + '</b></span><span><i class="i"></i>' + escapeHtml(t('v13.received')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.recv, ms.cur))) + '</b></span></div>' : '';
+    return '<div class="sx-home">' +
+      '<header class="sx-bar">' +
+        '<button class="sx-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
+        '<div class="sx-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
+        '<button class="sx-ibtn" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 22) + '</button>' +
+        '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 22) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
       '</header>' +
-      '<section class="ds-balance px-bal" aria-label="' + escapeHtml(t('px.available')) + '">' +
-        '<i class="px-bal-light" aria-hidden="true"></i><i class="px-bal-grain" aria-hidden="true"></i>' +
-        '<div class="ds-bal-top"><span class="ds-bal-label">' + escapeHtml(t('px.available')) + '</span>' + acct +
-          '<button class="ds-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 20) + '</button></div>' +
-        '<div class="ds-bal-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
-        (dv.converted && !hide ? '<div class="ds-bal-orig ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
-        (showAvail && !hide ? '<div class="ds-bal-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
-        '<div class="px-bal-foot">' + (yid ? '<span class="px-bal-id ltr" dir="ltr">' + escapeHtml(yid) + '</span>' : '<span></span>') +
-          '<button class="px-bal-link" data-nav="history"><span>' + escapeHtml(t('px.history')) + '</span>' + '<span class="dir-flip" style="display:inline-flex">' + icon('chev', 16) + '</span></button></div>' +
+      '<section class="sx-hero" aria-label="' + escapeHtml(t('px.available')) + '">' +
+        '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' + acct.replace(/px-chip/g, 'sx-chip') +
+          '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 22) + '</button></div>' +
+        '<div class="sx-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
+        (dv.converted && !hide ? '<div class="sx-sub ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
+        (showAvail && !hide ? '<div class="sx-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
+        '<div class="sx-horizon" aria-hidden="true"><i></i></div>' + monthLine +
+        (yid ? '<div class="sx-id ltr" dir="ltr">' + escapeHtml(yid) + '</div>' : '') +
       '</section>' +
-      '<nav class="rv-acts px-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + act('country-select', 'send', t('px.send'), true) + act('receive', 'receive', t('px.receive')) + act('history', 'history', t('px.history')) + act('services', 'apps', t('px.more')) + '</nav>' +
-      (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
-      PxInstall.card() +
-      '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
-        (txs.length ? txGroupedHtml(txs, hide) : '<div class="rv-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
-      othersHtml +
-      (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
-      cardsHtml +
-      '<div style="height:calc(20px + var(--safe-b))"></div></div>';
+      '<div class="sx-sheet">' +
+        '<nav class="sx-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + tile('country-select', 'send', t('px.send'), true) + tile('receive', 'receive', t('px.receive')) + tile('history', 'history', t('px.history')) + tile('services', 'apps', t('px.more')) + '</nav>' +
+        PxInstall.card() + pendHtml +
+        '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="sx-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
+          (txs.length ? txGroupedHtml(txs, hide) : '<div class="sx-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
+        (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
+        cardsHtml + othersHtml +
+        (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
+        '<div class="sx-end"></div>' +
+      '</div></div>';
   }
 
   /* ---------- Receive ---------- */
@@ -455,19 +460,19 @@ const Premium = (() => {
     const p = Runtime.profile || {}, yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     const phone = p.phone ? formatPhoneIntl(p.phone) : '';
     const ins = visibleTransactions(Runtime.transactions || []).filter(x => x.direction === 'IN').slice(0, 10);
-    const row = (lbl, val, copy) => '<div class="px-kv"><small>' + escapeHtml(lbl) + '</small><b class="ltr" dir="ltr">' + escapeHtml(val) + '</b>' +
-      '<button class="px-copy" data-action="copy" data-copy="' + escapeHtml(copy) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + lbl) + '">' + icon('copy', 16) + '</button></div>';
+    const row = (lbl, val, copy) => '<div class="sx-kv"><span><small>' + escapeHtml(lbl) + '</small><b class="ltr" dir="ltr">' + escapeHtml(val) + '</b></span>' +
+      '<button class="sx-copy" data-action="copy" data-copy="' + escapeHtml(copy) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + lbl) + '">' + icon('copy', 16) + '</button></div>';
     return topbar(t('px.rcvTitle')) +
-      '<div class="screen-body px-rcv" style="padding-top:0">' +
-        '<section class="px-rcv-card">' + pxAvatar(p, 'lg') + '<h2>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</h2>' +
+      '<div class="screen-body sx-rcv" style="padding-top:0">' +
+        '<section class="sx-idcard">' + pxAvatar(p, 'lg') + '<h2>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</h2>' +
           (yid ? row(t('px.rcvId'), yid, yid) : '') + (phone ? row(t('px.rcvPhone'), phone, phone) : '') +
           (yid ? '<button class="btn btn-primary" data-px="rcv-share">' + icon('share', 18) + '<span>' + escapeHtml(t('px.rcvShare')) + '</span></button>' : '') +
         '</section>' +
-        '<p class="px-lead">' + escapeHtml(t('px.rcvLead')) + '</p>' +
-        '<p class="px-info">' + icon('info', 16) + '<span>' + escapeHtml(t('px.rcvNote')) + '</span></p>' +
-        '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(t('px.rcvRecent')) + '</h2></div>' +
-          (ins.length ? txGroupedHtml(ins, !!Runtime.hideBalance) : '<div class="rv-list">' + emptyState('receive', t('px.rcvNone'), t('px.rcvNoneD')) + '</div>') + '</section>' +
-      '</div>';
+        '<p class="sx-lead">' + escapeHtml(t('px.rcvLead')) + '</p>' +
+        '<p class="sx-note">' + icon('info', 18) + '<span>' + escapeHtml(t('px.rcvNote')) + '</span></p>' +
+        '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(t('px.rcvRecent')) + '</h2></div>' +
+          (ins.length ? txGroupedHtml(ins, !!Runtime.hideBalance) : emptyState('receive', t('px.rcvNone'), t('px.rcvNoneD'))) + '</section>' +
+        '<div class="sx-end"></div></div>';
   }
 
   /* ---------- Profile ---------- */
@@ -485,15 +490,14 @@ const Premium = (() => {
     const yid = ctx.yorId ? dispId(ctx.yorId) : '';
     const kyc = kycOf(p), c = COUNTRY_DATA[p.country || ''] || null;
     const langName = LANG === 'fr' ? 'Français' : LANG === 'ar' ? 'العربية' : 'English';
-    return topbar(t('px.profile')) +
-      '<div class="screen-body px-prof" style="padding-top:0">' +
-        '<section class="px-hero">' + pxAvatar(p, 'xl') +
-          '<div class="px-hero-body"><h1>' + escapeHtml(name) + '</h1>' +
-            (p.phone ? '<span class="px-hero-sub ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(p.phone)) + '</span>' : '') +
-            '<div class="px-hero-chips">' + (yid ? '<button class="px-chip id" data-action="copy" data-copy="' + escapeHtml(yid) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + yid) + '">' + icon('copy', 12) + '<span class="ltr">' + escapeHtml(yid) + '</span></button>' : '') +
-              '<span class="px-chip ' + (kyc === 'VERIFIED' ? 'ok' : kyc === 'REJECTED' ? 'bad' : kyc === 'PENDING' ? 'warn' : 'muted') + '"><i></i>' + escapeHtml(t('px.kyc.' + kyc)) + '</span>' +
-              (ctx.role === 'admin' ? '<span class="px-chip muted">ADMIN</span>' : '') + '</div></div>' +
-          '<button class="btn btn-secondary px-hero-edit" data-nav="profile-edit">' + icon('user', 16) + '<span>' + escapeHtml(t('px.edit')) + '</span></button>' +
+    return '<div class="screen-body sx-prof" style="padding-top:0">' +
+        '<section class="sx-phero">' + pxAvatar(p, 'xl') +
+          '<h1>' + escapeHtml(name) + '</h1>' +
+          (p.phone ? '<span class="sx-phero-sub ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(p.phone)) + '</span>' : '') +
+          '<div class="sx-phero-chips">' + (yid ? '<button class="sx-pill" data-action="copy" data-copy="' + escapeHtml(yid) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + yid) + '">' + icon('copy', 14) + '<span class="ltr">' + escapeHtml(yid) + '</span></button>' : '') +
+            '<span class="sx-pill ' + (kyc === 'VERIFIED' ? 'ok' : kyc === 'REJECTED' ? 'bad' : kyc === 'PENDING' ? 'warn' : 'muted') + '"><i></i>' + escapeHtml(t('px.kyc.' + kyc)) + '</span>' +
+            (ctx.role === 'admin' ? '<span class="sx-pill muted">ADMIN</span>' : '') + '</div>' +
+          '<button class="btn btn-secondary sx-phero-edit" data-nav="profile-edit">' + icon('user', 18) + '<span>' + escapeHtml(t('px.edit')) + '</span></button>' +
         '</section>' +
         settingsSection(t('px.personal')) + '<div class="settings-group">' +
           info('user', t('px.first'), escapeHtml(p.firstName || '—')) + info('user', t('px.last'), escapeHtml(p.lastName || '—')) +
@@ -521,7 +525,7 @@ const Premium = (() => {
           row('info', t('settings.about'), tf('px.version', { v: CONFIG.APP.version }), 'data-nav="about"') +
         '</div>' +
         '<div class="settings-group" style="margin-top:var(--sp-5)">' + row('logout', t('profile.logout'), '', 'data-action="sign-out"', '', true) + '</div>' +
-        '<p class="px-ver ltr">Freindi Pay ' + escapeHtml(CONFIG.APP.version) + '</p>' +
+        '<p class="sx-ver ltr">Sanad Pay ' + escapeHtml(CONFIG.APP.version) + '</p><div class="sx-end"></div>' +
       '</div>';
   }
   /* first / last name: the only profile fields the server lets the person change here (column grants on public.profiles) */
@@ -578,7 +582,7 @@ const Premium = (() => {
   async function share(){
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : ''; if (!yid) return;
     const text = tf('px.shareText', { id: yid });
-    if (navigator.share){ try { await navigator.share({ title: 'Freindi Pay', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
+    if (navigator.share){ try { await navigator.share({ title: 'Sanad Pay', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
     copyText(text);
   }
 

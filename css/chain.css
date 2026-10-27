@@ -15,7 +15,7 @@
 .ch-big small{font-size:calc(14px*var(--ui));font-weight:700;color:var(--text-2);letter-spacing:.02em;white-space:nowrap}
 .ch-badges{display:flex;flex-wrap:wrap;gap:calc(6px*var(--ui))}
 .ch-badge{display:inline-flex;align-items:center;padding:calc(3px*var(--ui)) calc(9px*var(--ui));border-radius:999px;background:var(--glass-2);color:var(--text-2);font-size:calc(11px*var(--ui));font-weight:700}
-.ch-badge.test{background:var(--warning-bg);color:var(--warning);letter-spacing:.04em}
+.ch-badge.exp{background:var(--warning-bg);color:var(--warning);letter-spacing:.04em}
 .ch-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:calc(12px*var(--ui));padding:calc(9px*var(--ui)) 0;border-top:1px solid var(--border);font-size:calc(14px*var(--ui))}
 .ch-row.col{flex-direction:column;align-items:flex-start;gap:calc(4px*var(--ui))}
 .ch-k{color:var(--text-2);display:inline-flex;align-items:center;gap:calc(6px*var(--ui));white-space:nowrap}

@@ -1,0 +1,87 @@
+/* Sanad Pay 21.0.0 — finition : profondeur, objets précieux, chiffres, focus.
+   Uniquement transform / opacity pour le mouvement. --dx / --dy (-1..1) sont fournis par js/ui/depth.js (inclinaison de l'appareil ou du pointeur). */
+:root{--dx:0;--dy:0;--sx-gloss:linear-gradient(155deg,rgba(255,255,255,.55),rgba(255,255,255,0) 42%)}
+
+/* champs : un seul anneau (celui du conteneur), jamais un second contour sur l'input */
+.field-box input:focus,.field-box input:focus-visible,.field-box select:focus-visible,.field-box textarea:focus-visible,.sx-search input:focus-visible{outline:none}
+
+/* — Le sigle : un objet précis, pas un autocollant — */
+.logo-mark,.sx-mark,.sx-opening-mark{border-radius:28%;box-shadow:0 0 0 1px rgba(255,255,255,.55) inset,0 1px 0 rgba(255,255,255,.8) inset,0 1px 2px rgba(16,44,76,.18),0 12px 26px -10px rgba(37,150,222,.55)}
+.logo-lockup{perspective:600px}
+.logo-lockup .logo-mark{transform:rotateX(calc(var(--dy)*-7deg)) rotateY(calc(var(--dx)*7deg));transition:transform 220ms var(--sx-ease-out);will-change:transform}
+.logo-name{font-feature-settings:"ss01","kern";letter-spacing:-.035em}
+.logo-sub{opacity:.9}
+
+/* — Avatars : relief doux, anneau fin — */
+.px-ava{box-shadow:0 0 0 1px rgba(255,255,255,.55) inset,0 8px 18px -10px rgba(19,79,145,.55)}
+.sx-phero{perspective:700px}
+.sx-phero .px-ava{transform:translateZ(0) rotateX(calc(var(--dy)*-9deg)) rotateY(calc(var(--dx)*9deg));transition:transform 200ms var(--sx-ease-out)}
+
+/* — Accueil : le solde flotte légèrement devant le ciel — */
+.sx-hero{perspective:900px}
+.sx-hero::before{content:"";position:absolute;inset:-30% -20% auto -20%;height:120%;pointer-events:none;background:radial-gradient(46% 52% at 72% 30%,rgba(255,255,255,.75),transparent 70%);transform:translate3d(calc(var(--dx)*18px),calc(var(--dy)*12px),0);transition:transform 260ms var(--sx-ease-out);z-index:-1}
+.sx-hero .sx-amt{transform:translate3d(calc(var(--dx)*3px),calc(var(--dy)*2px),0);transition:transform 260ms var(--sx-ease-out)}
+:root[data-theme="dark"] .sx-hero::before{background:radial-gradient(46% 52% at 72% 30%,rgba(56,185,190,.22),transparent 70%)}
+
+/* — Chiffres : tabulaires, hiérarchie code monétaire / valeur — */
+.item-amount,.sx-amt,.sx-sub b,.rc-amt,.sx-rc-amt,.amount-big{font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum","lnum","zero" 0}
+.item-amount .cur{font-size:.74em;font-weight:600;letter-spacing:.02em;color:var(--text-3);margin-inline-end:.28em}
+.item-amount .sgn{margin-inline-end:.06em;font-weight:500}
+.item-amount.credit .cur{color:inherit;opacity:.7}
+.item-amount .num{font-weight:700;letter-spacing:-.025em}
+.ltr,.sx-id,.px-id,.sx-ref{font-variant-numeric:tabular-nums}
+.sx-ref,.rc-ref,.sx-rc-ref{letter-spacing:.06em;font-weight:600}
+
+/* — Historique : lignes d'un seul tenant, sous-titre sur une ligne, pas de papier — */
+.tx-row{padding-block:calc(14px*var(--ui));gap:calc(13px*var(--ui));position:relative}
+.tx-row .tile{width:calc(42px*var(--ui));height:calc(42px*var(--ui));border-radius:28%;box-shadow:0 1px 0 rgba(255,255,255,.7) inset}
+.tx-row .item-title{font-size:calc(16px*var(--ui));font-weight:650}
+.tx-row .item-sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.5;font-size:calc(12.5px*var(--ui))}
+.tx-row .item-right .st{margin:0}
+.tx-row .item-sub .st{margin-inline-start:4px;white-space:nowrap}
+.tx-row .item-title{padding-inline-end:2px}
+.tx-row .item-amount{font-size:calc(15.5px*var(--ui));white-space:nowrap}
+.tx-row .item-right{flex:none;gap:5px}
+.tx-row:not(:last-child)::after{content:"";position:absolute;inset-inline-start:calc(42px*var(--ui) + 13px*var(--ui));inset-inline-end:0;bottom:0;height:1px;background:var(--line)}
+.tx-row{border-bottom:0}
+@media (hover:hover){.tx-row:hover{background:var(--accent-subtle)}}
+#history-list .rv-list,#history-list .ds-list{box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 18px 36px -26px rgba(19,79,145,.4),0 0 0 1px rgba(19,79,145,.05)}
+.sx-search input{text-overflow:ellipsis}
+.sx-search input::placeholder{font-size:.88em}
+
+/* — Réglages : lignes calmes, pastilles carrées arrondies, chevrons discrets — */
+.settings-row{min-height:calc(56px*var(--ui))}
+.settings-row .tile,.settings-row .s-ic{border-radius:28%;box-shadow:0 1px 0 rgba(255,255,255,.7) inset}
+.settings-group{box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 16px 32px -26px rgba(19,79,145,.38),0 0 0 1px rgba(19,79,145,.05)}
+.item-chev{opacity:.55}
+.qs-tile,.qs-card{box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 0 0 1px rgba(19,79,145,.05)}
+
+/* — Boutons : appui physique — */
+.btn{transition:transform 140ms var(--sx-ease-out),background-color 160ms,box-shadow 160ms}
+.btn:active:not(:disabled){transform:translateY(1px) scale(.985)}
+.btn-primary,.btn.primary{box-shadow:0 1px 0 rgba(255,255,255,.35) inset,0 10px 20px -12px rgba(37,150,222,.7)}
+.sx-send{box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 12px 22px -10px rgba(37,150,222,.75)}
+
+/* — Cartes : couche de reflet qui suit l'inclinaison — */
+.rv-card{box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 24px 40px -22px rgba(16,44,76,.55),0 6px 12px -8px rgba(16,44,76,.35)}
+.rv-face{background-blend-mode:normal}
+
+/* — Aide / FAQ (<details>) — */
+details{border-radius:var(--sx-r-card)}
+details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);min-height:calc(52px*var(--ui));font-weight:600}
+details>summary::-webkit-details-marker{display:none}
+details>summary::after{content:"";flex:none;width:10px;height:10px;border-inline-end:2px solid var(--text-3);border-bottom:2px solid var(--text-3);transform:rotate(45deg) translate(-2px,-2px);transition:transform 220ms var(--sx-ease-out)}
+details[open]>summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+details[open]>summary{color:var(--sx-primary)}
+details>*:not(summary){animation:sxFade 240ms var(--sx-ease-out) both}
+@keyframes sxFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+/* — Déconnexion : ligne claire, danger en couleur de sens — */
+.settings-row.logout,.settings-row.danger,[data-action="logout"]{color:var(--st-bad)}
+
+@media (prefers-reduced-motion:reduce){.logo-lockup .logo-mark,.sx-phero .px-ava,.sx-hero::before,.sx-hero .sx-amt{transform:none!important;transition:none!important}details>*:not(summary){animation:none}}
+
+/* cibles tactiles : zone d'appui élargie à 44 px sans changer le dessin */
+.rv-cp,.sx-pill,.chat-help-go,.chat-help-x{position:relative}
+.rv-cp::after,.sx-pill::after,.chat-help-go::after,.chat-help-x::after{content:"";position:absolute;inset:-6px;border-radius:inherit}
+.rv-cp{position:absolute}

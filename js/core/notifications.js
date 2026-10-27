@@ -31,7 +31,7 @@ const InAppNotif = Object.freeze({
     const iconClass = status === 'success' ? 'success' : status === 'warning' ? 'warning' : '';
     el.innerHTML = '<div class="notif-ios-icon ' + iconClass + '">' + svg(icon, 18) + '</div>' +
       '<div class="notif-ios-body">' +
-        '<div class="notif-ios-head"><span class="notif-ios-app">Freindi Pay</span><span class="notif-ios-time">' + t('common.now') + '</span></div>' +
+        '<div class="notif-ios-head"><span class="notif-ios-app">Sanad Pay</span><span class="notif-ios-time">' + t('common.now') + '</span></div>' +
         '<div class="notif-ios-title">' + escapeHtml(title) + '</div>' +
         (message ? '<div class="notif-ios-msg">' + escapeHtml(message) + '</div>' : '') +
         (amount ? '<div class="notif-ios-amt">' + escapeHtml(amount) + '</div>' : '') +
@@ -47,7 +47,7 @@ const InAppNotif = Object.freeze({
     const el = document.createElement('div');
     el.className = 'notif-call';
     el.innerHTML =
-      '<div class="notif-call-head"><span class="notif-call-app">Freindi Pay</span><span class="notif-call-time">' + t('common.now') + '</span></div>' +
+      '<div class="notif-call-head"><span class="notif-call-app">Sanad Pay</span><span class="notif-call-time">' + t('common.now') + '</span></div>' +
       '<div class="notif-call-title">' + escapeHtml(title) + '</div>' +
       (message ? '<div class="notif-call-msg">' + escapeHtml(message) + '</div>' : '') +
       (sub ? '<div class="notif-call-msg">' + escapeHtml(sub) + '</div>' : '') +

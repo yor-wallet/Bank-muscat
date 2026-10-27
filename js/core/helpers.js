@@ -46,7 +46,7 @@ function qrSvgFor(text){
   finder(0, 0); finder(size - 7, 0); finder(0, size - 7);
   for (let y = 0; y < size; y++) for (let x = 0; x < size; x++){ if ((x < 8 && y < 8) || (x >= size - 8 && y < 8) || (x < 8 && y >= size - 8)) continue; if (rnd() > 0.55) cells.push([x, y]); }
   const rects = cells.map(([x, y]) => '<rect x="' + x + '" y="' + y + '" width="1" height="1"/>').join('');
-  return '<svg viewBox="0 0 ' + size + ' ' + size + '" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui))" fill="#fff"/><g fill="#0A0A0A">' + rects + '</g></svg>';
+  return '<svg viewBox="0 0 ' + size + ' ' + size + '" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui))" fill="#fff"/><g fill="#112235">' + rects + '</g></svg>';
 }
 
 const _sparkCache = new Map();
@@ -63,7 +63,7 @@ function sparklineSvg(symbol, w, h){
   const stepX = w / (n - 1);
   const path = pts.map((p, i) => (i === 0 ? 'M' : 'L') + (i * stepX).toFixed(2) + ' ' + ((1 - p) * h).toFixed(2)).join(' ');
   const up = pts[pts.length - 1] >= pts[0];
-  const color = up ? '#10B981' : '#EF4444';
+  const color = up ? '#1771b2' : '#EF4444';
   const out = '<svg viewBox="0 0 ' + w + ' ' + h + '" fill="none" preserveAspectRatio="none"><path d="' + path + '" stroke="' + color + '" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   _sparkCache.set(key, out);
   return out;
@@ -71,7 +71,7 @@ function sparklineSvg(symbol, w, h){
 
 function receiptToText(r){
   const lines = [];
-  lines.push('Freindi Pay — Receipt');
+  lines.push('Sanad Pay — Receipt');
   lines.push('─────────────────────');
   lines.push('Reference: ' + (r.reference || r.transactionId || r.id));
   lines.push('Date: ' + fmtDate(r.createdAt) + ' ' + fmtTime(r.createdAt));
@@ -91,7 +91,7 @@ function receiptToText(r){
   if (r.vat) lines.push('VAT: ' + CurrencyEngine.format(r.vat, r.currency || 'OMR'));
   lines.push('Total debited: ' + fmtA(r.total, r.asset));
   lines.push('─────────────────────');
-  lines.push('Freindi Pay');
+  lines.push('Sanad Pay');
   return lines.join('\n');
 }
 
@@ -222,9 +222,9 @@ async function copyText(text, okMsg){
 
 
 /* ============================================================
-   Freindi Pay ID display (12.9.0)
+   Sanad Pay ID display (12.9.0)
    The database keeps its identifiers as YOR-XXXXXX (profiles_yor_id_check) and YOR-TX-… (new_tx_reference): they are NOT
-   changed. Users see LXD-… everywhere, and may type LXD-, FRD-, FRIENDLY- or YOR- when searching for someone.
+   changed. Users see SP-… everywhere (FP-… before 21.0.0, LXD-… before 20.0.0), and may type any of those prefixes, FRD-, FRIENDLY- or YOR- when searching for someone.
    ============================================================ */
-function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'FP-'); }
-function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(FP|LXD|LIVEX|FREINDI PAY|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }
+function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'SP-'); }
+function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(SP|SANAD PAY|SANAD|FP|FREINDI PAY|LXD|LIVEX|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }

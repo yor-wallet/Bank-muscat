@@ -34,7 +34,7 @@ const json = (body: unknown, status = 200) =>
 type Row = Record<string, any>;
 
 /* ---------- garde-fous donnés au modèle ---------- */
-const GUARD = `Tu es l'assistant interne d'un administrateur de Live X Digitale, une application financière.
+const GUARD = `Tu es l'assistant interne d'un administrateur de Sanad Pay, une application financière.
 
 CE QUE TU FAIS :
 - résumer un dossier à partir des données fournies ;

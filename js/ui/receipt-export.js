@@ -6,7 +6,7 @@
 const ReceiptExport = (() => {
   const W = 1080, BG = '#F5F5F5', FONT = "-apple-system,'SF Pro Display','Segoe UI',Roboto,'Noto Sans Arabic','Noto Sans',Arial,sans-serif";
   const PAL = {
-    success: { fg:'#0F7B4A', bg:'#E3F4EB', icon:'M-20 2l14 15 28-32' },
+    success: { fg:'#0E7F5C', bg:'#DDF5EC', icon:'M-20 2l14 15 28-32' },
     pending: { fg:'#8A5300', bg:'#FDF0D5', icon:'M0 -24v26l17 11' },
     failed:  { fg:'#B42318', bg:'#FCE4E1', icon:'M-17 -17l34 34M17 -17l-34 34' }
   };
@@ -45,9 +45,9 @@ const ReceiptExport = (() => {
     const HDR = 300;   /* bandeau bleu profond : identité bancaire */
     /* hero: status disc, amount, converted amount, title, operation, explanation (failed / pending) */
     let y = 540;
-    let hero = '<text x="' + cx + '" y="' + y + '" font-size="80" font-weight="800" fill="' + (st === 'failed' ? '#6B6B6B' : '#111111') + '" text-anchor="middle" direction="ltr">' + escapeHtml(v.amtFmt) + '</text>';
+    let hero = '<text x="' + cx + '" y="' + y + '" font-size="80" font-weight="800" fill="' + (st === 'failed' ? '#6B6B6B' : '#102C4C') + '" text-anchor="middle" direction="ltr">' + escapeHtml(v.amtFmt) + '</text>';
     if (v.destFmt){ y += 56; hero += '<text x="' + cx + '" y="' + y + '" font-size="32" font-weight="600" fill="#6B6B6B" text-anchor="middle" direction="ltr">≈ ' + escapeHtml(v.destFmt) + '</text>'; }
-    y += 88; hero += '<text x="' + cx + '" y="' + y + '" font-size="44" font-weight="800" fill="#111111" text-anchor="middle">' + escapeHtml(v.title || '') + '</text>';
+    y += 88; hero += '<text x="' + cx + '" y="' + y + '" font-size="44" font-weight="800" fill="#102C4C" text-anchor="middle">' + escapeHtml(v.title || '') + '</text>';
     if (v.eyebrow){ y += 46; hero += '<text x="' + cx + '" y="' + y + '" font-size="24" font-weight="700" fill="#8A8A8A" text-anchor="middle"' + (rtl ? '' : ' letter-spacing="3"') + '>' + escapeHtml(rtl ? String(v.eyebrow) : String(v.eyebrow).toUpperCase()) + '</text>'; }
     wrap(v.sub, 46).forEach(line => { y += 40; hero += '<text x="' + cx + '" y="' + y + '" font-size="27" fill="#6B6B6B" text-anchor="middle">' + escapeHtml(line) + '</text>'; });
     const top = y + 56;                                           /* the dashed tear line */
@@ -56,22 +56,22 @@ const ReceiptExport = (() => {
     const body = list.map((x, i) => {
       ry += rowH;
       const val = String(x[1]); const fs = val.length > 34 ? 22 : (val.length > 24 ? 26 : 32);
-      const isSt = x[2] === 'st', c = isSt ? pal.fg : x[2] === 'acc' ? '#10b981' : '#151411', w = (x[2] === 'bold' || isSt) ? 800 : 600;
+      const isSt = x[2] === 'st', c = isSt ? pal.fg : x[2] === 'acc' ? '#2596DE' : '#102C4C', w = (x[2] === 'bold' || isSt) ? 800 : 600;
       return '<text x="' + xL + '" y="' + (ry - 26) + '" font-size="28" fill="#6B6B6B" text-anchor="' + aL + '">' + escapeHtml(x[0]) + '</text>' +
         '<text x="' + xV + '" y="' + (ry - 26) + '" font-size="' + (x[2] === 'bold' ? 36 : fs) + '" font-weight="' + w + '" fill="' + c + '" text-anchor="' + aV + '" direction="ltr"' + (x[2] === 'mono' ? ' font-family="ui-monospace,Menlo,Consolas,monospace"' : '') + '>' + escapeHtml(val) + '</text>' +
         (i < list.length - 1 ? '<line x1="90" x2="' + (W - 90) + '" y1="' + (ry - 4) + '" y2="' + (ry - 4) + '" stroke="#EAEAEA" stroke-width="2"/>' : '');
     }).join('');
-    const BRAND = rtl ? 'فريندي باي' : 'Freindi Pay';      /* reçu exporté en PNG : mot-symbole arabe, sans espacement des lettres */
+    const BRAND = rtl ? 'سند باي' : 'Sanad Pay';      /* reçu exporté en PNG : mot-symbole arabe, sans espacement des lettres */
     const docType = (typeof t === 'function' && t('rc.docType') !== 'rc.docType') ? t('rc.docType') : 'TRANSACTION RECEIPT';
-    const note = (typeof t === 'function' && t('rc.note') !== 'rc.note') ? t('rc.note') : 'Freindi Pay transaction receipt — not a bank-issued document.';
+    const note = (typeof t === 'function' && t('rc.note') !== 'rc.note') ? t('rc.note') : 'Sanad Pay transaction receipt — not a bank-issued document.';
     /* bandeau : logo + mot-symbole à un bord, type de document à l'autre */
     const bx = rtl ? W - 90 : 90, btxt = rtl ? 'end' : 'start';
     const tx = rtl ? 90 : W - 90, ttxt = rtl ? 'start' : 'end';
     const head =
       '<rect x="40" y="40" width="' + (W - 80) + '" height="' + HDR + '" rx="56" fill="url(#hdr)"/>' +
       '<rect x="40" y="' + (HDR - 16) + '" width="' + (W - 80) + '" height="56" fill="url(#hdr)"/>' +
-      '<rect x="' + (rtl ? W - 90 - 76 : 90) + '" y="104" width="76" height="76" rx="22" fill="rgba(255,255,255,.16)" stroke="rgba(255,255,255,.5)" stroke-width="2"/>' +
-      '<text x="' + (rtl ? W - 90 - 38 : 128) + '" y="156" font-size="40" font-weight="800" fill="#FFFFFF" text-anchor="middle">F</text>' +
+      /* le sigle Sanad Pay du pack, tel quel : carré arrondi dégradé, coche blanche, ligne claire */
+      '<g transform="translate(' + (rtl ? W - 90 - 76 : 90) + ' 104) scale(' + (76 / 256) + ')"><rect x="8" y="8" width="240" height="240" rx="62" fill="url(#g)"/><path d="M68 127l44 44 81-89" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M68 185h125" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="12" stroke-linecap="round" fill="none"/></g>' +
       '<text x="' + (rtl ? W - 182 : 182) + '" y="152" font-size="38" font-weight="800" fill="#FFFFFF" text-anchor="' + btxt + '"' + (rtl ? '' : ' letter-spacing=".5"') + '>' + BRAND + '</text>' +
       '<text x="' + tx + '" y="128" font-size="23" font-weight="700" fill="rgba(255,255,255,.82)" text-anchor="' + ttxt + '"' + (rtl ? '' : ' letter-spacing="2.5"') + '>' + escapeHtml(docType) + '</text>' +
       '<text x="' + tx + '" y="166" font-size="24" font-weight="600" fill="rgba(255,255,255,.95)" text-anchor="' + ttxt + '" direction="ltr">' + escapeHtml(dispId(String(r.reference || r.transactionId || r.id || '—'))) + '</text>' +
@@ -79,8 +79,8 @@ const ReceiptExport = (() => {
       '<circle cx="' + cx + '" cy="' + (HDR + 40) + '" r="50" fill="none" stroke="' + pal.fg + '" stroke-width="7"/>' +
       '<g transform="translate(' + cx + ' ' + (HDR + 40) + ')"><path d="' + pal.icon + '" stroke="' + pal.fg + '" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>';
     return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + FONT + '">' +
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6ee7b7"/><stop offset="1" stop-color="#10b981"/></linearGradient>' +
-      '<linearGradient id="hdr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset=".55" stop-color="#059669"/><stop offset="1" stop-color="#059669"/></linearGradient></defs>' +
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient>' +
+      '<linearGradient id="hdr" gradientUnits="userSpaceOnUse" x1="40" y1="40" x2="' + (W - 40) + '" y2="' + (HDR + 40) + '"><stop offset="0" stop-color="#2596DE"/><stop offset=".55" stop-color="#134F91"/><stop offset="1" stop-color="#134F91"/></linearGradient></defs>' +
       '<rect width="' + W + '" height="' + H + '" fill="' + BG + '"/>' +
       '<rect x="40" y="40" width="' + (W - 80) + '" height="' + (H - 80) + '" rx="56" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="2"/>' +
       head +
@@ -88,7 +88,7 @@ const ReceiptExport = (() => {
       '<line x1="90" x2="' + (W - 90) + '" y1="' + top + '" y2="' + top + '" stroke="#D6D6D6" stroke-width="3" stroke-dasharray="14 12"/>' +
       '<circle cx="40" cy="' + top + '" r="26" fill="' + BG + '"/><circle cx="' + (W - 40) + '" cy="' + top + '" r="26" fill="' + BG + '"/>' +
       body +
-      '<text x="' + cx + '" y="' + (H - 136) + '" font-size="26" font-weight="700" fill="#10b981" text-anchor="middle">' + BRAND + '</text>' +
+      '<text x="' + cx + '" y="' + (H - 136) + '" font-size="26" font-weight="700" fill="#2596DE" text-anchor="middle">' + BRAND + '</text>' +
       '<text x="' + cx + '" y="' + (H - 100) + '" font-size="22" fill="#8A8A8A" text-anchor="middle">' + escapeHtml(v.date + ' · ' + v.time) + '</text>' +
       '<text x="' + cx + '" y="' + (H - 64) + '" font-size="19" fill="#A0A0A0" text-anchor="middle">' + escapeHtml(note) + '</text></svg>';
   }
@@ -139,14 +139,14 @@ const ReceiptExport = (() => {
   async function run(kind){
     const r = window.__YOR_LAST_RECEIPT__, v = window.__YOR_LAST_RECEIPT_VIEW__;
     if (!r || !v) return;
-    const base = 'FREINDI-PAY-' + dispId(String(r.reference || r.transactionId || r.id || 'receipt')).replace(/[^\w-]/g, '');
+    const base = 'SANAD-PAY-' + dispId(String(r.reference || r.transactionId || r.id || 'receipt')).replace(/[^\w-]/g, '');
     try {
       const c = await canvasOf(r, v);
       if (kind === 'pdf'){ save(await pdfBlob(c), base + '.pdf'); toast(t('action.download'), 'success'); return; }
       const png = await blobOf(c, 'image/png');
       if (kind === 'png'){ save(png, base + '.png'); toast(t('action.download'), 'success'); return; }
       const file = new File([png], base + '.png', { type:'image/png' });
-      if (navigator.canShare && navigator.canShare({ files:[file] })){ try { await navigator.share({ files:[file], title: (LANG === 'ar' ? 'فريندي باي' : 'Freindi Pay') }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
+      if (navigator.canShare && navigator.canShare({ files:[file] })){ try { await navigator.share({ files:[file], title: (LANG === 'ar' ? 'سند باي' : 'Sanad Pay') }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
       save(png, base + '.png'); toast(t('action.download'), 'success');
     } catch(e){ console.error(e); toast(t('errors.UNKNOWN_ERROR'), 'error'); }
   }

@@ -93,19 +93,6 @@ const Push = (() => {
     try { await Promise.race([disable(), new Promise(r => setTimeout(r, 2000))]); } catch(e){}
   }
 
-  /* Bouton « Envoyer un test » : le serveur envoie une vraie alerte, par le même chemin que les transferts. */
-  async function test(){
-    try {
-      const r = await sb.functions.invoke('push-send', { body: { action: 'test' } });
-      if (r && r.error){
-        const st = r.error.context && r.error.context.status;
-        return { ok: false, reason: st === 429 ? 'too_fast' : 'error' };
-      }
-      const d = (r && r.data) || {};
-      if (!d.devices) return { ok: false, reason: 'none' };
-      return d.sent > 0 ? { ok: true, sent: d.sent } : { ok: false, reason: 'failed' };
-    } catch(e){ return { ok: false, reason: 'error' }; }
-  }
 
   /* Pastille sur l'icône = nombre d'alertes non lues (même règle que le serveur). Effacée quand tout est lu. */
   function unreadCount(){
@@ -149,7 +136,7 @@ const Push = (() => {
   function actionsHtml(st){
     const b = (act, key, cls) => '<button class="btn ' + cls + ' push-btn" type="button" data-push="' + act + '">' + escapeHtml(t(key)) + '</button>';
     if (st === 'off') return b('enable', 'push.enable', 'btn-primary');
-    if (st === 'on') return b('test', 'push.test', 'btn-secondary') + b('disable', 'push.disable', 'btn-secondary');
+    if (st === 'on') return b('disable', 'push.disable', 'btn-secondary');
     return '';
   }
   async function paintRow(){
@@ -180,15 +167,11 @@ const Push = (() => {
           else toast(t(r.reason === 'denied' ? 'push.toast.denied' : r.reason === 'dismissed' ? 'push.toast.dismissed' : 'push.toast.error'), 'error');
         } else if (act === 'disable'){
           await disable(); toast(t('push.toast.off'), 'success');
-        } else if (act === 'test'){
-          const r = await test();
-          if (r.ok) toast(t('push.toast.testSent'), 'success');
-          else toast(t(r.reason === 'too_fast' ? 'push.toast.tooFast' : r.reason === 'none' ? 'push.toast.testNone' : 'push.toast.testFail'), 'error');
         }
       } finally { btn.disabled = false; }
       paintRow();
     });
   }
 
-  return { state, enable, disable, sync, forget, test, syncBadge, unreadCount, listen, mountRow, rowHtml, isIos, isStandalone, FIAT_TYPES };
+  return { state, enable, disable, sync, forget, syncBadge, unreadCount, listen, mountRow, rowHtml, isIos, isStandalone, FIAT_TYPES };
 })();

@@ -4,7 +4,7 @@
    CRYPTO SCREENS
    ============================================================ */
 function assetRowC(r){
-  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#22c55e' };
+  const asset = CRYPTO_ASSETS.find(a => a.id === r.assetId) || { tint:'#2081c7' };
   return '<div class="asset-row-c" data-nav="crypto-spot" data-asset="' + r.assetId + '">' + assetLogo(r.symbol, 40, asset.tint) + '<div class="asset-info-c"><div class="asset-name-c">' + escapeHtml(r.name) + '</div><div class="asset-sym-c">' + r.symbol + ' · ' + r.network + '</div></div><div class="asset-right-c"><div class="asset-bal-c">' + escapeHtml(CurrencyEngine.formatCrypto(r.balance, r.symbol)) + '</div><div class="asset-fiat-c">' + escapeHtml(CurrencyEngine.format(r.fiatValue, 'USD')) + '</div></div><span class="asset-change-c ' + (r.change24h >= 0 ? 'up' : 'down') + '">' + (r.change24h >= 0 ? '+' : '') + r.change24h.toFixed(2) + '%</span></div>';
 }
 function renderCryptoPortfolio(){
@@ -86,9 +86,11 @@ function renderServices(){
   /* groupe Blockchain (YOR-USDT, réseau de test) : administrateurs uniquement */
   if (FEATURES.crypto && typeof canUseChain === 'function' && canUseChain()) G.splice(1, 0, ['gChain', [['chain','wallet','chainTile']]]);
   if (!FEATURES.crypto) G.splice(1, 1);                  /* the Crypto group is hidden with the rest of the crypto section */
-  return '<div class="yb"><div class="yb-top"><h1 class="yb-title" style="text-align:start">' + yt('svcTitle') + '</h1></div>' +
-    G.map(g => '<section class="yb-sec"><div class="yb-h"><h2>' + (g[0].indexOf('v18.') === 0 ? t(g[0]) : yt(g[0])) + '</h2></div><div class="yb-grid">' +
-      g[1].map(s => '<button class="yb-svc" data-nav="' + s[0] + '"><span class="yb-svc-i">' + icon(s[1], 24) + '</span><span class="yb-svc-t">' + (/^(lx|v18)\./.test(s[2]) ? t(s[2]) : yt(s[2])) + '</span></button>').join('') + '</div></section>').join('') +
-    (adminTile ? '<section class="yb-sec"><div class="yb-h"><h2>' + escapeHtml(t('lx.svc.gAdmin')) + '</h2></div><div class="yb-grid"><button class="yb-svc yb-svc-admin" data-nav="admin-hub"><span class="yb-svc-i">' + icon('admin', 24) + '</span><span class="yb-svc-t">' + escapeHtml(t('lx.svc.admin')) + '</span></button></div></section>' : '') +
-    '<div style="height:calc(24px + var(--safe-b))"></div></div>';
+  /* Sanad Pay 21.0.0 — liste groupée (tuile carrée arrondie + libellé + chevron) ; mêmes data-nav qu'avant */
+  const lab = s => (/^(lx|v18)\./.test(s[2]) ? t(s[2]) : yt(s[2]));
+  return '<div class="screen-body sx-svc"><h1 class="sx-title">' + yt('svcTitle') + '</h1>' +
+    G.map(g => '<section class="sx-grp"><h2 class="sx-grp-h">' + (g[0].indexOf('v18.') === 0 ? t(g[0]) : yt(g[0])) + '</h2><div class="sx-list">' +
+      g[1].map(s => '<button class="settings-row sx-svc-row" data-nav="' + s[0] + '"><span class="tile">' + icon(s[1], 22) + '</span><span class="settings-row-body"><span class="settings-row-title">' + lab(s) + '</span></span><span class="settings-row-chev dir-flip">' + icon('chev', 18) + '</span></button>').join('') + '</div></section>').join('') +
+    (adminTile ? '<section class="sx-grp"><h2 class="sx-grp-h">' + escapeHtml(t('lx.svc.gAdmin')) + '</h2><div class="sx-list"><button class="settings-row sx-svc-row" data-nav="admin-hub"><span class="tile">' + icon('admin', 22) + '</span><span class="settings-row-body"><span class="settings-row-title">' + escapeHtml(t('lx.svc.admin')) + '</span></span><span class="settings-row-chev dir-flip">' + icon('chev', 18) + '</span></button></div></section>' : '') +
+    '<div class="sx-end"></div></div>';
 }

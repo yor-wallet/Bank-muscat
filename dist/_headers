@@ -15,22 +15,20 @@
   Cache-Control: public, max-age=0, must-revalidate
 /
   Cache-Control: no-cache
-  Link: </assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.25eb6e2b70.css>; rel=preload; as=style
+  Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.12479958ec.js>; rel=preload; as=script
-  Link: </js/app2.17779283fd.js>; rel=preload; as=script
-  Link: </js/app3.0d34898f54.js>; rel=preload; as=script
+  Link: </js/app1.0205c2ce0b.js>; rel=preload; as=script
+  Link: </js/app2.388ce458a3.js>; rel=preload; as=script
+  Link: </js/app3.b04381cf8f.js>; rel=preload; as=script
 /index.html
   Cache-Control: no-cache
-  Link: </assets/fonts/manrope-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.25eb6e2b70.css>; rel=preload; as=style
+  Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.12479958ec.js>; rel=preload; as=script
-  Link: </js/app2.17779283fd.js>; rel=preload; as=script
-  Link: </js/app3.0d34898f54.js>; rel=preload; as=script
+  Link: </js/app1.0205c2ce0b.js>; rel=preload; as=script
+  Link: </js/app2.388ce458a3.js>; rel=preload; as=script
+  Link: </js/app3.b04381cf8f.js>; rel=preload; as=script
 /css/*
   Cache-Control: public, max-age=31536000, immutable
 /js/app*
@@ -45,11 +43,7 @@
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/brand/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/assets/cards/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/icons/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
-/assets/illustrations/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /assets/share/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800

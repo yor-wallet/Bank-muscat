@@ -11,6 +11,11 @@ function accountRow(a, hide){
     '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + a.currency + '</div></div>' +
     '<div class="item-right"><div class="item-amount">' + escapeHtml(bal) + '</div></div></div>';
 }
+/* présentation du montant : signe, code monétaire discret, valeur en tabulaires — le texte reste identique */
+function amtParts(sign, amt){
+  const m = String(amt).match(/^([^\d\s]\S*)\s+(\d.*)$/);
+  return m ? '<span class="sgn">' + sign + '</span><span class="cur">' + escapeHtml(m[1]) + '</span><span class="num">' + escapeHtml(m[2]) + '</span>' : sign + escapeHtml(amt);
+}
 function txRow(tx, mask){
   const credit = tx.direction === 'IN';
   const iconName = tx.kind === 'SIGNUP_BONUS' ? 'gift' : tx.flow === 'INTL_TRANSFER' ? 'globe' : tx.type === 'CRYPTO_BUY' ? 'arrowDownRight' : tx.type === 'CRYPTO_SELL' ? 'arrowUpRight' : tx.type === 'CRYPTO_SWAP' ? 'swap' : tx.type === 'CRYPTO_SEND' ? 'send' : tx.type === 'DEPOSIT' ? 'receive' : (credit ? 'receive' : 'send');
@@ -24,12 +29,12 @@ function txRow(tx, mask){
   const state = txState(tx.status);
   const sub = '<span class="tx-when">' + escapeHtml(timeAgo(tx.createdAt)) + '</span>' + (party && op ? ' · ' + escapeHtml(op) : '');
   return '<div class="item tx-row tx-' + (credit ? 'in' : 'out') + ' st-' + state + '" role="button" tabindex="0" data-action="view-tx" data-tx="' + tx.id + '"><div class="tile">' + icon(state === 'failed' ? 'close' : iconName, 20) + '</div>' +
-    '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + sub + (state !== 'success' ? ' ' + statusPill(state, true) : '') + '</div></div>' +
-    '<div class="item-right"><div class="item-amount ltr ' + (credit && state === 'success' ? 'credit' : '') + (state === 'failed' ? ' failed' : '') + '"' + (mask ? ' aria-label="' + escapeHtml(t('ds.hidden_amt')) + '"' : '') + '>' + (mask ? '••••' : sign + escapeHtml(amt)) + '</div></div></div>';
+    '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + sub + '</div></div>' +
+    '<div class="item-right"><div class="item-amount ltr ' + (credit && state === 'success' ? 'credit' : '') + (state === 'failed' ? ' failed' : '') + '"' + (mask ? ' aria-label="' + escapeHtml(t('ds.hidden_amt')) + '"' : '') + '>' + (mask ? '••••' : amtParts(sign, amt)) + '</div>' + (state !== 'success' ? statusPill(state, true) : '') + '</div></div>';
 }
 /* ============================================================
    12.12.0 — SEND MONEY: one screen asks for ONE thing, the recipient's mobile number.
-   The country, the service and the Freindi Pay ID steps are gone: the app sends to Omani mobile numbers.
+   The country, the service and the Sanad Pay ID steps are gone: the app sends to Omani mobile numbers.
    How Oman does it (Central Bank of Oman, mobile-number payments): the sender types the recipient's mobile number, the app shows who the
    number belongs to when it knows, then the amount in rials with three decimals (baisa), then a confirmation protected by the personal code.
    Numbers: +968 then 8 digits; mobile numbers start with 7 or 9. The id "country-select" is kept for links, shortcuts and the dock.
@@ -91,34 +96,32 @@ function tfTopbar(title){
   return '<div class="topbar"><button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button><span class="topbar-title">' + escapeHtml(title) + '</span><span style="width:calc(44px*var(--ui))"></span></div>';
 }
 function progressSteps(current){
+  /* Sanad Pay 21.0.0 — « fil d'horizon » : trois segments qui se remplissent, libellé de l'étape en dessous */
   const labels = [ {id:'NUMBER',key:'sp.step_number'}, {id:'AMOUNT',key:'transfer.step_amount'}, {id:'CONFIRMATION',key:'transfer.step_review'} ];
   const curIdx = labels.findIndex(l => l.id === current);
-  return '<div class="progress-steps" role="list">' + labels.map((l, i) => {
-    const cls = i < curIdx ? 'done' : i === curIdx ? 'current' : '';
-    return (i > 0 ? '<span class="progress-line' + (i <= curIdx ? ' done' : '') + '"></span>' : '') +
-      '<div class="progress-step ' + cls + '" role="listitem"' + (i === curIdx ? ' aria-current="step"' : '') + '><div class="progress-step-dot">' + (i < curIdx ? icon('check', 14) : '<span>' + (i + 1) + '</span>') + '</div><span>' + t(l.key) + '</span></div>';
-  }).join('') + '</div>';
+  return '<div class="sx-thread" role="list">' + labels.map((l, i) => '<span class="sx-seg-bar ' + (i < curIdx ? 'done' : i === curIdx ? 'current' : '') + '" role="listitem"' + (i === curIdx ? ' aria-current="step"' : '') + ' aria-label="' + escapeHtml(t(l.key)) + '"><i></i></span>').join('') + '</div>' +
+    '<div class="sx-thread-l"><b>' + (curIdx + 1) + '/3</b> <span>' + escapeHtml(t(labels[Math.max(0, curIdx)].key)) + '</span></div>';
 }
 /* The recipient, as a compact card (amount and review screens). */
 function recipientCard(b){
   const name = b && b.name ? b.name : '';
-  return '<div class="sp-to glass-subtle"><span class="sp-to-ic">' + icon('user', 20) + '</span><span class="sp-to-body"><small>' + escapeHtml(t('sp.to')) + '</small>' +
-    (name ? '<b>' + escapeHtml(name) + '</b>' : '') + '<span class="ltr sp-to-num" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</span></span>' +
+  return '<div class="sx-rcpt"><span class="tile">' + icon('user', 22) + '</span><span class="sx-rcpt-body"><small>' + escapeHtml(t('sp.to')) + '</small>' +
+    (name ? '<b>' + escapeHtml(name) + '</b>' : '') + '<span class="ltr sx-rcpt-num" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</span></span>' +
     '<span class="sp-to-flag">' + flag('OM') + '</span></div>';
 }
 
 /* Screen 1 — the mobile number, and nothing else. */
 function renderCountrySelect(){
   return tfTopbar(t('sp.title')) + progressSteps('NUMBER') +
-    '<div class="screen-body sp" style="padding-top:0">' +
-      '<div class="sp-hero"><span class="sp-hero-ic">' + icon('mobile', 26) + '</span><h1>' + escapeHtml(t('sp.heading')) + '</h1><p>' + escapeHtml(t('sp.sub')) + '</p></div>' +
+    '<div class="screen-body sx-step" style="padding-top:0">' +
+      '<div class="sx-step-h"><span class="tile">' + icon('mobile', 26) + '</span><h1>' + escapeHtml(t('sp.heading')) + '</h1><p>' + escapeHtml(t('sp.sub')) + '</p></div>' +
       '<div class="field"><label class="field-label" for="sp-num">' + escapeHtml(t('sp.label')) + '</label>' +
         '<div class="field-box sp-box" dir="ltr"><span class="sp-cc"><span class="sp-flag">' + flag('OM') + '</span><b>' + OM_DIAL + '</b></span>' +
         '<input type="tel" id="sp-num" inputmode="numeric" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="18" dir="ltr" lang="en" placeholder="9123 4567" enterkeyhint="done" aria-describedby="sp-hint sp-err"></div>' +
         '<div class="sp-hint" id="sp-hint">' + escapeHtml(t('sp.hint')) + '</div>' +
         '<div class="field-err" id="sp-err" role="alert"></div></div>' +
       '<div id="sp-known" aria-live="polite"></div>' +
-      '<button class="btn btn-primary" id="sp-next" disabled style="margin-top:calc(14px*var(--ui))">' + t('action.continue') + '</button>' +
+      '<button class="btn btn-primary" id="sp-next" disabled>' + t('action.continue') + '</button>' +
     '</div>';
 }
 
@@ -128,12 +131,12 @@ function renderTxAmount(){
   if (!b){ R.go('country-select'); return ''; }
   const acc = mainAccount();
   return tfTopbar(t('transfer.amount')) + progressSteps('AMOUNT') +
-    '<div class="screen-body" style="padding-top:0">' +
+    '<div class="screen-body sx-step" style="padding-top:0">' +
       recipientCard(b) +
-      '<div class="amount-wrap" style="display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--sp-6) var(--sp-5) var(--sp-3)"><input type="text" id="amt-input" inputmode="decimal" placeholder="0.000" autocomplete="off" aria-label="' + escapeHtml(t('transfer.amount')) + '" style="width:100%;text-align:center;font-family:var(--font-mono);font-weight:700;font-size:clamp(34px,9vw,46px);letter-spacing:-.03em;background:transparent;color:var(--text);padding:0"><span class="amount-cur" style="font-family:var(--font-mono);font-size:calc(14px*var(--ui));font-weight:600;color:var(--text-2);letter-spacing:.12em">OMR</span>' +
-        '<span class="caption" style="margin-top:calc(8px*var(--ui))">' + escapeHtml(t('home.main')) + ' · <span class="ltr" dir="ltr">' + escapeHtml(CurrencyEngine.format(acc.availableBalance, acc.currency)) + '</span></span></div>' +
+      '<div class="sx-amount"><span class="sx-amount-cur ltr" dir="ltr">OMR</span><input type="text" id="amt-input" inputmode="decimal" placeholder="0.000" autocomplete="off" aria-label="' + escapeHtml(t('transfer.amount')) + '" dir="ltr">' +
+        '<span class="sx-amount-av">' + escapeHtml(t('home.main')) + ' · <span class="ltr" dir="ltr">' + escapeHtml(CurrencyEngine.format(acc.availableBalance, acc.currency)) + '</span></span></div>' +
       '<div class="field-err" id="amt-err" role="alert"></div>' +
-      '<button class="btn btn-primary" id="amt-next" disabled style="margin-top:var(--sp-4)">' + t('action.continue') + '</button>' +
+      '<button class="btn btn-primary" id="amt-next" disabled>' + t('action.continue') + '</button>' +
     '</div>';
 }
 
@@ -142,16 +145,13 @@ function renderTxReview(){
   if (!TX_STATE.amount || !TX_STATE.beneficiary){ R.go(TX_STATE.beneficiary ? 'tx-amount' : 'country-select'); return ''; }
   const bd = TX_STATE.breakdown, b = TX_STATE.beneficiary;
   return tfTopbar(t('tx.review')) + progressSteps('CONFIRMATION') +
-    '<div class="screen-body" style="padding-top:0">' +
-      '<div class="glass-elevated receipt-panel">' +
-        '<div class="receipt-benef"><div class="receipt-avatar">' + icon('user', 24) + '</div><div class="receipt-benef-body"><div class="receipt-benef-label">' + t('receipt.beneficiary') + '</div>' +
-          (b.name ? '<div class="receipt-benef-name">' + escapeHtml(b.name) + '</div>' : '') +
-          '<div class="receipt-benef-phone ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</div>' +
-          '<div class="receipt-benef-country"><span class="receipt-flag">' + flag('OM') + '</span><span>' + escapeHtml(t('sp.type')) + '</span></div>' +
-        '</div></div>' +
-      '</div>' +
-      '<div class="summary"><div class="summary-row total"><span class="summary-k">' + t('receipt.amountSent') + '</span><span class="summary-v">' + CurrencyEngine.format(bd.amount, 'OMR') + '</span></div></div>' +
-      '<div style="margin-top:var(--sp-4)"><div class="swipe-track" id="swipe" role="presentation"><div class="swipe-fill"></div><div class="swipe-label" id="swipe-label">' + t('transfer.swipe') + '</div><div class="swipe-thumb" id="swipe-thumb" tabindex="0" role="button" aria-label="' + t('transfer.swipe') + '">' + icon('send', 24) + '</div></div>' +
+    '<div class="screen-body sx-step" style="padding-top:0">' +
+      '<div class="sx-ticket"><div class="sx-ticket-top"><small>' + t('receipt.amountSent') + '</small><div class="sx-ticket-amt ltr" dir="ltr">' + CurrencyEngine.format(bd.amount, 'OMR') + '</div></div>' +
+        '<div class="sx-ticket-tear" aria-hidden="true"></div>' +
+        '<div class="sx-ticket-row"><span class="tile">' + icon('user', 22) + '</span><div class="sx-ticket-who"><small>' + t('receipt.beneficiary') + '</small>' +
+          (b.name ? '<b>' + escapeHtml(b.name) + '</b>' : '') + '<span class="ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</span>' +
+          '<em><span class="receipt-flag">' + flag('OM') + '</span>' + escapeHtml(t('sp.type')) + '</em></div></div></div>' +
+      '<div style="margin-top:var(--sp-4)"><div class="swipe-track" id="swipe" role="presentation"><div class="swipe-fill"></div><div class="swipe-label" id="swipe-label">' + t('transfer.swipe') + '</div><div class="swipe-thumb" id="swipe-thumb" tabindex="0" role="button" aria-label="' + t('transfer.swipe') + '">' + icon('check', 26) + '</div></div>' +
       '<button class="btn btn-primary swipe-kb-confirm" id="swipe-kb-confirm" aria-label="' + t('transfer.swipe') + '">' + icon('send', 20) + '<span>' + t('tx.confirm') + '</span></button></div>' +
     '</div>';
 }
@@ -162,12 +162,12 @@ function renderProcessing(){
   const bd = (TX_STATE.breakdown && TX_STATE.breakdown.amount) ? TX_STATE.breakdown : { amount:0 };
   const b = TX_STATE.beneficiary;
   const amtStr = bd.amount ? CurrencyEngine.format(bd.amount, 'OMR') : (CRYPTO_FLOW.pending && CRYPTO_FLOW.pending.data && CRYPTO_FLOW.pending.data.amount ? CurrencyEngine.formatCrypto(CRYPTO_FLOW.pending.data.amount, (CRYPTO_FLOW.pending.data.asset || {}).symbol || 'CRYPTO') : '');
-  return '<div class="proc-view sx-view" data-phase="secure">' +
-    '<div class="sx-stage" aria-hidden="true">' + SendAnim.svg() + '</div>' +
+  return '<div class="proc-view hz-view" data-phase="secure">' +
+    '<div class="hz-stage" aria-hidden="true">' + SendAnim.svg() + '</div>' +
     (amtStr ? '<div class="proc-amount ltr" dir="ltr">' + escapeHtml(amtStr) + '</div>' : '') +
-    (b && b.phone && bd.amount ? '<div class="sx-to"><span>' + escapeHtml(t('sp.to')) + '</span> <b class="ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</b></div>' : '') +
+    (b && b.phone && bd.amount ? '<div class="hz-to"><span>' + escapeHtml(t('sp.to')) + '</span> <b class="ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(b.phone)) + '</b></div>' : '') +
     '<div class="proc-label" role="status" aria-live="polite" id="sx-label">' + escapeHtml(t('sx.secure')) + '</div>' +
-    '<div class="sx-wait-note" aria-hidden="true">' + escapeHtml(t('sx.wait')) + '</div>' +
-    '<ol class="sx-steps sx4" aria-hidden="true">' + [1, 2, 3, 4].map(n => '<li data-s="' + n + '"><i></i><span>' + escapeHtml(t('sx.st' + n)) + '</span></li>').join('') + '</ol>' +
+    '<div class="hz-wait-note" aria-hidden="true">' + escapeHtml(t('sx.wait')) + '</div>' +
+    '<ol class="hz-steps" aria-hidden="true">' + [1, 2, 3, 4].map(n => '<li data-s="' + n + '"><i></i><span>' + escapeHtml(t('sx.st' + n)) + '</span></li>').join('') + '</ol>' +
   '</div>';
 }

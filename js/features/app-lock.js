@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   APP LOCK — Freindi Pay 12.9.0
+   APP LOCK — Sanad Pay 12.9.0
    Ouverture de l'application (démarrage à froid, rechargement, ou retour après plus de GRACE_MS) :
      - appareil compatible, Face ID déjà activé  -> confirmation Face ID (obligatoire), sans saisie du code ;
      - appareil compatible, Face ID pas encore activé -> code à 6 chiffres puis activation de Face ID (obligatoire) ;
@@ -14,28 +14,15 @@
 const AppLock = (() => {
   const GRACE_MS = 5000;
   const L = {
-    en:{ unlockTitle:'Enter your PIN', unlockSub:'Enter your 6-digit code to open Freindi Pay', createTitle:'Create your PIN', createSub:'Choose a 6-digit code. It is needed to confirm your transfers.', confirmTitle:'Confirm your PIN', confirmSub:'Enter the same code again', mismatch:'Codes do not match. Try again.', weak:'This code is too easy to guess. Choose another one.', logout:'Log out', error:'Something went wrong. Try again.', del:'Delete' },
-    fr:{ unlockTitle:'Entrez votre code', unlockSub:'Saisissez votre code à 6 chiffres pour ouvrir Freindi Pay', createTitle:'Créez votre code', createSub:'Choisissez un code à 6 chiffres. Il sert à confirmer vos transferts.', confirmTitle:'Confirmez votre code', confirmSub:'Saisissez de nouveau le même code', mismatch:'Les codes ne correspondent pas. Réessayez.', weak:'Ce code est trop facile à deviner. Choisissez-en un autre.', logout:'Se déconnecter', error:'Une erreur est survenue. Réessayez.', del:'Effacer' },
-    ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح فريندي باي', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
+    en:{ unlockTitle:'Enter your PIN', unlockSub:'Enter your 6-digit code to open Sanad Pay', createTitle:'Create your PIN', createSub:'Choose a 6-digit code. It is needed to confirm your transfers.', confirmTitle:'Confirm your PIN', confirmSub:'Enter the same code again', mismatch:'Codes do not match. Try again.', weak:'This code is too easy to guess. Choose another one.', logout:'Log out', error:'Something went wrong. Try again.', del:'Delete' },
+    fr:{ unlockTitle:'Entrez votre code', unlockSub:'Saisissez votre code à 6 chiffres pour ouvrir Sanad Pay', createTitle:'Créez votre code', createSub:'Choisissez un code à 6 chiffres. Il sert à confirmer vos transferts.', confirmTitle:'Confirmez votre code', confirmSub:'Saisissez de nouveau le même code', mismatch:'Les codes ne correspondent pas. Réessayez.', weak:'Ce code est trop facile à deviner. Choisissez-en un autre.', logout:'Se déconnecter', error:'Une erreur est survenue. Réessayez.', del:'Effacer' },
+    ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح سند باي', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
   };
   const tx = (k) => (L[LANG] || L.en)[k] || L.en[k];
   let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0, lastPin = null;
 
-  function css(){
-    if (document.getElementById('yl-css')) return;
-    const s = document.createElement('style'); s.id = 'yl-css';
-    s.textContent =
-      '.yl,.yl-cover{position:fixed;inset:0;z-index:1000;box-sizing:border-box;background:var(--bg,#fdf8e9);color:var(--text,#151411);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto}' +
-      '.yl-title{font-size:22px;font-weight:700;margin:14px 0 6px;text-align:center}' +
-      '.yl-sub{font-size:14px;opacity:.7;text-align:center;max-width:320px;line-height:1.5;margin:0 0 18px}' +
-      '.yl-err{min-height:20px;font-size:13px;color:var(--danger,#ef4444);text-align:center;margin-bottom:10px;max-width:320px}' +
-      '.yl-out{margin-top:18px;background:none;border:0;color:var(--accent,#10b981);font-size:15px;font-weight:600;padding:12px 16px;cursor:pointer;min-height:44px}' +
-      '@keyframes ylshake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}' +
-      '.yl-shake{animation:ylshake .35s}' +
-      '@media (max-height:640px){.yl-title{margin-top:6px}}' +
-      '@media (prefers-reduced-motion:reduce){.yl-shake{animation:none}}';
-    document.head.appendChild(s);
-  }
+  /* Sanad Pay 21.0.0 : les styles du verrouillage vivent dans css/s-screens.css (feuille unique) */
+  function css(){ /* rien */ }
   function setInert(on){
     const r = document.getElementById('app'); if (!r) return;
     try { r.inert = on; } catch(e){}

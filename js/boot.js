@@ -27,6 +27,7 @@ let _deepUsed = false;
 function openHome(){
   R.go('home', { reset:true, force:true });
   setTimeout(() => { try { Reward.check(); } catch(e){ /* rien */ } try { LiveX.afterHome(); } catch(e){ /* rien */ } }, 700);     /* 16.0.0 : récompense de bienvenue réellement créditée par le serveur → célébration */
+  if (!LAUNCH_HASH && !_deepUsed){ _deepUsed = true; try { SanadEngine.restore(); } catch(e){ /* rien */ } return; }
   if (_deepUsed || !LAUNCH_HASH) return;
   _deepUsed = true;
   try {
@@ -54,6 +55,11 @@ function boot(){
   ViewportEngine.init();
   V12.init();
   LANG = DeviceLang.get(); applyI18n();   /* first paint already in the phone's language */
+  /* Sanad Pay 21.0.0 — séquence d'ouverture « Trait & Horizon » : habillage posé sur l'application qui démarre dessous (voir OpeningArt) */
+  const splashHost = document.getElementById('splash');
+  let openingDone = false; const openingWaiters = [];
+  const opening = splashHost ? OpeningArt.start(splashHost, () => { openingDone = true; openingWaiters.splice(0).forEach(fn => { try { fn(); } catch(e){ /* rien */ } }); }) : null;
+  const whenOpeningPlayed = (fn) => { if (openingDone || !opening) fn(); else openingWaiters.push(fn); };
 
   /* Supabase must be configured before anything else. */
   if (!initSupabase()){
@@ -84,10 +90,10 @@ function boot(){
     });
   })();
 
-  const splashEl = document.getElementById('splash');
-  if (splashEl) splashEl.innerHTML = OpeningArt.splash(LANG);
   R.bind();
   UIKit.init();
+  try { SanadEngine.start(); } catch(e){ console.error(e); }
+  try { Depth.start(); } catch(e){}
   AppLock.init();
   YorDrawer.init();
   OfferSlot.init();
@@ -96,11 +102,6 @@ function boot(){
 
   /* Subscribe to auth state. On ready we route the app. */
   let firstAuthEvent = true;
-  /* L'écran d'ouverture reste au moins SPLASH_MIN ms depuis le chargement de la page (pas depuis l'événement d'authentification) */
-  const reduced = (() => { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch(e){ return false; } })();
-  const SPLASH_MIN = typeof window.__FP_SPLASH_MIN === 'number' ? window.__FP_SPLASH_MIN : (reduced ? 300 : 500);   /* __FP_SPLASH_MIN : crochet de test */
-  const splashT0 = Date.now();
-  const splashWait = () => Math.max(250, SPLASH_MIN - (Date.now() - splashT0));
   AuthEngine.subscribe((signedIn, authEvent) => {
     if (signedIn && authEvent === 'PASSWORD_RECOVERY') setTimeout(openRecovery, 1600);
     if (!signedIn && authEvent === 'LOAD_FAILED'){
@@ -112,9 +113,10 @@ function boot(){
     } else if (signedIn) bootFails(0);
     if (firstAuthEvent){
       firstAuthEvent = false;
-      setTimeout(() => {
+      /* l'application est prête (premier événement d'authentification) : elle s'affiche dès que le dessin de l'ouverture est joué ou sauté par un toucher */
+      whenOpeningPlayed(() => {
         const sp = document.getElementById('splash');
-        if (sp){ sp.classList.add('is-hidden'); setTimeout(() => { sp.style.display = 'none'; }, 600); }
+        if (sp){ sp.classList.add('is-hidden'); setTimeout(() => { sp.style.display = 'none'; }, 420); }
         LANG = (Runtime.settings && Runtime.settings.language) || DeviceLang.get();
         applyI18n();
         applyTheme(savedThemeMode());
@@ -131,7 +133,7 @@ function boot(){
           const afterLang = () => { if (!Onboarding.seen()) Onboarding.show((to) => { if (to === 'signup') toSignup(); else toLogin(); }); else toLogin(); };
           afterLang();        /* the app opens in the device language; it can be changed from the login screen or Settings */
         }
-      }, splashWait());
+      });
       return;
     }
     if (signedIn){

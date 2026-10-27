@@ -18,13 +18,13 @@
 const FaceId = (() => {
   const KEY = 'friendly_faceid_v1';
   const L = {
-    en: { verifyTitle:'Confirm with {N}', verifySub:'Look at your phone to confirm it is you.', unlock:'Unlock Freindi Pay', login:'Confirm your sign-in', transfer:'Confirm this transfer', generic:'Confirm to continue',
+    en: { verifyTitle:'Confirm with {N}', verifySub:'Look at your phone to confirm it is you.', unlock:'Unlock Sanad Pay', login:'Confirm your sign-in', transfer:'Confirm this transfer', generic:'Confirm to continue',
       enrollTitle:'Turn on {N}', enrollSub:'{N} is required to sign in and to confirm transfers on this device.', go:'Use {N}', retry:'Try again', cancel:'Cancel', logout:'Log out',
       recover:'{N} not working? Use your PIN', skip:'Continue with PIN only', errCancelled:'{N} was cancelled.', errInvalid:'{N} could not be verified. Try again.', errGeneric:'{N} is not available right now. Try again.', ok:'Confirmed', generic_n:'Biometrics' },
-    fr: { verifyTitle:'Confirmez avec {N}', verifySub:'Regardez votre téléphone pour confirmer que c\'est bien vous.', unlock:'Déverrouiller Freindi Pay', login:'Confirmez votre connexion', transfer:'Confirmez ce transfert', generic:'Confirmez pour continuer',
+    fr: { verifyTitle:'Confirmez avec {N}', verifySub:'Regardez votre téléphone pour confirmer que c\'est bien vous.', unlock:'Déverrouiller Sanad Pay', login:'Confirmez votre connexion', transfer:'Confirmez ce transfert', generic:'Confirmez pour continuer',
       enrollTitle:'Activez {N}', enrollSub:'{N} est obligatoire pour vous connecter et confirmer les transferts sur cet appareil.', go:'Utiliser {N}', retry:'Réessayer', cancel:'Annuler', logout:'Se déconnecter',
       recover:'{N} ne marche pas ? Utilisez votre code', skip:'Continuer avec le code seulement', errCancelled:'{N} a été annulé.', errInvalid:'{N} n\'a pas pu être vérifié. Réessayez.', errGeneric:'{N} n\'est pas disponible pour le moment. Réessayez.', ok:'Confirmé', generic_n:'Biométrie' },
-    ar: { verifyTitle:'أكّد باستخدام {N}', verifySub:'انظر إلى هاتفك لتأكيد أنك أنت.', unlock:'فتح فريندي باي', login:'أكّد تسجيل دخولك', transfer:'أكّد هذا التحويل', generic:'أكّد للمتابعة',
+    ar: { verifyTitle:'أكّد باستخدام {N}', verifySub:'انظر إلى هاتفك لتأكيد أنك أنت.', unlock:'فتح سند باي', login:'أكّد تسجيل دخولك', transfer:'أكّد هذا التحويل', generic:'أكّد للمتابعة',
       enrollTitle:'فعّل {N}', enrollSub:'{N} مطلوب لتسجيل الدخول وتأكيد التحويلات على هذا الجهاز.', go:'استخدم {N}', retry:'أعد المحاولة', cancel:'إلغاء', logout:'تسجيل الخروج',
       recover:'{N} لا يعمل؟ استخدم رمزك', skip:'المتابعة بالرمز فقط', errCancelled:'تم إلغاء {N}.', errInvalid:'تعذّر التحقق عبر {N}. حاول مجدداً.', errGeneric:'{N} غير متاح الآن. حاول مجدداً.', ok:'تم التأكيد', generic_n:'البصمة' }
   };
@@ -64,11 +64,11 @@ const FaceId = (() => {
   /* --- création de la clé (une fois par appareil et par compte) --- */
   async function enroll(){
     const u = await uid(); if (!u) return { ok: false, reason: 'error' };
-    let label = u, display = 'Freindi Pay';
+    let label = u, display = 'Sanad Pay';
     try { const c = UserContext.get(); if (c && c.email) label = c.email; const p = Runtime.profile || {}; display = ((p.firstName || '') + ' ' + (p.lastName || '')).trim() || display; } catch (e) {}
     try {
       const cred = await navigator.credentials.create({ publicKey: {
-        challenge: rand(32), rp: { name: 'Freindi Pay', id: location.hostname },
+        challenge: rand(32), rp: { name: 'Sanad Pay', id: location.hostname },
         user: { id: new TextEncoder().encode(String(u)).slice(0, 64), name: label, displayName: display },
         pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
         authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'discouraged', requireResidentKey: false },
@@ -143,43 +143,8 @@ const FaceId = (() => {
     '<g class="fc"><path d="M10 22v-6a6 6 0 0 1 6-6h6"/><path d="M42 10h6a6 6 0 0 1 6 6v6"/><path d="M54 42v6a6 6 0 0 1-6 6h-6"/><path d="M22 54h-6a6 6 0 0 1-6-6v-6"/></g>' +
     '<g class="ff"><path d="M23 25v4"/><path d="M41 25v4"/><path d="M32 25v9a2 2 0 0 1-2 2h-1"/><path d="M23 42c2.5 3 5.5 4.5 9 4.5s6.5-1.5 9-4.5"/></g>' +
     '<path class="fk" d="M19 33.5l9.5 9.5L46 22"/></svg>';
-  function css(){
-    if (document.getElementById('fid-css')) return;
-    const s = document.createElement('style'); s.id = 'fid-css';
-    s.textContent =
-      '.fid{position:fixed;inset:0;z-index:1200;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(18px + env(safe-area-inset-top,0px)) 24px calc(18px + env(safe-area-inset-bottom,0px));' +
-        'background:radial-gradient(70% 50% at 50% 38%,color-mix(in srgb,var(--accent,#10b981) 18%,var(--bg,#fff)),var(--bg,#fff) 72%);color:var(--text,#151411);overflow-y:auto;animation:fidIn .34s cubic-bezier(.2,.9,.2,1) both}' +
-      '.fid.out{opacity:0;transform:scale(1.03);transition:opacity .24s ease,transform .24s ease}' +
-      '@keyframes fidIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}' +
-      '.fid-chip{margin:18px 0 6px;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em;background:var(--accent-soft,rgba(110,231,183,.16));color:var(--accent,#10b981)}' +
-      '.fid-orb{position:relative;width:148px;height:148px;margin:8px 0 18px;border-radius:50%;border:0;padding:0;display:grid;place-items:center;cursor:pointer;color:var(--on-accent,#fff);background:var(--btn-grad,linear-gradient(180deg,#10b981,#463306));box-shadow:0 22px 50px -14px var(--btn-glow,rgba(107,76,8,.5)),inset 0 2px 0 rgba(255,255,255,.35);-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:transform .2s cubic-bezier(.34,1.56,.64,1)}' +
-      '.fid-orb:active{transform:scale(.94)}' +
-      '.fid-ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--accent,#10b981);opacity:0;animation:fidRing 2.6s ease-out infinite;pointer-events:none}' +
-      '.fid-ring.r2{animation-delay:.85s}.fid-ring.r3{animation-delay:1.7s}' +
-      '@keyframes fidRing{0%{opacity:.5;transform:scale(1)}100%{opacity:0;transform:scale(1.75)}}' +
-      '.fid-face{width:78px;height:78px;position:relative;z-index:1;overflow:visible}' +
-      '.fid-face .fc path{animation:fidCorner 2.2s ease-in-out infinite;transform-origin:32px 32px}' +
-      '@keyframes fidCorner{0%,100%{transform:scale(1)}50%{transform:scale(.9)}}' +
-      '.fid-orb::after{content:"";position:absolute;left:30px;right:30px;top:36px;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);box-shadow:0 0 14px rgba(255,255,255,.8);animation:fidScan 2.2s ease-in-out infinite;pointer-events:none}' +
-      '@keyframes fidScan{0%,100%{transform:translateY(0);opacity:0}15%{opacity:1}50%{transform:translateY(74px);opacity:1}85%{opacity:0}}' +
-      '.fid-face .fk{stroke-dasharray:60;stroke-dashoffset:60;opacity:0}' +
-      '.fid.busy .fid-orb{animation:fidPulse 1s ease-in-out infinite}' +
-      '@keyframes fidPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}' +
-      '.fid.ok .fid-orb::after,.fid.ok .fid-ring{display:none}' +
-      '.fid.ok .fid-face .fc,.fid.ok .fid-face .ff{opacity:0;transition:opacity .15s}' +
-      '.fid.ok .fid-face .fk{opacity:1;animation:fidDraw .5s .1s ease-out forwards}' +
-      '@keyframes fidDraw{to{stroke-dashoffset:0}}' +
-      '.fid.ok .fid-orb{animation:fidBurst .6s cubic-bezier(.34,1.56,.64,1) both}' +
-      '@keyframes fidBurst{0%{transform:scale(1)}50%{transform:scale(1.14)}100%{transform:scale(1)}}' +
-      '.fid-title{font-size:23px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em}' +
-      '.fid-sub{font-size:14.5px;line-height:1.5;color:var(--text-2,#22c55e);max-width:310px;margin:0 0 14px}' +
-      '.fid-err{min-height:22px;font-size:13.5px;color:var(--danger,#ef4444);max-width:310px;margin:0 0 10px}' +
-      '.fid-btn{min-width:230px;margin:0}' +
-      '.fid-link{margin-top:6px;background:none;border:0;color:var(--accent,#10b981);font-size:14.5px;font-weight:700;padding:12px 16px;min-height:44px;cursor:pointer}' +
-      '.fid-link.muted{color:var(--text-2,#22c55e);font-weight:600}' +
-      '@media (prefers-reduced-motion:reduce){.fid,.fid-ring,.fid-face .fc path,.fid-orb::after,.fid.busy .fid-orb,.fid.ok .fid-orb{animation:none!important}.fid-ring,.fid-orb::after{display:none}.fid.ok .fid-face .fk{stroke-dashoffset:0;animation:none}}';
-    document.head.appendChild(s);
-  }
+  /* Sanad Pay 21.0.0 : les styles de la feuille Face ID vivent dans css/s-screens.css */
+  function css(){ /* rien */ }
   function close(){ if (el){ try { el.remove(); } catch (e) {} el = null; } }
 
   function sheet(mode, o){
@@ -189,7 +154,7 @@ const FaceId = (() => {
       const root = document.createElement('div'); el = root;
       root.className = 'fid'; root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true');
       const purpose = tx(o.purpose || 'generic');
-      root.innerHTML = '<div class="fid-logo">' + logoLockup(46) + '</div>' +
+      root.innerHTML = '<div class="fid-card"><i class="fid-grab" aria-hidden="true"></i>' +
         '<div class="fid-chip">' + escapeHtml(purpose) + '</div>' +
         '<button type="button" class="fid-orb" id="fid-orb" aria-label="' + escapeHtml(tx('go')) + '"><i class="fid-ring r1"></i><i class="fid-ring r2"></i><i class="fid-ring r3"></i>' + FACE + '</button>' +
         '<h2 class="fid-title">' + escapeHtml(tx(mode === 'enroll' ? 'enrollTitle' : 'verifyTitle')) + '</h2>' +
@@ -198,17 +163,22 @@ const FaceId = (() => {
         '<button type="button" class="btn btn-primary fid-btn" id="fid-go">' + escapeHtml(tx('go')) + '</button>' +
         (mode === 'verify' && o.recover ? '<button type="button" class="fid-link" id="fid-rec">' + escapeHtml(tx('recover')) + '</button>' : '') +
         (o.cancel ? '<button type="button" class="fid-link muted" id="fid-cancel">' + escapeHtml(tx('cancel')) + '</button>' : '') +
-        (o.logout ? '<button type="button" class="fid-link muted" id="fid-out">' + escapeHtml(tx('logout')) + '</button>' : '');
+        (o.logout ? '<button type="button" class="fid-link muted" id="fid-out">' + escapeHtml(tx('logout')) + '</button>' : '') + '</div>';
       document.body.appendChild(root);
       const $ = (id) => root.querySelector('#' + id);
       let busy = false, done = false, fails = 0;
+      /* Sanad Pay 21.0.0 — comme dans les autres applications : quand la confirmation vient d'un toucher (envoi d'un transfert), l'invite Face ID du système
+         s'ouvre directement ; la feuille reste invisible tant que tout va bien, et ne se montre que s'il faut réessayer */
+      let quiet = false; try { quiet = mode === 'verify' && !!(navigator.userActivation && navigator.userActivation.isActive); } catch (e) {}
+      if (quiet) root.classList.add('fid-quiet');
       const finish = (v) => { if (done) return; done = true; root.classList.add('out'); setTimeout(() => { try { root.remove(); } catch (e) {} if (el === root) el = null; }, 260); resolve(v); };
       async function run(){
         if (busy || done || root.classList.contains('ok')) return;     /* a second tap during the success animation must not create a second key */
         busy = true; root.classList.add('busy'); $('fid-err').textContent = ''; $('fid-go').disabled = true;
         const r = mode === 'enroll' ? await enroll() : await assert(o.prfSalt || null);
         busy = false; root.classList.remove('busy'); $('fid-go').disabled = false;
-        if (r.ok){ root.classList.add('ok'); try { UIKit.haptic('success'); } catch (e) {} setTimeout(() => finish({ ok: true, prf: r.prf || null, cid: r.cid || null }), 700); return; }
+        if (r.ok){ if (quiet){ try { UIKit.haptic('success'); } catch (e) {} finish({ ok: true, prf: r.prf || null, cid: r.cid || null }); return; } root.classList.add('ok'); try { UIKit.haptic('success'); } catch (e) {} setTimeout(() => finish({ ok: true, prf: r.prf || null, cid: r.cid || null }), 700); return; }
+        root.classList.remove('fid-quiet'); quiet = false;
         $('fid-err').textContent = tx(r.reason === 'cancelled' ? 'errCancelled' : r.reason === 'invalid' ? 'errInvalid' : 'errGeneric');
         $('fid-go').textContent = tx('retry');
         /* Safety valve: the device says it supports biometrics but the key cannot be created after 3 tries -> do not lock the user out */

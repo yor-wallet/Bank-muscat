@@ -1,4 +1,4 @@
-/* Friendly Pay — build de production (15.1.0).  `npm run build`  →  dist/
+/* Sanad Pay — build de production (15.1.0).  `npm run build`  →  dist/
    Ne change aucune logique : mêmes fichiers, même ordre d'exécution, mais
    - CSS : les 16 feuilles regroupées dans l'ordre d'origine et minifiées (1 requête au lieu de 16)
    - JS  : les ~50 scripts regroupés dans l'ordre d'origine et minifiés (3 requêtes au lieu de ~50 ; yor-chain.js, fichier généré
@@ -59,7 +59,7 @@ for (const v of vendorFiles) fs.copyFileSync(path.join(ROOT, v), path.join(DIST,
 fs.copyFileSync(path.join(ROOT, 'js/vendor/reown-appkit.js'), path.join(DIST, 'js/vendor/reown-appkit.js'));   /* chargé à la demande, hors regroupement */
 
 /* ---------- index.html ---------- */
-const fonts = ['assets/fonts/manrope-latin-var.woff2', 'assets/fonts/inter-latin-var.woff2'];
+const fonts = ['assets/fonts/inter-latin-var.woff2'];
 html = html.replace(/<link rel="stylesheet" href="css\/[^"]+">\s*/g, '');
 html = html.replace(/<script src="js\/[^"]+" defer><\/script>\s*/g, '');
 const head = [
