@@ -268,3 +268,11 @@ button,[role="button"],.chip,.item,.select-item,.country-row,.service-pill,.quic
 .loading-veil{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:var(--z-modal)}
 .loading-veil .spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--accent-soft);border-top-color:var(--accent);animation:uikSpin .8s linear infinite}
 
+/* 20.3.1 : retour tactile manquant sur les lignes de liste cliquables (actifs crypto, marché, activité) —
+   même langage que .quick-item/.service-pill, purement visuel, aucune structure ni logique changée */
+.asset-row-c,.market-row,.crypto-activity-row{transition:background-color var(--t-fast),transform var(--t-fast)}
+.asset-row-c:active,.market-row:active,.crypto-activity-row:active{transform:scale(.985);background:var(--glass-1)}
+@media (hover:hover){
+  .asset-row-c:hover,.market-row:hover,.crypto-activity-row:hover{background:var(--glass-1)}
+}
+

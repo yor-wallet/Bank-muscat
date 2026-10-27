@@ -1,3 +1,9 @@
+# FREINDI PAY 20.3.1 — e-mails transactionnels rebrandés, premiers retours tactiles manquants
+
+- **`send-email` (fonction Supabase) rebrandée** : elle était restée entièrement en identité « Live X Digitale » (noir/or) alors que le reste de l'app était déjà passé à Freindi Pay. Nom d'expéditeur, en-tête, couleurs (émeraude), préfixe de référence (`FP-` au lieu de `LXD-`) et URL par défaut mis à jour dans les trois langues. L'adresse d'expédition Brevo n'a pas changé (vérifiée côté Brevo). Correction au passage : les e-mails de confirmation d'investissement et de retrait affichaient la référence brute `YOR-...` sans le préfixe applicatif ; corrigé pour être cohérent avec les autres e-mails.
+- **Retour tactile ajouté** sur les lignes de liste qui n'en avaient pas (actifs crypto, marché, activité) — même langage visuel que les autres éléments cliquables de l'app. Purement additif : aucune classe renommée, aucune structure modifiée.
+- Vérifié réellement : build sans erreur, test en direct (dry-run) sur une fonction en production contre une transaction réelle, rendu dans un navigateur sans erreur console (écran de présentation et écran de connexion).
+
 # FREINDI PAY 20.3.0 — nettoyage final de l'ancienne marque, chatbot
 
 - **Plus aucun « Live X » visible** : les textes restants (cartes, offres, publicités, tiroir, comptes, transfert, présentation) passent à « Freindi Pay » dans les trois langues. Les objets techniques internes (`LiveX`, noms de fichiers, tables, identifiants) sont inchangés.
