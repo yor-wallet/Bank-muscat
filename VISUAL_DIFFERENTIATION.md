@@ -97,12 +97,17 @@ Trois cas :
 
 Garanties : la séquence est un **habillage** posé sur l'application qui démarre en dessous ; elle se termine quand `application prête ET animation jouée` (jamais un `setTimeout` seul), un toucher la saute à l'instant, `prefers-reduced-motion` la remplace par un fondu, et elle n'attend ni l'authentification ni un flux métier (si la connexion est lente, le logo reste fixe ; en cas d'erreur de démarrage, l'écran d'erreur existant prend la main).
 
-## 4. Interdits respectés (liste de contrôle)
-- [ ] Aucun écran copié en changeant les couleurs : chaque écran principal a une **composition** différente (voir §2.1).
-- [ ] Aucune classe CSS `rv-*` / `px-*` / `ds-*` / `yb-*` n'est réutilisée pour les compositions neuves : elles passent en `sx-*`. (Les anciennes classes ne restent que sur des écrans non refondus, signalés dans le changelog.)
-- [ ] Autre ordre de blocs sur le tableau de bord.
-- [ ] Autre séquence d'ouverture.
-- [ ] Comparaison côte à côte : `docs/screenshots/compare/` (Freindi à gauche, Sanad à droite, même largeur).
+## 3 bis. Profondeur et matière (`css/s-finish.css`, `js/ui/depth.js`)
+- Le solde, le sigle et l'avatar réagissent à l'inclinaison de l'appareil quand elle est disponible **sans demande d'autorisation**, sinon au pointeur : variables `--dx / --dy` (−1…1) lissées en `requestAnimationFrame`, appliquées en `transform` uniquement (3–18 px, 7–9° max). Rien n'est calculé si l'onglet est masqué ; `prefers-reduced-motion` supprime tout.
+- Cartes : inclinaison 3D + reflet qui suit l'inclinaison, ombre en deux couches ; sigle : double ombre + anneau intérieur d'1 px ; listes : ombre longue + filet d'1 px, jamais de bordure « papier ».
+- Limite assumée : la profondeur est mesurée (pas de WebGL, pas de flou animé) pour garder INP < 200 ms et aucune image perdue sur un téléphone d'entrée de gamme.
+
+## 4. Liste de contrôle (état réel)
+- [x] Chaque écran principal a une **composition** différente de Freindi (§2.1) — comparaison côte à côte : `docs/screenshots/compare/`.
+- [x] Autre ordre de blocs sur le tableau de bord, autre séquence d'ouverture, autre barre de navigation, autres icônes, autres cartes, autre ticket de confirmation, autre reçu.
+- [~] Les compositions neuves passent en `sx-*`, **mais** certains conteneurs de liste (`rv-list`, `rv-day`, `item`, `tx-row`) et les écrans secondaires non repris (admin, chat, crédit, coffre, cinéma, crypto) gardent leurs anciens noms de classe : seul leur habillage a changé (nouveaux jetons).
+- [x] Aucun vert de marque, aucun or, aucune ombre décalée « duotone ».
+- [x] Aucun identifiant `id` / `data-*` utilisé par un gestionnaire n'a été supprimé (`tests/characterization/compare.mjs`).
 
 ## 5. Ce qui ne change PAS (rappel règle n°1)
 Routes, identifiants `id` / `data-action` / `data-nav` / `data-*` utilisés par les gestionnaires, appels réseau, calculs, validations, états initié / en cours / réussi / échoué / incertain, temporisations métier, clés de stockage, textes de traduction (les clés restent ; seuls des libellés de **présentation** sont réécrits : copie de la présentation, mentions de marque).

@@ -1,0 +1,19 @@
+{
+  "$description": "Sanad Pay 21.0.0 — jetons de design (source : css/s-tokens.css ; palette : pack de marque). À importer dans Figma (Tokens / Variables) : la planche 01cum4RMZ1Z3uyEwNaWmUi n'a pas pu être modifiée depuis cette session, aucun outil Figma n'y étant disponible.",
+  "color": {
+    "brand": { "primary": "#2596DE", "sky": "#7ED8F6", "ice": "#EAF8FF", "white": "#FFFFFF", "deep": "#134F91", "ink": "#102C4C", "aqua": "#38B9BE" },
+    "semantic": { "success": "#14A879", "warning": "#F4A43B", "error": "#E84D65", "_note": "uniquement pour leur sens (succès / attention / erreur)" },
+    "gradient": { "mark": ["#79DEFF", "#238CDF"], "sky": ["#DFF3FF", "#EAF8FF", "#F7FCFF"], "opening": ["#EAF8FF", "#DDEFFF", "#D9EBFF"], "openingDark": ["#0F2A4A", "#102C4C", "#0B2140"] }
+  },
+  "radius": { "tile": "28%", "card": 24, "sheet": 28, "button": 16, "field": 14, "pill": 999 },
+  "spacing": [4, 8, 12, 16, 20, 24, 32],
+  "motion": {
+    "ease": "cubic-bezier(.2,.8,.2,1)", "easeOut": "cubic-bezier(.16,1,.3,1)", "spring": "cubic-bezier(.34,1.32,.5,1)",
+    "duration": { "fast": 140, "base": 240, "slow": 380 },
+    "opening": { "first": 1800, "next": 600, "reducedMotion": 320, "resume": 0 },
+    "screenShift": 24, "tabShift": 6
+  },
+  "typography": { "latin": "Inter", "arabic": "Tajawal", "scale": { "xs": 12, "sm": 13.5, "md": 15.5, "lg": 17, "title": 32, "balance": 54 } },
+  "icons": { "grid": 48, "stroke": 3.6, "source": "assets/icons + js/ui/icons.js (SXI)" },
+  "touchTarget": 44
+}

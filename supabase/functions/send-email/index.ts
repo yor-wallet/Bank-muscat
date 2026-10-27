@@ -18,7 +18,8 @@ type Lang = "fr" | "en" | "ar";
 type Row = Record<string, any>;
 
 // Palette de marque (identique à l'application)
-const GOLD = "#FFC83D", GOLD_DEEP = "#8F6400", INK = "#0A0A0B";
+/* palette Sanad Pay : accent bleu, bleu profond, encre marine (les noms de constantes sont conservés) */
+const GOLD = "#2596DE", GOLD_DEEP = "#134F91", INK = "#102C4C";
 
 const T: Record<Lang, Row> = {
   fr: {
@@ -156,8 +157,8 @@ function layout(lang: Lang, title: string, intro: string, rows: [string, string]
     `<body style="margin:0;background:#f5f4f1;font-family:Arial,Helvetica,sans-serif" dir="${t.dir}">` +
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">` +
     `<table role="presentation" width="100%" style="max-width:560px;background:#fff;border-radius:16px;overflow:hidden" cellpadding="0" cellspacing="0">` +
-    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${GOLD}"><span style="display:inline-block;background:${GOLD};color:${INK};font-size:17px;font-weight:900;border-radius:9px;padding:6px 9px;letter-spacing:-.5px;vertical-align:middle">LX</span>` +
-    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">LIVE X</span><span style="color:${GOLD};font-size:12px;font-weight:600;letter-spacing:4px;vertical-align:middle">DIGITALE</span></td></tr>` +
+    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${GOLD}"><span style="display:inline-block;background:${GOLD};color:${INK};font-size:17px;font-weight:900;border-radius:9px;padding:6px 9px;letter-spacing:-.5px;vertical-align:middle">&#10003;</span>` +
+    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">SANAD PAY</span></td></tr>` +
     `<tr><td style="padding:28px;text-align:${al}"><h1 style="margin:0 0 12px;font-size:21px;color:#111827">${esc(title)}</h1>` +
     `<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#374151">${esc(intro)}</p>` +
     (rows.length ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${body}</table>` : "") +
@@ -173,7 +174,7 @@ function button(label: string): string {
 }
 
 function rewardBox(text: string): string {
-  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#FFF7DB;border:1px solid ${GOLD};color:#5B4300;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
+  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#EAF8FF;border:1px solid ${GOLD};color:#102C4C;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
 }
 
 async function langOf(userId: string | null): Promise<Lang> {

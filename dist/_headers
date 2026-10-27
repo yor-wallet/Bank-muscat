@@ -18,7 +18,7 @@
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.4b84fffb64.js>; rel=preload; as=script
+  Link: </js/app1.0205c2ce0b.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
   Link: </js/app3.0e0818f54e.js>; rel=preload; as=script
 /index.html
@@ -26,7 +26,7 @@
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
   Link: </css/app.3143fa5a3f.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.4b84fffb64.js>; rel=preload; as=script
+  Link: </js/app1.0205c2ce0b.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
   Link: </js/app3.0e0818f54e.js>; rel=preload; as=script
 /css/*

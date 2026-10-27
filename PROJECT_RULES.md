@@ -23,13 +23,14 @@ Le renommage de l'application ne déclenche **aucune migration de base de donné
 - Clés de stockage : `fp_theme`, `fp.swheal`, `friendly_pin_vault_v1`, `friendly_faceid_v1`, `yor_device_lang`, `yor_lang_chosen`, `yor_layout_mode`, `yor_device_id`, `yor_session_id`, `lx_inst_seen`, `lx_set_*`. (Les renommer déconnecterait les utilisateurs ou ferait perdre le coffre du PIN / la clé Face ID.)
 - Base de données : tables, colonnes, RPC, types de transaction (`FIAT_EXTERNAL`…), identifiants `YOR-XXXXXX` (contrainte `profiles_yor_id_check`), préfixes de référence internes.
 - Intégrations : URL / clé publique Supabase, clé VAPID publique, identifiant de projet Reown, nom de cache du service worker (un nouveau nom *est* attendu à chaque livraison, voir §5), `data-*` et `id` utilisés par les gestionnaires.
-- Fichiers dont le nom est référencé par le code (`css/freindi.css`, `css/livex.css`, `js/features/livex.js`…) : **non renommés** ; la nouvelle couche de marque est ajoutée dans `css/sanad.css` (chargée en dernier).
+- Fichiers dont le nom est référencé par le code (`js/features/livex.js`, `js/features/yor-chain.js`, `js/i18n/livex.js`…) : **non renommés**. Les anciennes feuilles de style (22 fichiers) ont été supprimées et remplacées par la pile `css/s-*.css`.
 
-### Changements de comportement acceptés
+### Changements de comportement acceptés (liste complète : `CHANGELOG_SANAD_PAY.md` §5–6)
+- Exceptions demandées par le propriétaire : (1) une seule confirmation par transfert (Face ID **ou** code, jamais les deux) ; (2) retrait du bouton de notification de démonstration et du mot « test » dans les textes visibles ; (3) ajout de `SanadEngine` (données d'ouverture / fermeture / reprise).
 Uniquement : (a) correction de défaut reproductible, (b) amélioration non régressive, (c) fonction nouvelle n'altérant pas l'existant. Toute exception est inscrite dans `BEFORE_AFTER_FEATURE_MATRIX.md` (colonne « Écart ») et dans le changelog.
 
 ## 3. Règles de marque
-- Nom : **Sanad Pay** ; arabe : **سند باي**. Palette et jetons : `brand/design-tokens.css` du pack, repris dans `css/sanad.css`.
+- Nom : **Sanad Pay** ; arabe : **سند باي**. Palette et jetons : `brand/design-tokens.css` du pack, repris dans `css/s-tokens.css`.
 - Pas de remplacement global aveugle. Chaque occurrence est classée : *texte visible de marque* (remplacé), *identifiant technique* (conservé), *banque / bénéficiaire / donnée d'opération externe* (conservé — ex. « Bank Muscat » dans la liste des banques `reference-data.js`), *commentaire de code* (conservé ou neutralisé sans risque).
 - Le vert disparaît **de l'identité visuelle** ; le vert sémantique de succès (`#14A879`) reste réservé au succès. Rouge / ambre : erreur / avertissement uniquement.
 - Aucun symbole bancaire tiers, aucune marque, signature, reçu ou expéditeur de banque réelle. Un reçu Sanad Pay n'est pas un document bancaire (mention déjà présente, conservée). Aucun expéditeur « Bank Muscat » n'est jamais inventé.
