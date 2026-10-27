@@ -108,7 +108,7 @@ Strings.add({
     'yas.title': 'أمل', 'yas.sub': 'مساعدتك في سند باي', 'yas.ph': 'اسأل أمل', 'yas.typing': 'أمل يكتب', 'yas.new': 'محادثة جديدة',
     'yas.openChat': 'فتح المحادثة', 'yas.openCredit': 'طلب ائتمان', 'yas.openBoost': 'فتح بوست', 'yas.openSend': 'إرسال أموال', 'yas.openIntl': 'التحويل الدولي',
     'yas.c.deposit': 'كيف أودع أموالاً؟', 'yas.c.credit': 'أحتاج إلى ائتمان', 'yas.c.boost': 'اربح من أموالي', 'yas.c.balance': 'رصيدي', 'yas.c.human': 'التحدث مع شخص',
-    'yas.r.hello': 'مرحباً بك في Sanad Pay يا {n}! أنا مساعدتك المالية. كيف يمكنني مساعدتك اليوم؟',
+    'yas.r.hello': 'مرحباً بك في سند باي يا {n}! أنا مساعدتك المالية. كيف يمكنني مساعدتك اليوم؟',
     'yas.r.who': 'أنا أمل، مساعدة سند باي. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
     'yas.r.deposit': 'لإضافة أموال إلى حسابك اكتب للمسؤول في المحادثة. يؤكد المسؤول الإيداع هناك وتظهر الأموال في رصيدك فوراً.',
     'yas.r.credit': 'يمكنك طلب ائتمان من {min} إلى {max} ر.ع. يراجع المسؤول طلبك ويقرر. عند الموافقة يُضاف المبلغ إلى رصيدك مباشرة.',
@@ -1095,42 +1095,47 @@ const Yaser = (() => {
       noteEl.hidden = false;
       noteEl.innerHTML = (c === 'yes' ? '<span>' + chEsc(t('yas.ai.on')) + '</span>' : '') + '<button type="button" data-y="ai">' + chEsc(t(c === 'yes' ? 'yas.ai.turnOff' : 'yas.ai.turnOn')) + '</button>';
     }
-    const talk = on => { if (svg) svg.classList.toggle('is-talk', !!on); };
-    const think = on => { if (svg) svg.classList.toggle('is-think', !!on); };
-    function typeInto(el, text, done){
-      const b = el.querySelector('.yas-b'); const reduce = Fx.reduced();
-      if (reduce){ b.textContent = text; done(); return; }
-      let i = 0, skipped = false; const step = text.length > 140 ? 3 : text.length > 70 ? 2 : 1; talk(true);
-      const fin = () => { b.textContent = text; talk(false); el.removeEventListener('click', skip); done(); };
-      const skip = () => { skipped = true; };
-      el.addEventListener('click', skip);
-      const tick = () => { if (dead) return; if (skipped){ fin(); return; } i += step; b.textContent = text.slice(0, i); bottom(); if (i >= text.length) fin(); else timers.push(setTimeout(tick, 18)); };
-      tick();
-    }
-    function botSay(r, instant){
-      const el = botEl(); const post = () => { const b = el.querySelector('.yas-b'); const h = actionsHtml(r.actions); if (h) b.insertAdjacentHTML('afterend', h.replace('class="yas-acts"', 'class="yas-acts chat-in"')); bottom(); showChips(); busy = false; if (r.auto){ later(() => { try { R.go(r.auto); } catch(e){ /* rien */ } }, 1500); } };
-      if (instant){ el.classList.remove('chat-in'); el.querySelector('.yas-b').textContent = r.text; post(); return; }
+    /* États d'Amal (data-state sur .yas-wrap) : welcome · idle · think (VRAIE requête en cours) · answer · away (assistance IA indisponible) · handoff (passage à une personne).
+       « is-listening » = le champ de saisie a le focus (elle attend votre question) : aucun micro, aucune voix, aucune bouche animée. */
+    const setState = st => { wrap.setAttribute('data-state', st); };
+    const think = on => { if (svg) svg.classList.toggle('is-think', !!on); if (on) setState('think'); };
+    function botSay(r){
+      const el = botEl();
+      el.querySelector('.yas-b').textContent = r.text;
       try { Sfx.play('yaser'); } catch(e){ /* rien */ }
-      typeInto(el, r.text, () => { post(); });
+      setState(r.state || (r.auto ? 'handoff' : 'answer'));
+      const b = el.querySelector('.yas-b'); const h = actionsHtml(r.actions); if (h) b.insertAdjacentHTML('afterend', h.replace('class="yas-acts"', 'class="yas-acts chat-in"'));
+      bottom(); showChips(); busy = false;
+      /* passage à une personne : on OUVRE la conversation d'assistance (rien n'est envoyé) ; un texte d'urgence est seulement placé dans la zone de saisie, la personne l'envoie elle-même */
+      if (r.auto){ later(() => { try { if (r.prefill && typeof Chat !== 'undefined' && Chat.openSupport) Chat.openSupport(r.prefill); else R.go(r.auto); } catch(e){ /* rien */ } }, 1500); }
     }
     let pendingQ = '';
     const fallbackReply = () => { const r = reply('fallback'); r.actions = [{ k: 'yas.openChat', go: 'chat' }]; return r; };
-    /* question hors des réponses guidées : IA seulement si la personne l'a autorisée et si le serveur répond ; sinon réponse guidée, sans rien inventer */
+    /* question hors des réponses guidées : IA seulement si la personne l'a autorisée et si le serveur répond ; sinon réponse guidée (ou « indisponible »), sans rien inventer */
+    const aiWillRun = () => AmalAI.available() && AmalAI.consent() === 'yes';
     async function aiOrFallback(text){
       if (!AmalAI.available()) return fallbackReply();
       const c = AmalAI.consent();
       if (c === 'no') return fallbackReply();
       if (c !== 'yes'){ pendingQ = text; return { text: t('yas.ai.ask'), actions: [{ k: 'yas.ai.allow', ai: 'yes' }, { k: 'yas.ai.deny', ai: 'no' }], volatile: true }; }
       const r = await AmalAI.ask(text);
-      if (!r.text) return fallbackReply();
-      return { text: r.text, actions: r.handoff || r.urgent ? [{ k: 'yas.openChat', go: 'chat' }] : [], auto: r.urgent ? 'chat' : '' };
+      if (!r.text) return { text: t('yas.ai.down'), actions: [{ k: 'yas.openChat', go: 'chat' }], state: 'away' };
+      if (r.ok === false) return { text: r.text, actions: [{ k: 'yas.openChat', go: 'chat' }], state: 'away' };
+      return { text: r.text, actions: r.handoff || r.urgent ? [{ k: 'yas.openChat', go: 'chat' }] : [], auto: r.urgent ? 'chat' : '', prefill: r.urgent ? text : '', state: r.handoff || r.urgent ? 'handoff' : 'answer' };
     }
+    /* L'indicateur de rédaction n'existe QUE pendant une vraie demande (lecture des dossiers, appel à l'assistance IA) ; une réponse locale s'affiche aussitôt. */
     function answer(text, intent, fixed){
-      const dots = document.createElement('div'); dots.className = 'yas-m bot yas-typing chat-in'; dots.setAttribute('aria-label', t('yas.typing')); dots.innerHTML = '<span class="yas-ava">' + yaserSvg(30, 'mini') + '</span><div class="yas-b"><i></i><i></i><i></i></div>'; list.appendChild(dots); bottom(); think(true);
-      let rp;
-      if (fixed) rp = Promise.resolve({ text: fixed.text, actions: [{ k: 'yas.openChat', go: 'chat' }], auto: fixed.urgent ? 'chat' : '' });
-      else { const it = intent || intentOf(text); rp = SERVER_INTENTS.indexOf(it) >= 0 ? replyServer(it).catch(() => ({ text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }] })) : it === 'fallback' ? aiOrFallback(text).catch(() => fallbackReply()) : Promise.resolve(reply(it)); }
-      rp.then(r => { hist.push({ r: 'b', x: r.text, a: (r.actions || []).filter(a => !a.ai), at: Date.now() }); save(); later(() => { dots.remove(); think(false); botSay(r, false); }, 500); });
+      let rp, real = false;
+      if (fixed) rp = Promise.resolve({ text: fixed.text, actions: [{ k: 'yas.openChat', go: 'chat' }], auto: fixed.urgent ? 'chat' : '', prefill: fixed.urgent ? text : '', state: fixed.urgent ? 'handoff' : 'answer' });
+      else {
+        const it = intent || intentOf(text);
+        if (SERVER_INTENTS.indexOf(it) >= 0){ real = true; rp = replyServer(it).catch(() => ({ text: t('yas.r.noData'), actions: [{ k: 'yas.openChat', go: 'chat' }], state: 'away' })); }
+        else if (it === 'fallback'){ real = aiWillRun(); rp = aiOrFallback(text).catch(() => ({ text: t('yas.ai.down'), actions: [{ k: 'yas.openChat', go: 'chat' }], state: 'away' })); }
+        else rp = Promise.resolve(reply(it));
+      }
+      let dots = null;
+      if (real){ dots = document.createElement('div'); dots.className = 'yas-m bot yas-typing chat-in'; dots.setAttribute('aria-label', t('yas.typing')); dots.innerHTML = '<span class="yas-ava">' + yaserSvg(30, 'mini') + '</span><div class="yas-b"><i></i><i></i><i></i></div>'; list.appendChild(dots); bottom(); think(true); }
+      rp.then(r => { hist.push({ r: 'b', x: r.text, a: (r.actions || []).filter(a => !a.ai), at: Date.now() }); save(); if (dead) return; if (dots){ dots.remove(); think(false); } botSay(r); });
     }
     function ask(text, intent){
       if (busy) return; busy = true; text = String(text || '').trim().slice(0, 300); if (!text) { busy = false; return; }
@@ -1144,8 +1149,9 @@ const Yaser = (() => {
       hist.forEach(m => { if (m.r === 'u') addUser(m.x, true); else { const r = { text: m.x, actions: (m.a || []).filter(a => !a.ai) }; const el = botEl(); el.classList.remove('chat-in'); el.querySelector('.yas-b').textContent = m.x; const h = actionsHtml(r.actions); if (h) el.querySelector('.yas-b').insertAdjacentHTML('afterend', h); } });
       list.scrollTop = list.scrollHeight; showChips();
     }
-    function hello(){ busy = true; const r = reply('hello'); hist.push({ r: 'b', x: r.text, a: [], at: Date.now() }); save(); later(() => botSay(r, false), 450); }
-    noteRender();
+    function hello(){ busy = true; const r = reply('hello'); r.state = 'welcome'; hist.push({ r: 'b', x: r.text, a: [], at: Date.now() }); save(); botSay(r); }
+    noteRender(); setState('idle');
+    inp.addEventListener('focus', () => wrap.classList.add('is-listening')); inp.addEventListener('blur', () => wrap.classList.remove('is-listening'));
     if (hist.length) restore(); else hello();
     root.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
@@ -1160,7 +1166,7 @@ const Yaser = (() => {
       const y = b.getAttribute('data-y');
       if (y === 'ai'){ AmalAI.setConsent(AmalAI.consent() === 'yes' ? 'no' : 'yes'); noteRender(); return; }
       if (y === 'send'){ const v = inp.value; inp.value = ''; ask(v); inp.focus({ preventScroll: true }); }
-      else if (y === 'new'){ if (busy) return; hist = []; save(); list.innerHTML = ''; chips.innerHTML = ''; wrap.classList.remove('has-msgs'); try { Sfx.play('pop'); } catch(x){ /* rien */ } hello(); }
+      else if (y === 'new'){ if (busy) return; hist = []; save(); list.innerHTML = ''; chips.innerHTML = ''; wrap.classList.remove('has-msgs'); setState('idle'); try { Sfx.play('pop'); } catch(x){ /* rien */ } hello(); }
     });
     inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.isComposing){ e.preventDefault(); const v = inp.value; inp.value = ''; ask(v); } });
     /* les yeux suivent le doigt */

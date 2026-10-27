@@ -343,7 +343,7 @@ const IdentifierEngine = Object.freeze({
 const INTERNAL_SERVICE_DEF = Object.freeze({
   id: 'yor_internal',
   key: 'INTERNAL',
-  name: { fr: 'Sanad Pay (Envoi interne)', en: 'Sanad Pay (Internal)', ar: 'Sanad Pay (داخلي)' },
+  name: { fr: 'Sanad Pay (Envoi interne)', en: 'Sanad Pay (Internal)', ar: 'سند باي (داخلي)' },
   identifierType: 'YOR_ID',
   icon: 'send',
   primary: false,

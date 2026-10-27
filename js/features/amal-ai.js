@@ -22,7 +22,8 @@ const AmalAI = (() => {
       'yas.ai.denied': 'Understood. I will keep to my guided answers.',
       'yas.ai.on': 'AI answers are on. They can be wrong: check amounts and statuses in the app, and never share a password or a code.',
       'yas.ai.turnOff': 'Turn off AI answers', 'yas.ai.turnOn': 'Turn on AI answers',
-      'yas.hidden': 'Message hidden for your security'
+      'yas.hidden': 'Message hidden for your security',
+      'yas.ai.down': 'I cannot reach the AI service right now. I can still answer from my guided topics, or you can talk to a person.'
     },
     fr: {
       'yas.ai.ask': 'Je peux utiliser un service d’IA pour répondre. Votre question est envoyée par une connexion sécurisée à notre serveur, puis au fournisseur d’IA. Rien sur votre solde, vos opérations ou votre identité n’y est joint. N’écrivez jamais de mot de passe, de code, ni de numéro de carte, de compte ou de téléphone. Autoriser les réponses par IA ?',
@@ -30,7 +31,8 @@ const AmalAI = (() => {
       'yas.ai.denied': 'Compris. Je m’en tiens à mes réponses guidées.',
       'yas.ai.on': 'Les réponses par IA sont activées. Elles peuvent être inexactes : vérifiez les montants et les statuts dans l’application, et ne partagez jamais de mot de passe ni de code.',
       'yas.ai.turnOff': 'Désactiver les réponses par IA', 'yas.ai.turnOn': 'Activer les réponses par IA',
-      'yas.hidden': 'Message masqué pour votre sécurité'
+      'yas.hidden': 'Message masqué pour votre sécurité',
+      'yas.ai.down': 'Je ne parviens pas à joindre le service d’IA pour le moment. Je peux répondre avec mes sujets guidés, ou vous pouvez parler à une personne.'
     },
     ar: {
       'yas.ai.ask': 'يمكنني استخدام خدمة ذكاء اصطناعي للإجابة. يُرسل سؤالك عبر اتصال آمن إلى خادمنا ثم إلى مزوّد الذكاء الاصطناعي، دون أي معلومة عن رصيدك أو عملياتك أو هويتك. لا تكتب أبداً كلمة مرور أو رمزاً أو رقم بطاقة أو حساب أو هاتف. هل تسمح بإجابات الذكاء الاصطناعي؟',
@@ -38,7 +40,8 @@ const AmalAI = (() => {
       'yas.ai.denied': 'مفهوم. سأكتفي بإجاباتي الموجّهة.',
       'yas.ai.on': 'إجابات الذكاء الاصطناعي مفعّلة. قد تكون خاطئة: تحقّق من المبالغ والحالات في التطبيق ولا تشارك كلمة مرور أو رمزاً.',
       'yas.ai.turnOff': 'إيقاف إجابات الذكاء الاصطناعي', 'yas.ai.turnOn': 'تفعيل إجابات الذكاء الاصطناعي',
-      'yas.hidden': 'تم إخفاء الرسالة لحمايتك'
+      'yas.hidden': 'تم إخفاء الرسالة لحمايتك',
+      'yas.ai.down': 'لا أستطيع الوصول إلى خدمة الذكاء الاصطناعي الآن. يمكنني الإجابة عن المواضيع الموجّهة، أو يمكنك التحدث مع شخص.'
     }
   });
 

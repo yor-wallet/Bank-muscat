@@ -16,7 +16,7 @@ Object.assign(TR.fr, {
 Object.assign(TR.ar, {
   'crypto.addressUnusual':'هذا العنوان لا يشبه عنوان {net} المعتاد. يمكنك المتابعة، لكن تحقق جيداً من العنوان والشبكة.',
   'crypto.addressLooksLike':'يبدو أنه عنوان {other}.',
-  'errors.ADDRESS_NETWORK_MISMATCH':'هذا العنوان لمحفظة Sanad Pay على شبكة أخرى. اختر الشبكة المطابقة.',
+  'errors.ADDRESS_NETWORK_MISMATCH':'هذا العنوان لمحفظة سند باي على شبكة أخرى. اختر الشبكة المطابقة.',
   'errors.UNSUPPORTED_NETWORK':'هذه العملة غير متاحة على هذه الشبكة.'
 });
 

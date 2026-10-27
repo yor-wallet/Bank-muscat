@@ -353,11 +353,9 @@ html[dir="rtl"] .chat-rec-hint{animation-name:chatNudgeR}
 .sanad-amal{display:block;object-fit:cover;object-position:50% 14%;border-radius:50%;background:radial-gradient(circle at 50% 30%,#EAF8FF,#BFE3FA);box-shadow:0 0 0 2px rgba(255,255,255,.85) inset,0 10px 22px -10px rgba(19,79,145,.45)}
 .yas-hero .sanad-amal{width:112px;height:112px;animation:amalFloat 4.6s ease-in-out infinite}
 .yas-ava .sanad-amal,.chat-yb .sanad-amal,.chat-yfab .sanad-amal{box-shadow:0 0 0 1.5px rgba(255,255,255,.9) inset,0 4px 10px -4px rgba(19,79,145,.4)}
-.sanad-amal.is-talk{animation:amalTalk .5s ease-in-out infinite alternate}
 .sanad-amal.is-think{filter:saturate(.9) brightness(.98)}
 .sanad-amal.is-happy{animation:amalHop .6s cubic-bezier(.34,1.56,.64,1)}
 @keyframes amalFloat{0%,100%{translate:0 0}50%{translate:0 -4px}}
-@keyframes amalTalk{from{scale:1}to{scale:1.035}}
 @keyframes amalHop{0%{translate:0 0;scale:1}40%{translate:0 -10px;scale:1.04}100%{translate:0 0;scale:1}}
 .yas-note{flex:none;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:6px 16px 0;font-size:12px;line-height:1.4;color:var(--sx-ink-2,#4a6076)}
 .yas-note[hidden]{display:none}
