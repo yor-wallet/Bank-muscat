@@ -77,7 +77,7 @@ const Janitor = (() => {
   const stat = { runs: 0, removed: 0, at: 0, last: {} };
   const uidNow = () => { try { return (Runtime.ctx && Runtime.ctx.uid) || (UserContext.get() && UserContext.get().uid) || ''; } catch(e){ return ''; } };
   /* clés locales liées à une personne : on ne garde que celles de la personne connectée */
-  const PER_USER = [/^cr_fete_(.+)$/, /^yaser_(?:hist|mem)_(.+)$/, /^chat_(?:draft|tpl)_(.+)$/, /^fp_cache_(.+)$/];
+  const PER_USER = [/^sanad_ui_(.+)$/, /^cr_fete_(.+)$/, /^yaser_(?:hist|mem)_(.+)$/, /^chat_(?:draft|tpl)_(.+)$/, /^fp_cache_(.+)$/];
   async function run(){
     if (typeof document !== 'undefined' && document.hidden) return stat;
     const uid = uidNow(); let n = 0; const det = {};

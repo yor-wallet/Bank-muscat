@@ -574,3 +574,6 @@ html[dir="rtl"] .fk-dots i::after,html[dir="rtl"] .yl-dot::after{transform-origi
 .fid-btn{width:100%;max-width:340px;margin-top:var(--sp-2)}
 .fid-link{min-height:44px;padding:0 var(--sp-4);font-size:calc(14.5px*var(--ui));font-weight:650;color:var(--accent-600)}.fid-link.muted{color:var(--text-2);font-weight:600}
 @media (prefers-reduced-motion:reduce){.fid-orb::after{display:none}.fid.ok .fid-face .fk{stroke-dashoffset:0;animation:none}}
+
+.fid.fid-quiet{background:transparent;pointer-events:none;animation:none}
+.fid.fid-quiet .fid-card{opacity:0;transform:translate3d(0,24px,0);animation:none}

@@ -27,6 +27,7 @@ let _deepUsed = false;
 function openHome(){
   R.go('home', { reset:true, force:true });
   setTimeout(() => { try { Reward.check(); } catch(e){ /* rien */ } try { LiveX.afterHome(); } catch(e){ /* rien */ } }, 700);     /* 16.0.0 : récompense de bienvenue réellement créditée par le serveur → célébration */
+  if (!LAUNCH_HASH && !_deepUsed){ _deepUsed = true; try { SanadEngine.restore(); } catch(e){ /* rien */ } return; }
   if (_deepUsed || !LAUNCH_HASH) return;
   _deepUsed = true;
   try {
@@ -91,6 +92,7 @@ function boot(){
 
   R.bind();
   UIKit.init();
+  try { SanadEngine.start(); } catch(e){ console.error(e); }
   AppLock.init();
   YorDrawer.init();
   OfferSlot.init();

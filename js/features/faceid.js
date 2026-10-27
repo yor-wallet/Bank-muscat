@@ -167,13 +167,18 @@ const FaceId = (() => {
       document.body.appendChild(root);
       const $ = (id) => root.querySelector('#' + id);
       let busy = false, done = false, fails = 0;
+      /* Sanad Pay 21.0.0 — comme dans les autres applications : quand la confirmation vient d'un toucher (envoi d'un transfert), l'invite Face ID du système
+         s'ouvre directement ; la feuille reste invisible tant que tout va bien, et ne se montre que s'il faut réessayer */
+      let quiet = false; try { quiet = mode === 'verify' && !!(navigator.userActivation && navigator.userActivation.isActive); } catch (e) {}
+      if (quiet) root.classList.add('fid-quiet');
       const finish = (v) => { if (done) return; done = true; root.classList.add('out'); setTimeout(() => { try { root.remove(); } catch (e) {} if (el === root) el = null; }, 260); resolve(v); };
       async function run(){
         if (busy || done || root.classList.contains('ok')) return;     /* a second tap during the success animation must not create a second key */
         busy = true; root.classList.add('busy'); $('fid-err').textContent = ''; $('fid-go').disabled = true;
         const r = mode === 'enroll' ? await enroll() : await assert(o.prfSalt || null);
         busy = false; root.classList.remove('busy'); $('fid-go').disabled = false;
-        if (r.ok){ root.classList.add('ok'); try { UIKit.haptic('success'); } catch (e) {} setTimeout(() => finish({ ok: true, prf: r.prf || null, cid: r.cid || null }), 700); return; }
+        if (r.ok){ if (quiet){ try { UIKit.haptic('success'); } catch (e) {} finish({ ok: true, prf: r.prf || null, cid: r.cid || null }); return; } root.classList.add('ok'); try { UIKit.haptic('success'); } catch (e) {} setTimeout(() => finish({ ok: true, prf: r.prf || null, cid: r.cid || null }), 700); return; }
+        root.classList.remove('fid-quiet'); quiet = false;
         $('fid-err').textContent = tx(r.reason === 'cancelled' ? 'errCancelled' : r.reason === 'invalid' ? 'errInvalid' : 'errGeneric');
         $('fid-go').textContent = tx('retry');
         /* Safety valve: the device says it supports biometrics but the key cannot be created after 3 tries -> do not lock the user out */

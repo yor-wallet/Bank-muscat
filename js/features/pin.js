@@ -75,6 +75,7 @@ const PinEngine = (() => {
   function forget(uid){ const u = uid || ctxUid(); const v = vRead(); if (u && v[u]){ delete v[u]; vWrite(v); } }
   function hasVault(){ const u = ctxUid(); return !!(u && vRead()[u]); }
   const unwrap = (r) => (Array.isArray(r.data) ? r.data[0] : r.data);
+  const d0ok = (r) => { const d = unwrap(r) || {}; return d.ok === true; };
   /* Modal that collects the PIN. submit(pin, pin2) -> { ok, value } | { ok:false, msg }.
      Resolves with the value on success, or null if the user cancels. The PIN is never stored. */
   function prompt(mode, submit, labels){
@@ -160,29 +161,32 @@ const PinEngine = (() => {
     if (busy) return { ok:false, cancelled:true };
     busy = true;
     try {
-      let f = null, salt = null;
-      try { salt = await prfSalt(); } catch(e){}
-      try { f = await FaceId.gate({ purpose:'transfer', cancel:true, prfSalt: salt }); } catch(e){ f = { ok:false, skipped:'error' }; }
-      /* 1) Face ID confirmed and the code is in the vault: the server checks it (verify_pin), nothing to type */
-      const bio = !!(f && f.ok && !f.skipped);          /* une vraie vérification Face ID / biométrique a réussi (pas « appareil sans biométrie ») */
-      if (bio){
-        const pin = f.prf ? await vaultOpen(f.prf, f.cid) : await vaultOpenDk();
-        if (pin){
-          const v = await verify(pin);
-          if (v.ok) return { ok:true, grant: v.value, via:'faceid' };
-          forget();                                   /* changed elsewhere or locked: never retried silently; the code is asked below */
-        }
+      /* Sanad Pay 21.0.0 — UNE seule confirmation, jamais les deux : Face ID OU le code.
+         - Face ID activé ET le code rangé dans le coffre de cet appareil : Face ID suffit (le serveur vérifie le code lui-même via verify_pin) ;
+         - Face ID activé mais coffre vide (première fois sur cet appareil, code changé…) : on demande le CODE SEUL, puis on le range pour que
+           la prochaine confirmation soit Face ID seul — jamais « Face ID puis code » dans la même confirmation ;
+         - Face ID annulé / échec : le code. */
+      let fiOn = false; try { fiOn = !!(FaceId.info().enrolled && await FaceId.supported()); } catch(e){ fiOn = false; }
+      if (fiOn && hasVault()){
+        let salt = null; try { salt = await prfSalt(); } catch(e){}
+        let f = null; try { f = await FaceId.gate({ purpose:'transfer', cancel:true, prfSalt: salt }); } catch(e){ f = { ok:false, skipped:'error' }; }
+        const bio = !!(f && f.ok && !f.skipped);          /* une vraie vérification Face ID / biométrique a réussi */
+        if (bio){
+          /* les deux formes de coffre sont essayées : clé liée à Face ID (PRF) puis clé de l'appareil */
+          const pin = (f.prf ? await vaultOpen(f.prf, f.cid) : null) || await vaultOpenDk();
+          if (pin){
+            const v = await verify(pin);
+            if (v.ok) return { ok:true, grant: v.value, via:'faceid' };
+            forget();                                      /* code changé ailleurs ou verrouillé : il est redemandé ci-dessous, une seule fois */
+          }
+        } else if (f && f.cancelled){ return { ok:false, cancelled:true }; }
+        else if (f && f.loggedOut){ return { ok:false, cancelled:true }; }
       }
-      /* 2) otherwise the 6-digit code (Face ID cancelled, failed, not available, or first time on this device) */
+      /* le code (Face ID absent, coffre vide, annulé ou refusé) */
       let typed = null;
       const r = await authorizeCore(pin => { typed = pin; });
-      if (r.ok && typed && bio){
-        if (f.prf) await vaultSave(typed, f.prf, f.cid);        /* next time Face ID alone is enough */
-        else await vaultSaveDk(typed);                          /* 16.1.0 : sans PRF, clé liée à l'appareil : Face ID seul suffit aussi la prochaine fois */
-      }
+      if (r.ok && typed && fiOn){ await vaultSaveDk(typed); }        /* la prochaine confirmation sera Face ID seul */
       typed = null;
-      /* Face ID could not be used (recover): the PIN just verified lets the device create a fresh Face ID key */
-      if (r.ok && f && f.recover){ try { await FaceId.reenroll({ purpose:'transfer', cancel:false }); } catch(e){} }
       return r;
     } catch(e){
       console.error(e);
@@ -242,7 +246,7 @@ const PinEngine = (() => {
         });
         return created ? { ok:true } : { ok:false, cancelled:true };
       }
-      let oldPin = null;
+      let oldPin = null, newPinVal = null;
       const okOld = await prompt('enter', async (pin) => {
         if (!/^[0-9]{6}$/.test(pin || '')) return { ok:false, msg:t('pin.format') };
         const v = await verify(pin);
@@ -255,6 +259,7 @@ const PinEngine = (() => {
         if (pin !== pin2) return { ok:false, msg:t('pin.mismatch') };
         if (pin === oldPin) return { ok:false, msg:t('px.pinSame') };
         const r = await sb.rpc('change_pin', { p_old: oldPin, p_new: pin });
+        if (!r.error && d0ok(r)) newPinVal = pin;
         if (r.error){ const m = String(r.error.message || '').toLowerCase(); return { ok:false, msg:t(m.includes('weak_pin') ? 'pin.weak' : m.includes('invalid_pin_format') ? 'pin.format' : 'errors.UNKNOWN_ERROR') }; }
         const d = unwrap(r) || {};
         if (d.ok) return { ok:true, value:true };
@@ -262,7 +267,8 @@ const PinEngine = (() => {
         return { ok:false, msg:t('errors.UNKNOWN_ERROR') };
       }, { t1: t('px.pinNewT'), s1: t('pin.createSub'), t2: t('pin.confirmLabel') });
       oldPin = null;
-      if (done) forget();
+      if (done){ forget(); try { if (newPinVal && FaceId.info().enrolled) await vaultSaveDk(newPinVal); } catch(e){ /* le code sera redemandé une fois */ } }
+      newPinVal = null;
       return done ? { ok:true } : { ok:false, cancelled:true };
     } catch(e){ console.error(e); return { ok:false, msg:t('errors.UNKNOWN_ERROR') }; }
     finally { busy = false; }
