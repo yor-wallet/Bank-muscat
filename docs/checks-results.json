@@ -1,0 +1,97 @@
+[
+ {
+  "name": "[en] titre et dir/lang",
+  "pass": true,
+  "detail": "Sanad Pay / ltr / en"
+ },
+ {
+  "name": "[en] aucun mot interdit visible (ancienne marque, « test », banque tierce)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[en] aucun défilement horizontal",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[en] cibles tactiles ≥ 40 px (information)",
+  "pass": true,
+  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32 ; credit → cr-amt 228x38 | cr-rng 304x36 ; withdraw → wd-ok 1x1 ; chat → chat-help-go 142x36 | chat-help-x 32x32 | chat-send 18x18"
+ },
+ {
+  "name": "[en] aucune erreur console",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[fr] titre et dir/lang",
+  "pass": true,
+  "detail": "Sanad Pay / ltr / fr"
+ },
+ {
+  "name": "[fr] aucun mot interdit visible (ancienne marque, « test », banque tierce)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[fr] aucun défilement horizontal",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[fr] cibles tactiles ≥ 40 px (information)",
+  "pass": true,
+  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32"
+ },
+ {
+  "name": "[fr] aucune erreur console",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[ar] titre et dir/lang",
+  "pass": true,
+  "detail": "Sanad Pay / rtl / ar"
+ },
+ {
+  "name": "[ar] aucun mot interdit visible (ancienne marque, « test », banque tierce)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[ar] aucun défilement horizontal",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "[ar] cibles tactiles ≥ 40 px (information)",
+  "pass": true,
+  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32"
+ },
+ {
+  "name": "[ar] aucune erreur console",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "aucune ressource locale en échec (4xx/5xx)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "manifeste : nom, couleurs, icônes",
+  "pass": true,
+  "detail": "Sanad Pay #2596DE #EAF8FF icônes=4"
+ },
+ {
+  "name": "index.html : aucune requête vers un autre site pour les polices",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "index.html : image de démarrage iOS déclarée",
+  "pass": true,
+  "detail": ""
+ }
+]
