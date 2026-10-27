@@ -223,10 +223,11 @@ const V12 = (() => {
     const nav = document.getElementById('bottom-nav');
     if (!nav || nav.getAttribute('data-v12') === LANG) return;
     nav.setAttribute('data-v12', LANG);
-    const it = (nav2, ic, lbl, cta) => cta
-      ? '<a class="nav-item nav-cta" data-nav="' + nav2 + '"><span class="nav-cta-tile">' + icon(ic, 26) + '</span><span class="nav-lb">' + lbl + '</span></a>'
-      : '<a class="nav-item" data-nav="' + nav2 + '"><span class="nav-ic">' + icon(ic, 24) + '</span><span class="nav-lb">' + lbl + '</span></a>';
-    nav.innerHTML = '<div class="nav-dock">' + it('home', 'home', vt('home')) + it('cards', 'cards', vt('cards')) + it('country-select', 'send', vt('send'), true) + it('history', 'history', vt('historyL')) + it('services', 'apps', vt('services')) + '<i class="nav-ind" aria-hidden="true"></i></div>';
+    /* Sanad Pay 21.0.0 — barre « rail » : 4 onglets (seul l'actif montre son libellé, la ligne d'horizon se trace dessous) et « Envoyer » = carré arrondi plein en bout de rail.
+       Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
+    const tab = (nav2, ic, lbl) => '<a class="nav-item sx-tab" data-nav="' + nav2 + '" aria-label="' + lbl + '"><span class="nav-ic">' + icon(ic, 24) + '</span><span class="nav-lb">' + lbl + '</span></a>';
+    const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 22) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
+    nav.innerHTML = '<div class="nav-dock sx-rail">' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + send + '<i class="nav-ind" aria-hidden="true"></i></div>';
     requestAnimationFrame(placeInd);
   }
   /* The highlight pill glides under the active tab (12.9.0). Measured, so it also works in RTL and at any width. */
@@ -376,7 +377,7 @@ const V12 = (() => {
   }
   const LANG_NAMES = { en:'English', fr:'Français', ar:'العربية' };
   function decorateAuth(id){
-    const root = document.getElementById(id); if (!root || root.classList.contains('rv-auth')) return;
+    const root = document.getElementById(id); if (!root || root.classList.contains('rv-auth') || root.querySelector('.sx-auth')) return;
     const body = root.querySelector('.screen-body'); if (!body) return;
     root.classList.add('rv-auth');
     const oldLogo = body.querySelector('.logo-lockup'); if (oldLogo && oldLogo.parentElement !== body) oldLogo.parentElement.remove();

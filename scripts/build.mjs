@@ -59,7 +59,7 @@ for (const v of vendorFiles) fs.copyFileSync(path.join(ROOT, v), path.join(DIST,
 fs.copyFileSync(path.join(ROOT, 'js/vendor/reown-appkit.js'), path.join(DIST, 'js/vendor/reown-appkit.js'));   /* chargé à la demande, hors regroupement */
 
 /* ---------- index.html ---------- */
-const fonts = ['assets/fonts/manrope-latin-var.woff2', 'assets/fonts/inter-latin-var.woff2'];
+const fonts = ['assets/fonts/inter-latin-var.woff2'];
 html = html.replace(/<link rel="stylesheet" href="css\/[^"]+">\s*/g, '');
 html = html.replace(/<script src="js\/[^"]+" defer><\/script>\s*/g, '');
 const head = [

@@ -21,21 +21,8 @@ const AppLock = (() => {
   const tx = (k) => (L[LANG] || L.en)[k] || L.en[k];
   let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0, lastPin = null;
 
-  function css(){
-    if (document.getElementById('yl-css')) return;
-    const s = document.createElement('style'); s.id = 'yl-css';
-    s.textContent =
-      '.yl,.yl-cover{position:fixed;inset:0;z-index:1000;box-sizing:border-box;background:var(--bg,#fdf8e9);color:var(--text,#13263c);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(16px + env(safe-area-inset-top,0px)) 20px calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto}' +
-      '.yl-title{font-size:22px;font-weight:700;margin:14px 0 6px;text-align:center}' +
-      '.yl-sub{font-size:14px;opacity:.7;text-align:center;max-width:320px;line-height:1.5;margin:0 0 18px}' +
-      '.yl-err{min-height:20px;font-size:13px;color:var(--danger,#ef4444);text-align:center;margin-bottom:10px;max-width:320px}' +
-      '.yl-out{margin-top:18px;background:none;border:0;color:var(--accent,#1771b2);font-size:15px;font-weight:600;padding:12px 16px;cursor:pointer;min-height:44px}' +
-      '@keyframes ylshake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}' +
-      '.yl-shake{animation:ylshake .35s}' +
-      '@media (max-height:640px){.yl-title{margin-top:6px}}' +
-      '@media (prefers-reduced-motion:reduce){.yl-shake{animation:none}}';
-    document.head.appendChild(s);
-  }
+  /* Sanad Pay 21.0.0 : les styles du verrouillage vivent dans css/s-screens.css (feuille unique) */
+  function css(){ /* rien */ }
   function setInert(on){
     const r = document.getElementById('app'); if (!r) return;
     try { r.inert = on; } catch(e){}

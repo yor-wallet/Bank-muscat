@@ -35,13 +35,13 @@ const now = Date.now();
 const iso = ms => new Date(ms).toISOString();
 
 export const FIXTURE = {
-  profile: { id: UID, user_id: 'USR-TEST01', yor_id: 'YOR-TEST01', email: 'test.user@example.invalid', role: 'user', first_name: 'Test', last_name: 'Utilisateur', phone: '+96890000000', country: 'OM', photo: null, kyc: { status: 'VERIFIED', level: 1, verifiedAt: iso(now - 864e5 * 30) }, created_at: iso(now - 864e5 * 60) },
-  accounts: [{ id: 'ACC-TEST-OMR', user_id: UID, type: 'MAIN', name: 'Main OMR', currency: 'OMR', balance: '1250.500', available_balance: '1250.500', reserved_balance: '0', status: 'ACTIVE', country: 'OM', created_at: iso(now - 864e5 * 60) }],
+  profile: { id: UID, user_id: 'USR-A1B2C3', yor_id: 'YOR-A1B2C3', email: 'aisha.balushi@example.invalid', role: 'user', first_name: 'Aisha', last_name: 'Al Balushi', phone: '+96890000000', country: 'OM', photo: null, kyc: { status: 'VERIFIED', level: 1, verifiedAt: iso(now - 864e5 * 30) }, created_at: iso(now - 864e5 * 60) },
+  accounts: [{ id: 'ACC-OMR-0001', user_id: UID, type: 'MAIN', name: 'Main OMR', currency: 'OMR', balance: '1250.500', available_balance: '1250.500', reserved_balance: '0', status: 'ACTIVE', country: 'OM', created_at: iso(now - 864e5 * 60) }],
   transactions: [
-    { id: 'tx-1', reference: 'TEST-REF-0001', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'CONFIRMED', asset: 'OMR', amount: 25, fee: 0, total: 25, counterparty_name: 'Bénéficiaire Test', note: null, meta: { receiver: '+96891111111' }, created_at: iso(now - 36e5 * 5) },
-    { id: 'tx-2', reference: 'TEST-REF-0002', kind: 'FIAT_TRANSFER', direction: 'IN', status: 'CONFIRMED', asset: 'OMR', amount: 100, fee: 0, total: 100, counterparty_name: 'Expéditeur Test', note: null, meta: {}, created_at: iso(now - 864e5 * 2) },
-    { id: 'tx-3', reference: 'TEST-REF-0003', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'PENDING', asset: 'OMR', amount: 12.5, fee: 0, total: 12.5, counterparty_name: 'Bénéficiaire Test', note: null, meta: {}, created_at: iso(now - 864e5 * 3) },
-    { id: 'tx-4', reference: 'TEST-REF-0004', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'FAILED', asset: 'OMR', amount: 8, fee: 0, total: 8, counterparty_name: 'Bénéficiaire Test', note: null, meta: {}, created_at: iso(now - 864e5 * 4) },
+    { id: 'tx-1', reference: 'YOR-TX-100001', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'CONFIRMED', asset: 'OMR', amount: 25, fee: 0, total: 25, counterparty_name: 'Salim Al Harthy', note: null, meta: { receiver: '+96891111111' }, created_at: iso(now - 36e5 * 5) },
+    { id: 'tx-2', reference: 'YOR-TX-100002', kind: 'FIAT_TRANSFER', direction: 'IN', status: 'CONFIRMED', asset: 'OMR', amount: 100, fee: 0, total: 100, counterparty_name: 'Fatma Al Rawahi', note: null, meta: {}, created_at: iso(now - 864e5 * 2) },
+    { id: 'tx-3', reference: 'YOR-TX-100003', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'PENDING', asset: 'OMR', amount: 12.5, fee: 0, total: 12.5, counterparty_name: 'Salim Al Harthy', note: null, meta: {}, created_at: iso(now - 864e5 * 3) },
+    { id: 'tx-4', reference: 'YOR-TX-100004', kind: 'FIAT_EXTERNAL', direction: 'OUT', status: 'FAILED', asset: 'OMR', amount: 8, fee: 0, total: 8, counterparty_name: 'Salim Al Harthy', note: null, meta: {}, created_at: iso(now - 864e5 * 4) },
   ],
   notifications: [{ id: '99999999-0000-4000-8000-000000000001', user_id: UID, type: 'TRANSFER_RECEIVED', title: 'Money received', message: 'You received 100.000 OMR', read: false, transaction_id: 'tx-2', data: {}, created_at: iso(now - 864e5 * 2) }],
 };
@@ -49,7 +49,7 @@ export const FIXTURE = {
 export function sessionStorageValue() {
   const exp = Math.floor(now / 1000) + 3600 * 24;
   const jwt = `${b64({ alg: 'HS256', typ: 'JWT' })}.${b64({ sub: UID, aud: 'authenticated', role: 'authenticated', exp, iat: exp - 3600 })}.test`;
-  return JSON.stringify({ access_token: jwt, token_type: 'bearer', expires_in: 86400, expires_at: exp, refresh_token: 'test-refresh', user: { id: UID, aud: 'authenticated', role: 'authenticated', email: FIXTURE.profile.email, app_metadata: {}, user_metadata: {}, created_at: FIXTURE.profile.created_at } });
+  return JSON.stringify({ access_token: jwt, token_type: 'bearer', expires_in: 86400, expires_at: exp, refresh_token: 'refresh-0001', user: { id: UID, aud: 'authenticated', role: 'authenticated', email: FIXTURE.profile.email, app_metadata: {}, user_metadata: {}, created_at: FIXTURE.profile.created_at } });
 }
 
 /* options.loggedIn : session de test pré-posée ; options.log : tableau recevant les requêtes bloquées */
@@ -70,6 +70,7 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
       if (p === '/rest/v1/profiles') return one([FIXTURE.profile]);
       if (p === '/rest/v1/accounts') return json(FIXTURE.accounts);
       if (p === '/rest/v1/notifications') return json(FIXTURE.notifications);
+      if (p === '/rest/v1/user_items' && /eq\.cards/.test(u.searchParams.get('collection') || '')) return json([{ item_id: 'CARD-0001', data: { label: 'Daily card', theme: 'midnight', number: '4532018800004821', holderName: 'AISHA AL BALUSHI', currency: 'OMR', createdAt: now - 864e5 * 9, issued: true, frozen: false } }]);
       if (p === '/rest/v1/crypto_wallets' || p === '/rest/v1/user_items' || p === '/rest/v1/announcements' || p === '/rest/v1/intl_countries' || p === '/rest/v1/invest_plans') return json([]);
       if (p === '/rest/v1/user_docs') return one([]);
       return json([]);
@@ -78,14 +79,14 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
     if (p.startsWith('/rest/v1/rpc/')) {
       const name = p.split('/').pop();
       if (name === 'pin_status') return json({ has_pin: true, locked: false });
-      if (name === 'verify_pin') return json({ ok: true, grant: 'test-grant-not-valid-anywhere' });   /* le code de test n'ouvre que l'écran de verrouillage : toute écriture reste refusée plus bas */
+      if (name === 'verify_pin') return json({ ok: true, grant: 'local-grant-not-valid-anywhere' });   /* le code de test n'ouvre que l'écran de verrouillage : toute écriture reste refusée plus bas */
       if (['get_app_config'].includes(name)) return json({});
       if (['kyc_status'].includes(name)) return json({ status: 'VERIFIED', level: 1 });
       if (/^(get_|.*_overview$|.*_status$|.*_list$)/.test(name)) return json([]);
     }
     /* toute autre écriture / appel : refusé et journalisé — aucune opération ne peut aboutir pendant un test */
     log.push(`${m} ${u.pathname}`);
-    return json({ message: 'blocked by test harness', code: 'TEST_BLOCKED' }, 403);
+    return json({ message: 'blocked by the local harness', code: 'LOCAL_BLOCKED' }, 403);
   });
   await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, route => /supabase\.co/.test(route.request().url()) ? route.fallback() : route.abort());
   const page = await ctx.newPage();

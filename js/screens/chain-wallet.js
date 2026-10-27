@@ -7,17 +7,17 @@
    - jeton expérimental de TEST, sans valeur, distinct de Tether.
    ============================================================ */
 Object.assign(TR.en, {
-  'chain.tile':'YOR-USDT (test)','chain.group':'Blockchain (test network)','chain.title':'YOR-USDT',
-  'chain.notice.t':'Test network','chain.notice.p':'YOR Experimental USDT is a TEST token on the Nile test network. It has no monetary value and is not Tether (USDT). You sign every transfer in your own TronLink wallet — Sanad Pay never sees your private key.',
-  'chain.testBalance':'TEST BALANCE','chain.wallet':'Wallet','chain.connect.btn':'Connect TronLink','chain.connect.ready':'Connect your TronLink wallet to see your balance and send YOR-USDT.',
+  'chain.tile':'YOR-USDT (experimental)','chain.group':'Blockchain (experimental network)','chain.title':'YOR-USDT',
+  'chain.notice.t':'Experimental network','chain.notice.p':'YOR Experimental USDT is an EXPERIMENTAL token on the Nile experimental network. It has no monetary value and is not Tether (USDT). You sign every transfer in your own TronLink wallet — Sanad Pay never sees your private key.',
+  'chain.expBalance':'EXPERIMENTAL BALANCE','chain.wallet':'Wallet','chain.connect.btn':'Connect TronLink','chain.connect.ready':'Connect your TronLink wallet to see your balance and send YOR-USDT.',
   'chain.connect.none':'TronLink was not detected in this browser.','chain.connect.help':'On your phone: open the TronLink app, go to its DApp browser and open this page there. On a computer: install the TronLink extension. Then tap Connect.',
   'chain.connect.copyLink':'Copy page link','chain.connect.connecting':'Connecting…','chain.connect.retry':'Check again','chain.disconnect':'Disconnect',
-  'chain.net.nile':'Nile Testnet','chain.net.unknown':'Network not verified. Make sure TronLink is on Nile Testnet before you sign.','chain.net.wrong':'TronLink is on {net}. Switch TronLink to Nile Testnet to send.',
-  'chain.net.mainnet':'TRON mainnet','chain.net.shasta':'Shasta testnet','chain.net.other':'another network',
+  'chain.net.nile':'Nile network','chain.net.unknown':'Network not verified. Make sure TronLink is on Nile network before you sign.','chain.net.wrong':'TronLink is on {net}. Switch TronLink to Nile network to send.',
+  'chain.net.mainnet':'TRON mainnet','chain.net.shasta':'Shasta network','chain.net.other':'another network',
   'chain.bal.title':'Balance','chain.bal.available':'Available','chain.bal.expired':'Expired','chain.bal.trx':'TRX for network fees','chain.bal.refresh':'Refresh','chain.bal.loading':'Reading the blockchain…',
   'chain.bal.src.solidity':'Read on the blockchain (confirmed)','chain.bal.src.fullnode':'Read on the blockchain (full node, not yet confirmed)','chain.bal.error':'Could not read the blockchain: {e}',
-  'chain.trx.none':'This account has no TRX on Nile yet, so it cannot pay network fees. Get free test TRX first.','chain.trx.low':'Low TRX. A transfer burns about 19 TRX when you have no frozen energy.','chain.trx.faucet':'Get free test TRX',
-  'chain.send.title':'Send','chain.send.to':'Recipient address (TRON, starts with T)','chain.send.amount':'Amount (YOR-USDT)','chain.send.max':'Max','chain.send.paste':'Paste','chain.send.review':'Review transfer','chain.send.blocked':'Switch TronLink to Nile Testnet to send.',
+  'chain.trx.none':'This account has no TRX on Nile yet, so it cannot pay network fees. Get free TRX first.','chain.trx.low':'Low TRX. A transfer burns about 19 TRX when you have no frozen energy.','chain.trx.faucet':'Get free TRX',
+  'chain.send.title':'Send','chain.send.to':'Recipient address (TRON, starts with T)','chain.send.amount':'Amount (YOR-USDT)','chain.send.max':'Max','chain.send.paste':'Paste','chain.send.review':'Review transfer','chain.send.blocked':'Switch TronLink to Nile network to send.',
   'chain.review.title':'Review transfer','chain.review.from':'From','chain.review.to':'To','chain.review.amount':'Amount','chain.review.network':'Network','chain.review.energy':'Energy (simulated)','chain.review.fee':'Estimated network fee','chain.review.maxfee':'Maximum fee','chain.review.free':'0 TRX (your free resources cover it)',
   'chain.review.note':'The fee is an estimate from a simulation on the network. TronLink will then ask you to confirm.','chain.review.confirm':'Confirm and sign in TronLink','chain.review.cancel':'Cancel',
   'chain.progress.build':'Preparing and checking the transaction…','chain.progress.sign':'Waiting for your signature in TronLink…','chain.progress.signHint':'Open TronLink and approve the transaction. You have about 5 minutes.','chain.progress.signHintShort':'Open TronLink and approve the transaction. It expires in about a minute.','chain.retryStd':'Please try again: the next attempt uses the standard 1-minute validity.',
@@ -29,26 +29,26 @@ Object.assign(TR.en, {
   'chain.err.INVALID_ADDRESS':'This is not a valid TRON address (check every character).','chain.err.SELF_TRANSFER':'You cannot send to your own address.','chain.err.TO_ZERO_ADDRESS':'This is the zero address. Tokens sent there are lost.','chain.err.TO_CONTRACT':'This is the token contract itself. Tokens sent there are lost.',
   'chain.err.EVM_ADDRESS':'This is an Ethereum-style address (0x…). YOR-USDT only exists on TRON, so it cannot be sent there. Ask the recipient for their TRON address, which starts with T.',
   'chain.err.INVALID_AMOUNT':'Enter an amount greater than zero, like 12.5.','chain.err.TOO_MANY_DECIMALS':'YOR-USDT has 6 decimals at most.','chain.err.INSUFFICIENT_TOKEN':'The amount is higher than your available YOR-USDT balance.',
-  'chain.err.INSUFFICIENT_TRX':'Not enough TRX to pay the network fee.','chain.err.ACCOUNT_NOT_ACTIVATED':'This account has no TRX on Nile yet. Get free test TRX first.','chain.err.FEE_TOO_HIGH':'The simulated fee is unusually high, so the transfer was blocked.',
+  'chain.err.INSUFFICIENT_TRX':'Not enough TRX to pay the network fee.','chain.err.ACCOUNT_NOT_ACTIVATED':'This account has no TRX on Nile yet. Get free TRX first.','chain.err.FEE_TOO_HIGH':'The simulated fee is unusually high, so the transfer was blocked.',
   'chain.err.SIMULATION_REVERTED':'The contract would refuse this transfer.','chain.err.TX_CHECK_FAILED':'The network returned a transaction that does not match your request. Nothing was signed.','chain.err.SIGNED_TX_MISMATCH':'The wallet returned a different transaction than the one prepared. Nothing was sent.',
   'chain.err.SIGNATURE_REJECTED':'You refused the signature in TronLink. Nothing was sent.','chain.err.SIGNING_FAILED':'TronLink could not sign: {e}','chain.err.TX_EXPIRED':'The transaction expired before it could be sent. Try again and approve faster.',
-  'chain.err.BROADCAST_REJECTED':'The network refused the transaction: {e}','chain.err.NETWORK_UNREACHABLE':'The TRON test network is unreachable. Check your connection.','chain.err.TIMEOUT':'The TRON test network took too long to answer.','chain.err.HTTP_ERROR':'The TRON test network answered with an error.',
-  'chain.err.WRONG_NETWORK_NODE':'The node is not Nile Testnet. Nothing was done.','chain.err.TOKEN_METADATA_MISMATCH':'The contract is not YOR Experimental USDT. Nothing was done.','chain.err.BUSY':'A transfer is already in progress.','chain.err.ESTIMATE_CHANGED':'The fee changed since you reviewed it. Review again.',
+  'chain.err.BROADCAST_REJECTED':'The network refused the transaction: {e}','chain.err.NETWORK_UNREACHABLE':'The TRON experimental network is unreachable. Check your connection.','chain.err.TIMEOUT':'The TRON experimental network took too long to answer.','chain.err.HTTP_ERROR':'The TRON experimental network answered with an error.',
+  'chain.err.WRONG_NETWORK_NODE':'The node is not Nile network. Nothing was done.','chain.err.TOKEN_METADATA_MISMATCH':'The contract is not YOR Experimental USDT. Nothing was done.','chain.err.BUSY':'A transfer is already in progress.','chain.err.ESTIMATE_CHANGED':'The fee changed since you reviewed it. Review again.',
   'chain.err.ACCOUNT_CHANGED':'The TronLink account changed. Reconnect.','chain.err.SIGNER_ADDRESS_MISMATCH':'The connected wallet is not the sender. Reconnect.','chain.err.NO_WALLET':'TronLink was not detected.','chain.err.USER_REJECTED':'You refused the connection in TronLink.','chain.err.NO_ACCOUNT':'TronLink returned no account. Unlock TronLink and try again.',
   'chain.err.NO_CHAIN':'The blockchain module did not load. Reload the app.','chain.err.UNKNOWN':'Something went wrong: {e}'
 });
 Object.assign(TR.fr, {
-  'chain.tile':'YOR-USDT (test)','chain.group':'Blockchain (réseau de test)','chain.title':'YOR-USDT',
-  'chain.notice.t':'Réseau de test','chain.notice.p':'YOR Experimental USDT est un jeton de TEST sur le réseau de test Nile. Il n\'a aucune valeur monétaire et n\'est pas du Tether (USDT). Vous signez chaque transfert dans votre propre portefeuille TronLink : Sanad Pay ne voit jamais votre clé privée.',
-  'chain.testBalance':'SOLDE DE TEST','chain.wallet':'Portefeuille','chain.connect.btn':'Connecter TronLink','chain.connect.ready':'Connectez votre portefeuille TronLink pour voir votre solde et envoyer des YOR-USDT.',
+  'chain.tile':'YOR-USDT (experimental)','chain.group':'Blockchain (réseau expérimental)','chain.title':'YOR-USDT',
+  'chain.notice.t':'Réseau expérimental','chain.notice.p':'YOR Experimental USDT est un jeton EXPÉRIMENTAL sur le réseau expérimental Nile. Il n\'a aucune valeur monétaire et n\'est pas du Tether (USDT). Vous signez chaque transfert dans votre propre portefeuille TronLink : Sanad Pay ne voit jamais votre clé privée.',
+  'chain.expBalance':'SOLDE EXPÉRIMENTAL','chain.wallet':'Portefeuille','chain.connect.btn':'Connecter TronLink','chain.connect.ready':'Connectez votre portefeuille TronLink pour voir votre solde et envoyer des YOR-USDT.',
   'chain.connect.none':'TronLink n\'a pas été détecté dans ce navigateur.','chain.connect.help':'Sur téléphone : ouvrez l\'application TronLink, allez dans son navigateur DApp et ouvrez cette page. Sur ordinateur : installez l\'extension TronLink. Puis touchez Connecter.',
   'chain.connect.copyLink':'Copier le lien de la page','chain.connect.connecting':'Connexion…','chain.connect.retry':'Vérifier à nouveau','chain.disconnect':'Déconnecter',
-  'chain.net.nile':'Nile Testnet','chain.net.unknown':'Réseau non vérifié. Assurez-vous que TronLink est sur Nile Testnet avant de signer.','chain.net.wrong':'TronLink est sur {net}. Passez TronLink sur Nile Testnet pour envoyer.',
-  'chain.net.mainnet':'le mainnet TRON','chain.net.shasta':'le testnet Shasta','chain.net.other':'un autre réseau',
+  'chain.net.nile':'Nile network','chain.net.unknown':'Réseau non vérifié. Assurez-vous que TronLink est sur Nile network avant de signer.','chain.net.wrong':'TronLink est sur {net}. Passez TronLink sur Nile network pour envoyer.',
+  'chain.net.mainnet':'le mainnet TRON','chain.net.shasta':'le réseau Shasta','chain.net.other':'un autre réseau',
   'chain.bal.title':'Solde','chain.bal.available':'Disponible','chain.bal.expired':'Expiré','chain.bal.trx':'TRX pour les frais réseau','chain.bal.refresh':'Actualiser','chain.bal.loading':'Lecture de la blockchain…',
   'chain.bal.src.solidity':'Lu sur la blockchain (confirmé)','chain.bal.src.fullnode':'Lu sur la blockchain (nœud complet, pas encore confirmé)','chain.bal.error':'Lecture de la blockchain impossible : {e}',
-  'chain.trx.none':'Ce compte n\'a pas encore de TRX sur Nile : il ne peut pas payer les frais réseau. Récupérez d\'abord des TRX de test gratuits.','chain.trx.low':'Peu de TRX. Un transfert brûle environ 19 TRX si vous n\'avez pas d\'énergie gelée.','chain.trx.faucet':'Obtenir des TRX de test gratuits',
-  'chain.send.title':'Envoyer','chain.send.to':'Adresse du destinataire (TRON, commence par T)','chain.send.amount':'Montant (YOR-USDT)','chain.send.max':'Max','chain.send.paste':'Coller','chain.send.review':'Vérifier le transfert','chain.send.blocked':'Passez TronLink sur Nile Testnet pour envoyer.',
+  'chain.trx.none':'Ce compte n\'a pas encore de TRX sur Nile : il ne peut pas payer les frais réseau. Récupérez d\'abord des TRX gratuits.','chain.trx.low':'Peu de TRX. Un transfert brûle environ 19 TRX si vous n\'avez pas d\'énergie gelée.','chain.trx.faucet':'Obtenir des TRX gratuits',
+  'chain.send.title':'Envoyer','chain.send.to':'Adresse du destinataire (TRON, commence par T)','chain.send.amount':'Montant (YOR-USDT)','chain.send.max':'Max','chain.send.paste':'Coller','chain.send.review':'Vérifier le transfert','chain.send.blocked':'Passez TronLink sur Nile network pour envoyer.',
   'chain.review.title':'Vérifier le transfert','chain.review.from':'De','chain.review.to':'À','chain.review.amount':'Montant','chain.review.network':'Réseau','chain.review.energy':'Énergie (simulée)','chain.review.fee':'Frais réseau estimés','chain.review.maxfee':'Frais maximum','chain.review.free':'0 TRX (vos ressources gratuites suffisent)',
   'chain.review.note':'Les frais sont une estimation issue d\'une simulation sur le réseau. TronLink vous demandera ensuite de confirmer.','chain.review.confirm':'Confirmer et signer dans TronLink','chain.review.cancel':'Annuler',
   'chain.progress.build':'Préparation et contrôle de la transaction…','chain.progress.sign':'En attente de votre signature dans TronLink…','chain.progress.signHint':'Ouvrez TronLink et approuvez la transaction. Vous avez environ 5 minutes.','chain.progress.signHintShort':'Ouvrez TronLink et approuvez la transaction. Elle expire en une minute environ.','chain.retryStd':'Réessayez : la prochaine tentative utilise la validité standard d\'une minute.',
@@ -60,26 +60,26 @@ Object.assign(TR.fr, {
   'chain.err.INVALID_ADDRESS':'Ce n\'est pas une adresse TRON valide (vérifiez chaque caractère).','chain.err.SELF_TRANSFER':'Vous ne pouvez pas envoyer à votre propre adresse.','chain.err.TO_ZERO_ADDRESS':'C\'est l\'adresse nulle. Les jetons envoyés là sont perdus.','chain.err.TO_CONTRACT':'C\'est le contrat du jeton lui-même. Les jetons envoyés là sont perdus.',
   'chain.err.EVM_ADDRESS':'C\'est une adresse de type Ethereum (0x…). YOR-USDT n\'existe que sur TRON : il ne peut pas y être envoyé. Demandez au destinataire son adresse TRON, qui commence par T.',
   'chain.err.INVALID_AMOUNT':'Saisissez un montant supérieur à zéro, par exemple 12,5.','chain.err.TOO_MANY_DECIMALS':'YOR-USDT a 6 décimales au maximum.','chain.err.INSUFFICIENT_TOKEN':'Le montant dépasse votre solde YOR-USDT disponible.',
-  'chain.err.INSUFFICIENT_TRX':'Pas assez de TRX pour payer les frais réseau.','chain.err.ACCOUNT_NOT_ACTIVATED':'Ce compte n\'a pas encore de TRX sur Nile. Récupérez d\'abord des TRX de test gratuits.','chain.err.FEE_TOO_HIGH':'Les frais simulés sont anormalement élevés : le transfert a été bloqué.',
+  'chain.err.INSUFFICIENT_TRX':'Pas assez de TRX pour payer les frais réseau.','chain.err.ACCOUNT_NOT_ACTIVATED':'Ce compte n\'a pas encore de TRX sur Nile. Récupérez d\'abord des TRX gratuits.','chain.err.FEE_TOO_HIGH':'Les frais simulés sont anormalement élevés : le transfert a été bloqué.',
   'chain.err.SIMULATION_REVERTED':'Le contrat refuserait ce transfert.','chain.err.TX_CHECK_FAILED':'Le réseau a renvoyé une transaction qui ne correspond pas à votre demande. Rien n\'a été signé.','chain.err.SIGNED_TX_MISMATCH':'Le portefeuille a renvoyé une autre transaction que celle préparée. Rien n\'a été envoyé.',
   'chain.err.SIGNATURE_REJECTED':'Vous avez refusé la signature dans TronLink. Rien n\'a été envoyé.','chain.err.SIGNING_FAILED':'TronLink n\'a pas pu signer : {e}','chain.err.TX_EXPIRED':'La transaction a expiré avant d\'être envoyée. Réessayez et approuvez plus vite.',
-  'chain.err.BROADCAST_REJECTED':'Le réseau a refusé la transaction : {e}','chain.err.NETWORK_UNREACHABLE':'Le réseau de test TRON est injoignable. Vérifiez votre connexion.','chain.err.TIMEOUT':'Le réseau de test TRON met trop de temps à répondre.','chain.err.HTTP_ERROR':'Le réseau de test TRON a répondu par une erreur.',
-  'chain.err.WRONG_NETWORK_NODE':'Le nœud n\'est pas Nile Testnet. Rien n\'a été fait.','chain.err.TOKEN_METADATA_MISMATCH':'Le contrat n\'est pas YOR Experimental USDT. Rien n\'a été fait.','chain.err.BUSY':'Un transfert est déjà en cours.','chain.err.ESTIMATE_CHANGED':'Les frais ont changé depuis votre vérification. Vérifiez à nouveau.',
+  'chain.err.BROADCAST_REJECTED':'Le réseau a refusé la transaction : {e}','chain.err.NETWORK_UNREACHABLE':'Le réseau expérimental TRON est injoignable. Vérifiez votre connexion.','chain.err.TIMEOUT':'Le réseau expérimental TRON met trop de temps à répondre.','chain.err.HTTP_ERROR':'Le réseau expérimental TRON a répondu par une erreur.',
+  'chain.err.WRONG_NETWORK_NODE':'Le nœud n\'est pas Nile network. Rien n\'a été fait.','chain.err.TOKEN_METADATA_MISMATCH':'Le contrat n\'est pas YOR Experimental USDT. Rien n\'a été fait.','chain.err.BUSY':'Un transfert est déjà en cours.','chain.err.ESTIMATE_CHANGED':'Les frais ont changé depuis votre vérification. Vérifiez à nouveau.',
   'chain.err.ACCOUNT_CHANGED':'Le compte TronLink a changé. Reconnectez-vous.','chain.err.SIGNER_ADDRESS_MISMATCH':'Le portefeuille connecté n\'est pas l\'expéditeur. Reconnectez-vous.','chain.err.NO_WALLET':'TronLink n\'a pas été détecté.','chain.err.USER_REJECTED':'Vous avez refusé la connexion dans TronLink.','chain.err.NO_ACCOUNT':'TronLink n\'a renvoyé aucun compte. Déverrouillez TronLink et réessayez.',
   'chain.err.NO_CHAIN':'Le module blockchain ne s\'est pas chargé. Rechargez l\'app.','chain.err.UNKNOWN':'Une erreur est survenue : {e}'
 });
 Object.assign(TR.ar, {
   'chain.tile':'YOR-USDT (تجريبي)','chain.group':'البلوكشين (شبكة تجريبية)','chain.title':'YOR-USDT',
   'chain.notice.t':'شبكة تجريبية','chain.notice.p':'YOR Experimental USDT عملة اختبار على شبكة Nile التجريبية. لا قيمة مالية لها وليست Tether (USDT). توقّع كل تحويل داخل محفظتك TronLink الخاصة بك، ولا يرى Sanad Pay مفتاحك الخاص أبداً.',
-  'chain.testBalance':'رصيد تجريبي','chain.wallet':'المحفظة','chain.connect.btn':'ربط TronLink','chain.connect.ready':'اربط محفظة TronLink لعرض رصيدك وإرسال YOR-USDT.',
+  'chain.expBalance':'رصيد تجريبي','chain.wallet':'المحفظة','chain.connect.btn':'ربط TronLink','chain.connect.ready':'اربط محفظة TronLink لعرض رصيدك وإرسال YOR-USDT.',
   'chain.connect.none':'لم يتم اكتشاف TronLink في هذا المتصفح.','chain.connect.help':'على الهاتف: افتح تطبيق TronLink ثم متصفح DApp فيه وافتح هذه الصفحة. على الحاسوب: ثبّت إضافة TronLink. ثم اضغط ربط.',
   'chain.connect.copyLink':'نسخ رابط الصفحة','chain.connect.connecting':'جارٍ الاتصال…','chain.connect.retry':'إعادة الفحص','chain.disconnect':'قطع الاتصال',
-  'chain.net.nile':'Nile Testnet','chain.net.unknown':'لم يتم التحقق من الشبكة. تأكد أن TronLink على Nile Testnet قبل التوقيع.','chain.net.wrong':'TronLink على {net}. غيّر TronLink إلى Nile Testnet للإرسال.',
+  'chain.net.nile':'Nile network','chain.net.unknown':'لم يتم التحقق من الشبكة. تأكد أن TronLink على شبكة Nile قبل التوقيع.','chain.net.wrong':'TronLink على {net}. غيّر TronLink إلى شبكة Nile للإرسال.',
   'chain.net.mainnet':'الشبكة الرئيسية لـ TRON','chain.net.shasta':'شبكة Shasta التجريبية','chain.net.other':'شبكة أخرى',
   'chain.bal.title':'الرصيد','chain.bal.available':'المتاح','chain.bal.expired':'المنتهي','chain.bal.trx':'TRX لرسوم الشبكة','chain.bal.refresh':'تحديث','chain.bal.loading':'جارٍ القراءة من البلوكشين…',
   'chain.bal.src.solidity':'مقروء من البلوكشين (مؤكَّد)','chain.bal.src.fullnode':'مقروء من البلوكشين (العقدة الكاملة، غير مؤكَّد بعد)','chain.bal.error':'تعذّرت القراءة من البلوكشين: {e}',
   'chain.trx.none':'لا يملك هذا الحساب TRX على Nile بعد، لذا لا يستطيع دفع رسوم الشبكة. احصل أولاً على TRX تجريبي مجاني.','chain.trx.low':'رصيد TRX منخفض. يحرق التحويل نحو 19 TRX إذا لم تكن لديك طاقة مجمّدة.','chain.trx.faucet':'احصل على TRX تجريبي مجاني',
-  'chain.send.title':'إرسال','chain.send.to':'عنوان المستلم (TRON، يبدأ بالحرف T)','chain.send.amount':'المبلغ (YOR-USDT)','chain.send.max':'الحد الأقصى','chain.send.paste':'لصق','chain.send.review':'مراجعة التحويل','chain.send.blocked':'غيّر TronLink إلى Nile Testnet للإرسال.',
+  'chain.send.title':'إرسال','chain.send.to':'عنوان المستلم (TRON، يبدأ بالحرف T)','chain.send.amount':'المبلغ (YOR-USDT)','chain.send.max':'الحد الأقصى','chain.send.paste':'لصق','chain.send.review':'مراجعة التحويل','chain.send.blocked':'غيّر TronLink إلى شبكة Nile للإرسال.',
   'chain.review.title':'مراجعة التحويل','chain.review.from':'من','chain.review.to':'إلى','chain.review.amount':'المبلغ','chain.review.network':'الشبكة','chain.review.energy':'الطاقة (محاكاة)','chain.review.fee':'رسوم الشبكة المقدّرة','chain.review.maxfee':'الحد الأقصى للرسوم','chain.review.free':'0 TRX (مواردك المجانية تكفي)',
   'chain.review.note':'الرسوم تقدير من محاكاة على الشبكة. سيطلب منك TronLink التأكيد بعد ذلك.','chain.review.confirm':'تأكيد والتوقيع في TronLink','chain.review.cancel':'إلغاء',
   'chain.progress.build':'جارٍ تجهيز المعاملة والتحقق منها…','chain.progress.sign':'بانتظار توقيعك في TronLink…','chain.progress.signHint':'افتح TronLink ووافق على المعاملة. لديك نحو 5 دقائق.','chain.progress.signHintShort':'افتح TronLink ووافق على المعاملة. تنتهي صلاحيتها خلال نحو دقيقة.','chain.retryStd':'أعد المحاولة: ستستخدم المحاولة التالية الصلاحية القياسية البالغة دقيقة واحدة.',
@@ -95,14 +95,14 @@ Object.assign(TR.ar, {
   'chain.err.SIMULATION_REVERTED':'سيرفض العقد هذا التحويل.','chain.err.TX_CHECK_FAILED':'أعادت الشبكة معاملة لا تطابق طلبك. لم يُوقَّع شيء.','chain.err.SIGNED_TX_MISMATCH':'أعادت المحفظة معاملة مختلفة عن المجهّزة. لم يُرسل شيء.',
   'chain.err.SIGNATURE_REJECTED':'رفضت التوقيع في TronLink. لم يُرسل شيء.','chain.err.SIGNING_FAILED':'تعذّر على TronLink التوقيع: {e}','chain.err.TX_EXPIRED':'انتهت صلاحية المعاملة قبل إرسالها. أعد المحاولة ووافق بسرعة أكبر.',
   'chain.err.BROADCAST_REJECTED':'رفضت الشبكة المعاملة: {e}','chain.err.NETWORK_UNREACHABLE':'تعذّر الوصول إلى شبكة TRON التجريبية. تحقق من اتصالك.','chain.err.TIMEOUT':'استغرقت شبكة TRON التجريبية وقتاً طويلاً للرد.','chain.err.HTTP_ERROR':'ردّت شبكة TRON التجريبية بخطأ.',
-  'chain.err.WRONG_NETWORK_NODE':'العقدة ليست Nile Testnet. لم يُنفَّذ شيء.','chain.err.TOKEN_METADATA_MISMATCH':'العقد ليس YOR Experimental USDT. لم يُنفَّذ شيء.','chain.err.BUSY':'هناك تحويل قيد التنفيذ بالفعل.','chain.err.ESTIMATE_CHANGED':'تغيّرت الرسوم منذ مراجعتك. راجع مجدداً.',
+  'chain.err.WRONG_NETWORK_NODE':'العقدة ليست شبكة Nile. لم يُنفَّذ شيء.','chain.err.TOKEN_METADATA_MISMATCH':'العقد ليس YOR Experimental USDT. لم يُنفَّذ شيء.','chain.err.BUSY':'هناك تحويل قيد التنفيذ بالفعل.','chain.err.ESTIMATE_CHANGED':'تغيّرت الرسوم منذ مراجعتك. راجع مجدداً.',
   'chain.err.ACCOUNT_CHANGED':'تغيّر حساب TronLink. أعد الربط.','chain.err.SIGNER_ADDRESS_MISMATCH':'المحفظة المرتبطة ليست المُرسِل. أعد الربط.','chain.err.NO_WALLET':'لم يتم اكتشاف TronLink.','chain.err.USER_REJECTED':'رفضت الربط في TronLink.','chain.err.NO_ACCOUNT':'لم يُرجع TronLink أي حساب. افتح قفل TronLink وأعد المحاولة.',
   'chain.err.NO_CHAIN':'لم تُحمَّل وحدة البلوكشين. أعد تحميل التطبيق.','chain.err.UNKNOWN':'حدث خطأ: {e}'
 });
 
 /* libellés de la grille « Services » (lus par yt()) */
-Object.assign(YT.en, { gChain:'Blockchain (test network)', chainTile:'YOR-USDT' });
-Object.assign(YT.fr, { gChain:'Blockchain (réseau de test)', chainTile:'YOR-USDT' });
+Object.assign(YT.en, { gChain:'Blockchain (experimental network)', chainTile:'YOR-USDT' });
+Object.assign(YT.fr, { gChain:'Blockchain (réseau expérimental)', chainTile:'YOR-USDT' });
 Object.assign(YT.ar, { gChain:'البلوكشين (شبكة تجريبية)', chainTile:'YOR-USDT' });
 
 const ChainUI = (() => {
@@ -149,7 +149,7 @@ const ChainUI = (() => {
   }
 
   function noticeHtml(){
-    return '<div class="ch-banner" role="note">' + icon('warn', 18) + '<div><b>' + escapeHtml(t('chain.notice.t')) + '</b> · ' + escapeHtml(Y() ? Y().CONFIG.network.name : 'Nile Testnet') +
+    return '<div class="ch-banner" role="note">' + icon('warn', 18) + '<div><b>' + escapeHtml(t('chain.notice.t')) + '</b> · ' + escapeHtml(Y() ? Y().CONFIG.network.name : 'Nile network') +
       '<p>' + escapeHtml(t('chain.notice.p')) + '</p></div></div>';
   }
 
@@ -194,7 +194,7 @@ const ChainUI = (() => {
       const trxLine = !trx ? '—' : (trx.exists ? ltr(Y().formatTrx(trx.balanceSun) + ' TRX') : ltr('0 TRX'));
       const needFaucet = trx && (!trx.exists || trx.balanceSun < 25000000n);
       body = '<div class="ch-big">' + ltr(amt(b.available)) + ' <small>' + escapeHtml(Y().CONFIG.token.symbol) + '</small></div>' +
-        '<div class="ch-badges"><span class="ch-badge test">' + escapeHtml(t('chain.testBalance')) + '</span><span class="ch-badge">' + escapeHtml(t('chain.bal.src.' + b.source)) + '</span></div>' +
+        '<div class="ch-badges"><span class="ch-badge exp">' + escapeHtml(t('chain.expBalance')) + '</span><span class="ch-badge">' + escapeHtml(t('chain.bal.src.' + b.source)) + '</span></div>' +
         '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.bal.title')) + '</span><span class="ch-v">' + ltr(amt(b.total)) + '</span></div>' +
         (b.expired !== null && b.expired > 0n ? '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.bal.expired')) + '</span><span class="ch-v">' + ltr(amt(b.expired)) + '</span></div>' : '') +
         '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.bal.trx')) + '</span><span class="ch-v">' + trxLine + '</span></div>' +
@@ -250,7 +250,7 @@ const ChainUI = (() => {
     const feeTxt = e.expectedBurnSun === 0n ? t('chain.review.free') : '≈ ' + Y().formatTrx(e.expectedBurnSun) + ' TRX';
     return '<div class="ch-card"><h2 class="ch-h">' + escapeHtml(t('chain.review.title')) + '</h2>' +
       '<div class="ch-big">' + ltr(amt(e.amountRaw)) + ' <small>' + escapeHtml(Y().CONFIG.token.symbol) + '</small></div>' +
-      '<div class="ch-badges"><span class="ch-badge test">' + escapeHtml(t('chain.testBalance')) + '</span></div>' +
+      '<div class="ch-badges"><span class="ch-badge exp">' + escapeHtml(t('chain.expBalance')) + '</span></div>' +
       '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.review.from')) + '</span><span class="ch-v">' + addr(short(e.from)) + '</span></div>' +
       '<div class="ch-row col"><span class="ch-k">' + escapeHtml(t('chain.review.to')) + '</span><span class="ch-v wide">' + addr(e.to) + '</span></div>' +
       '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.review.network')) + '</span><span class="ch-v">' + escapeHtml(Y().CONFIG.network.name) + '</span></div>' +
@@ -293,7 +293,7 @@ const ChainUI = (() => {
     return '<div class="ch-card ch-center"><div class="ch-state ' + tone + '">' + icon(icn, 30) + '</div>' +
       '<h2 class="ch-title">' + escapeHtml(t('chain.state.' + s)) + '</h2><p class="ch-p ch-dim">' + escapeHtml(note) + '</p>' + stepper + '</div>' +
       '<div class="ch-card"><div class="ch-big">' + ltr(amt(BigInt(r.amountRaw))) + ' <small>' + escapeHtml(Y().CONFIG.token.symbol) + '</small></div>' +
-      '<div class="ch-badges"><span class="ch-badge test">' + escapeHtml(t('chain.testBalance')) + '</span></div>' +
+      '<div class="ch-badges"><span class="ch-badge exp">' + escapeHtml(t('chain.expBalance')) + '</span></div>' +
       '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.review.from')) + '</span><span class="ch-v">' + addr(short(r.from)) + '</span></div>' +
       '<div class="ch-row col"><span class="ch-k">' + escapeHtml(t('chain.review.to')) + '</span><span class="ch-v wide">' + addr(r.to) + '</span></div>' +
       (r.blockNumber ? '<div class="ch-row"><span class="ch-k">' + escapeHtml(t('chain.detail.block')) + '</span><span class="ch-v">' + ltr(String(r.blockNumber)) + '</span></div>' : '') +

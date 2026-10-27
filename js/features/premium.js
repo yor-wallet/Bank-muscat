@@ -412,42 +412,47 @@ const Premium = (() => {
       : st ? '<span class="px-chip warn"><i></i>' + escapeHtml(tf('px.acctOther', { s: st.toLowerCase() })) + '</span>' : '';
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     balFrom = BalanceFx.check(main);
-    let ai = 0;
-    const act = (nav, ic, lbl, pr) => '<button class="rv-act px-act' + (pr ? ' p' : '') + '" style="--i:' + (ai++) + '" data-nav="' + nav + '"><i>' + icon(ic, 24) + '</i><span>' + escapeHtml(lbl) + '</span></button>';
-    const cardsHtml = (Runtime.cards || []).length ? '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(V12.vt('cards')) + '</h2><button data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="rv-strip">' +
-      Runtime.cards.map(c => '<button class="rv-mini th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><span class="ltr">•••• ' + escapeHtml(String(c.number || '0000').slice(-4)) + '</span>' + V12.netSlot(c) + '</button>').join('') +
-      '<button class="rv-mini rv-mini-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
+    /* Sanad Pay 21.0.0 — composition « ciel + feuille » : le solde est posé sur le ciel (pas de carte), la feuille blanche remonte par-dessus. */
+    const tile = (nav, ic, lbl, pr) => '<button class="sx-act' + (pr ? ' is-main' : '') + '" data-nav="' + nav + '"><i>' + icon(ic, 22) + '</i><span>' + escapeHtml(lbl) + '</span></button>';
+    const pend = txs.filter(x => txState(x.status) === 'pending');
+    const pendHtml = pend.length ? '<section class="sx-pend" aria-label="' + escapeHtml(t('filter.pending')) + '"><div class="sx-h"><h2>' + escapeHtml(t('filter.pending')) + '</h2></div>' +
+      '<div class="sx-list">' + pend.slice(0, 3).map(x => txRow(x, hide)).join('') + '</div></section>' : '';
+    const cardsHtml = (Runtime.cards || []).length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('cards')) + '</h2><button class="sx-more" data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="sx-strip">' +
+      Runtime.cards.map(c => '<button class="sx-minicard th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><b>' + escapeHtml(c.label || V12.vt('defName')) + '</b><span class="ltr">•••• ' + escapeHtml(String(c.number || '').slice(-4)) + '</span></button>').join('') +
+      '<button class="sx-minicard sx-minicard-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
     /* other money accounts (e.g. XOF): shown in the display currency, original amount always visible (same rules as 12.6.0) */
     const others = (Runtime.accounts || []).filter(a => a.type !== 'CRYPTO' && a.type !== 'MAIN' && a.type !== 'WEST_AFRICA').slice(0, 4);   /* 16.0.0 : le compte « West Africa » n'apparaît plus sur l'accueil */
-    const othersHtml = others.length ? '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="rv-grid2">' +
-      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="rv-tile"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
-        (!hide && v.converted ? '<span class="rv-cap ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
-    return '<div class="rv-home ds-home px-home">' +
-      '<header class="px-top">' +
-        '<button class="px-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<div class="px-hello"><span>' + escapeHtml(pxGreeting()) + '</span><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
-        '<button class="rv-circ px-circ" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 20) + '</button>' +
-        '<button class="rv-circ px-circ" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 20) + (unread ? '<span class="rv-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
+    const othersHtml = others.length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="sx-tiles">' +
+      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="sx-acct"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
+        (!hide && v.converted ? '<span class="ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
+    const ms = (typeof V13 !== 'undefined' && V13.monthStats) ? V13.monthStats() : null;
+    const monthLine = ms ? '<div class="sx-month ltr" dir="ltr" aria-label="' + escapeHtml(t('v13.month')) + '"><span><i class="o"></i>' + escapeHtml(t('v13.sent')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.sent, ms.cur))) + '</b></span><span><i class="i"></i>' + escapeHtml(t('v13.received')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.recv, ms.cur))) + '</b></span></div>' : '';
+    return '<div class="sx-home">' +
+      '<header class="sx-bar">' +
+        '<button class="sx-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
+        '<div class="sx-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
+        '<button class="sx-ibtn" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 22) + '</button>' +
+        '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 22) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
       '</header>' +
-      '<section class="ds-balance px-bal" aria-label="' + escapeHtml(t('px.available')) + '">' +
-        '<i class="px-bal-light" aria-hidden="true"></i><i class="px-bal-grain" aria-hidden="true"></i>' +
-        '<div class="ds-bal-top"><span class="ds-bal-label">' + escapeHtml(t('px.available')) + '</span>' + acct +
-          '<button class="ds-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 20) + '</button></div>' +
-        '<div class="ds-bal-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
-        (dv.converted && !hide ? '<div class="ds-bal-orig ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
-        (showAvail && !hide ? '<div class="ds-bal-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
-        '<div class="px-bal-foot">' + (yid ? '<span class="px-bal-id ltr" dir="ltr">' + escapeHtml(yid) + '</span>' : '<span></span>') +
-          '<button class="px-bal-link" data-nav="history"><span>' + escapeHtml(t('px.history')) + '</span>' + '<span class="dir-flip" style="display:inline-flex">' + icon('chev', 16) + '</span></button></div>' +
+      '<section class="sx-hero" aria-label="' + escapeHtml(t('px.available')) + '">' +
+        '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' + acct.replace(/px-chip/g, 'sx-chip') +
+          '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 22) + '</button></div>' +
+        '<div class="sx-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
+        (dv.converted && !hide ? '<div class="sx-sub ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
+        (showAvail && !hide ? '<div class="sx-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
+        '<div class="sx-horizon" aria-hidden="true"><i></i></div>' + monthLine +
+        (yid ? '<div class="sx-id ltr" dir="ltr">' + escapeHtml(yid) + '</div>' : '') +
       '</section>' +
-      '<nav class="rv-acts px-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + act('country-select', 'send', t('px.send'), true) + act('receive', 'receive', t('px.receive')) + act('history', 'history', t('px.history')) + act('services', 'apps', t('px.more')) + '</nav>' +
-      (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
-      PxInstall.card() +
-      '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
-        (txs.length ? txGroupedHtml(txs, hide) : '<div class="rv-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
-      othersHtml +
-      (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
-      cardsHtml +
-      '<div style="height:calc(20px + var(--safe-b))"></div></div>';
+      '<div class="sx-sheet">' +
+        '<nav class="sx-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + tile('country-select', 'send', t('px.send'), true) + tile('receive', 'receive', t('px.receive')) + tile('history', 'history', t('px.history')) + tile('services', 'apps', t('px.more')) + '</nav>' +
+        PxInstall.card() + pendHtml +
+        '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="sx-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
+          (txs.length ? txGroupedHtml(txs, hide) : '<div class="sx-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
+        (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
+        cardsHtml + othersHtml +
+        (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
+        '<div class="sx-end"></div>' +
+      '</div></div>';
   }
 
   /* ---------- Receive ---------- */
@@ -455,19 +460,19 @@ const Premium = (() => {
     const p = Runtime.profile || {}, yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     const phone = p.phone ? formatPhoneIntl(p.phone) : '';
     const ins = visibleTransactions(Runtime.transactions || []).filter(x => x.direction === 'IN').slice(0, 10);
-    const row = (lbl, val, copy) => '<div class="px-kv"><small>' + escapeHtml(lbl) + '</small><b class="ltr" dir="ltr">' + escapeHtml(val) + '</b>' +
-      '<button class="px-copy" data-action="copy" data-copy="' + escapeHtml(copy) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + lbl) + '">' + icon('copy', 16) + '</button></div>';
+    const row = (lbl, val, copy) => '<div class="sx-kv"><span><small>' + escapeHtml(lbl) + '</small><b class="ltr" dir="ltr">' + escapeHtml(val) + '</b></span>' +
+      '<button class="sx-copy" data-action="copy" data-copy="' + escapeHtml(copy) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + lbl) + '">' + icon('copy', 16) + '</button></div>';
     return topbar(t('px.rcvTitle')) +
-      '<div class="screen-body px-rcv" style="padding-top:0">' +
-        '<section class="px-rcv-card">' + pxAvatar(p, 'lg') + '<h2>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</h2>' +
+      '<div class="screen-body sx-rcv" style="padding-top:0">' +
+        '<section class="sx-idcard">' + pxAvatar(p, 'lg') + '<h2>' + escapeHtml(((p.firstName || '') + ' ' + (p.lastName || '')).trim() || '—') + '</h2>' +
           (yid ? row(t('px.rcvId'), yid, yid) : '') + (phone ? row(t('px.rcvPhone'), phone, phone) : '') +
           (yid ? '<button class="btn btn-primary" data-px="rcv-share">' + icon('share', 18) + '<span>' + escapeHtml(t('px.rcvShare')) + '</span></button>' : '') +
         '</section>' +
-        '<p class="px-lead">' + escapeHtml(t('px.rcvLead')) + '</p>' +
-        '<p class="px-info">' + icon('info', 16) + '<span>' + escapeHtml(t('px.rcvNote')) + '</span></p>' +
-        '<section class="rv-sec px-sec"><div class="rv-h"><h2>' + escapeHtml(t('px.rcvRecent')) + '</h2></div>' +
-          (ins.length ? txGroupedHtml(ins, !!Runtime.hideBalance) : '<div class="rv-list">' + emptyState('receive', t('px.rcvNone'), t('px.rcvNoneD')) + '</div>') + '</section>' +
-      '</div>';
+        '<p class="sx-lead">' + escapeHtml(t('px.rcvLead')) + '</p>' +
+        '<p class="sx-note">' + icon('info', 18) + '<span>' + escapeHtml(t('px.rcvNote')) + '</span></p>' +
+        '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(t('px.rcvRecent')) + '</h2></div>' +
+          (ins.length ? txGroupedHtml(ins, !!Runtime.hideBalance) : emptyState('receive', t('px.rcvNone'), t('px.rcvNoneD'))) + '</section>' +
+        '<div class="sx-end"></div></div>';
   }
 
   /* ---------- Profile ---------- */
@@ -485,15 +490,14 @@ const Premium = (() => {
     const yid = ctx.yorId ? dispId(ctx.yorId) : '';
     const kyc = kycOf(p), c = COUNTRY_DATA[p.country || ''] || null;
     const langName = LANG === 'fr' ? 'Français' : LANG === 'ar' ? 'العربية' : 'English';
-    return topbar(t('px.profile')) +
-      '<div class="screen-body px-prof" style="padding-top:0">' +
-        '<section class="px-hero">' + pxAvatar(p, 'xl') +
-          '<div class="px-hero-body"><h1>' + escapeHtml(name) + '</h1>' +
-            (p.phone ? '<span class="px-hero-sub ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(p.phone)) + '</span>' : '') +
-            '<div class="px-hero-chips">' + (yid ? '<button class="px-chip id" data-action="copy" data-copy="' + escapeHtml(yid) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + yid) + '">' + icon('copy', 12) + '<span class="ltr">' + escapeHtml(yid) + '</span></button>' : '') +
-              '<span class="px-chip ' + (kyc === 'VERIFIED' ? 'ok' : kyc === 'REJECTED' ? 'bad' : kyc === 'PENDING' ? 'warn' : 'muted') + '"><i></i>' + escapeHtml(t('px.kyc.' + kyc)) + '</span>' +
-              (ctx.role === 'admin' ? '<span class="px-chip muted">ADMIN</span>' : '') + '</div></div>' +
-          '<button class="btn btn-secondary px-hero-edit" data-nav="profile-edit">' + icon('user', 16) + '<span>' + escapeHtml(t('px.edit')) + '</span></button>' +
+    return '<div class="screen-body sx-prof" style="padding-top:0">' +
+        '<section class="sx-phero">' + pxAvatar(p, 'xl') +
+          '<h1>' + escapeHtml(name) + '</h1>' +
+          (p.phone ? '<span class="sx-phero-sub ltr" dir="ltr">' + escapeHtml(formatPhoneIntl(p.phone)) + '</span>' : '') +
+          '<div class="sx-phero-chips">' + (yid ? '<button class="sx-pill" data-action="copy" data-copy="' + escapeHtml(yid) + '" aria-label="' + escapeHtml(t('px.rcvCopy') + ' ' + yid) + '">' + icon('copy', 14) + '<span class="ltr">' + escapeHtml(yid) + '</span></button>' : '') +
+            '<span class="sx-pill ' + (kyc === 'VERIFIED' ? 'ok' : kyc === 'REJECTED' ? 'bad' : kyc === 'PENDING' ? 'warn' : 'muted') + '"><i></i>' + escapeHtml(t('px.kyc.' + kyc)) + '</span>' +
+            (ctx.role === 'admin' ? '<span class="sx-pill muted">ADMIN</span>' : '') + '</div>' +
+          '<button class="btn btn-secondary sx-phero-edit" data-nav="profile-edit">' + icon('user', 18) + '<span>' + escapeHtml(t('px.edit')) + '</span></button>' +
         '</section>' +
         settingsSection(t('px.personal')) + '<div class="settings-group">' +
           info('user', t('px.first'), escapeHtml(p.firstName || '—')) + info('user', t('px.last'), escapeHtml(p.lastName || '—')) +
@@ -521,7 +525,7 @@ const Premium = (() => {
           row('info', t('settings.about'), tf('px.version', { v: CONFIG.APP.version }), 'data-nav="about"') +
         '</div>' +
         '<div class="settings-group" style="margin-top:var(--sp-5)">' + row('logout', t('profile.logout'), '', 'data-action="sign-out"', '', true) + '</div>' +
-        '<p class="px-ver ltr">Sanad Pay ' + escapeHtml(CONFIG.APP.version) + '</p>' +
+        '<p class="sx-ver ltr">Sanad Pay ' + escapeHtml(CONFIG.APP.version) + '</p><div class="sx-end"></div>' +
       '</div>';
   }
   /* first / last name: the only profile fields the server lets the person change here (column grants on public.profiles) */

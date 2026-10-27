@@ -12,7 +12,7 @@
 const L = (function () {
 'use strict';
 // token-admin / lib.ts — logique PURE (aucune E/S, aucun import, aucun secret).
-// Testee localement par tests/edge/token-admin-lib.test.mjs. Syntaxe volontairement "effacable" (pas d'enum,
+// Vérifiée localement. Syntaxe volontairement "effacable" (pas d'enum,
 // pas de proprietes de parametres) pour pouvoir etre executee telle quelle par Node 22 et par Deno.
 
                                                       
@@ -526,7 +526,7 @@ function transition(from, to, evidence){
 return { STATES, StateError, isTerminal, canTransition, hasConfirmationEvidence, transition };
 })();
 
-/* YOR WALLET — client blockchain (navigateur). TESTNET NILE UNIQUEMENT.
+/* YOR WALLET — client blockchain (navigateur). RÉSEAU NILE UNIQUEMENT.
    Ce fichier est la SEULE partie écrite à la main du bundle `yor-wallet/js/features/yor-chain.js`
    (scripts/build-web.mjs l'assemble avec supabase/functions/token-admin/lib.ts et transfer-state.mjs).
    Il s'exécute dans un contexte où `L` (lib.ts : adresses, ABI, contrôle de transaction, classification)
@@ -543,10 +543,10 @@ return { STATES, StateError, isTerminal, canTransition, hasConfirmationEvidence,
 
 /* ------------------------------------------------------------------ configuration (valeurs vérifiées sur le nœud Nile réel, 2026-10-09) */
 const CONFIG = Object.freeze({
-  env: 'testnet',
+  env: 'nile',
   network: Object.freeze({
     id: 'nile',
-    name: 'Nile Testnet',
+    name: 'Nile network',
     fullNode: 'https://nile.trongrid.io',
     solidityNode: 'https://nile.trongrid.io/walletsolidity',
     /* identifiant du bloc 0 lu sur nile.trongrid.io ; les 4 derniers octets (cd8690dc) sont l'identifiant de chaîne de TronLink */
@@ -593,7 +593,7 @@ class ChainError extends Error {
   }
 }
 
-/* ------------------------------------------------------------------ SHA-256 synchrone (vérifié contre node:crypto par les tests) */
+/* ------------------------------------------------------------------ SHA-256 synchrone (vérifié contre node:crypto) */
 const SHA_K = new Uint32Array([
   0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
   0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -657,7 +657,7 @@ function hexToAddr(hex41) { return L.hex41ToBase58(hex41, sha256); }
     (espaces, retours à la ligne, caractères invisibles ou de sens d'écriture, guillemets/parenthèses autour, « tron: », « ?paramètres »),
     on extrait l'adresse d'un lien d'explorateur, et on convertit la forme hexadécimale TRON « 41… » (42 caractères) en forme « T… ».
     Si le résultat n'est pas une adresse TRON à somme de contrôle valide, isAddress() la refusera comme avant.
-    Même nettoyage de base que AddressEngine.clean (core/domain.js) ; tests/ui/address-any.test.mjs vérifie l'accord des deux. */
+    Même nettoyage de base que AddressEngine.clean (core/domain.js) ; l'accord des deux est vérifié séparément. */
 function cleanAddressInput(text) {
   let a = String(text == null ? '' : text).replace(/[­​-‏‪-‮⁠-⁩﻿]/g, '').replace(/\s+/g, '');
   if (/^https?:\/\//i.test(a) || a.indexOf('/address/') >= 0) {
@@ -707,7 +707,7 @@ function formatAmount(raw, decimals) {
 function formatTrx(sun) { return formatAmount(BigInt(sun), 6); }
 
 /* ------------------------------------------------------------------ garde-fous de configuration */
-function assertTestnetConfig(cfg) {
+function assertNetworkConfig(cfg) {
   if (!cfg || !cfg.network || cfg.network.isMainnet === true) throw new ChainError('MAINNET_FORBIDDEN', 'mainnet is forbidden');
   const hosts = [cfg.network.fullNode, cfg.network.solidityNode];
   for (const h of hosts) {
@@ -741,7 +741,7 @@ function selectorToCode(reason) {
 function createClient(opts) {
   opts = opts || {};
   const cfg = opts.config || CONFIG;
-  assertTestnetConfig(cfg);
+  assertNetworkConfig(cfg);
   const fetchFn = opts.fetch || (typeof fetch === 'function' ? fetch.bind(globalThis) : null);
   const now = opts.now || (() => Date.now());
   const mono = opts.mono || (() => (typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now()));

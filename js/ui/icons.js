@@ -57,13 +57,79 @@ const IC = {
   device:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
   session:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'
 };
+/* ============================================================
+   Sanad Pay 21.0.0 — jeu d'icônes « Horizon » : trait uniforme sur grille 48 (pack de marque : icons/svg, trait 2,6 -> 3,6 pour la lisibilité à 20-24 px),
+   bouts ronds, AUCUNE ombre décalée (l'ancien jeu duotone .d2 de Freindi Pay n'est plus dessiné). Les icônes absentes du pack sont redessinées sur la même
+   grille ; les anciens tracés 24 px encore utilisés par des modules secondaires sont redimensionnés (x2) au même trait, sans leur ombre.
+   ============================================================ */
+const SXI = {
+  home:'<path d="m5 22 19-16 19 16v20H5Z"/><path d="M18 42V27h12v15"/>',
+  history:'<path d="M8 14A19 19 0 1 1 6 29M8 6v10H18M24 13v12l9 5"/>',
+  cards:'<rect x="5" y="10" width="38" height="28" rx="6"/><path d="M5 20h38M12 30h9"/>',
+  send:'<path d="M43 5 5 20l15 7 7 15Z"/><path d="M43 5 20 27"/>',
+  receive:'<path d="M24 6v29m-12-12 12 12 12-12M8 42h32"/>',
+  plus:'<path d="M24 10v28M10 24h28"/>',
+  minus:'<path d="M10 24h28"/>',
+  close:'<path d="m13 13 22 22m0-22L13 35"/>',
+  check:'<path d="m10 25 10 10 18-21"/>',
+  checkCircle:'<circle cx="24" cy="24" r="19"/><path d="m13 24 8 8 15-17"/>',
+  chev:'<path d="m18 9 15 15-15 15"/>',
+  back:'<path d="M30 9 15 24l15 15"/>',
+  user:'<circle cx="24" cy="17" r="10"/><path d="M6 44c0-13 8-20 18-20s18 7 18 20"/>',
+  profile:'<circle cx="24" cy="17" r="10"/><path d="M6 44c0-13 8-20 18-20s18 7 18 20"/>',
+  wallet:'<rect x="5" y="9" width="38" height="30" rx="7"/><path d="M31 19h12v12H31a6 6 0 0 1 0-12Z"/>',
+  globe:'<circle cx="24" cy="24" r="20"/><path d="M4 24h40M24 4a36 36 0 0 0 0 40M24 4a36 36 0 0 1 0 40"/>',
+  crypto:'<circle cx="24" cy="24" r="19"/><path d="M24 9v30M16 14h12a7 7 0 0 1 0 14H16h13a7 7 0 0 1 0 14H16"/>',
+  mobile:'<rect x="13" y="3" width="22" height="42" rx="5"/><path d="M21 39h6"/>',
+  device:'<rect x="13" y="3" width="22" height="42" rx="5"/><path d="M21 39h6"/>',
+  settings:'<circle cx="24" cy="24" r="7"/><path d="M19 5h10l2 7 6 3 6-3 5 9-6 5v5l6 5-5 8-7-2-5 3-2 7H19l-2-7-5-3-7 2-5-8 6-5v-5l-6-5 5-9 7 3 5-3Z"/>',
+  lock:'<rect x="8" y="20" width="32" height="24" rx="5"/><path d="M15 20v-7a9 9 0 0 1 18 0v7"/>',
+  shield:'<path d="m24 5 17 7v13c0 11-7 18-17 22C14 43 7 36 7 25V12Z"/><path d="m16 26 6 6 12-13"/>',
+  eye:'<path d="M3 24c10-16 32-16 42 0-10 16-32 16-42 0Z"/><circle cx="24" cy="24" r="6"/>',
+  eyeOff:'<path d="M3 24c10-16 32-16 42 0-10 16-32 16-42 0Z"/><circle cx="24" cy="24" r="6"/><path d="M8 40 40 8"/>',
+  bell:'<path d="M11 35h26l-4-7v-9a9 9 0 0 0-18 0v9Z"/><path d="M20 40a4 4 0 0 0 8 0"/>',
+  download:'<path d="M24 5v30m-12-12 12 12 12-12M7 36v7h34v-7"/>',
+  upload:'<path d="M24 35V5M12 17 24 5l12 12M7 33v9h34v-9"/>',
+  qr:'<path d="M5 5h14v14H5ZM29 5h14v14H29ZM5 29h14v14H5ZM29 29h6v6h-6ZM37 37h6v6h-6ZM37 29h6"/>',
+  search:'<circle cx="21" cy="21" r="14"/><path d="m32 32 12 12"/>',
+  bank:'<path d="m4 19 20-12 20 12ZM8 22v19M18 22v19M30 22v19M40 22v19M4 42h40"/>',
+  doc:'<path d="M11 4h26v40l-6-4-7 4-7-4-6 4Z"/><path d="M17 15h14M17 23h14M17 31h9"/>',
+  bill:'<path d="M10 4h28v40l-7-4-7 4-7-4-7 4Z"/><path d="M17 15h14M17 23h14M17 31h10"/>',
+  cal:'<rect x="5" y="10" width="38" height="33" rx="5"/><path d="M5 20h38M15 5v10M33 5v10"/>',
+  swap:'<path d="M7 16h33M32 8l8 8-8 8M41 34H8m8-8-8 8 8 8"/>',
+  logout:'<path d="M20 7H7v34h13M16 24h27m-10-9 10 9-10 9"/>',
+  arrowRight:'<path d="M10 24h28M25 11l13 13-13 13"/>',
+  arrowLeft:'<path d="M38 24H10m13-13L10 24l13 13"/>',
+  help:'<path d="M7 26V22a17 17 0 0 1 34 0v4M7 26h8v13H9a5 5 0 0 1-5-5v-3a5 5 0 0 1 3-5Zm34 0h-8v13h6a5 5 0 0 0 5-5v-3a5 5 0 0 0-3-5Z"/>',
+  filter:'<path d="M5 10h38M12 24h24M20 38h8"/>',
+  gift:'<rect x="5" y="20" width="38" height="23" rx="3"/><path d="M3 15h42v10H3ZM24 15v28M24 15c-20 0-13-19 0 0Zm0 0c20 0 13-19 0 0Z"/>',
+  faceid:'<path d="M7 17v-4a6 6 0 0 1 6-6h4M31 7h4a6 6 0 0 1 6 6v4M41 31v4a6 6 0 0 1-6 6h-4M17 41h-4a6 6 0 0 1-6-6v-4M17 19v4M31 19v4M24 19v8h-2M17 32c2 3 4 4 7 4s5-1 7-4"/>',
+  fingerprint:'<path d="M9 22a15 15 0 0 1 30 0M14 25v6a10 10 0 0 0 6 10M24 14a10 10 0 0 1 10 10v7M24 22v11M29 36l-2 7"/>',
+  currency:'<circle cx="24" cy="24" r="19"/><path d="M32 16H20a6 6 0 0 0 0 12h8a6 6 0 0 1 0 12H16M24 8v8m0 24v5"/>',
+  apps:'<rect x="6" y="6" width="15" height="15" rx="4.5"/><rect x="27" y="6" width="15" height="15" rx="4.5"/><rect x="6" y="27" width="15" height="15" rx="4.5"/><rect x="27" y="27" width="15" height="15" rx="4.5"/>',
+  clock:'<circle cx="24" cy="24" r="19"/><path d="M24 13v12l8 5"/>',
+  session:'<circle cx="24" cy="24" r="19"/><path d="M24 13v12l8 5"/>',
+  copy:'<rect x="17" y="17" width="26" height="26" rx="6"/><path d="M31 17v-4a6 6 0 0 0-6-6H11a6 6 0 0 0-6 6v14a6 6 0 0 0 6 6h4"/>',
+  info:'<circle cx="24" cy="24" r="19"/><path d="M24 22v12M24 15v.5"/>',
+  warn:'<path d="M24 6 44 41H4Z"/><path d="M24 19v10M24 35v.5"/>',
+  share:'<circle cx="37" cy="10" r="6"/><circle cx="11" cy="24" r="6"/><circle cx="37" cy="38" r="6"/><path d="m16 21 16-8M16 27l16 8"/>',
+  trash:'<path d="M6 12h36M17 12V6h14v6M10 12l2 30h24l2-30M20 21v14M28 21v14"/>',
+  mail:'<rect x="5" y="9" width="38" height="30" rx="6"/><path d="m6 14 18 14 18-14"/>',
+  backspace:'<path d="M17 10h22a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H17L5 24Z"/><path d="m25 19 10 10m0-10L25 29"/>',
+  shuffle:'<path d="M5 14h6c9 0 11 20 20 20h8M5 34h6c4 0 7-3 9-7M25 21c2-4 4-7 8-7h6"/><path d="m34 8 6 6-6 6M34 28l6 6-6 6"/>'
+};
+const SX_STROKE = 3.6;
 const _svgCache = new Map();
+const _legacyOnly = /<(?:path|circle|rect)\s+class="d2"[^>]*\/>/g;
 function svg(name, size){
   size = size || 20;
   const key = name + '|' + size;
   let s = _svgCache.get(key);
   if (s) return s;
-  s = '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui))" class="ic" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (IC[name] || '') + '</svg>';
+  const own = SXI[name];
+  /* ancien tracé 24 px : redimensionné x2 au même trait, sans son ombre décalée */
+  const body = own ? own : (IC[name] ? '<g transform="scale(2)" stroke-width="' + (SX_STROKE / 2) + '">' + String(IC[name]).replace(_legacyOnly, '') + '</g>' : '');
+  s = '<svg viewBox="0 0 48 48" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui))" class="ic" fill="none" stroke="currentColor" stroke-width="' + SX_STROKE + '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + body + '</svg>';
   _svgCache.set(key, s);
   return s;
 }

@@ -12,23 +12,20 @@ const Onboarding = (() => {
   const KEY = 'yor_onboarded';
   const S = {
     en:{ skip:'Skip', next:'Next', create:'Create my account', have:'I already have an account', lang:'Language', page:(a, b) => 'Page ' + a + ' of ' + b, slides:[
-      { l1:'WELCOME TO', l2:'SANAD PAY', k:'Your money, simple & secure' },
-      { l1:'GET 10 OMR', l2:'ON US', k:'A welcome reward for every new account' },
-      { l1:'SEND MONEY', l2:'ACROSS THE WORLD', k:'Gulf · Africa · USA · Canada' },
-      { l1:'A METAL CARD', l2:'WITH VISA', k:'Tap, shop and pay online' },
-      { l1:'PROTECTED BY', l2:'FACE ID & PIN', k:'Your money stays yours' } ] },
+      { l1:'Send money to', l2:'a mobile number', k:'Type a number in Oman, check the name, confirm. That is all.' },
+      { l1:'Instant between', l2:'Sanad Pay accounts', k:'When the number belongs to a Sanad Pay account, the money arrives at once and the person is notified.' },
+      { l1:'Always the', l2:'real status', k:'In progress, confirmed or failed: nothing is shown as done before the server confirms it.' },
+      { l1:'Protected by', l2:'Face ID and your code', k:'Your phone confirms it is you. Your money stays yours.' } ] },
     fr:{ skip:'Passer', next:'Suivant', create:'Créer mon compte', have:'J\'ai déjà un compte', lang:'Langue', page:(a, b) => 'Page ' + a + ' sur ' + b, slides:[
-      { l1:'BIENVENUE CHEZ', l2:'SANAD PAY', k:'Votre argent, simple et sécurisé' },
-      { l1:'GAGNEZ 10 OMR', l2:'OFFERTS', k:'Une récompense pour chaque nouveau compte' },
-      { l1:'ENVOYEZ DE L’ARGENT', l2:'DANS LE MONDE ENTIER', k:'Golfe · Afrique · USA · Canada' },
-      { l1:'UNE CARTE EN MÉTAL', l2:'AVEC VISA', k:'Payez en magasin et en ligne' },
-      { l1:'PROTÉGÉ PAR', l2:'FACE ID ET CODE', k:'Votre argent reste le vôtre' } ] },
+      { l1:'Envoyez de l’argent', l2:'à un numéro mobile', k:'Saisissez un numéro d’Oman, vérifiez le nom, confirmez. C’est tout.' },
+      { l1:'Instantané entre', l2:'comptes Sanad Pay', k:'Quand le numéro est celui d’un compte Sanad Pay, l’argent arrive aussitôt et la personne est prévenue.' },
+      { l1:'Toujours le', l2:'vrai statut', k:'En cours, confirmé ou échoué : rien n’est affiché comme terminé avant la confirmation du serveur.' },
+      { l1:'Protégé par', l2:'Face ID et votre code', k:'Votre téléphone confirme que c’est vous. Votre argent reste le vôtre.' } ] },
     ar:{ skip:'تخطّي', next:'التالي', create:'إنشاء حسابي', have:'لدي حساب بالفعل', lang:'اللغة', page:(a, b) => 'الصفحة ' + a + ' من ' + b, slides:[
-      { l1:'مرحباً بك في', l2:'سند باي', k:'أموالك بشكل بسيط وآمن' },
-      { l1:'احصل على 10 ريال', l2:'هدية منّا', k:'مكافأة ترحيب لكل حساب جديد' },
-      { l1:'أرسل الأموال', l2:'إلى أي مكان في العالم', k:'الخليج · أفريقيا · أمريكا · كندا' },
-      { l1:'بطاقة معدنية', l2:'من فيزا', k:'ادفع في المتاجر وعبر الإنترنت' },
-      { l1:'محمي بواسطة', l2:'Face ID ورمز PIN', k:'أموالك تبقى ملكك' } ] }
+      { l1:'أرسل الأموال إلى', l2:'رقم هاتف', k:'اكتب رقماً في عُمان وتحقق من الاسم ثم أكّد. هذا كل شيء.' },
+      { l1:'فوري بين', l2:'حسابات سند باي', k:'عندما يكون الرقم لحساب في سند باي يصل المبلغ فوراً ويُشعَر صاحبه.' },
+      { l1:'دائماً', l2:'الحالة الحقيقية', k:'قيد التنفيذ أو مؤكد أو فاشل: لا يظهر شيء كمكتمل قبل تأكيد الخادم.' },
+      { l1:'محمي بواسطة', l2:'Face ID ورمزك', k:'هاتفك يؤكد أنك أنت. وأموالك تبقى ملكك.' } ] }
   };
   const LANGS = [['en', 'EN'], ['fr', 'FR'], ['ar', 'عربي']];
   const NAMES = { en:'English', fr:'Français', ar:'العربية' };

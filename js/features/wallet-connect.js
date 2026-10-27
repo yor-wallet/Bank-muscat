@@ -12,7 +12,7 @@
 Object.assign(TR.en, {
   'wc.section':'Wallet','wc.connect':'Connect Wallet','wc.connecting':'Connecting…','wc.loading':'Loading…','wc.disconnect':'Disconnect','wc.change':'Manage',
   'wc.status.disconnected':'Not connected','wc.status.connecting':'Connecting…','wc.status.connected':'Connected','wc.status.reconnecting':'Reconnecting…',
-  'wc.net.nile':'Nile Testnet','wc.net.wrong':'Wrong network ({net}). Switch your wallet to Nile Testnet.',
+  'wc.net.nile':'Nile network','wc.net.wrong':'Wrong network ({net}). Switch your wallet to Nile network.',
   'wc.note':'Connecting only shares your public address. Sanad Pay never asks for your private key or recovery phrase, and nothing is sent without your approval in your wallet.',
   'wc.copy':'Copy address','wc.copied':'Address copied','wc.disconnected':'Wallet disconnected',
   'wc.err.LOAD_FAILED':'Could not load the wallet connection. Check your internet connection and try again.',
@@ -24,13 +24,13 @@ Object.assign(TR.en, {
   'wc.help.title':'Trouble connecting?',
   'wc.help.1':'Tap “Connect Wallet”, then choose your wallet in the list or scan the QR code with it.',
   'wc.help.2':'On iPhone, if your wallet does not open by itself, open Sanad Pay from your wallet’s built-in browser instead of Safari.',
-  'wc.help.3':'This app uses the TRON Nile test network. Switch your wallet to Nile Testnet first. Not every wallet offers it; TronLink does.',
+  'wc.help.3':'This app uses the TRON Nile experimental network. Switch your wallet to Nile network first. Not every wallet offers it; TronLink does.',
   'wc.help.4':'Nothing is sent when you connect, and you can disconnect at any time.'
 });
 Object.assign(TR.fr, {
   'wc.section':'Portefeuille','wc.connect':'Connecter un portefeuille','wc.connecting':'Connexion…','wc.loading':'Chargement…','wc.disconnect':'Déconnecter','wc.change':'Gérer',
   'wc.status.disconnected':'Non connecté','wc.status.connecting':'Connexion…','wc.status.connected':'Connecté','wc.status.reconnecting':'Reconnexion…',
-  'wc.net.nile':'Nile Testnet','wc.net.wrong':'Mauvais réseau ({net}). Passez votre portefeuille sur Nile Testnet.',
+  'wc.net.nile':'Nile network','wc.net.wrong':'Mauvais réseau ({net}). Passez votre portefeuille sur Nile network.',
   'wc.note':'La connexion partage uniquement votre adresse publique. Sanad Pay ne demande jamais votre clé privée ni votre phrase de récupération, et rien n\'est envoyé sans votre approbation dans votre portefeuille.',
   'wc.copy':'Copier l\'adresse','wc.copied':'Adresse copiée','wc.disconnected':'Portefeuille déconnecté',
   'wc.err.LOAD_FAILED':'Impossible de charger la connexion de portefeuille. Vérifiez votre connexion internet puis réessayez.',
@@ -42,7 +42,7 @@ Object.assign(TR.fr, {
   'wc.help.title':'Un problème pour vous connecter ?',
   'wc.help.1':'Touchez « Connecter un portefeuille », puis choisissez votre portefeuille dans la liste ou scannez le QR code avec lui.',
   'wc.help.2':'Sur iPhone, si votre portefeuille ne s\'ouvre pas tout seul, ouvrez Sanad Pay depuis le navigateur intégré de votre portefeuille plutôt que depuis Safari.',
-  'wc.help.3':'Cette application utilise le réseau de test TRON Nile. Passez d\'abord votre portefeuille sur Nile Testnet. Tous les portefeuilles ne le proposent pas ; TronLink le propose.',
+  'wc.help.3':'Cette application utilise le réseau expérimental TRON Nile. Passez d\'abord votre portefeuille sur Nile network. Tous les portefeuilles ne le proposent pas ; TronLink le propose.',
   'wc.help.4':'Rien n\'est envoyé lors de la connexion, et vous pouvez vous déconnecter à tout moment.'
 });
 Object.assign(TR.ar, {
@@ -60,7 +60,7 @@ Object.assign(TR.ar, {
   'wc.help.title':'هل تواجه مشكلة في الربط؟',
   'wc.help.1':'اضغط «ربط المحفظة» ثم اختر محفظتك من القائمة أو امسح رمز QR بها.',
   'wc.help.2':'على iPhone، إذا لم تُفتح محفظتك تلقائيًا، افتح سند باي من المتصفح المدمج في المحفظة بدل Safari.',
-  'wc.help.3':'يستخدم هذا التطبيق شبكة TRON Nile التجريبية. حوّل محفظتك إلى Nile Testnet أولاً. ليست كل المحافظ توفّرها؛ TronLink توفّرها.',
+  'wc.help.3':'يستخدم هذا التطبيق شبكة TRON Nile التجريبية. حوّل محفظتك إلى شبكة Nile أولاً. ليست كل المحافظ توفّرها؛ TronLink توفّرها.',
   'wc.help.4':'لا يُرسل أي شيء عند الربط، ويمكنك قطع الاتصال في أي وقت.'
 });
 
