@@ -1,4 +1,17 @@
-# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.1.0
+# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.2.0
+
+## 21.2.0 — logo officiel, mouvement centralisé, assistance Amal, cinq rôles d'agents
+Reprise à partir de l'archive `sanad-pay-version-travail` et de la mission « transformation visuelle et animations complètes ». **Aucune fonction métier retirée** (`node tests/characterization/compare.mjs`, exceptions documentées en tête du fichier). Détail des animations : `SANAD_ANIMATIONS.md` ; état programmé / testé / connecté / déployé : `STATUT_SANAD_PAY.md`.
+- **Logo officiel** (ruban en S) partout : application, ouverture, icônes, favicons, manifeste, images de partage, reçus exportés, notifications, pages hors ligne / 404 / installation, `site.html` (nouveau).
+- **Système de mouvement** : jetons `--mo-*` (`css/s-tokens.css`), `css/s-motion.css` (couche finale), `js/ui/motion.js` (niveau `full`/`lite`, pause hors écran, origine des panneaux, inclinaison avec nettoyage). 20 `@keyframes` perdus depuis 21.0.0 restaurés ; contrôle statique ajouté.
+- **Ouverture** autour du vrai logo (lumière sur les courbes, 3 variantes), **présentation en 5 scènes**, tableau de bord sans compteur depuis 0, indicateur de navigation glissant (LTR + RTL), panneaux depuis leur origine, scène de traitement « courbe » indéterminée, cartes (inclinaison, états), historique / reçus (états vide, erreur ; coche seulement pour un succès réel ; **la pastille « Confirmé et approuvé » n'apparaît plus sur un reçu en attente**), notifications, publicités / cinéma aux couleurs de marque.
+- **Assistance Amal** : visuel PNG, états (accueil, traitement, réponse, indisponible, support humain), consentement, tri urgence / sensible sans appel au modèle (`js/features/amal-triage.js` généré), fonction `supabase/functions/sanad-agents` (**non déployée**), migration `20261101_sanad_agent_log.sql` (**non appliquée**), `sanad-agents/` (cinq rôles : assistance / contenu, données, supervision, diagnostic, maintenance) + écran admin avec l'état réel de chaque rôle.
+- **Nettoyages automatiques** : périmètre exact documenté dans `Janitor` ; coffre du code retiré du nettoyage ; clé de consentement Amal protégée (`amal_ai_<id>`).
+- **Qualité** : niveau `lite` automatique sur rendu logiciel ; banc de fluidité `tests/perf/motion.mjs` ; le banc fixe `sanad_fx=full`.
+- Aide : un seul chevron ; textes arabes de marque corrigés.
+- Version **21.2.0** (`package.json`, `package-lock.json`, `CONFIG.APP.version`, `sw.js`, cache `fp-shell-v21.2.0-…`).
+
+---
 
 ## 21.1.0 — direction « Glass » (navigation et rendu à la Revolut, avec du verre dépoli)
 Demande du propriétaire : la refonte 21.0.0 « n'était pas jolie » ; nouvelle direction visuelle inspirée de Revolut avec de la transparence. **Présentation uniquement** : aucun écran, RPC, table, clé de stockage ni minuterie n'est touché (`compare.mjs` 15/15).

@@ -93,7 +93,8 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
   const page = await ctx.newPage();
   /* l'invite « activer les notifications » dépend de PushManager : les tests n'en ont pas besoin (et elle masque l'écran) */
   if (!(process.env.SANAD_TEST_PUSH)) await page.addInitScript(() => { try { delete window.PushManager; } catch (e) { /* rien */ } if ('PushManager' in window) { try { Object.defineProperty(window, 'Notification', { value: undefined, configurable: true }); delete window.Notification; } catch (e) { /* rien */ } } });
-  const store = Object.assign({ fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
+  /* le banc tourne en rendu logiciel : on fixe le niveau d'effets « full » pour que les contrôles voient l'interface complète (surcharge possible via extraStorage.sanad_fx) */
+  const store = Object.assign({ sanad_fx: 'full', fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
   await page.addInitScript(([s, session, logged, lang, theme]) => {
     try {
       for (const k in s) localStorage.setItem(k, s[k]);

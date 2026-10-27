@@ -20,13 +20,29 @@ const Motion = (() => {
   const D = { get press() { return ms('--mo-press', 90); }, get release() { return ms('--mo-release', 180); }, get screen() { return ms('--mo-screen', 340); }, get panel() { return ms('--mo-panel', 320); }, get panelOut() { return ms('--mo-panel-out', 240); }, get reveal() { return ms('--mo-reveal', 420); }, get stagger() { return ms('--mo-stagger', 40); } };
 
   /* niveau d'effets : choix explicite > économie de données > appareil modeste */
+  /* rendu logiciel (pas de carte graphique) : les flous de fond et les ombres larges se redessinent sur le processeur, à chaque image.
+     Mesuré sur le banc : panneau de bureau ~20–30 images/s en rendu logiciel, 60 images/s sans flou (tests/perf/motion.mjs). */
+  let soft = null;
+  function softwareRender() {
+    if (soft !== null) return soft;
+    soft = false;
+    try {
+      const c = document.createElement('canvas'), gl = c.getContext('webgl') || c.getContext('experimental-webgl');
+      if (!gl) return (soft = true);
+      const x = gl.getExtension('WEBGL_debug_renderer_info');
+      soft = !!(x && /swiftshader|llvmpipe|software|basic render/i.test(String(gl.getParameter(x.UNMASKED_RENDERER_WEBGL) || '')));
+      const l = gl.getExtension('WEBGL_lose_context'); if (l) l.loseContext();
+    } catch (e) { soft = false; }
+    return soft;
+  }
   function autoTier() {
     try {
       const n = navigator, mem = n.deviceMemory || 4, cores = n.hardwareConcurrency || 4, c = n.connection;
-      return (mem <= 2 || cores <= 2 || (c && c.saveData)) ? 'lite' : 'full';
+      return (mem <= 2 || cores <= 2 || (c && c.saveData) || softwareRender()) ? 'lite' : 'full';
     } catch (e) { return 'full'; }
   }
-  function tier() { let v = ''; try { v = localStorage.getItem(KEY) || ''; } catch (e) { /* stockage indisponible */ } return v === 'lite' || v === 'full' ? v : autoTier(); }
+  let autoCache = '';
+  function tier() { let v = ''; try { v = localStorage.getItem(KEY) || ''; } catch (e) { /* stockage indisponible */ } return v === 'lite' || v === 'full' ? v : (autoCache || (autoCache = autoTier())); }
   function setTier(v) { try { if (v === 'auto') localStorage.removeItem(KEY); else localStorage.setItem(KEY, v === 'lite' ? 'lite' : 'full'); } catch (e) { /* rien */ } apply(); }
   function apply() { root.setAttribute('data-fx', tier()); }
 
