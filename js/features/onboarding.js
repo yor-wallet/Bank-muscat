@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   ONBOARDING (12.11.0) — présentation en 4 pages, affichée une seule fois au tout premier lancement.
+   ONBOARDING (12.11.0) — présentation en 5 pages (compte, avantages, transferts, cartes, sécurité), affichée une seule fois au tout premier lancement.
    - illustrations animées (OpeningArt), glisser du doigt qui suit réellement le doigt, boutons, clavier ;
    - choix de la langue (EN / FR / عربي) dès la première page : l'application change à l'instant, en droite-à-gauche pour l'arabe ;
    - dernière page : « Créer mon compte » ou « J'ai déjà un compte » ;
@@ -12,19 +12,22 @@ const Onboarding = (() => {
   const KEY = 'yor_onboarded';
   const S = {
     en:{ skip:'Skip', next:'Next', create:'Create my account', have:'I already have an account', lang:'Language', page:(a, b) => 'Page ' + a + ' of ' + b, slides:[
+      { l1:'Your account,', l2:'at a glance', k:'Your balance, your recent activity and your quick actions, together on one screen.' },
+      { l1:'Instant between', l2:'Sanad Pay accounts', k:'When the number belongs to a Sanad Pay account, the money arrives at once and the person is notified.', k2:'In progress, confirmed or failed: nothing is shown as done before the server confirms it.' },
       { l1:'Send money to', l2:'a mobile number', k:'Type a number in Oman, check the name, confirm. That is all.' },
-      { l1:'Instant between', l2:'Sanad Pay accounts', k:'When the number belongs to a Sanad Pay account, the money arrives at once and the person is notified.' },
-      { l1:'Always the', l2:'real status', k:'In progress, confirmed or failed: nothing is shown as done before the server confirms it.' },
+      { l1:'Your cards,', l2:'in one place', k:'Create a virtual card, choose its look and see its state.' },
       { l1:'Protected by', l2:'Face ID and your code', k:'Your phone confirms it is you. Your money stays yours.' } ] },
     fr:{ skip:'Passer', next:'Suivant', create:'Créer mon compte', have:'J\'ai déjà un compte', lang:'Langue', page:(a, b) => 'Page ' + a + ' sur ' + b, slides:[
+      { l1:'Votre compte,', l2:'d’un coup d’œil', k:'Votre solde, votre activité récente et vos actions rapides, réunis sur un seul écran.' },
+      { l1:'Instantané entre', l2:'comptes Sanad Pay', k:'Quand le numéro est celui d’un compte Sanad Pay, l’argent arrive aussitôt et la personne est prévenue.', k2:'En cours, confirmé ou échoué : rien n’est affiché comme terminé avant la confirmation du serveur.' },
       { l1:'Envoyez de l’argent', l2:'à un numéro mobile', k:'Saisissez un numéro d’Oman, vérifiez le nom, confirmez. C’est tout.' },
-      { l1:'Instantané entre', l2:'comptes Sanad Pay', k:'Quand le numéro est celui d’un compte Sanad Pay, l’argent arrive aussitôt et la personne est prévenue.' },
-      { l1:'Toujours le', l2:'vrai statut', k:'En cours, confirmé ou échoué : rien n’est affiché comme terminé avant la confirmation du serveur.' },
+      { l1:'Vos cartes,', l2:'au même endroit', k:'Créez une carte virtuelle, choisissez son apparence et voyez son état.' },
       { l1:'Protégé par', l2:'Face ID et votre code', k:'Votre téléphone confirme que c’est vous. Votre argent reste le vôtre.' } ] },
     ar:{ skip:'تخطّي', next:'التالي', create:'إنشاء حسابي', have:'لدي حساب بالفعل', lang:'اللغة', page:(a, b) => 'الصفحة ' + a + ' من ' + b, slides:[
+      { l1:'حسابك', l2:'في لمحة', k:'رصيدك ونشاطك الأخير وإجراءاتك السريعة معاً في شاشة واحدة.' },
+      { l1:'فوري بين', l2:'حسابات سند باي', k:'عندما يكون الرقم لحساب في سند باي يصل المبلغ فوراً ويُشعَر صاحبه.', k2:'قيد التنفيذ أو مؤكد أو فاشل: لا يظهر شيء كمكتمل قبل تأكيد الخادم.' },
       { l1:'أرسل الأموال إلى', l2:'رقم هاتف', k:'اكتب رقماً في عُمان وتحقق من الاسم ثم أكّد. هذا كل شيء.' },
-      { l1:'فوري بين', l2:'حسابات سند باي', k:'عندما يكون الرقم لحساب في سند باي يصل المبلغ فوراً ويُشعَر صاحبه.' },
-      { l1:'دائماً', l2:'الحالة الحقيقية', k:'قيد التنفيذ أو مؤكد أو فاشل: لا يظهر شيء كمكتمل قبل تأكيد الخادم.' },
+      { l1:'بطاقاتك', l2:'في مكان واحد', k:'أنشئ بطاقة افتراضية، اختر مظهرها وتابع حالتها.' },
       { l1:'محمي بواسطة', l2:'Face ID ورمزك', k:'هاتفك يؤكد أنك أنت. وأموالك تبقى ملكك.' } ] }
   };
   const LANGS = [['en', 'EN'], ['fr', 'FR'], ['ar', 'عربي']];
@@ -59,7 +62,7 @@ const Onboarding = (() => {
         '<div class="ob-stage" id="ob-stage"><div class="ob-track" id="ob-track">' +
           T.slides.map((s, k) =>
             '<section class="ob-slide" data-k="' + k + '" role="group" aria-roledescription="slide" aria-label="' + escapeHtml(T.page(k + 1, n)) + '">' +
-              '<div class="ob-copy"><h1 class="ob-h"><span class="l1">' + escapeHtml(s.l1) + '</span><span class="l2">' + escapeHtml(s.l2) + '</span></h1><p class="ob-p">' + escapeHtml(s.k) + '</p></div>' +
+              '<div class="ob-copy"><h1 class="ob-h"><span class="l1">' + escapeHtml(s.l1) + '</span><span class="l2">' + escapeHtml(s.l2) + '</span></h1><p class="ob-p">' + escapeHtml(s.k) + '</p>' + (s.k2 ? '<p class="ob-p ob-p2">' + escapeHtml(s.k2) + '</p>' : '') + '</div>' +
               '<div class="ob-hero">' + PhoneArt.slide(k, lang) + '</div>' +
             '</section>').join('') +
         '</div></div>' +
