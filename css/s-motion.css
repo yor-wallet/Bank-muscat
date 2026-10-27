@@ -159,3 +159,10 @@ html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,5
 .notif-call,.notif-call-title,.notif-call-msg,.notif-call-app,.notif-call-time{color:#fff}
 .notif-call-msg{opacity:.88}.notif-call-app{opacity:.95}.notif-call-time{opacity:.78}
 .notif-call-amt{color:#8EF0CF}
+
+/* ---------- 16. secours : écran d'erreur, démarrage impossible, bannière réseau (états réels : hors ligne / de retour) ---------- */
+.res-art img,.res-fatal-art{display:block;width:min(200px,60%);height:auto;margin:0 auto var(--sp-2)}
+.res-art{animation:moRise var(--mo-reveal) var(--mo-out) backwards}
+#net-banner.is-off{background:linear-gradient(180deg,#F7B658,#F4A43B);color:#4A2A00;box-shadow:0 10px 24px -14px rgba(244,164,59,.9)}
+#net-banner.is-ok{background:linear-gradient(180deg,#22BE8C,#14A879);color:#fff;box-shadow:0 10px 24px -14px rgba(20,168,121,.9)}
+#net-banner{transition-duration:var(--mo-panel);transition-timing-function:var(--mo-out)}
