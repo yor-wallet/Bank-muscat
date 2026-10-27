@@ -11,6 +11,11 @@ function accountRow(a, hide){
     '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + a.currency + '</div></div>' +
     '<div class="item-right"><div class="item-amount">' + escapeHtml(bal) + '</div></div></div>';
 }
+/* présentation du montant : signe, code monétaire discret, valeur en tabulaires — le texte reste identique */
+function amtParts(sign, amt){
+  const m = String(amt).match(/^([^\d\s]\S*)\s+(\d.*)$/);
+  return m ? '<span class="sgn">' + sign + '</span><span class="cur">' + escapeHtml(m[1]) + '</span><span class="num">' + escapeHtml(m[2]) + '</span>' : sign + escapeHtml(amt);
+}
 function txRow(tx, mask){
   const credit = tx.direction === 'IN';
   const iconName = tx.kind === 'SIGNUP_BONUS' ? 'gift' : tx.flow === 'INTL_TRANSFER' ? 'globe' : tx.type === 'CRYPTO_BUY' ? 'arrowDownRight' : tx.type === 'CRYPTO_SELL' ? 'arrowUpRight' : tx.type === 'CRYPTO_SWAP' ? 'swap' : tx.type === 'CRYPTO_SEND' ? 'send' : tx.type === 'DEPOSIT' ? 'receive' : (credit ? 'receive' : 'send');
@@ -24,8 +29,8 @@ function txRow(tx, mask){
   const state = txState(tx.status);
   const sub = '<span class="tx-when">' + escapeHtml(timeAgo(tx.createdAt)) + '</span>' + (party && op ? ' · ' + escapeHtml(op) : '');
   return '<div class="item tx-row tx-' + (credit ? 'in' : 'out') + ' st-' + state + '" role="button" tabindex="0" data-action="view-tx" data-tx="' + tx.id + '"><div class="tile">' + icon(state === 'failed' ? 'close' : iconName, 20) + '</div>' +
-    '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + sub + (state !== 'success' ? ' ' + statusPill(state, true) : '') + '</div></div>' +
-    '<div class="item-right"><div class="item-amount ltr ' + (credit && state === 'success' ? 'credit' : '') + (state === 'failed' ? ' failed' : '') + '"' + (mask ? ' aria-label="' + escapeHtml(t('ds.hidden_amt')) + '"' : '') + '>' + (mask ? '••••' : sign + escapeHtml(amt)) + '</div></div></div>';
+    '<div class="item-body"><div class="item-title">' + escapeHtml(name) + '</div><div class="item-sub">' + sub + '</div></div>' +
+    '<div class="item-right"><div class="item-amount ltr ' + (credit && state === 'success' ? 'credit' : '') + (state === 'failed' ? ' failed' : '') + '"' + (mask ? ' aria-label="' + escapeHtml(t('ds.hidden_amt')) + '"' : '') + '>' + (mask ? '••••' : amtParts(sign, amt)) + '</div>' + (state !== 'success' ? statusPill(state, true) : '') + '</div></div>';
 }
 /* ============================================================
    12.12.0 — SEND MONEY: one screen asks for ONE thing, the recipient's mobile number.

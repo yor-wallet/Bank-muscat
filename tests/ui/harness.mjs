@@ -88,7 +88,7 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
     log.push(`${m} ${u.pathname}`);
     return json({ message: 'blocked by the local harness', code: 'LOCAL_BLOCKED' }, 403);
   });
-  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, route => /supabase\.co/.test(route.request().url()) ? route.fallback() : route.abort());
+  await ctx.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/, route => /supabase\.co/.test(route.request().url()) ? route.fallback() : route.abort());
   const page = await ctx.newPage();
   const store = Object.assign({ fp_theme: theme, yor_device_lang: lang, yor_lang_chosen: '1', lx_inst_seen: '1' }, extraStorage);
   await page.addInitScript(([s, session, logged, lang, theme]) => {
