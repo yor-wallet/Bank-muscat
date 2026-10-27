@@ -131,3 +131,17 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 @keyframes rwdFall{0%{opacity:0;transform:translate3d(0,0,0) rotate(0)}8%{opacity:1}100%{opacity:0;transform:translate3d(var(--dx,0),112vh,0) rotate(var(--r,540deg))}}
 @keyframes rwdRing{0%{transform:scale(.55);opacity:.9}100%{transform:scale(1.5);opacity:0}}
 @keyframes rwdSpin{0%,100%{transform:rotateY(0)}50%{transform:rotateY(18deg)}}
+
+/* ---------- 13. états vides, erreurs, hors ligne : illustration + texte, l'image arrive doucement (jamais une exemple factice) ---------- */
+.ds-empty-art{display:block;width:min(200px,62%);height:auto;margin:0 auto var(--sp-2);animation:moRise var(--mo-reveal) var(--mo-out) backwards}
+.ds-empty h3,.ds-empty p{animation:moRise var(--mo-reveal) var(--mo-out) 90ms backwards}
+@media (prefers-reduced-motion:reduce){.ds-empty-art,.ds-empty h3,.ds-empty p{animation:none}}
+
+/* ---------- 14. historique : les lignes se recomposent quand on change de filtre (classe posée par Motion seulement après une action sur un filtre) ---------- */
+#history-list.mo-refilter .tx-row,#history-list.mo-refilter .rv-row,#history-list.mo-refilter .ds-empty{animation:moRise 320ms var(--mo-out) backwards;animation-delay:calc(var(--i,0)*30ms)}
+#history-list.mo-refilter .tx-row:nth-of-type(1){--i:0}#history-list.mo-refilter .tx-row:nth-of-type(2){--i:1}#history-list.mo-refilter .tx-row:nth-of-type(3){--i:2}#history-list.mo-refilter .tx-row:nth-of-type(4){--i:3}#history-list.mo-refilter .tx-row:nth-of-type(5){--i:4}#history-list.mo-refilter .tx-row:nth-of-type(n+6){--i:5}
+.chip{transition-property:background-color,color,box-shadow,transform}
+/* le détail s'ouvre depuis la ligne touchée : l'écran naît de ce point (--mo-px / --mo-py posés par Motion) */
+html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,50%);animation:moFromRow var(--mo-screen) var(--mo-out) both}
+@keyframes moFromRow{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#history-list.mo-refilter *,html[data-mo-row] .screen.active{animation:none!important}}

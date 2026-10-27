@@ -261,7 +261,7 @@ function renderReceipt(){
       '<div class="rc-amt ltr">' + escapeHtml(amtFmt) + '</div>' +
       (destFmt ? '<div class="rc-dest ltr">≈ ' + escapeHtml(destFmt) + '</div>' : '') +
       '<div class="receipt-title">' + escapeHtml(title) + '</div>' +
-      (state === 'failed' ? '' : '<div class="rc-approved" role="status">' + icon('check', 15) + '<span>' + escapeHtml(t(state === 'success' ? 'lx.appr.done' : 'lx.appr.ok')) + '</span></div>') +
+      (state !== 'success' ? '' : '<div class="rc-approved" role="status">' + icon('check', 15) + '<span>' + escapeHtml(t('lx.appr.done')) + '</span></div>')   /* 21.2.0 : « confirmé et approuvé » seulement pour une opération réellement confirmée (en cours : l'état est dit par le titre et la phrase) */ +
       (eyebrow ? '<div class="rc-eyebrow">' + escapeHtml(eyebrow) + '</div>' : '') +
       (sub ? '<div class="receipt-sub">' + escapeHtml(sub) + '</div>' : '') +
     '</section>' +

@@ -94,11 +94,32 @@ const Motion = (() => {
     i.removeAttribute('aria-invalid'); const box = i.closest('.field-box'); if (box) box.classList.remove('has-err');
   }
 
+
+  /* historique : on ne rejoue l'animation des lignes que si la recomposition vient d'une action sur un filtre / la recherche (pas d'un rafraîchissement de fond) ;
+     détail d'une opération : l'écran naît du point touché */
+  let filterAt = 0, rowTimer = 0;
+  function onPress(e) {
+    const t = e.target && e.target.closest ? e.target : null; if (!t) return;
+    if (t.closest('[data-filter],[data-hp],[data-hd],#hist-q')) filterAt = performance.now();
+    const row = t.closest('[data-action="view-tx"],.tx-row[data-tx],.tx-row');
+    if (row && !reduced()) {
+      document.documentElement.setAttribute('data-mo-row', '1'); root.style.setProperty('--mo-px', Math.round(e.clientX) + 'px'); root.style.setProperty('--mo-py', Math.round(e.clientY) + 'px');
+      clearTimeout(rowTimer); rowTimer = setTimeout(() => root.removeAttribute('data-mo-row'), D.screen + 200);
+    }
+  }
+  function onList(ms) {
+    if (performance.now() - filterAt > 900) return;
+    const list = document.getElementById('history-list'); if (!list || !ms.some(m => m.target === list || list.contains(m.target))) return;
+    if (list.classList.contains('mo-refilter')) return; list.classList.add('mo-refilter'); setTimeout(() => list.classList.remove('mo-refilter'), 700);
+  }
+
   let started = false;
   function start() {
     if (started) return; started = true;
     apply();
     document.addEventListener('pointerdown', mark, { passive: true, capture: true });
+    document.addEventListener('pointerdown', onPress, { passive: true, capture: true });
+    document.addEventListener('input', e => { if (e.target && e.target.id === 'hist-q') filterAt = performance.now(); }, { passive: true, capture: true });
     const rootOv = () => document.getElementById('ov-root');
     const obs = new MutationObserver(ms => ms.forEach(m => m.addedNodes.forEach(n => { if (n.nodeType === 1 && n.classList.contains('ov')) origin(n); })));
     const attach = () => { const r = rootOv(); if (r) { obs.observe(r, { childList: true }); r.querySelectorAll(':scope > .ov').forEach(origin); } return !!r; };
@@ -108,6 +129,7 @@ const Motion = (() => {
     const scr = document.getElementById('screens'); let pend = 0;
     if (scr) new MutationObserver(() => { if (!pend) pend = requestAnimationFrame(() => { pend = 0; watchAll(scr); }); }).observe(scr, { childList: true, subtree: true });
     if (scr) {
+      new MutationObserver(onList).observe(scr, { childList: true, subtree: true });
       new MutationObserver(ms => { const seen = new Set(); ms.forEach(m => { const n = m.target.nodeType === 3 ? m.target.parentElement : m.target; const err = n && n.closest && n.closest('.field-err'); if (err && !seen.has(err)) { seen.add(err); flagInvalid(err); } }); }).observe(scr, { childList: true, characterData: true, subtree: true });
       scr.addEventListener('input', clearInvalid, true);
     }
