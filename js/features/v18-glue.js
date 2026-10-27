@@ -17,7 +17,7 @@ const V18 = (() => {
 
   /* ----- accueil : film publicitaire + 4 raccourcis ----- */
   function tile(nav, ic, title, sub, badge){
-    return '<button type="button" class="v18-q" data-nav="' + nav + '"><i>' + icon(ic, 22) + '</i><b>' + escapeHtml(title) + '</b><small>' + escapeHtml(sub) + '</small>' + (badge ? '<em class="v18-q-b" data-chat-badge>' + badge + '</em>' : (nav === 'chat' ? '<em class="v18-q-b" data-chat-badge hidden></em>' : '')) + '</button>';
+    return '<button type="button" class="v18-q" data-nav="' + nav + '"><i' + (ic === 'bot' ? ' class="is-amal"' : '') + '>' + (ic === 'bot' ? '<img src="assets/sanad/amal-240.png" alt="" width="40" height="40" decoding="async">' : icon(ic, 22)) + '</i><b>' + escapeHtml(title) + '</b><small>' + escapeHtml(sub) + '</small>' + (badge ? '<em class="v18-q-b" data-chat-badge>' + badge + '</em>' : (nav === 'chat' ? '<em class="v18-q-b" data-chat-badge hidden></em>' : '')) + '</button>';
   }
   function homeHtml(){
     const cfg = Cfg.get();

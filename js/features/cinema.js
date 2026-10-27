@@ -92,11 +92,9 @@ const Cinema = (() => {
       '<div class="cin-bub me ok" style="--d:3.8s">' + esc(t('cin.chat.b3')) + tick + '</div></div>';
   }
   function artYaser(){
-    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><defs><radialGradient id="yog" cx=".4" cy=".3"><stop offset="0" stop-color="#d9d6ff"/><stop offset=".55" stop-color="#2b92dc"/><stop offset="1" stop-color="#2a2a9a"/></radialGradient></defs>' +
-      '<circle class="cin-halo" cx="100" cy="104" r="70" fill="#2b92dc" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="70" fill="none" stroke="#73c3e2" stroke-width="2"/>' +
-      '<circle class="cin-orbit" cx="100" cy="104" r="86" fill="none" stroke="#73c3e2" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
-      '<line x1="100" y1="34" x2="100" y2="20" stroke="#73c3e2" stroke-width="4" stroke-linecap="round"/><circle class="cin-ant" cx="100" cy="16" r="6" fill="#73c3e2"/>' +
-      '<g class="cin-bot"><circle cx="100" cy="104" r="58" fill="url(#yog)"/><rect class="cin-eye" x="74" y="92" width="14" height="22" rx="7" fill="#fff"/><rect class="cin-eye e2" x="112" y="92" width="14" height="22" rx="7" fill="#fff"/><path d="M80 130 Q100 146 120 130" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/></g></svg>' +
+    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="104" r="76" fill="#7ED8F6" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="76" fill="none" stroke="#7ED8F6" stroke-width="2"/>' +
+      '<circle class="cin-orbit" cx="100" cy="104" r="92" fill="none" stroke="#7ED8F6" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
+      '<clipPath id="cin-amal"><circle cx="100" cy="104" r="66"/></clipPath><circle cx="100" cy="104" r="66" fill="#EAF8FF"/><image href="assets/sanad/amal-240.png" x="34" y="32" width="132" height="158" clip-path="url(#cin-amal)" preserveAspectRatio="xMidYMin slice"/></svg>' +
       '<div class="cin-say"><span>' + esc(t('cin.yaser.hi')) + '</span></div></div>';
   }
   function artGlobe(){
@@ -108,11 +106,11 @@ const Cinema = (() => {
       '<circle class="cin-pin" cx="40" cy="120" r="5" fill="#73c3e2"/><circle class="cin-pin p2" cx="168" cy="70" r="5" fill="#73c3e2"/><circle class="cin-pin p3" cx="176" cy="126" r="4" fill="#EAF5FF"/>' + mot + '</svg>';
   }
   function artFace(){
-    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9af0c6"/><stop offset="1" stop-color="#1f9d6e"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
+    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
       '<path class="cin-shield" d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z" fill="rgba(26,105,162,.14)" stroke="url(#fsg)" stroke-width="5" stroke-linejoin="round"/>' +
       '<g class="cin-face" fill="none" stroke="#eaf8fe" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 78V66a4 4 0 0 1 4-4h12M138 78V66a4 4 0 0 0-4-4h-12M62 128v12a4 4 0 0 0 4 4h12M138 128v12a4 4 0 0 1-4 4h-12"/><path d="M84 92v8M116 92v8M100 96v14h-5M86 122q14 10 28 0"/></g>' +
       '<g clip-path="url(#fcl)"><rect class="cin-scan" x="20" y="40" width="160" height="14" fill="url(#fsg)" opacity=".55"/></g>' +
-      '<circle class="cin-okc" cx="148" cy="166" r="22" fill="#1f9d6e"/><path class="cin-ok" d="M138 166l7 7 13-15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+      '<circle class="cin-okc" cx="148" cy="166" r="22" fill="#14A879"/><path class="cin-ok" d="M138 166l7 7 13-15" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   }
 
   const THEMES = { boost: 't-gold', credit: 't-ember', chat: 't-teal', yaser: 't-indigo', send: 't-sky', face: 't-emerald', ann: 't-gold' };
@@ -143,7 +141,7 @@ const Cinema = (() => {
     const fill = s => String(s).replace('{min}', Money.int(c.credit_min)).replace('{max}', Money.int(c.credit_max)).replace('{rate}', rate);
     let num = '';
     if (id === 'boost') num = '';   /* 19.0.0 : aucun rendement annoncé : pas de compteur de gains */
-    else if (id === 'credit') num = '<div class="cin-num"><small>' + esc(t('cin.credit.up')) + '</small><b class="ltr" dir="ltr" data-cu="' + esc(Number(c.credit_max) || 0) + '">0</b><small>OMR</small></div>';
+    else if (id === 'credit') num = '<div class="cin-num"><small>' + esc(t('cin.credit.up')) + '</small><b class="ltr" dir="ltr" data-cu="' + esc(Number(c.credit_max) || 0) + '">' + esc(Money.int(Number(c.credit_max) || 0)) + '</b><small>OMR</small></div>';
     else if (id === 'send') num = '<div class="cin-chips"><span>' + esc(t('cin.send.a')) + '</span><span>' + esc(t('cin.send.b')) + '</span></div>';
     return { k: t('cin.' + id + '.k'), title: titleHtml(fill(t('cin.' + id + '.t')), true), sub: t('cin.' + id + '.s'), cta: t('cin.' + id + '.c'), num };
   }
@@ -181,7 +179,7 @@ const Cinema = (() => {
     function activate(el){
       stopFx();
       try {
-        el.querySelectorAll('[data-cu]').forEach(b => { const to = Number(b.getAttribute('data-cu')) || 0; Fx.countUp(b, to, { from: 0, ms: 1600, dec: 0 }); });
+        el.querySelectorAll('[data-cu]').forEach(b => { b.textContent = Money.int(Number(b.getAttribute('data-cu')) || 0); });      /* 21.2.0 : valeur exacte tout de suite, plus de comptage depuis 0 */
         el.querySelectorAll('[data-tick]').forEach(b => { const base = Number(b.getAttribute('data-tick')) || 0, rate = Number(b.getAttribute('data-rate')) || 0; stops.push(Fx.ticker(b, base, base * rate / 100 / 86400, { dec: 6 })); });   /* vrai gain par seconde (exemple de 1 000 OMR) : visible à la 6e décimale */
       } catch(e){ /* un effet ne casse rien */ }
     }
