@@ -166,3 +166,9 @@ html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,5
 #net-banner.is-off{background:linear-gradient(180deg,#F7B658,#F4A43B);color:#4A2A00;box-shadow:0 10px 24px -14px rgba(244,164,59,.9)}
 #net-banner.is-ok{background:linear-gradient(180deg,#22BE8C,#14A879);color:#fff;box-shadow:0 10px 24px -14px rgba(20,168,121,.9)}
 #net-banner{transition-duration:var(--mo-panel);transition-timing-function:var(--mo-out)}
+
+/* ---------- 17. aide (FAQ) : un seul chevron ; il pivote à l'ouverture ---------- */
+.faq-item>summary::after{display:none}
+.faq-item .faq-chev{transition:transform var(--mo-release) var(--mo-out)}
+.faq-item[open] .faq-chev{transform:rotate(90deg)}
+html[dir="rtl"] .faq-item .faq-chev{transform:scaleX(-1)}html[dir="rtl"] .faq-item[open] .faq-chev{transform:scaleX(-1) rotate(90deg)}
