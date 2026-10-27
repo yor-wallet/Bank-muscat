@@ -14,7 +14,7 @@ Strings.add({
     'hub.kMembers': 'Members', 'hub.kToday': 'New today', 'hub.kCredit': 'Credit requests waiting', 'hub.kBoost': 'Boost capital (OMR)',
     'hub.t.members': 'Members', 'hub.d.members': 'Search, details, welcome reward', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat with every member', 'hub.t.credit': 'Credit requests', 'hub.d.credit': 'Approve or decline',
     'hub.t.boost': 'Boost and settings', 'hub.d.boost': 'Rate, limits, switches', 'hub.t.announce': 'Announcements', 'hub.d.announce': 'Broadcast to everyone', 'hub.t.deposit': 'Quick deposit', 'hub.d.deposit': 'Credit a member by ID',
-    'hub.t.audit': 'Audit log', 'hub.d.audit': 'Latest actions', 'hub.t.sounds': 'Sounds', 'hub.d.sounds': 'Preview the sound bank', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Report for support',
+    'hub.t.agents': 'Assistants', 'hub.d.agents': 'Real state of the five roles', 'hub.t.audit': 'Audit log', 'hub.d.audit': 'Latest actions', 'hub.t.sounds': 'Sounds', 'hub.d.sounds': 'Preview the sound bank', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Report for support',
     'hub.dSub': 'Credits the member’s wallet right away. Recorded in the audit log.', 'hub.dId': 'Sanad Pay ID', 'hub.dAmt': 'Amount (OMR)', 'hub.dNote': 'Note (optional)', 'hub.dReview': 'Review', 'hub.dConfirm': 'Credit {a} to {n}?',
     'hub.dGo': 'Credit now', 'hub.dBack': 'Back', 'hub.dDone': 'Deposit completed', 'hub.dRef': 'Reference', 'hub.dClose': 'Done', 'hub.dBadId': 'Enter a valid Sanad Pay ID.', 'hub.dBadAmt': 'Enter an amount above zero.',
     'hub.dNoMember': 'No member with this ID.', 'hub.dChecking': 'Checking…', 'hub.dWorking': 'Crediting…',
@@ -33,7 +33,7 @@ Strings.add({
     'hub.kMembers': 'Membres', 'hub.kToday': 'Nouveaux aujourd’hui', 'hub.kCredit': 'Demandes de crédit en attente', 'hub.kBoost': 'Capital Boost (OMR)',
     'hub.t.members': 'Membres', 'hub.d.members': 'Recherche, fiches, récompense', 'hub.t.chat': 'Messages', 'hub.d.chat': 'Chat avec chaque membre', 'hub.t.credit': 'Demandes de crédit', 'hub.d.credit': 'Accepter ou refuser',
     'hub.t.boost': 'Boost et réglages', 'hub.d.boost': 'Taux, limites, interrupteurs', 'hub.t.announce': 'Annonces', 'hub.d.announce': 'Diffuser à tout le monde', 'hub.t.deposit': 'Dépôt rapide', 'hub.d.deposit': 'Créditer un membre par ID',
-    'hub.t.audit': 'Journal d’audit', 'hub.d.audit': 'Dernières actions', 'hub.t.sounds': 'Sons', 'hub.d.sounds': 'Écouter la banque de sons', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Rapport pour l’assistance',
+    'hub.t.agents': 'Assistants', 'hub.d.agents': 'État réel des cinq rôles', 'hub.t.audit': 'Journal d’audit', 'hub.d.audit': 'Dernières actions', 'hub.t.sounds': 'Sons', 'hub.d.sounds': 'Écouter la banque de sons', 'hub.t.diag': 'Diagnostic', 'hub.d.diag': 'Rapport pour l’assistance',
     'hub.dSub': 'Crédite aussitôt le portefeuille du membre. Enregistré dans le journal d’audit.', 'hub.dId': 'ID Sanad Pay', 'hub.dAmt': 'Montant (OMR)', 'hub.dNote': 'Note (facultatif)', 'hub.dReview': 'Vérifier', 'hub.dConfirm': 'Créditer {a} à {n} ?',
     'hub.dGo': 'Créditer maintenant', 'hub.dBack': 'Retour', 'hub.dDone': 'Dépôt effectué', 'hub.dRef': 'Référence', 'hub.dClose': 'Terminé', 'hub.dBadId': 'Saisissez un ID Sanad Pay valide.', 'hub.dBadAmt': 'Saisissez un montant supérieur à zéro.',
     'hub.dNoMember': 'Aucun membre avec cet ID.', 'hub.dChecking': 'Vérification…', 'hub.dWorking': 'Crédit en cours…',
@@ -52,7 +52,7 @@ Strings.add({
     'hub.kMembers': 'الأعضاء', 'hub.kToday': 'جدد اليوم', 'hub.kCredit': 'طلبات ائتمان معلّقة', 'hub.kBoost': 'رأس مال بوست (ر.ع)',
     'hub.t.members': 'الأعضاء', 'hub.d.members': 'بحث وتفاصيل ومكافأة', 'hub.t.chat': 'الرسائل', 'hub.d.chat': 'محادثة مع كل عضو', 'hub.t.credit': 'طلبات الائتمان', 'hub.d.credit': 'قبول أو رفض',
     'hub.t.boost': 'بوست والإعدادات', 'hub.d.boost': 'النسبة والحدود والمفاتيح', 'hub.t.announce': 'الإعلانات', 'hub.d.announce': 'بث للجميع', 'hub.t.deposit': 'إيداع سريع', 'hub.d.deposit': 'أضف رصيداً لعضو بمعرّفه',
-    'hub.t.audit': 'سجل التدقيق', 'hub.d.audit': 'آخر الإجراءات', 'hub.t.sounds': 'الأصوات', 'hub.d.sounds': 'استمع إلى مكتبة الأصوات', 'hub.t.diag': 'التشخيص', 'hub.d.diag': 'تقرير للدعم',
+    'hub.t.agents': 'المساعدون', 'hub.d.agents': 'الحالة الفعلية للأدوار الخمسة', 'hub.t.audit': 'سجل التدقيق', 'hub.d.audit': 'آخر الإجراءات', 'hub.t.sounds': 'الأصوات', 'hub.d.sounds': 'استمع إلى مكتبة الأصوات', 'hub.t.diag': 'التشخيص', 'hub.d.diag': 'تقرير للدعم',
     'hub.dSub': 'يُضاف فوراً إلى محفظة العضو. يُسجَّل في سجل التدقيق.', 'hub.dId': 'معرّف سند باي', 'hub.dAmt': 'المبلغ (ر.ع)', 'hub.dNote': 'ملاحظة (اختياري)', 'hub.dReview': 'مراجعة', 'hub.dConfirm': 'إضافة {a} إلى {n}؟',
     'hub.dGo': 'أضف الآن', 'hub.dBack': 'رجوع', 'hub.dDone': 'تم الإيداع', 'hub.dRef': 'المرجع', 'hub.dClose': 'تم', 'hub.dBadId': 'أدخل معرّف سند باي صحيحاً.', 'hub.dBadAmt': 'أدخل مبلغاً أكبر من الصفر.',
     'hub.dNoMember': 'لا يوجد عضو بهذا المعرّف.', 'hub.dChecking': 'جارٍ التحقق…', 'hub.dWorking': 'جارٍ الإضافة…',
@@ -131,7 +131,7 @@ const AdminHub = (() => {
     { k: 'chat', ic: 'chat', route: 'admin-chat', badge: 'chat' }, { k: 'credit', ic: 'cards', route: 'admin-credit', badge: 'credit' },
     { k: 'members', ic: 'users', route: 'admin' }, { k: 'boost', ic: 'vault', route: 'admin-boost' },
     { k: 'announce', ic: 'mega', route: 'admin-announce' }, { k: 'deposit', ic: 'banknote', sheet: 'deposit' },
-    { k: 'audit', ic: 'doc', sheet: 'audit' }, { k: 'sounds', ic: 'volume', sheet: 'sounds' }, { k: 'diag', ic: 'chart', sheet: 'diag' }
+    { k: 'audit', ic: 'doc', sheet: 'audit' }, { k: 'agents', ic: 'chat', route: 'admin-agents' }, { k: 'sounds', ic: 'volume', sheet: 'sounds' }, { k: 'diag', ic: 'chart', sheet: 'diag' }
   ];
   /* 19.0.0 : tuiles de l'espace administrateur 19 (plans, paiements, identités, retraits, utilisateurs, journal, notifications) */
   function allTiles(){

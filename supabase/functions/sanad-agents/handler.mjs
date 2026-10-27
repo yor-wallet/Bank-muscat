@@ -5,7 +5,7 @@
  *
  *  Jamais d'écriture sur les soldes, transferts, statuts, comptes, sessions ou sauvegardes. Le seul effet d'écriture est une ligne
  *  d'audit append-only SANS le contenu des messages (qui, quand, quel mode, quel résultat, durée). */
-import { createCoordinator, createAnthropicProvider, triage, CANNED } from './core.mjs';
+import { createCoordinator, createAnthropicProvider, triage, AGENTS, CANNED } from './core.mjs';
 
 export const LIMITS = Object.freeze({ support: 20, review: 6 });     /* appels par heure et par personne */
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type', 'Access-Control-Allow-Methods': 'POST, OPTIONS' };
@@ -39,8 +39,10 @@ export function createHandler(deps) {
     const body = await req.json().catch(() => ({}));
     const mode = String(body?.mode ?? '');
     const lang = LANGS.includes(String(body?.lang)) ? String(body.lang) : 'ar';
-    if (mode !== 'support' && mode !== 'review') return json({ error: 'bad_mode' }, 400);
-    if (mode === 'review' && me.role !== 'admin') return json({ error: 'admin_only' }, 403);
+    if (mode !== 'support' && mode !== 'review' && mode !== 'status') return json({ error: 'bad_mode' }, 400);
+    if ((mode === 'review' || mode === 'status') && me.role !== 'admin') return json({ error: 'admin_only' }, 403);
+    /* état réel des cinq rôles : « configuré » = clé et modèle présents côté serveur. Aucun appel au modèle, aucun journal, aucune donnée. */
+    if (mode === 'status') return json({ ok: true, configured: !!coordinator, roles: Object.keys(AGENTS), limits: LIMITS });
 
     /* quota : indisponible = refus (on ne dépense pas de crédit IA sans pouvoir compter) */
     try { if ((await deps.countRecent(me.id, mode, new Date(now() - 3600_000).toISOString())) >= LIMITS[mode]) return json({ error: 'quota' }, 429); }

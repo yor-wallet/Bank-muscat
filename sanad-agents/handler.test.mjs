@@ -32,6 +32,11 @@ test('review is reserved to active administrators', async () => {
   const r = await j(await post({ mode: 'review' }, 'admin')); assert.equal(r.s, 200); assert.equal(r.b.requiresHumanReview, true); assert.equal(Object.keys(r.b.agents).length, 5);
   assert.equal(calls.length, 5);
 });
+test('status: administrators only, tells whether the AI is configured, calls no model and writes no journal', async () => {
+  let s = setup(); assert.deepEqual(await j(await s.post({ mode: 'status' }, 'user')), { s: 403, b: { error: 'admin_only' } });
+  let r = await j(await s.post({ mode: 'status' }, 'admin')); assert.deepEqual([r.s, r.b.configured, r.b.roles], [200, true, ['support', 'data', 'supervision', 'diagnostics', 'maintenance']]); assert.equal(s.calls.length, 0); assert.equal(s.logs.length, 0);
+  s = setup({ provider: undefined }); r = await j(await s.post({ mode: 'status' }, 'admin')); assert.deepEqual([r.s, r.b.configured], [200, false]);
+});
 test('quota: limit reached -> 429, journal unavailable -> 503 (fail closed, no model call)', async () => {
   let s = setup({ countRecent: async () => LIMITS.support }); assert.equal((await s.post({ mode: 'support', message: 'hello' })).status, 429); assert.equal(s.calls.length, 0);
   s = setup({ countRecent: async () => { throw new Error('down'); } }); assert.equal((await s.post({ mode: 'support', message: 'hello' })).status, 503); assert.equal(s.calls.length, 0);

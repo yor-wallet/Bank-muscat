@@ -1,0 +1,25 @@
+/* ============================================================
+   SANAD PAY — ÉCRAN DES ASSISTANTS (administrateurs)  ·  état réel de chaque rôle : non configuré · disponible · occupé · erreur
+   ============================================================ */
+.ag-body{display:flex;flex-direction:column;gap:var(--sp-4);padding-bottom:var(--sp-8)}
+.ag-hero h1{margin:0;font-size:calc(28px*var(--ui));font-weight:800;letter-spacing:-.03em}.ag-hero p{margin:6px 0 0;color:var(--text-2);max-width:34em}
+.ag-why{margin:0;padding:12px 14px;border-radius:16px;background:var(--st-wait-bg,#FFF1DA);color:var(--st-wait,#8A5300);font-weight:600}
+.ag-list{display:flex;flex-direction:column;gap:var(--sp-3)}
+.ag-card{display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:14px;padding:16px;border-radius:24px;background:var(--glass-bg);border:1px solid var(--glass-bd);box-shadow:var(--glass-sh);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6)}
+.ag-face{flex:none;display:grid;place-items:center;width:48px;height:48px;border-radius:16px;background:var(--accent-soft);color:var(--accent-600,#134F91);overflow:hidden}
+.ag-face.is-amal{border-radius:50%;background:radial-gradient(circle at 50% 30%,#EAF8FF,#BFE3FA)}.ag-face.is-amal img{width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.ag-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.ag-main b{font-size:calc(16px*var(--ui))}.ag-main small{color:var(--text-2)}
+.ag-out{grid-column:1/-1;margin:0;padding:10px 12px;border-radius:14px;background:rgba(37,150,222,.08);font-size:calc(13.5px*var(--ui));line-height:1.5;white-space:pre-wrap;animation:moRise var(--mo-reveal) var(--mo-out) backwards}
+.ag-st{flex:none;display:inline-flex;align-items:center;gap:7px;height:28px;padding:0 12px;border-radius:999px;font-size:calc(12px*var(--ui));font-weight:700;background:var(--fill);color:var(--text-2)}
+.ag-st i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.ag-card[data-state="ready"] .ag-st{background:var(--st-ok-bg,#E3F7EF);color:var(--st-ok,#0E7F5C)}
+.ag-card[data-state="off"] .ag-st{background:var(--fill);color:var(--text-3)}
+.ag-card[data-state="error"] .ag-st{background:var(--st-bad-bg,#FCE4E1);color:var(--st-bad,#B42318)}
+.ag-card[data-state="busy"] .ag-st{background:rgba(37,150,222,.12);color:var(--accent-600,#134F91)}
+.ag-card[data-state="busy"] .ag-st i{animation:agPulse 1.1s ease-in-out infinite}
+@keyframes agPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.5);opacity:1}}
+.ag-acts{display:flex;gap:10px;flex-wrap:wrap}.ag-acts .btn{flex:1 1 160px}
+.ag-note,.ag-human{margin:0;font-size:calc(13px*var(--ui));color:var(--text-2);line-height:1.5}
+.ag-human{font-weight:600}
+@media (prefers-reduced-motion:reduce){.ag-card[data-state="busy"] .ag-st i,.ag-out{animation:none}}
+html[data-fx="lite"] .ag-card{-webkit-backdrop-filter:none;backdrop-filter:none}
