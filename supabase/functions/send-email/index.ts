@@ -1,12 +1,16 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
 
 // ---- Fixed official sender: never configurable from outside ----
-// 16.0.0 : marque Sanad Pay (noir & or). Les e-mails de transaction n'affichent AUCUN solde (ni avant, ni après).
+// 16.0.0 : marque Live X Digitale (noir & or). Les e-mails de transaction n'affichent AUCUN solde (ni avant, ni après).
 // UN SEUL e-mail « OK » par transfert (TX_SENDER) : l'ancien e-mail « le versement n'est pas encore effectué » n'est plus créé côté base.
+// 19.0.0 : e-mails de validation (identité vérifiée, paiement confirmé, retrait payé) : TOUJOURS entièrement en arabe.
+// 21.0.0 : rebranding Sanad Pay (bleu ciel), SP- au lieu de FP-. FROM_EMAIL inchangé (adresse vérifiée chez Brevo).
+// 20.3.1 : rebranding Freindi Pay (émeraude), FP- au lieu de LXD-. FROM_EMAIL inchangé : c'est l'adresse vérifiée chez Brevo,
+// la changer casserait l'envoi tant qu'une nouvelle adresse n'est pas vérifiée côté Brevo.
 const FROM_EMAIL = "yordigitalefinance@gmail.com";   // adresse d'expédition vérifiée chez Brevo (inchangée)
 const FROM_NAME = "Sanad Pay";
 const REPLY_TO = FROM_EMAIL;
-const APP_URL = (Deno.env.get("APP_URL") || "https://live-x-digitale-app.vercel.app").trim();
+const APP_URL = (Deno.env.get("APP_URL") || "https://freindi-pay.vercel.app").trim();
 const BREVO_KEY = Deno.env.get("BREVO_API_KEY") ?? "";
 
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, {
@@ -17,9 +21,8 @@ type Lang = "fr" | "en" | "ar";
 // deno-lint-ignore no-explicit-any
 type Row = Record<string, any>;
 
-// Palette de marque (identique à l'application)
-/* palette Sanad Pay : accent bleu, bleu profond, encre marine (les noms de constantes sont conservés) */
-const GOLD = "#2596DE", GOLD_DEEP = "#134F91", INK = "#102C4C";
+// Palette de marque Sanad Pay (identique à l'application : css/s-tokens.css) ; les noms de constantes sont conservés
+const EMERALD = "#2596DE", EMERALD_DEEP = "#134F91", INK = "#102C4C";
 
 const T: Record<Lang, Row> = {
   fr: {
@@ -36,7 +39,7 @@ const T: Record<Lang, Row> = {
     sentSubject: (a: string) => `Transaction réussie : ${a}`,
     recvSubject: (a: string) => `Vous avez reçu ${a}`,
     sentTitle: "Votre transaction a réussi", recvTitle: "Vous avez reçu de l'argent",
-    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "ID Sanad Pay", phone: "Téléphone", service: "Service", country: "Pays",
+    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "Sanad Pay ID", phone: "Téléphone", service: "Service", country: "Pays",
       address: "Adresse de destination", network: "Réseau", memo: "Mémo",
       rate: "Taux de change", dest: "Montant à recevoir", debited: "Montant débité", received: "Montant reçu",
       fee: "Frais", date: "Date", time: "Heure", ref: "Référence", status: "Statut", email: "E-mail", name: "Nom" },
@@ -96,12 +99,12 @@ const T: Record<Lang, Row> = {
     sentSubject: (a: string) => `تمت العملية بنجاح: ${a}`,
     recvSubject: (a: string) => `لقد استلمت ${a}`,
     sentTitle: "تمت عمليتك بنجاح", recvTitle: "لقد استلمت أموالاً",
-    f: { type: "النوع", amount: "المبلغ", to: "المستفيد", from: "المرسل", yor: "معرّف سند باي", phone: "الهاتف", service: "الخدمة", country: "الدولة",
+    f: { type: "النوع", amount: "المبلغ", to: "المستفيد", from: "المرسل", yor: "Sanad Pay ID", phone: "الهاتف", service: "الخدمة", country: "الدولة",
       address: "عنوان الوجهة", network: "الشبكة", memo: "المذكرة",
       rate: "سعر الصرف", dest: "المبلغ المستلم", debited: "المبلغ المخصوم", received: "المبلغ المستلم",
       fee: "الرسوم", date: "التاريخ", time: "الوقت", ref: "المرجع", status: "الحالة", email: "البريد الإلكتروني", name: "الاسم" },
     ok: "ناجحة",
-    kinds: { FIAT_TRANSFER: "تحويل عبر معرّف سند باي", FIAT_EXTERNAL: "تحويل دولي", CRYPTO_TRANSFER: "تحويل عملات رقمية", ADMIN_DEPOSIT: "إيداع", SIGNUP_BONUS: "مكافأة الترحيب",
+    kinds: { FIAT_TRANSFER: "تحويل عبر Sanad Pay ID", FIAT_EXTERNAL: "تحويل دولي", CRYPTO_TRANSFER: "تحويل عملات رقمية", ADMIN_DEPOSIT: "إيداع", SIGNUP_BONUS: "مكافأة الترحيب",
       CRYPTO_BUY: "شراء عملات رقمية", CRYPTO_SELL: "بيع عملات رقمية", CRYPTO_SWAP: "مبادلة عملات رقمية", CRYPTO_SEND: "إرسال عملات رقمية خارجي", CRYPTO_TO_BANK: "من العملات الرقمية إلى البنك" },
     admin: { subject: (n: string) => `عضو جديد: ${n}`, title: "انضم عضو جديد للتو", intro: "هذه بيانات التسجيل الخاصة به." },
     sec: {
@@ -129,8 +132,8 @@ const FIAT_DEC: Record<string, number> = { OMR: 3, XOF: 0, USD: 2, AED: 2, SAR: 
 const NETWORK_NAMES: Record<string, string> = {
   bitcoin: "Bitcoin", ethereum: "Ethereum", bsc: "BNB Smart Chain", polygon: "Polygon", tron: "TRON", solana: "Solana", xrp: "XRP Ledger", litecoin: "Litecoin",
 };
-// La base garde YOR-XXXXXX et YOR-TX-… ; l'application affiche LXD-… : les e-mails aussi.
-const dispId = (v: unknown) => String(v ?? "").replace(/^YOR-/i, "LXD-");
+// La base garde YOR-XXXXXX et YOR-TX-… ; l'application affiche SP-… : les e-mails aussi (même convention que les SMS Infobip).
+const dispId = (v: unknown) => String(v ?? "").replace(/^YOR-/i, "SP-");
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const countryName = (iso: string, lang: Lang) => { try { return new Intl.DisplayNames([lang], { type: "region" }).of(iso) ?? iso; } catch { return iso; } };
 
@@ -157,24 +160,24 @@ function layout(lang: Lang, title: string, intro: string, rows: [string, string]
     `<body style="margin:0;background:#f5f4f1;font-family:Arial,Helvetica,sans-serif" dir="${t.dir}">` +
     `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">` +
     `<table role="presentation" width="100%" style="max-width:560px;background:#fff;border-radius:16px;overflow:hidden" cellpadding="0" cellspacing="0">` +
-    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${GOLD}"><span style="display:inline-block;background:${GOLD};color:${INK};font-size:17px;font-weight:900;border-radius:9px;padding:6px 9px;letter-spacing:-.5px;vertical-align:middle">&#10003;</span>` +
-    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">SANAD PAY</span></td></tr>` +
+    `<tr><td style="background:${INK};padding:22px 28px;text-align:${al};border-bottom:3px solid ${EMERALD}"><span style="display:inline-block;background:${EMERALD};color:#fff;font-size:17px;font-weight:900;border-radius:9px;padding:6px 10px;letter-spacing:-.5px;vertical-align:middle">&#10003;</span>` +
+    `<span style="color:#fff;font-size:22px;font-weight:800;letter-spacing:.4px;margin:0 10px;vertical-align:middle">SANAD</span><span style="color:${EMERALD};font-size:12px;font-weight:600;letter-spacing:4px;vertical-align:middle">PAY</span></td></tr>` +
     `<tr><td style="padding:28px;text-align:${al}"><h1 style="margin:0 0 12px;font-size:21px;color:#111827">${esc(title)}</h1>` +
     `<p style="margin:0 0 20px;font-size:15px;line-height:1.6;color:#374151">${esc(intro)}</p>` +
     (rows.length ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${body}</table>` : "") +
     extraHtml + `</td></tr>` +
     `<tr><td style="padding:18px 28px;background:#f9fafb;font-size:12px;line-height:1.6;color:#6b7280;text-align:${al}">` +
-    `${esc(t.supportLine)} <a href="mailto:${REPLY_TO}" style="color:${GOLD_DEEP}">${REPLY_TO}</a><br>${esc(t.company)}<br>${links}</td></tr>` +
+    `${esc(t.supportLine)} <a href="mailto:${REPLY_TO}" style="color:${EMERALD_DEEP}">${REPLY_TO}</a><br>${esc(t.company)}<br>${links}</td></tr>` +
     `</table></td></tr></table></body></html>`;
 }
 
 function button(label: string): string {
   if (!APP_URL) return "";
-  return `<p style="margin:24px 0 0;text-align:center"><a href="${esc(APP_URL)}" style="display:inline-block;background:${GOLD};color:${INK};text-decoration:none;font-weight:800;padding:13px 28px;border-radius:10px;font-size:15px">${esc(label)}</a></p>`;
+  return `<p style="margin:24px 0 0;text-align:center"><a href="${esc(APP_URL)}" style="display:inline-block;background:${EMERALD};color:#fff;text-decoration:none;font-weight:800;padding:13px 28px;border-radius:10px;font-size:15px">${esc(label)}</a></p>`;
 }
 
 function rewardBox(text: string): string {
-  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#EAF8FF;border:1px solid ${GOLD};color:#102C4C;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
+  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#EAF8FF;border:1px solid ${EMERALD};color:#102C4C;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
 }
 
 async function langOf(userId: string | null): Promise<Lang> {
@@ -210,16 +213,17 @@ async function build(log: Row, lang: Lang): Promise<{ subject: string; html: str
   }
   if (type === "INVEST_CONFIRMED") {
     const p: Row = log.payload ?? {};
-    const rows: [string, string][] = [[T.ar.f.ref, String(p.reference ?? "")], [T.ar.val.plan, T.ar.val.plans[String(p.plan)] ?? String(p.plan ?? "")], [T.ar.f.amount, money(p.amount, "OMR", "ar")], [T.ar.val.days, String(p.days ?? "")]];
-    return { subject: T.ar.val.invSubject(String(p.reference ?? "")), html: layout("ar", T.ar.val.invTitle, T.ar.val.invBody, rows, button(T.ar.open)) };
+    const rows: [string, string][] = [[T.ar.f.ref, dispId(p.reference)], [T.ar.val.plan, T.ar.val.plans[String(p.plan)] ?? String(p.plan ?? "")], [T.ar.f.amount, money(p.amount, "OMR", "ar")], [T.ar.val.days, String(p.days ?? "")]];
+    return { subject: T.ar.val.invSubject(dispId(p.reference)), html: layout("ar", T.ar.val.invTitle, T.ar.val.invBody, rows, button(T.ar.open)) };
   }
   if (type === "WITHDRAWAL_PAID") {
     const p: Row = log.payload ?? {};
-    const rows: [string, string][] = [[T.ar.f.ref, String(p.reference ?? "")], [T.ar.f.amount, money(p.amount, "OMR", "ar")]];
+    const rows: [string, string][] = [[T.ar.f.ref, dispId(p.reference)], [T.ar.f.amount, money(p.amount, "OMR", "ar")]];
     if (p.bank_ar) rows.push([T.ar.val.bank, String(p.bank_ar)]);
     if (p.bank_ref) rows.push([T.ar.val.bankRef, String(p.bank_ref)]);
-    return { subject: T.ar.val.wdSubject(String(p.reference ?? "")), html: layout("ar", T.ar.val.wdTitle, T.ar.val.wdBody, rows, button(T.ar.open)) };
+    return { subject: T.ar.val.wdSubject(dispId(p.reference)), html: layout("ar", T.ar.val.wdTitle, T.ar.val.wdBody, rows, button(T.ar.open)) };
   }
+
   if (type === "ADMIN_NEW_USER") {
     // Alerte administrateur : un nouvel inscrit. Les données viennent de la base (payload écrit par le déclencheur).
     const p: Row = log.payload ?? {};

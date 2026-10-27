@@ -243,11 +243,11 @@ export function buildPushMessage(n: Row, lang: Lang, unread = 0): PushMessage | 
     body = amt ? fill(t.depositBody, { amt: iso(amt) }) : clean(n.message, 120);
   }
   /* 16.1.0 : référence de la transaction dans le texte de l'alerte (montant, personne et référence) */
-  if (d.reference && (type === "TRANSFER_SENT" || type === "TRANSFER_RECEIVED" || type === "DEPOSIT") && amt) body += " · " + t.ref + " " + iso(String(d.reference).replace(/^YOR-/i, "FP-"));
+  if (d.reference && (type === "TRANSFER_SENT" || type === "TRANSFER_RECEIVED" || type === "DEPOSIT") && amt) body += " · " + t.ref + " " + iso(String(d.reference).replace(/^YOR-/i, "SP-"));
   if (!body) body = title;
   const id = String(n?.id ?? "");
   return {
-    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (String(d.from) === "Sanad Pay" ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : (type === "CREDIT_DECISION" || type === "CREDIT_DUE") ? "#/credit" : "#/notifications",
+    title: clean(title, 60), body: clean(body, 160), tag: id ? "fp-" + id : "fp-" + type.toLowerCase(), url: type === "NEW_USER" ? "#/admin" : type === "CHAT_MESSAGE" ? (["Sanad Pay", "Live X Digitale"].includes(String(d.from)) ? "#/chat" : "#/admin/chat") : type === "CREDIT_REQUEST" ? "#/admin/credit" : (type === "CREDIT_DECISION" || type === "CREDIT_DUE") ? "#/credit" : "#/notifications",
     badge: Math.max(0, Math.min(99, Math.floor(Number(unread) || 0))), lang, dir: lang === "ar" ? "rtl" : "ltr", ts: Date.now(), kind: type,
   };
 }
