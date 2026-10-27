@@ -70,7 +70,7 @@
         },
         {
           "key": "Link",
-          "value": "</assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.8f48c6d89c.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.398a45b6d1.js>; rel=preload; as=script, </js/app2.388ce458a3.js>; rel=preload; as=script, </js/app3.cd9158a83e.js>; rel=preload; as=script"
+          "value": "</assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.8f48c6d89c.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.0e6c900647.js>; rel=preload; as=script, </js/app2.388ce458a3.js>; rel=preload; as=script, </js/app3.cd9158a83e.js>; rel=preload; as=script"
         }
       ]
     },
@@ -83,7 +83,7 @@
         },
         {
           "key": "Link",
-          "value": "</assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.8f48c6d89c.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.398a45b6d1.js>; rel=preload; as=script, </js/app2.388ce458a3.js>; rel=preload; as=script, </js/app3.cd9158a83e.js>; rel=preload; as=script"
+          "value": "</assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin, </css/app.8f48c6d89c.css>; rel=preload; as=style, </js/vendor/supabase-2.45.4.js>; rel=preload; as=script, </js/app1.0e6c900647.js>; rel=preload; as=script, </js/app2.388ce458a3.js>; rel=preload; as=script, </js/app3.cd9158a83e.js>; rel=preload; as=script"
         }
       ]
     },

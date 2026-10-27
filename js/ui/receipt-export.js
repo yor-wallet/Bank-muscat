@@ -37,7 +37,7 @@ const ReceiptExport = (() => {
     if (cur) lines.push(cur);
     return lines.slice(0, 3);
   }
-  function svg(r, v){
+  function svg(r, v, logo){
     const rtl = document.documentElement.dir === 'rtl', st = stateOf(r, v), pal = PAL[st];
     const list = rows(r, v), rowH = 84;
     const xL = rtl ? W - 90 : 90, xV = rtl ? 90 : W - 90, aL = rtl ? 'end' : 'start', aV = rtl ? 'start' : 'end';
@@ -70,8 +70,8 @@ const ReceiptExport = (() => {
     const head =
       '<rect x="40" y="40" width="' + (W - 80) + '" height="' + HDR + '" rx="56" fill="url(#hdr)"/>' +
       '<rect x="40" y="' + (HDR - 16) + '" width="' + (W - 80) + '" height="56" fill="url(#hdr)"/>' +
-      /* le sigle Sanad Pay du pack, tel quel : carré arrondi dégradé, coche blanche, ligne claire */
-      '<g transform="translate(' + (rtl ? W - 90 - 76 : 90) + ' 104) scale(' + (76 / 256) + ')"><rect x="8" y="8" width="240" height="240" rx="62" fill="url(#g)"/><path d="M68 127l44 44 81-89" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M68 185h125" stroke="#FFFFFF" stroke-opacity=".85" stroke-width="12" stroke-linecap="round" fill="none"/></g>' +
+      /* le logo officiel Sanad Pay (ruban S), tel quel, sur une plaquette blanche arrondie ; image intégrée en data URI */
+      (logo ? '<g transform="translate(' + (rtl ? W - 90 - 76 : 90) + ' 104)"><rect width="76" height="76" rx="22" fill="#FFFFFF"/><image href="' + logo + '" width="76" height="76" preserveAspectRatio="xMidYMid slice" clip-path="url(#lgc)"/></g>' : '') +
       '<text x="' + (rtl ? W - 182 : 182) + '" y="152" font-size="38" font-weight="800" fill="#FFFFFF" text-anchor="' + btxt + '"' + (rtl ? '' : ' letter-spacing=".5"') + '>' + BRAND + '</text>' +
       '<text x="' + tx + '" y="128" font-size="23" font-weight="700" fill="rgba(255,255,255,.82)" text-anchor="' + ttxt + '"' + (rtl ? '' : ' letter-spacing="2.5"') + '>' + escapeHtml(docType) + '</text>' +
       '<text x="' + tx + '" y="166" font-size="24" font-weight="600" fill="rgba(255,255,255,.95)" text-anchor="' + ttxt + '" direction="ltr">' + escapeHtml(dispId(String(r.reference || r.transactionId || r.id || '—'))) + '</text>' +
@@ -79,7 +79,7 @@ const ReceiptExport = (() => {
       '<circle cx="' + cx + '" cy="' + (HDR + 40) + '" r="50" fill="none" stroke="' + pal.fg + '" stroke-width="7"/>' +
       '<g transform="translate(' + cx + ' ' + (HDR + 40) + ')"><path d="' + pal.icon + '" stroke="' + pal.fg + '" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>';
     return '<svg xmlns="http://www.w3.org/2000/svg" width="' + W + '" height="' + H + '" viewBox="0 0 ' + W + ' ' + H + '" font-family="' + FONT + '">' +
-      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient>' +
+      '<defs><clipPath id="lgc" clipPathUnits="objectBoundingBox"><rect width="1" height="1" rx=".29"/></clipPath><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient>' +
       '<linearGradient id="hdr" gradientUnits="userSpaceOnUse" x1="40" y1="40" x2="' + (W - 40) + '" y2="' + (HDR + 40) + '"><stop offset="0" stop-color="#2596DE"/><stop offset=".55" stop-color="#134F91"/><stop offset="1" stop-color="#134F91"/></linearGradient></defs>' +
       '<rect width="' + W + '" height="' + H + '" fill="' + BG + '"/>' +
       '<rect x="40" y="40" width="' + (W - 80) + '" height="' + (H - 80) + '" rx="56" fill="#FFFFFF" stroke="#E6E6E6" stroke-width="2"/>' +
@@ -92,9 +92,16 @@ const ReceiptExport = (() => {
       '<text x="' + cx + '" y="' + (H - 100) + '" font-size="22" fill="#8A8A8A" text-anchor="middle">' + escapeHtml(v.date + ' · ' + v.time) + '</text>' +
       '<text x="' + cx + '" y="' + (H - 64) + '" font-size="19" fill="#A0A0A0" text-anchor="middle">' + escapeHtml(note) + '</text></svg>';
   }
-  function canvasOf(r, v){
+  let logoMemo = null;
+  async function logoData(){
+    if (logoMemo) return logoMemo;
+    try { const b = await (await fetch('assets/brand/sanad-s-192.png')).blob(); logoMemo = await new Promise((res, rej) => { const f = new FileReader(); f.onload = () => res(f.result); f.onerror = rej; f.readAsDataURL(b); }); } catch(e){ logoMemo = ''; }
+    return logoMemo;
+  }
+  async function canvasOf(r, v){
+    const logo = await logoData();
     return new Promise((resolve, reject) => {
-      const s = svg(r, v), img = new Image();
+      const s = svg(r, v, logo), img = new Image();
       img.onload = () => {
         const c = document.createElement('canvas'); c.width = img.naturalWidth || W; c.height = img.naturalHeight;
         const x = c.getContext('2d'); x.fillStyle = BG; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0);
