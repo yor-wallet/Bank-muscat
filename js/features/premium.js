@@ -144,6 +144,14 @@ function txMatches(tx, q){
    BALANCE CHANGE — when the REAL balance read from the server differs from the one shown last time in this session, the number counts
    from the old value to the new one (≈0.7 s) and the card glows once. The final text is always the exact formatted server value.
    ============================================================ */
+function splitMoney(formatted, code){
+  const raw = String(formatted == null ? '' : formatted);
+  const i = raw.indexOf(code);
+  const rest = (i < 0 ? raw : raw.slice(0, i) + raw.slice(i + code.length)).trim();
+  const m = /^(.*?\d)([.,\u066B](\d{1,3}))$/.exec(rest);
+  const num = m ? '<span class="rv-int">' + escapeHtml(m[1]) + '</span><span class="rv-dec">' + escapeHtml(m[2]) + '</span>' : escapeHtml(rest);
+  return (i < 0 ? '' : '<span class="rv-cur">' + escapeHtml(code) + '</span> ') + num;
+}
 const BalanceFx = (() => {
   let last = null;              /* { key, value } — memory only, never stored */
   function check(main){
@@ -165,7 +173,7 @@ const BalanceFx = (() => {
       if (k >= 1){ el.innerHTML = finalHtml; return; }
       const dv = balanceView(from + (to - from) * e, main.currency);
       const code = String(dv.currency).toUpperCase();
-      el.innerHTML = escapeHtml(CurrencyEngine.format(dv.amount, code)).replace(code, '<span class="rv-cur">' + code + '</span>');
+      el.innerHTML = splitMoney(CurrencyEngine.format(dv.amount, code), code);
       requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
@@ -395,7 +403,8 @@ const PxInstall = (() => {
 const Premium = (() => {
   const topbar = (title, back) => '<div class="topbar px-topbar">' + (back !== false ? '<button class="topbar-back" data-action="back" aria-label="' + escapeHtml(t('ui.back')) + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button>' : '<span style="width:calc(44px*var(--ui))"></span>') +
     '<span class="topbar-title">' + escapeHtml(title) + '</span><span style="width:calc(44px*var(--ui))"></span></div>';
-  const money = (a, c) => { const code = String(c || 'OMR').toUpperCase(); return escapeHtml(CurrencyEngine.format(a, code)).replace(code, '<span class="rv-cur">' + code + '</span>'); };
+  /* Glass 21.1.0 — montant « à la Revolut » : code monétaire discret, partie entière en grand, décimales plus petites. Le texte reste identique. */
+  const money = (a, c) => splitMoney(CurrencyEngine.format(a, String(c || 'OMR').toUpperCase()), String(c || 'OMR').toUpperCase());
   const MASK = '••••••';
   let balFrom = null;
 
@@ -430,23 +439,21 @@ const Premium = (() => {
     return '<div class="sx-home">' +
       '<header class="sx-bar">' +
         '<button class="sx-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<div class="sx-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(p.firstName || p.displayName || 'Sanad Pay') + '</b></div>' +
-        '<button class="sx-ibtn" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 22) + '</button>' +
-        '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 22) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
+        '<button class="sx-search-pill" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 18) + '<span>' + escapeHtml(t('px.search')) + '</span></button>' +
+        '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 21) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
       '</header>' +
       '<section class="sx-hero" aria-label="' + escapeHtml(t('px.available')) + '">' +
-        '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' + acct.replace(/px-chip/g, 'sx-chip') +
-          '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 22) + '</button></div>' +
+        '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' +
+          '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 18) + '</button></div>' +
         '<div class="sx-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
         (dv.converted && !hide ? '<div class="sx-sub ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
         (showAvail && !hide ? '<div class="sx-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
-        '<div class="sx-horizon" aria-hidden="true"><i></i></div>' + monthLine +
-        (yid ? '<div class="sx-id ltr" dir="ltr">' + escapeHtml(yid) + '</div>' : '') +
+        '<div class="sx-chips">' + acct.replace(/px-chip/g, 'sx-chip') + (yid ? '<span class="sx-chip sx-chip-id ltr" dir="ltr">' + escapeHtml(yid) + '</span>' : '') + '</div>' + monthLine +
       '</section>' +
-      '<div class="sx-sheet">' +
-        '<nav class="sx-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + tile('country-select', 'send', t('px.send'), true) + tile('receive', 'receive', t('px.receive')) + tile('history', 'history', t('px.history')) + tile('services', 'apps', t('px.more')) + '</nav>' +
+      '<nav class="sx-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + tile('country-select', 'send', t('px.send'), true) + tile('receive', 'receive', t('px.receive')) + tile('history', 'history', t('px.history')) + tile('services', 'apps', t('px.more')) + '</nav>' +
+      '<div class="sx-feed">' +
         PxInstall.card() + pendHtml +
-        '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="sx-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
+        '<section class="sx-sec sx-card"><div class="sx-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="sx-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
           (txs.length ? txGroupedHtml(txs, hide) : '<div class="sx-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
         (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
         cardsHtml + othersHtml +

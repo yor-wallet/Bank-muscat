@@ -16,6 +16,6 @@ for f in sorted(glob.glob(os.path.join(src, '*.png'))):
     b = fit(Image.open(bf)); a2 = fit(a); gap = 24; top = 44
     sheet = Image.new('RGB', (b.width + a2.width + gap, H + top), (255, 255, 255)); d = ImageDraw.Draw(sheet)
     sheet.paste(b, (0, top)); sheet.paste(a2, (b.width + gap, top))
-    d.text((12, 14), 'Freindi Pay 20.3.0 (avant)  —  ' + name, fill=(90, 90, 90)); d.text((b.width + gap + 12, 14), 'Sanad Pay 21.0.0 (après)', fill=(19, 79, 145))
+    d.text((12, 14), 'Freindi Pay 20.3.0 (avant)  —  ' + name, fill=(90, 90, 90)); d.text((b.width + gap + 12, 14), 'Sanad Pay 21.1.0 (après)', fill=(19, 79, 145))
     sheet.save(os.path.join(cmp_, name + '.webp'), quality=80); n += 1
 print(n, 'planches')

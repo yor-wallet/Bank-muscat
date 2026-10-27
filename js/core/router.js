@@ -54,7 +54,7 @@ const R = (() => {
   function arm(){ try { if (!(history.state && history.state.yorTop)) history.pushState({ yorTop:true }, '', location.href); } catch(e){} }
   function chrome(id){
     const nav = document.getElementById('bottom-nav');
-    const hideNav = NONAV.indexOf(id) !== -1 || /^settings|^banks-add|^contact-add|^cards-add|^login|^signup|^reset|^devices|^sessions|^processing/.test(id);   /* 12.12.0: the send animation is full-screen, nothing else to tap */
+    const hideNav = NONAV.indexOf(id) !== -1 || /^country-select|^tx-|^receipt|^settings|^banks-add|^contact-add|^cards-add|^login|^signup|^reset|^devices|^sessions|^processing/.test(id);   /* 12.12.0: the send animation is full-screen, nothing else to tap */
     if (nav) nav.hidden = hideNav;
     const m = document.getElementById('main'); if (m) m.classList.toggle('no-nav', hideNav);
     const key = NAV_KEYS[id];

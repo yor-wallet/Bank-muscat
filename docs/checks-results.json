@@ -17,7 +17,7 @@
  {
   "name": "[en] cibles tactiles ≥ 40 px (information)",
   "pass": true,
-  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32 ; credit → cr-amt 228x38 | cr-rng 304x36 ; withdraw → wd-ok 1x1 ; chat → chat-help-go 142x36 | chat-help-x 32x32 | chat-send 18x18"
+  "detail": "login → sx-eye 34x34 ; signup → sx-eye 34x34 ; home → sx-eye 34x34 ; cards → rv-cp 36x36 ; profile → sx-pill 127x32 ; credit → cr-amt 228x38 | cr-rng 304x36"
  },
  {
   "name": "[en] aucune erreur console",
@@ -42,7 +42,7 @@
  {
   "name": "[fr] cibles tactiles ≥ 40 px (information)",
   "pass": true,
-  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32"
+  "detail": "home → sx-eye 34x34 ; cards → rv-cp 36x36 ; profile → sx-pill 127x32"
  },
  {
   "name": "[fr] aucune erreur console",
@@ -67,7 +67,7 @@
  {
   "name": "[ar] cibles tactiles ≥ 40 px (information)",
   "pass": true,
-  "detail": "cards → rv-cp 36x36 ; profile → sx-pill 127x32"
+  "detail": "home → sx-eye 34x34 ; cards → rv-cp 36x36 ; profile → sx-pill 127x32"
  },
  {
   "name": "[ar] aucune erreur console",

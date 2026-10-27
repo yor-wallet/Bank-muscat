@@ -111,3 +111,13 @@ Garanties : la séquence est un **habillage** posé sur l'application qui démar
 
 ## 5. Ce qui ne change PAS (rappel règle n°1)
 Routes, identifiants `id` / `data-action` / `data-nav` / `data-*` utilisés par les gestionnaires, appels réseau, calculs, validations, états initié / en cours / réussi / échoué / incertain, temporisations métier, clés de stockage, textes de traduction (les clés restent ; seuls des libellés de **présentation** sont réécrits : copie de la présentation, mentions de marque).
+
+
+## 6. Mise à jour 21.1.0 — direction « Glass » (Revolut + verre dépoli)
+Le premier langage (« Horizon » : ciel + feuille blanche, carré arrondi) a été jugé peu séduisant. Il est remplacé, sans toucher aux données ni aux flux, par :
+- **Fond** : aurore bleu ciel / turquoise sur un gris-bleu très clair (clair) ou un bleu nuit profond (sombre), vivante mais discrète.
+- **Navigation** : barre de verre à 5 entrées, bouton **Envoyer** rond au centre ; barre masquée dans les parcours plein écran.
+- **Accueil** : solde centré géant, 4 boutons ronds, cartes de verre empilées — la hiérarchie est celle des applications bancaires modernes, mais rien n'est copié (pas de logo, de texte ni d'icône d'une autre marque ; la couleur et le logo restent ceux du pack Sanad Pay).
+- **Formes** : cercles pour les actions et avatars, pilules pour boutons et champs, rayons de 24–30 px pour les cartes ; le carré arrondi du logo reste réservé à la marque.
+- **Mouvement** : cascade d'apparition (≈ 60 ms entre éléments), ressort sur les touches, dérive lente de l'aurore, parallaxe d'inclinaison — transform + opacité uniquement.
+Les captures « avant / après » de `docs/screenshots/compare/` montrent Freindi Pay 20.3.0 à gauche et Sanad Pay 21.1.0 à droite.

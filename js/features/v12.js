@@ -226,8 +226,10 @@ const V12 = (() => {
     /* Sanad Pay 21.0.0 — barre « rail » : 4 onglets (seul l'actif montre son libellé, la ligne d'horizon se trace dessous) et « Envoyer » = carré arrondi plein en bout de rail.
        Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
     const tab = (nav2, ic, lbl) => '<a class="nav-item sx-tab" data-nav="' + nav2 + '" aria-label="' + lbl + '"><span class="nav-ic">' + icon(ic, 24) + '</span><span class="nav-lb">' + lbl + '</span></a>';
-    const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 22) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
-    nav.innerHTML = '<div class="nav-dock sx-rail">' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + send + '<i class="nav-ind" aria-hidden="true"></i></div>';
+    /* Glass 21.1.0 — barre de verre à 5 entrées égales (style Revolut) : Accueil · Activité · Envoyer (bouton central rond) · Cartes · Services.
+       Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
+    const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 24) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
+    nav.innerHTML = '<div class="nav-dock sx-rail">' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + send + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + '</div>';
     requestAnimationFrame(placeInd);
   }
   /* The highlight pill glides under the active tab (12.9.0). Measured, so it also works in RTL and at any width. */
