@@ -1,0 +1,76 @@
+/* Contrôles du système de mouvement (durées visuelles, états, repli, nettoyage). Usage : node tests/ui/motion.mjs <site>
+   Serveur simulé, écritures refusées. Ces contrôles vérifient des DURÉES DÉCLARÉES et des COMPORTEMENTS ; la fluidité se mesure dans tests/perf/motion.mjs. */
+import path from 'node:path';
+import { serve, newPage, launch } from './harness.mjs';
+const site = path.resolve(process.argv[2] || 'dist');
+const { srv, url } = await serve(site); const b = await launch(); const res = [];
+const ok = (n, c, d = '') => { res.push([n, !!c, d]); console.log((c ? 'PASS ' : 'FAIL ') + n + (d ? ' — ' + d : '')); };
+const between = (v, a, z) => v >= a && v <= z;
+const msOf = s => { const m = /([\d.]+)(m?s)/.exec(String(s)); return m ? (m[2] === 's' ? +m[1] * 1000 : +m[1]) : NaN; };
+async function boot(lang = 'en', o = {}) {
+  const { ctx, page } = await newPage(b, url, Object.assign({ loggedIn: true, lang }, o));
+  await page.goto(url + '/index.html', { waitUntil: 'load' }); await page.waitForTimeout(2800);
+  for (let i = 0; i < 6; i++) { const k = page.locator('.yl [data-k="1"]').first(); if (await k.count()) await k.click({ delay: 20 }).catch(() => {}); }
+  await page.waitForTimeout(1200);
+  await page.evaluate(() => document.querySelectorAll('#lang-picker,#splash,.ov-root').forEach(e => e.remove()));
+  return { ctx, page };
+}
+/* 1. jetons de durée dans les bornes demandées */
+{
+  const { ctx, page } = await boot();
+  const t = await page.evaluate(() => { const g = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim(); return { press: g('--mo-press'), release: g('--mo-release'), screen: g('--mo-screen'), panel: g('--mo-panel'), panelOut: g('--mo-panel-out'), stagger: g('--mo-stagger'), reveal: g('--mo-reveal') }; });
+  ok('bouton : pression 80–110 ms', between(msOf(t.press), 80, 110), t.press);
+  ok('bouton : retour 150–200 ms', between(msOf(t.release), 150, 200), t.release);
+  ok('écran : transition 280–420 ms', between(msOf(t.screen), 280, 420), t.screen);
+  ok('panneau : ouverture 240–360 ms', between(msOf(t.panel), 240, 360) && between(msOf(t.panelOut), 240, 360), t.panel + ' / ' + t.panelOut);
+  ok('cascade : décalage court (≤ 60 ms)', msOf(t.stagger) <= 60, t.stagger);
+  /* appliqué réellement aux composants */
+  const comp = await page.evaluate(() => { R.go('settings', { force: true }); return null; }); await page.waitForTimeout(600);
+  const d = await page.evaluate(() => { const s = document.querySelector('#settings.active'); const btn = document.querySelector('#settings .btn, #settings .settings-row, #settings .item'); return { screenAnim: s ? getComputedStyle(s).animationDuration : '', btn: btn ? getComputedStyle(btn).transitionDuration : '' }; });
+  ok('écran actif : durée = jeton', between(msOf(d.screenAnim), 280, 420), d.screenAnim);
+  ok('commande : retour tactile appliqué', between(msOf((d.btn || '').split(',')[0]), 150, 200), d.btn);
+  await ctx.close();
+}
+/* 2. repli : « réduire les animations » -> contenu visible tout de suite, rien ne bouge */
+{
+  const { ctx, page } = await boot('en', { reducedMotion: 'reduce' });
+  await page.evaluate(() => R.go('settings', { force: true })); await page.waitForTimeout(150);
+  const r = await page.evaluate(() => { const s = document.querySelector('#settings.active'); const kid = document.querySelector('#settings.active .screen-body > *'); const cs = kid && getComputedStyle(kid); return { op: s && getComputedStyle(s).opacity, kidOp: cs && cs.opacity, kidAnim: cs && cs.animationName, dur: s && getComputedStyle(s).animationDuration }; });
+  ok('reduced-motion : écran et contenu visibles immédiatement', +r.op === 1 && +r.kidOp === 1 && (r.kidAnim === 'none' || msOf(r.dur) < 1), JSON.stringify(r));
+  await ctx.close();
+}
+/* 3. rendu léger : pas de flou, même mise en page */
+{
+  const { ctx, page } = await boot('en', { extraStorage: { sanad_fx: 'lite' } });
+  const r = await page.evaluate(() => ({ fx: document.documentElement.getAttribute('data-fx'), bf: getComputedStyle(document.querySelector('.sx-rail') || document.body).backdropFilter }));
+  ok('rendu léger : data-fx=lite et flou coupé', r.fx === 'lite' && (r.bf === 'none' || r.bf === ''), JSON.stringify(r));
+  await ctx.close();
+}
+/* 4. panneau : naît de l'endroit touché, se ferme, aucune action inaccessible pendant l'animation */
+{
+  const { ctx, page } = await boot();
+  await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(800);
+  const box = await page.evaluate(() => { const e = document.querySelector('.sx-act') || document.querySelector('.sx-ibtn'); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  await page.mouse.move(box.x, box.y); await page.mouse.down(); await page.mouse.up();
+  await page.evaluate(() => { R.overlay.open('<div style="padding:20px"><button id="mo-btn" class="btn btn-primary">ok</button></div>', { kind: 'modal' }); }); await page.waitForTimeout(60);
+  const o1 = await page.evaluate(() => { const p = document.querySelector('.ov-panel'); return { ox: p.style.getPropertyValue('--mo-ox'), oy: p.style.getPropertyValue('--mo-oy'), d: getComputedStyle(p).transitionDuration }; });
+  ok('panneau : point d\'origine défini depuis le dernier toucher', /px$/.test(o1.ox) && /px$/.test(o1.oy), JSON.stringify(o1));
+  ok('panneau : durée dans la borne', between(msOf(o1.d), 240, 360), o1.d);
+  await page.waitForTimeout(80);
+  const clickable = await page.evaluate(() => { const e = document.getElementById('mo-btn'); const r = e.getBoundingClientRect(); const top = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return e.contains(top) || top === e; });
+  ok('panneau : le bouton est déjà cliquable pendant l\'ouverture', clickable);
+  await page.keyboard.press('Escape'); await page.waitForTimeout(500);
+  ok('panneau : Échap le ferme', (await page.locator('#mo-btn').count()) === 0);
+  await ctx.close();
+}
+/* 5. ouverture : démarrage impossible (client de données indisponible) -> la cinématique cède la place aux actions de récupération, qui restent affichées */
+{
+  const { ctx, page } = await newPage(b, url, { loggedIn: false, lang: 'en' });
+  await ctx.route(/js\/vendor\/supabase-2\.45\.4\.js/, r => r.abort());
+  await page.goto(url + '/index.html', { waitUntil: 'commit' }); await page.waitForSelector('.sxo'); await page.waitForTimeout(3200);
+  const r = await page.evaluate(() => { const sp = document.getElementById('splash'); return { sxo: !!document.querySelector('.sxo'), fatal: !!document.querySelector('.res-fatal'), btn: !!document.querySelector('[data-res-reload]'), shown: !!sp && getComputedStyle(sp).display !== 'none' && !sp.classList.contains('is-hidden') }; });
+  ok('ouverture : démarrage impossible -> action de récupération visible, cinématique quittée', !r.sxo && r.fatal && r.btn && r.shown, JSON.stringify(r));
+  await ctx.close();
+}
+await b.close(); srv.close();
+const bad = res.filter(r => !r[1]); console.log(`\n${res.length - bad.length}/${res.length} réussis`); process.exitCode = bad.length ? 1 : 0;

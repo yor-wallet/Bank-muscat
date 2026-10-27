@@ -29,9 +29,8 @@ const OpeningArt = (() => {
     if (typeof window.__sxoSplash === 'function') return window.__sxoSplash(lang, m);      /* balisage défini une seule fois, dans index.html */
     const ar = lang === 'ar';
     return '<div class="sxo sxo-' + m + '" aria-hidden="true">' +
-      '<i class="sxo-horizon"></i>' +
       '<div class="sxo-stage">' +
-        '<img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async">' +
+        '<div class="sxo-logo"><img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t2" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t3" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/></svg></div>' +
         '<div class="sxo-word' + (ar ? ' sxo-word-ar' : '') + '">' + (ar ? 'سند باي' : 'Sanad Pay') + '</div>' +
       '</div></div>';
   }

@@ -16,19 +16,19 @@
 /
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.56bbbab1ec.css>; rel=preload; as=style
+  Link: </css/app.e74bbf3f1e.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.dc73a5b93b.js>; rel=preload; as=script
+  Link: </js/app1.370ca06464.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
-  Link: </js/app3.c74f968b35.js>; rel=preload; as=script
+  Link: </js/app3.bac562c0f7.js>; rel=preload; as=script
 /index.html
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.56bbbab1ec.css>; rel=preload; as=style
+  Link: </css/app.e74bbf3f1e.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
-  Link: </js/app1.dc73a5b93b.js>; rel=preload; as=script
+  Link: </js/app1.370ca06464.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
-  Link: </js/app3.c74f968b35.js>; rel=preload; as=script
+  Link: </js/app3.bac562c0f7.js>; rel=preload; as=script
 /css/*
   Cache-Control: public, max-age=31536000, immutable
 /js/app*

@@ -125,6 +125,7 @@
 <link rel="stylesheet" href="css/s-extras.css">
 <link rel="stylesheet" href="css/s-finish.css">
 <link rel="stylesheet" href="css/s-glass.css">
+<link rel="stylesheet" href="css/s-motion.css">
 </head>
 <body>
 
@@ -139,7 +140,7 @@
   try{seen=localStorage.getItem('sanad_opened')==='1'}catch(e){}
   try{var v=localStorage.getItem('yor_device_lang'); if(ok.indexOf(v)<0){var L=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||'en']; v='en'; for(var i=0;i<L.length;i++){var c=String(L[i]||'').toLowerCase().slice(0,2); if(ok.indexOf(c)>=0){v=c;break}}} lang=v}catch(e){}
   var m=r?'fade':(seen?'short':'full'), ar=lang==='ar';
-  window.__sxoSplash=function(l,mm){var a=(l||lang)==='ar';return '<div class="sxo sxo-'+(mm||m)+'" aria-hidden="true"><i class="sxo-horizon"></i><div class="sxo-stage"><img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async"><div class="sxo-word'+(a?' sxo-word-ar':'')+'">'+(a?'\u0633\u0646\u062f \u0628\u0627\u064a':'Sanad Pay')+'</div></div></div>'};
+  window.__sxoSplash=function(l,mm){var a=(l||lang)==='ar';return '<div class="sxo sxo-'+(mm||m)+'" aria-hidden="true"><div class="sxo-stage"><div class="sxo-logo"><img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t2" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t3" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/></svg></div><div class="sxo-word'+(a?' sxo-word-ar':'')+'">'+(a?'\u0633\u0646\u062f \u0628\u0627\u064a':'Sanad Pay')+'</div></div></div>'};
   h.innerHTML=window.__sxoSplash(lang,m); h.setAttribute('data-sxo',m); window.__sxoEarly={t0:performance.now(),mode:m,lang:lang};
 }catch(e){}})();
 </script>
@@ -177,6 +178,7 @@
 <script src="js/core/store19.js" defer></script>
 <script src="js/core/sanad-engine.js" defer></script>
 <script src="js/ui/depth.js" defer></script>
+<script src="js/ui/motion.js" defer></script>
 <script src="js/core/engines.js" defer></script>
 <script src="js/core/domain.js" defer></script>
 <script src="js/core/notifications.js" defer></script>

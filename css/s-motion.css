@@ -1,0 +1,69 @@
+/* ============================================================
+   SANAD PAY — CHORÉGRAPHIE COMMUNE (21.2.0)
+   Dernière feuille : elle fixe le TEMPS de tout ce qui bouge. Les durées viennent de s-tokens.css (--mo-*) et ne servent qu'à l'œil :
+   aucune n'allonge, ne retarde ni ne remplace une durée métier. Seuls transform et opacity s'animent (jamais width/height/top/left).
+   Un seul élément important attire l'œil à la fois : la cascade s'arrête à 8 éléments, décalage de 40 ms.
+   Tout fonctionne sans animation : état final = état normal (« réduire les animations » coupe tout, voir s-tokens.css).
+   ============================================================ */
+
+/* ---------- 1. toucher : pression rapide, retour souple (un seul endroit pour toute l'interface) ---------- */
+.btn,.sx-act,.sx-act i,.sx-tab,.sx-send .nav-cta-tile,.chip,.item,.settings-row,.quick-item,.quick-item .quick-icon,.yb-svc,.yb-btn,.v18-q,.select-item,.rv-promo-cta,.fk-key,.sx-ibtn,.topbar-back,.topbar-action,.fid-orb,.qs-tile,.set-out,.v13-rc,.crypto-quick-amounts button,.yas-chip,.yas-act,.sx-chip{
+  transition-duration:var(--mo-release);transition-timing-function:var(--mo-out);-webkit-tap-highlight-color:transparent}
+.btn:active,.sx-act:active,.sx-act:active i,.sx-tab:active,.sx-send:active .nav-cta-tile,.chip:active,.item:active,.settings-row:active,.quick-item:active,.quick-item:active .quick-icon,.yb-svc:active,.yb-btn:active,.v18-q:active,.select-item:active,.rv-promo-cta:active,.fk-key:active,.fk-key.hit,.sx-ibtn:active,.topbar-back:active,.topbar-action:active,.fid-orb:active,.qs-tile:active,.set-out:active,.v13-rc:active,.crypto-quick-amounts button:active,.yas-chip:active,.yas-act:active,.sx-chip:active{
+  transition-duration:var(--mo-press);transition-timing-function:var(--mo-ease)}
+/* l'état occupé d'un bouton suit une VRAIE requête (classe posée par le code existant) : on ne fait que le rendre lisible */
+.btn.is-busy,.btn[aria-busy="true"]{cursor:progress}
+
+/* ---------- 2. écrans : entrée « axe partagé » 24 px + fondu ; retour = sens inverse ; onglets = fondu bref ---------- */
+.screen.active{animation-duration:var(--mo-screen);animation-timing-function:var(--mo-out)}
+html[data-sx-tab="1"] .screen.active{animation-duration:var(--mo-screen-tab)}
+
+/* ---------- 3. cascade d'apparition : décalage court, jamais au-delà de 8 éléments ---------- */
+@keyframes moRise{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+.mo-rise>*,.mo-rise-self{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*var(--mo-stagger))}
+.mo-rise>*:nth-child(1){--i:0}.mo-rise>*:nth-child(2){--i:1}.mo-rise>*:nth-child(3){--i:2}.mo-rise>*:nth-child(4){--i:3}
+.mo-rise>*:nth-child(5){--i:4}.mo-rise>*:nth-child(6){--i:5}.mo-rise>*:nth-child(7){--i:6}.mo-rise>*:nth-child(n+8){--i:7}
+/* écrans ordinaires : leur contenu arrive dans l'ordre de lecture (les écrans qui ont leur propre mise en scène — accueil, connexion — sont exclus) */
+.screen.active:not(#home):not(#login):not(#signup):not(#reset):not(#processing):not(#chat):not(#yaser)>.screen-body>*{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*var(--mo-stagger) + 60ms)}
+.screen.active>.screen-body>*:nth-child(1){--i:0}.screen.active>.screen-body>*:nth-child(2){--i:1}.screen.active>.screen-body>*:nth-child(3){--i:2}.screen.active>.screen-body>*:nth-child(4){--i:3}
+.screen.active>.screen-body>*:nth-child(5){--i:4}.screen.active>.screen-body>*:nth-child(6){--i:5}.screen.active>.screen-body>*:nth-child(7){--i:6}.screen.active>.screen-body>*:nth-child(n+8){--i:7}
+
+/* ---------- 4. fenêtres et panneaux : naissent de l'endroit touché, fond qui s'assombrit progressivement, fermeture plus courte ---------- */
+.ov-backdrop{transition:opacity var(--mo-backdrop) var(--mo-ease)}
+.ov:not(.is-open) .ov-backdrop{transition-duration:var(--mo-panel-out)}
+.ov-panel{transition-duration:var(--mo-panel);transition-timing-function:var(--mo-out);transform-origin:var(--mo-ox,50%) var(--mo-oy,100%)}
+.ov:not(.is-open) .ov-panel{transition-duration:var(--mo-panel-out);transition-timing-function:var(--mo-in)}
+.ov.is-modal .ov-panel{transform-origin:var(--mo-ox,50%) var(--mo-oy,50%);transform:translate3d(0,8px,0) scale(.94)}
+.ov.is-modal.is-open .ov-panel{transform:none}
+@media (min-width:1024px){.ov .ov-panel{transform-origin:var(--mo-ox,50%) var(--mo-oy,50%);transform:translate3d(0,8px,0) scale(.95)}.ov.is-open .ov-panel{transform:none}}
+/* contenu du panneau : arrive après lui, dans l'ordre */
+.ov.is-open .ov-panel>*{animation:moRise var(--mo-panel) var(--mo-out) backwards;animation-delay:calc(var(--i,0)*30ms + 70ms)}
+.ov-panel>*:nth-child(1){--i:0}.ov-panel>*:nth-child(2){--i:1}.ov-panel>*:nth-child(3){--i:2}.ov-panel>*:nth-child(4){--i:3}.ov-panel>*:nth-child(5){--i:4}.ov-panel>*:nth-child(n+6){--i:5}
+
+/* ---------- 5. états de chargement et de refus : ils décrivent la situation réelle, ils ne la fabriquent pas ---------- */
+@keyframes moShimmer{from{transform:translate3d(-100%,0,0)}to{transform:translate3d(100%,0,0)}}
+.mo-skel{position:relative;overflow:hidden;border-radius:12px;background:color-mix(in srgb,var(--sx-sky) 24%,transparent);min-height:14px}
+.mo-skel::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:moShimmer 1.3s linear infinite}
+html[dir="rtl"] .mo-skel::after{animation-direction:reverse}
+@keyframes moShake{0%,100%{transform:none}20%{transform:translate3d(-6px,0,0)}40%{transform:translate3d(5px,0,0)}60%{transform:translate3d(-3px,0,0)}80%{transform:translate3d(2px,0,0)}}
+.mo-shake{animation:moShake 320ms var(--mo-ease) both}
+@keyframes moPop{0%{transform:scale(.9);opacity:0}60%{transform:scale(1.03);opacity:1}100%{transform:none;opacity:1}}
+.mo-pop{animation:moPop var(--mo-reveal) var(--mo-spring) both}
+
+/* ---------- 6. hors écran : une animation qui tourne sans être vue ne coûte que de la batterie ---------- */
+.mo-off,.mo-off *,.mo-off::before,.mo-off::after{animation-play-state:paused!important}
+
+/* ---------- 7. rendu léger (appareil modeste, économie de données, ou choix de la personne) : même mise en page, verre sans flou, sans effets 3D ---------- */
+html[data-fx="lite"]{--glass-bg:rgba(255,255,255,.92);--glass-bg-2:#fff;--glass-nav:rgba(246,250,255,.98)}
+html[data-fx="lite"][data-theme="dark"]{--glass-bg:rgba(16,34,58,.95);--glass-bg-2:rgba(22,44,74,.98);--glass-nav:rgba(8,20,36,.99)}
+html[data-fx="lite"] *,html[data-fx="lite"] *::before,html[data-fx="lite"] *::after{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-fx="lite"]::before{animation:none}
+html[data-fx="lite"] .mo-tilt{transform:none!important}
+@media (prefers-reduced-motion:reduce){
+  .mo-rise>*,.mo-rise-self,.screen.active>.screen-body>*,.ov.is-open .ov-panel>*{animation:none!important;opacity:1;transform:none}
+  .mo-skel::after{animation:none}
+}
+
+/* ---------- 8. inclinaison douce (cartes) : transform seulement, reflet qui suit le doigt ---------- */
+.mo-tilt{transform:perspective(900px) rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform 80ms linear;will-change:transform}
+.mo-tilt.mo-tilt-rest{transition:transform var(--mo-release) var(--mo-out)}
