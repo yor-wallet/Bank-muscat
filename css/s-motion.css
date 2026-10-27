@@ -87,3 +87,19 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 /* chargement : le bouton garde sa taille, le cercle suit la vraie requête (classe posée par UIKit.loading) */
 .btn.is-loading::after{animation-duration:.7s}
 @media (prefers-reduced-motion:reduce){.sx-auth-sheet>*,.sx-auth-mark,.sx-auth-sky h1,.sx-auth-sky p,.sx-auth-bar,.field-err:not(:empty){animation:none!important}}
+
+/* ---------- 10. navigation : l'indicateur rejoint l'onglet actif (position mesurée par V12.placeInd : juste en RTL, à toute largeur) ---------- */
+.nav-ind{display:block;position:absolute;left:0;top:6px;height:56px;border-radius:20px;pointer-events:none;opacity:0;z-index:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(126,216,246,.3));box-shadow:0 0 0 1px rgba(255,255,255,.75) inset,0 10px 20px -12px rgba(37,150,222,.75)}
+:root[data-theme="dark"] .nav-ind{background:linear-gradient(180deg,rgba(126,216,246,.22),rgba(37,150,222,.2));box-shadow:0 0 0 1px rgba(126,216,246,.28) inset,0 10px 20px -12px rgba(0,0,0,.6)}
+.nav-ind.ready{transition:transform var(--mo-tab) var(--mo-out),width var(--mo-tab) var(--mo-out),opacity var(--mo-release) var(--mo-ease)}
+.sx-tab{z-index:1}
+.sx-tab[aria-current="page"] .nav-ic svg{transition-duration:var(--mo-tab)}
+@media (prefers-reduced-motion:reduce){.nav-ind.ready{transition:none}}
+
+/* ---------- 11. menu latéral (bureau) : les sections arrivent l'une après l'autre ---------- */
+#sidebar #sidebar-logo,#sidebar .side-item,#sidebar #sidebar-profile,#sidebar #sidebar-layout{animation:moRise var(--mo-reveal) var(--mo-out) backwards;animation-delay:calc(60ms + var(--i,0)*var(--mo-stagger))}
+#sidebar .side-item:nth-child(1){--i:1}#sidebar .side-item:nth-child(2){--i:2}#sidebar .side-item:nth-child(3){--i:3}#sidebar .side-item:nth-child(4){--i:4}
+#sidebar .side-item:nth-child(5){--i:5}#sidebar .side-item:nth-child(6){--i:6}#sidebar .side-item:nth-child(n+7){--i:7}
+#sidebar #sidebar-profile{--i:8}
+@media (prefers-reduced-motion:reduce){#sidebar *{animation:none!important}}

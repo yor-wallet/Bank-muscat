@@ -229,7 +229,7 @@ const V12 = (() => {
     /* Glass 21.1.0 — barre de verre à 5 entrées égales (style Revolut) : Accueil · Activité · Envoyer (bouton central rond) · Cartes · Services.
        Mêmes cibles qu'avant (data-nav) et même mécanisme d'onglet actif (aria-current posé par le routeur). */
     const send = '<a class="nav-item nav-cta sx-send" data-nav="country-select" aria-label="' + vt('send') + '"><span class="nav-cta-tile">' + icon('send', 24) + '</span><span class="nav-lb">' + vt('send') + '</span></a>';
-    nav.innerHTML = '<div class="nav-dock sx-rail">' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + send + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + '</div>';
+    nav.innerHTML = '<div class="nav-dock sx-rail"><i class="nav-ind" aria-hidden="true"></i>' + tab('home', 'home', vt('home')) + tab('history', 'history', vt('historyL')) + send + tab('cards', 'cards', vt('cards')) + tab('services', 'apps', vt('services')) + '</div>';
     requestAnimationFrame(placeInd);
   }
   /* The highlight pill glides under the active tab (12.9.0). Measured, so it also works in RTL and at any width. */

@@ -114,5 +114,16 @@ async function boot(lang = 'en', o = {}) {
   ok('carte de solde : inclinaison retirée en quittant l\'écran (écouteurs nettoyés)', gone === 0, 'restants=' + gone);
   await ctx.close();
 }
+/* 8. navigation : l'indicateur rejoint précisément l'onglet actif (LTR et RTL) */
+for (const lang of ['en', 'ar']) {
+  const { ctx, page } = await boot(lang);
+  await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(700);
+  for (const nav of ['history', 'cards', 'services', 'home']) {
+    await page.evaluate(n => R.go(n, { force: true }), nav); await page.waitForTimeout(650);
+    const m = await page.evaluate(() => { const tab = document.querySelector('.sx-tab[aria-current="page"]'), ind = document.querySelector('.nav-ind'); if (!tab || !ind) return null; const a = tab.getBoundingClientRect(), r = document.querySelector('.nav-dock').getBoundingClientRect(); const i = ind.getBoundingClientRect(); return { dx: Math.abs((i.left + i.width / 2) - (a.left + a.width / 2)), dw: Math.abs(i.width - a.width), op: getComputedStyle(ind).opacity, dir: document.documentElement.dir }; });
+    ok('[' + lang + '] indicateur sur l\'onglet « ' + nav + ' »', m && m.dx <= 1.5 && m.dw <= 1.5 && +m.op === 1, JSON.stringify(m));
+  }
+  await ctx.close();
+}
 await b.close(); srv.close();
 const bad = res.filter(r => !r[1]); console.log(`\n${res.length - bad.length}/${res.length} réussis`); process.exitCode = bad.length ? 1 : 0;
