@@ -75,7 +75,7 @@ const V12 = (() => {
   /* ---------- card face (CSS-drawn: no network mark, no chip, no NFC symbol, no CVV) ---------- */
   /* 12.9.0: no "preview / not issued" wording is shown on cards; a label appears only for Frozen and Active */
   const stateLbl = s => (s === 'frozen' ? vt('frozen') : s === 'active' ? vt('active') : '');
-  function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : ''; }
+  function stateChip(c){ const s = cardState(c), l = stateLbl(s); return l ? '<span class="rv-state s-' + s + '">' + l + '</span>' : (s === 'preview' ? '<span class="rv-state s-preview" role="img" aria-label="' + escapeHtml(t('filter.pending')) + '">' + icon('clock', 14) + '</span>' : ''); }
   /* Slot for the card network. It stays EMPTY until the card data itself carries a real network AND a real issuer. */
   /* 15.0.0: card network mark (Visa, per the partnership). Light finishes take the blue mark, dark ones the silver mark. */
   const LIGHT_TH = ['minimal', 'metal', 'gold'];
@@ -85,7 +85,7 @@ const V12 = (() => {
     return '<div class="rv-card th-' + themeOf(c) + (st.enter ? ' rv-enter' : '') + '" data-card="' + escapeHtml(c.id) + '" data-state="' + cardState(c) + '" role="group" aria-label="' + escapeHtml((c.label || vt('defName')) + ' •••• ' + l4(c)) + '"><div class="rv-in">' +
       '<div class="rv-face rv-front">' +
         '<i class="rv-grain" aria-hidden="true"></i><i class="rv-foil" aria-hidden="true"></i><i class="rv-holo" aria-hidden="true"></i><i class="rv-edge" aria-hidden="true"></i>' +
-        '<div class="rv-top2"><img class="rv-wm" src="assets/brand/wordmark-white.svg" alt="Sanad Pay">' + stateChip(c) + '</div>' +
+        '<div class="rv-top2"><span class="rv-brand"><img class="rv-lg" src="assets/brand/sanad-s-192.png" alt="" width="26" height="26"><img class="rv-wm" src="assets/brand/wordmark-white.svg" alt="Sanad Pay"></span>' + stateChip(c) + '</div>' +
         '<div class="rv-mid"><span class="rv-emv" aria-hidden="true"><img class="rv-chip" src="assets/ui/chip.svg" alt=""><img class="rv-nfc" src="assets/ui/contactless.svg" alt=""></span><span class="rv-name">' + escapeHtml(c.label || vt('defName')) + '</span>' +
           '<span class="rv-num ltr" dir="ltr"><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>\u2022\u2022\u2022\u2022</span><span>' + l4(c) + '</span></span></div>' +
         '<div class="rv-bot"><span class="rv-holder">' + escapeHtml(c.holderName || '') + '</span>' + netSlot(c) + '</div>' +
