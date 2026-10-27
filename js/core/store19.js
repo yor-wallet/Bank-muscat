@@ -73,6 +73,14 @@ const Snap = (() => {
   return { save, write, load, wipe, lastSaved: () => last };
 })();
 
+/* JANITOR — nettoyage automatique, PÉRIMÈTRE EXACT (21.2.0). Il ne supprime QUE ces caches temporaires, et rien d'autre :
+     1. clés locales temporaires : lx_tmp*, gq_done* ;
+     2. clés locales de confort (brouillons, historique d'assistant, préférences d'interface, accord IA) appartenant à un AUTRE compte que celui qui est connecté ;
+     3. copies chiffrées de démarrage rapide (IndexedDB « lx_snap ») d'AUTRES comptes ;
+     4. anciens caches de coquille du service worker (fp-shell-*) autres que le courant ;
+     5. en mémoire vive seulement : listes affichées tronquées (opérations > 300, notifications > 150, reçus > 100) — les données restent sur le serveur.
+   Il ne touche JAMAIS : session (sb-*-auth-token), coffre de code, transactions, reçus, journaux, sauvegardes, réglages, langue, thème.
+   Contrôlé par tests/ui/janitor.mjs. */
 const Janitor = (() => {
   const stat = { runs: 0, removed: 0, at: 0, last: {} };
   const uidNow = () => { try { return (Runtime.ctx && Runtime.ctx.uid) || (UserContext.get() && UserContext.get().uid) || ''; } catch(e){ return ''; } };
@@ -91,10 +99,7 @@ const Janitor = (() => {
       del.forEach(k => { try { localStorage.removeItem(k); n++; } catch(e){ /* rien */ } });
       det.ls = del.length;
     } catch(e){ /* rien */ }
-    try {   /* coffre de code : seulement la personne connectée */
-      const raw = localStorage.getItem('friendly_pin_vault_v1');
-      if (raw && uid){ const v = JSON.parse(raw); let ch = 0; Object.keys(v).forEach(u => { if (u !== uid) { delete v[u]; ch++; } }); if (ch) { localStorage.setItem('friendly_pin_vault_v1', JSON.stringify(v)); n += ch; det.vault = ch; } }
-    } catch(e){ /* rien */ }
+    /* 21.2.0 : le coffre de code (friendly_pin_vault_v1) n'est PLUS nettoyé ici : ce n'est pas un cache, c'est le secret de vérification du code de chaque compte connu de cet appareil. */
     try {   /* copies chiffrées d'autres comptes */
       if (window.indexedDB && uid){
         const db = await new Promise((res, rej) => { const r = indexedDB.open('lx_snap', 1); r.onupgradeneeded = () => { if (!r.result.objectStoreNames.contains('snap')) r.result.createObjectStore('snap'); }; r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });

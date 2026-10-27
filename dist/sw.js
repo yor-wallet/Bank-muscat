@@ -7,12 +7,12 @@
    - Hors ligne : l'application démarre depuis la copie locale ; si elle n'existe pas encore, « offline.html » explique la situation.
    - Il ne touche JAMAIS aux ressources d'autres sites (client Supabase sur le CDN, WalletConnect, chaîne) : le navigateur les charge lui-même.
      (12.11.0 interceptait le client Supabase : la CSP bloquait ce rechargement par le service worker et l'application ne démarrait plus dès la 2e ouverture.) */
-const CACHE = 'fp-shell-v21.1.0-d509525cb7';
+const CACHE = 'fp-shell-v21.1.0-73afc6c407';
 const SLOW_MS = 4500;      /* au-delà, on sert la copie locale si on en a une */
 const IMMUTABLE = /(?:\.[0-9a-f]{10}\.(?:js|css)|(?:^|\/)js\/vendor\/[^/]*-\d[\w.]*\.js|(?:^|\/)assets\/fonts\/[^/]+\.woff2)$/;   /* nom = contenu : jamais besoin du réseau */
 
 const SHELL = [
-  './', 'index.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico', 'css/app.4f7492bc73.css', 'js/vendor/supabase-2.45.4.js', 'js/app1.61035ced47.js', 'js/app2.388ce458a3.js', 'js/app3.e8bfd7d0df.js', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg', 'assets/brand/sanad-s-192.png', 'assets/brand/sanad-s-320.png', 'assets/illustrations/offline.svg', 'assets/illustrations/error.svg', 'assets/brand/wordmark-white.svg', 'assets/fonts/inter-latin-var.woff2', 'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png', 'assets/icons/apple-touch-icon.png', 'assets/ui/snowflake.svg', 'assets/ui/chip.svg', 'assets/ui/contactless.svg', 'assets/ads/ad-send.svg', 'assets/ads/ad-id.svg', 'assets/ads/ad-card.svg', 'assets/ads/ad-secure.svg', 'assets/ads/ad-lang.svg'
+  './', 'index.html', 'offline.html', 'manifest.webmanifest', 'favicon.ico', 'css/app.4f7492bc73.css', 'js/vendor/supabase-2.45.4.js', 'js/app1.883c91229e.js', 'js/app2.388ce458a3.js', 'js/app3.e8bfd7d0df.js', 'assets/brand/network/visa-white.svg', 'assets/brand/network/visa-blue.svg', 'assets/brand/sanad-s-192.png', 'assets/brand/sanad-s-320.png', 'assets/illustrations/offline.svg', 'assets/illustrations/error.svg', 'assets/brand/wordmark-white.svg', 'assets/fonts/inter-latin-var.woff2', 'assets/icons/icon.svg', 'assets/icons/icon-192.png', 'assets/icons/icon-512.png', 'assets/icons/apple-touch-icon.png', 'assets/ui/snowflake.svg', 'assets/ui/chip.svg', 'assets/ui/contactless.svg', 'assets/ads/ad-send.svg', 'assets/ads/ad-id.svg', 'assets/ads/ad-card.svg', 'assets/ads/ad-secure.svg', 'assets/ads/ad-lang.svg'
 ];
 
 /* Une réponse « redirigée » (ex. /offline.html → /offline avec cleanUrls) ne peut pas être servie à une navigation : on en garde une copie propre. */
