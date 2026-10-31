@@ -4,7 +4,8 @@
    V18 CORE (18.0.0) — briques communes des nouveaux modules (crédit, coffre Boost, chat, Amal, cinéma, centre de contrôle).
    - Hooks   : un module s'accroche à un écran sans toucher à wire.js : Hooks.on('chat', (root) => { ... }) ; appelé par LiveX.onScreen.
    - Strings : Strings.add({ en:{}, fr:{}, ar:{} }) ajoute des textes dans les trois langues.
-   - Fx      : effets (confettis dorés, compteur animé, compteur qui grandit en direct, onde, secousse) — aucun emoji, aucune image.
+   - Fx      : 21.3.0 — sobriété bancaire : plus de confettis, de vague ni de compteur qui monte (ces appels restent, mais ne font rien de ludique :
+               le montant s'affiche tout de suite à sa valeur exacte). Restent : secousse (saisie refusée), compteur de gains en direct, vibration.
    - Cfg     : réglages serveur (crédit min/max, taux du coffre), lus une fois par minute au plus, avec valeurs de repli.
    - Money   : formatage OMR à 3 décimales, chiffres latins.
    ============================================================ */
@@ -49,40 +50,15 @@ const Fx = (() => {
     });
     if (parts.length) raf = requestAnimationFrame(loop); else { raf = 0; cx.clearRect(0, 0, innerWidth, innerHeight); }
   }
-  /* confettis dorés : confetti(x, y) ou confetti(element) */
-  function confetti(at, o){
-    if (reduced()) return;
-    try {
-      o = o || {}; ensure();
-      let x = innerWidth / 2, y = innerHeight * 0.4;
-      if (at && at.getBoundingClientRect){ const r = at.getBoundingClientRect(); x = r.left + r.width / 2; y = r.top + r.height / 2; }
-      else if (at && typeof at.x === 'number'){ x = at.x; y = at.y; }
-      const n = o.n || 70;
-      for (let i = 0; i < n; i++){
-        const a = (o.spread != null ? -Math.PI / 2 + (Math.random() - 0.5) * o.spread : Math.random() * 6.283), v = (o.power || 7) * (0.4 + Math.random() * 0.8);
-        parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2, g: 0.18 + Math.random() * 0.06, rot: Math.random() * 6, vr: (Math.random() - 0.5) * 0.4, s: 5 + Math.random() * 7, c: COLORS[i % COLORS.length], round: Math.random() < 0.3, life: 70 + Math.random() * 50 });
-      }
-      if (!raf) raf = requestAnimationFrame(loop);
-    } catch(e){ /* un effet ne casse rien */ }
-  }
-  /* onde dorée qui part d'un élément */
-  function pulse(el){
-    if (reduced() || !el) return;
-    try {
-      const r = el.getBoundingClientRect(), d = document.createElement('span');
-      d.className = 'fx-pulse'; d.style.cssText = 'left:' + (r.left + r.width / 2) + 'px;top:' + (r.top + r.height / 2) + 'px';
-      document.body.appendChild(d); setTimeout(() => d.remove(), 900);
-    } catch(e){ /* rien */ }
-  }
+  /* 21.3.0 : aucun confetti, aucune onde — une banque ne fait pas la fête. Les appels existants restent valables et ne font rien. */
+  function confetti(){ /* volontairement vide */ }
+  function pulse(){ /* volontairement vide */ }
   function shake(el){ if (!el || reduced()) return; el.classList.remove('fx-shake'); void el.offsetWidth; el.classList.add('fx-shake'); setTimeout(() => el.classList.remove('fx-shake'), 500); }
-  /* nombre qui monte de from à to */
+  /* 21.3.0 : la valeur exacte s'affiche immédiatement ; jamais de nombre intermédiaire qui monte depuis 0 */
   function countUp(el, to, o){
     if (!el) return;
-    o = o || {}; const from = o.from != null ? o.from : 0, ms = o.ms || 900, dec = o.dec == null ? 3 : o.dec;
-    if (reduced() || from === to){ el.textContent = Money.num(to, dec); return; }
-    const t0 = performance.now();
-    const step = (t) => { const k = Math.min(1, (t - t0) / ms), e = 1 - Math.pow(1 - k, 3); el.textContent = Money.num(from + (to - from) * e, dec); if (k < 1 && el.isConnected) requestAnimationFrame(step); };
-    requestAnimationFrame(step);
+    o = o || {}; const dec = o.dec == null ? 3 : o.dec;
+    el.textContent = Money.num(to, dec);
   }
   /* compteur qui grandit en direct : ticker(el, valeurDeDépart, gainParSeconde) -> stop() */
   function ticker(el, base, perSec, o){

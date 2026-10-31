@@ -10,14 +10,11 @@
    ============================================================ */
 const PhoneArt = (() => {
   const LOGO = 'assets/brand/sanad-s-192.png';
-  const DEFS = '<defs>' +
-    '<linearGradient id="scA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient>' +
-    '<linearGradient id="scB" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2F6FB5"/><stop offset="1" stop-color="#102C4C"/></linearGradient>' +
-    '<linearGradient id="scG" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".96"/><stop offset="1" stop-color="#EAF8FF" stop-opacity=".82"/></linearGradient>' +
-    '<linearGradient id="scS" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>' +
-    '<radialGradient id="scH" cx="50%" cy="45%" r="55%"><stop stop-color="#BFE9FB" stop-opacity=".85"/><stop offset="1" stop-color="#BFE9FB" stop-opacity="0"/></radialGradient>' +
-    '</defs>';
-  const scene = (cls, inner) => '<svg class="ob-art sc ' + cls + '" viewBox="0 0 320 280" focusable="false" aria-hidden="true">' + DEFS + '<ellipse class="sc-halo" cx="160" cy="132" rx="150" ry="118" fill="url(#scH)"/>' + inner + '</svg>';
+  /* 21.3.0 — style « interface de banque » : aplats, angles de 10 à 16, filets fins, aucun halo, aucun reflet, aucune bulle.
+     Les noms de classes (.sc-*) sont conservés : ils pilotent seulement l'ENTRÉE des éléments (fondu + glissement), css/s-scenes.css. */
+  const NAVY = '#134F91', NAVY2 = '#0F3F77', LINE = '#D5E3F0', INK = '#C3D5E6', SOFT = '#EAF2FA', BLUE = '#2596DE';
+  const DEFS = '';
+  const scene = (cls, inner) => '<svg class="ob-art sc ' + cls + '" viewBox="0 0 320 280" focusable="false" aria-hidden="true">' + inner + '</svg>';
   /* icônes sur grille 24 : tracé blanc ou bleu, bouts ronds */
   const I = {
     send: 'M21 3 3 10.4l6.8 2.8L12.6 21z M9.8 13.2 21 3',
@@ -32,73 +29,63 @@ const PhoneArt = (() => {
     shield: 'M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z M8.8 12l2.4 2.4 4.2-4.6'
   };
   const ic = (name, cx, cy, s, stroke, w, cls) => '<g class="' + (cls || '') + '" transform="translate(' + (cx - s / 2) + ' ' + (cy - s / 2) + ') scale(' + (s / 24) + ')"><path d="' + I[name] + '" fill="none" stroke="' + stroke + '" stroke-width="' + (w || 2) + '" stroke-linecap="round" stroke-linejoin="round"/></g>';
-  const plate = (x, y, w, id, cls) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .28) + '"/></clipPath><g class="' + (cls || '') + '"><rect x="' + x + '" y="' + (y + w * .08) + '" width="' + w + '" height="' + w + '" rx="' + (w * .28) + '" fill="#134F91" opacity=".16"/><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .28) + '" fill="#fff"/><image href="' + LOGO + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" clip-path="url(#' + id + ')" preserveAspectRatio="xMidYMid slice"/></g>';
-  const bar = (x, y, w, h, fill, cls) => '<rect class="' + (cls || '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + (h / 2) + '" fill="' + fill + '"/>';
+  const plate = (x, y, w, id, cls) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .22) + '"/></clipPath><g class="' + (cls || '') + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .22) + '" fill="#fff"/><image href="' + LOGO + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" clip-path="url(#' + id + ')" preserveAspectRatio="xMidYMid slice"/></g>';
+  const bar = (x, y, w, h, fill, cls) => '<rect class="' + (cls || '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + Math.min(4, h / 2) + '" fill="' + fill + '"/>';
+  const box = (x, y, w, h, r, fill, stroke, cls) => '<rect class="' + (cls || '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '" fill="' + fill + '"' + (stroke ? ' stroke="' + stroke + '" stroke-width="1.2"' : '') + '/>';
+  const ribbon = (id, x, y, w, h, r) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '"/></clipPath><g clip-path="url(#' + id + ')" opacity=".9"><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="16" stroke-linecap="round"/><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#7ED8F6" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/></g>';
 
   const S = [
-    /* 1 — compte et tableau de bord : carte de solde (sans chiffre), quatre actions, activité récente */
+    /* 1 — compte et tableau de bord : carte de compte (sans chiffre), quatre actions, activité récente */
     () => scene('sc-dash',
-      '<g class="sc-back"><rect x="70" y="34" width="190" height="104" rx="24" fill="url(#scB)" opacity=".9" transform="rotate(-5 165 86)"/></g>' +
-      '<g class="sc-card">' +
-        '<rect x="56" y="40" width="208" height="108" rx="24" fill="url(#scG)" stroke="#fff" stroke-width="1.5"/>' +
-        plate(72, 54, 28, 'scp1') + bar(110, 60, 70, 7, '#B5D9EE') + bar(110, 73, 42, 6, '#D5E9F5') +
-        bar(72, 108, 118, 16, 'url(#scA)', 'sc-amt') + bar(72, 130, 52, 6, '#B5D9EE') +
-        '<clipPath id="scc1"><rect x="56" y="40" width="208" height="108" rx="24"/></clipPath><g clip-path="url(#scc1)"><rect class="sc-sheen" x="56" y="40" width="64" height="108" fill="url(#scS)" opacity=".7"/></g>' +
-      '</g>' +
+      '<g class="sc-back">' + box(64, 40, 192, 112, 16, NAVY2, null) + '</g>' +
+      '<g class="sc-card">' + box(56, 32, 208, 112, 16, NAVY, null) + ribbon('scr1', 56, 32, 208, 112, 16) +
+        plate(70, 46, 28, 'scp1') + bar(108, 54, 66, 6, '#fff', 'sc-lb') + bar(108, 66, 40, 5, '#fff') +
+        bar(70, 96, 112, 14, '#fff', 'sc-amt') + bar(70, 120, 56, 5, '#fff') + '</g>' +
       '<g class="sc-acts">' +
-        '<circle class="sc-a1" cx="92" cy="190" r="21" fill="url(#scA)"/>' + ic('send', 92, 190, 20, '#fff', 2.1, 'sc-a1') +
-        '<circle class="sc-a2" cx="146" cy="190" r="21" fill="#fff" stroke="#CFE6F5"/>' + ic('down', 146, 190, 20, '#2596DE', 2, 'sc-a2') +
-        '<circle class="sc-a3" cx="200" cy="190" r="21" fill="#fff" stroke="#CFE6F5"/>' + ic('clock', 200, 190, 20, '#2596DE', 2, 'sc-a3') +
-        '<circle class="sc-a4" cx="254" cy="190" r="21" fill="#fff" stroke="#CFE6F5"/>' + ic('grid', 254, 190, 18, '#2596DE', 2, 'sc-a4') +
+        [['send', 1], ['down', 0], ['clock', 0], ['grid', 0]].map((a, k) => { const x = 56 + k * 54; return box(x, 162, 46, 46, 12, a[1] ? NAVY : '#fff', a[1] ? null : LINE, 'sc-a' + (k + 1)) + ic(a[0], x + 23, 185, 20, a[1] ? '#fff' : NAVY, 2, 'sc-a' + (k + 1)); }).join('') +
       '</g>' +
-      '<g class="sc-rows"><rect class="sc-r1" x="56" y="226" width="208" height="20" rx="10" fill="#fff" opacity=".85"/>' + bar(72, 233, 88, 6, '#CFE6F5', 'sc-r1') + bar(206, 233, 42, 6, '#B5D9EE', 'sc-r1') +
-      '<rect class="sc-r2" x="56" y="252" width="208" height="20" rx="10" fill="#fff" opacity=".6"/>' + bar(72, 259, 66, 6, '#CFE6F5', 'sc-r2') + bar(214, 259, 34, 6, '#B5D9EE', 'sc-r2') + '</g>'),
+      '<g class="sc-rows">' + box(56, 222, 208, 22, 8, '#fff', LINE, 'sc-r1') + bar(68, 230, 84, 6, INK, 'sc-r1') + bar(212, 230, 40, 6, INK, 'sc-r1') +
+        box(56, 250, 208, 22, 8, '#fff', LINE, 'sc-r2') + bar(68, 258, 62, 6, INK, 'sc-r2') + bar(220, 258, 32, 6, INK, 'sc-r2') + '</g>'),
 
     /* 2 — avantages déjà présents : instantané entre comptes, la personne est prévenue, états réels */
     () => scene('sc-adv',
-      '<g class="sc-t1">' + plate(34, 62, 72, 'scp2') + '</g>' +
-      '<g class="sc-t2">' + plate(214, 62, 72, 'scp3') + '</g>' +
-      '<path class="sc-link" d="M112 98H208" fill="none" stroke="#CFE6F5" stroke-width="5" stroke-linecap="round"/>' +
-      '<path class="sc-flow" d="M112 98H208" fill="none" stroke="#2596DE" stroke-width="5" stroke-linecap="round" pathLength="100"/>' +
-      '<g class="sc-bell"><circle cx="276" cy="64" r="17" fill="#fff" stroke="#CFE6F5"/>' + ic('bell', 276, 64, 18, '#2596DE', 2) + '<circle cx="287" cy="52" r="5" fill="#E84D65"/></g>' +
+      '<g class="sc-t1">' + box(28, 44, 96, 84, 14, '#fff', LINE) + plate(42, 58, 34, 'scp2') + bar(42, 104, 56, 6, INK) + bar(42, 114, 34, 5, LINE) + '</g>' +
+      '<g class="sc-t2">' + box(196, 44, 96, 84, 14, '#fff', LINE) + plate(210, 58, 34, 'scp3') + bar(210, 104, 56, 6, INK) + bar(210, 114, 34, 5, LINE) + '</g>' +
+      '<path class="sc-link" d="M130 86H190" fill="none" stroke="' + LINE + '" stroke-width="3" stroke-linecap="round"/>' +
+      '<path class="sc-flow" d="M130 86H190" fill="none" stroke="' + BLUE + '" stroke-width="3" stroke-linecap="round" pathLength="100"/>' +
+      '<g class="sc-bell">' + box(262, 26, 30, 30, 9, '#fff', LINE) + ic('bell', 277, 41, 16, NAVY, 2) + '<circle cx="288" cy="30" r="4.5" fill="#E84D65"/></g>' +
       '<g class="sc-st">' +
-        '<g class="sc-p1"><rect x="28" y="168" width="82" height="42" rx="21" fill="#fff4e0" stroke="#F4A43B" stroke-width="1.5"/><circle cx="52" cy="189" r="12" fill="#F4A43B"/>' + ic('clock', 52, 189, 14, '#fff', 2.2) + bar(70, 185, 28, 7, '#F4C98A') + '</g>' +
-        '<g class="sc-p2"><rect x="119" y="168" width="82" height="42" rx="21" fill="#e4f7f0" stroke="#14A879" stroke-width="1.5"/><circle cx="143" cy="189" r="12" fill="#14A879"/>' + ic('check', 143, 189, 14, '#fff', 2.6) + bar(161, 185, 28, 7, '#9ADBC4') + '</g>' +
-        '<g class="sc-p3"><rect x="210" y="168" width="82" height="42" rx="21" fill="#fde9ed" stroke="#E84D65" stroke-width="1.5"/><circle cx="234" cy="189" r="12" fill="#E84D65"/>' + ic('cross', 234, 189, 12, '#fff', 2.6) + bar(252, 185, 28, 7, '#F2A9B6') + '</g>' +
-      '</g>'),
+        '<g class="sc-p1">' + box(28, 160, 88, 44, 12, '#FFF6E6', '#F1C27A') + box(38, 172, 20, 20, 6, '#E08A12') + ic('clock', 48, 182, 13, '#fff', 2.2) + bar(66, 178, 36, 7, '#F1C27A') + '</g>' +
+        '<g class="sc-p2">' + box(122, 160, 88, 44, 12, '#E8F7F1', '#8FD3BC') + box(132, 172, 20, 20, 6, '#14A879') + ic('check', 142, 182, 13, '#fff', 2.6) + bar(160, 178, 36, 7, '#8FD3BC') + '</g>' +
+        '<g class="sc-p3">' + box(216, 160, 76, 44, 12, '#FDECEF', '#F0A8B5') + box(226, 172, 20, 20, 6, '#E84D65') + ic('cross', 236, 182, 11, '#fff', 2.6) + bar(254, 178, 28, 7, '#F0A8B5') + '</g>' +
+      '</g>' +
+      bar(28, 232, 150, 6, INK) + bar(28, 246, 110, 5, LINE)),
 
     /* 3 — transferts : un numéro, le nom vérifié, la confirmation par glissement */
     () => scene('sc-tx',
-      '<g class="sc-field"><rect x="40" y="36" width="240" height="56" rx="28" fill="url(#scG)" stroke="#fff" stroke-width="1.5"/>' +
-        '<circle cx="72" cy="64" r="14" fill="#EAF8FF" stroke="#CFE6F5"/>' + ic('send', 72, 64, 14, '#2596DE', 2) +
-        [0, 1, 2, 3].map(k => bar(100 + k * 42, 59, 32, 10, k < 3 ? '#9ED3EE' : '#2596DE', 'sc-d d' + k)).join('') + '</g>' +
-      '<g class="sc-who"><rect x="60" y="112" width="200" height="50" rx="25" fill="#fff" stroke="#CFE6F5"/>' + plate(72, 120, 34, 'scp4') + bar(116, 129, 76, 8, '#B5D9EE') + bar(116, 144, 46, 6, '#D5E9F5') +
-        '<circle cx="238" cy="137" r="12" fill="#14A879"/>' + ic('check', 238, 137, 14, '#fff', 2.6) + '</g>' +
-      '<g class="sc-swipe"><rect x="44" y="190" width="232" height="62" rx="31" fill="#EAF8FF" stroke="#CFE6F5"/>' +
-        '<rect class="sc-fill" x="44" y="190" width="232" height="62" rx="31" fill="url(#scA)" opacity=".28"/>' +
-        '<g class="sc-thumb"><circle cx="76" cy="221" r="24" fill="url(#scA)"/>' + ic('send', 76, 221, 20, '#fff', 2.1) + '</g></g>'),
+      '<g class="sc-field">' + box(40, 34, 240, 54, 14, '#fff', LINE) + box(52, 48, 26, 26, 8, SOFT) + ic('send', 65, 61, 14, NAVY, 2) +
+        [0, 1, 2, 3].map(k => bar(92 + k * 44, 56, 34, 10, k < 3 ? INK : BLUE, 'sc-d d' + k)).join('') + '</g>' +
+      '<g class="sc-who">' + box(56, 108, 208, 52, 12, '#fff', LINE) + plate(68, 118, 32, 'scp4') + bar(110, 124, 80, 7, INK) + bar(110, 138, 50, 5, LINE) + box(232, 124, 20, 20, 6, '#14A879') + ic('check', 242, 134, 13, '#fff', 2.6) + '</g>' +
+      '<g class="sc-swipe">' + box(44, 188, 232, 56, 14, SOFT, LINE) + '<rect class="sc-fill" x="44" y="188" width="232" height="56" rx="14" fill="' + NAVY + '" opacity=".12"/>' +
+        '<g class="sc-thumb">' + box(52, 196, 40, 40, 11, NAVY) + ic('send', 72, 216, 18, '#fff', 2.1) + '</g></g>'),
 
-    /* 4 — cartes : une carte virtuelle avec reflet, une seconde derrière, états actif et gelé */
+    /* 4 — cartes : une carte virtuelle, une seconde derrière, états actif et gelé */
     () => scene('sc-card',
-      '<g class="sc-c2"><rect x="60" y="42" width="204" height="124" rx="22" fill="url(#scA)" transform="rotate(7 162 104)"/></g>' +
-      '<g class="sc-c1"><rect x="48" y="52" width="216" height="132" rx="24" fill="url(#scB)"/>' +
-        '<rect x="48" y="52" width="216" height="132" rx="24" fill="none" stroke="#fff" stroke-opacity=".35"/>' +
-        '<rect x="70" y="86" width="34" height="26" rx="6" fill="#E9C97A"/><path d="M70 99h34M87 86v26" stroke="#B8923C" stroke-width="1.2"/>' +
-        '<path d="M120 90a14 14 0 0 1 0 18M127 86a20 20 0 0 1 0 26" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.4" stroke-linecap="round"/>' +
-        [0, 1, 2, 3].map(k => '<g>' + [0, 1, 2, 3].map(j => '<circle cx="' + (76 + k * 40 + j * 8) + '" cy="140" r="2.2" fill="#fff" fill-opacity=".9"/>').join('') + '</g>').join('') +
-        bar(70, 158, 78, 7, '#fff', 'sc-hold') + plate(216, 150, 30, 'scp5', 'sc-brand') +
-        '<clipPath id="scc4"><rect x="48" y="52" width="216" height="132" rx="24"/></clipPath><g clip-path="url(#scc4)"><rect class="sc-sheen" x="48" y="52" width="70" height="132" fill="url(#scS)" opacity=".5"/></g></g>' +
-      '<g class="sc-states"><g class="sc-s1"><rect x="52" y="214" width="104" height="36" rx="18" fill="#e4f7f0" stroke="#14A879" stroke-width="1.5"/><circle cx="74" cy="232" r="9" fill="#14A879"/>' + ic('check', 74, 232, 11, '#fff', 2.6) + bar(92, 228, 44, 7, '#9ADBC4') + '</g>' +
-        '<g class="sc-s2"><rect x="168" y="214" width="104" height="36" rx="18" fill="#e6f3fb" stroke="#7ED8F6" stroke-width="1.5"/><circle cx="190" cy="232" r="9" fill="#2596DE"/>' + ic('pause', 190, 232, 11, '#fff', 2.6) + bar(208, 228, 44, 7, '#B5D9EE') + '</g></g>'),
+      '<g class="sc-c2">' + box(64, 40, 200, 124, 16, '#2F6FB5', null) + '</g>' +
+      '<g class="sc-c1">' + box(48, 52, 216, 128, 16, NAVY, null) + ribbon('scr4', 48, 52, 216, 128, 16) +
+        box(68, 80, 34, 26, 6, '#D9BE78') + '<path d="M68 93h34M85 80v26" stroke="#A98A3E" stroke-width="1.1"/>' +
+        '<path d="M118 84a13 13 0 0 1 0 18M125 80a19 19 0 0 1 0 26" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>' +
+        [0, 1, 2, 3].map(k => [0, 1, 2, 3].map(j => '<circle cx="' + (74 + k * 40 + j * 8) + '" cy="134" r="2.1" fill="#fff" fill-opacity=".9"/>').join('')).join('') +
+        bar(68, 154, 78, 6, '#fff', 'sc-hold') + plate(222, 144, 28, 'scp5', 'sc-brand') + '</g>' +
+      '<g class="sc-states"><g class="sc-s1">' + box(52, 210, 104, 36, 12, '#E8F7F1', '#8FD3BC') + box(62, 220, 16, 16, 5, '#14A879') + ic('check', 70, 228, 10, '#fff', 2.6) + bar(88, 224, 44, 7, '#8FD3BC') + '</g>' +
+        '<g class="sc-s2">' + box(168, 210, 104, 36, 12, SOFT, LINE) + box(178, 220, 16, 16, 5, BLUE) + ic('pause', 186, 228, 10, '#fff', 2.6) + bar(204, 224, 44, 7, INK) + '</g></g>'),
 
-    /* 5 — sécurité : bouclier, balayage de vérification, code à six chiffres */
+    /* 5 — sécurité : bouclier, vérification, code à six chiffres */
     () => scene('sc-sec',
-      '<g class="sc-shield"><path d="M160 30l72 30v52c0 44-30 80-72 96-42-16-72-52-72-96V60z" fill="url(#scG)" stroke="#fff" stroke-width="2"/>' +
-        '<path d="M160 52l52 22v38c0 32-21 58-52 72-31-14-52-40-52-72V74z" fill="url(#scA)" opacity=".16"/>' +
-        '<g fill="none" stroke="#2596DE" stroke-width="5" stroke-linecap="round"><path d="M128 100v-8a8 8 0 0 1 8-8h8"/><path d="M176 84h8a8 8 0 0 1 8 8v8"/><path d="M192 132v8a8 8 0 0 1-8 8h-8"/><path d="M144 148h-8a8 8 0 0 1-8-8v-8"/></g>' +
-        ic('lock', 160, 116, 36, '#134F91', 2.2, 'sc-lock') +
-        '<rect class="sc-scan" x="128" y="108" width="64" height="5" rx="2.5" fill="#7ED8F6" opacity=".85"/></g>' +
-      '<g class="sc-code">' + [0, 1, 2, 3, 4, 5].map(k => '<circle class="sc-k k' + k + '" cx="' + (100 + k * 24) + '" cy="236" r="8" fill="#2596DE"/>').join('') + '</g>')
+      '<g class="sc-shield"><path d="M160 30l72 30v52c0 44-30 80-72 96-42-16-72-52-72-96V60z" fill="#fff" stroke="' + LINE + '" stroke-width="2"/>' +
+        '<path d="M160 50l54 22v40c0 32-22 58-54 72-32-14-54-40-54-72V72z" fill="' + NAVY + '" opacity=".08"/>' +
+        ic('lock', 160, 112, 38, NAVY, 2.2, 'sc-lock') + '<rect class="sc-scan" x="136" y="150" width="48" height="4" rx="2" fill="' + BLUE + '" opacity=".0"/></g>' +
+      '<g class="sc-code">' + [0, 1, 2, 3, 4, 5].map(k => box(92 + k * 24, 228, 18, 24, 6, k < 6 ? NAVY : '#fff', null, 'sc-k k' + k)).join('') + '</g>')
   ];
   function slide(i) { return (S[i] || S[0])(); }
   return { slide, count: S.length };

@@ -98,7 +98,7 @@
 /* résultat : statut à vérifier / échec */
 .ix-result{align-items:center;text-align:center;gap:calc(14px*var(--ui));padding-top:calc(40px*var(--ui))}
 .ix-result h2{margin:0;font-size:calc(22px*var(--ui))}.ix-result p{margin:0;max-width:34ch;color:var(--text-2);line-height:1.55}
-.ix-res-i{width:calc(84px*var(--ui));height:calc(84px*var(--ui));border-radius:50%;display:grid;place-items:center;animation:rwdCoin .7s cubic-bezier(.2,1.5,.4,1) both}
+.ix-res-i{width:calc(84px*var(--ui));height:calc(84px*var(--ui));border-radius:50%;display:grid;place-items:center;animation:rwdCoin .7s cubic-bezier(.16,1,.3,1) both}
 .ix-res-i.unc{background:var(--accent-soft);color:var(--accent)}.ix-res-i.bad{background:rgba(239,68,68,.14);color:#EF4444}
 .ix-result .btn{width:100%;max-width:340px}
 @media (prefers-reduced-motion:reduce){.ix-globe,.ix-orbit,.ix-ring,.ix-row,.ix-card,.ix-arrow,.ix-confirm::after,.ix-res-i{animation:none!important}}

@@ -1,0 +1,35 @@
+/* ==========================================================================
+   SANAD PAY 21.3.0 — SOBRIÉTÉ BANCAIRE (dernière feuille)
+   Une banque ne joue pas : pas de rebond, pas de flottement, pas d'orbite, pas d'étincelle, pas de pièce, pas de confetti.
+   Cette couche retire les mouvements DÉCORATIFS hérités des versions précédentes et garde ceux qui informent :
+   chargement (cercle, squelette), saisie (points d'écriture d'une vraie requête), enregistrement en cours, envoi en cours, statut en attente.
+   ========================================================================== */
+:root{--mo-spring:cubic-bezier(.16,1,.3,1);--sx-spring:cubic-bezier(.16,1,.3,1);--cr-spring:cubic-bezier(.16,1,.3,1)}
+
+/* — mouvements décoratifs : arrêtés — */
+.chat-card::after,.chat-help::after,.chat-empty .chat-logo,.yas-ant,.yas-float,.yas-halo,.yas-hero .sanad-amal,.yas-sp,
+.cin-ant,.cin-bot,.cin-card-sheen,.cin-card3d,.cin-cta::after,.cin-glow.g1,.cin-glow.g2,.cin-halo,.cin-mer,.cin-orbit,.cin-p,.cin-scan,.cin-tag,.cin-wave,.hub-orb,
+.is-on .cin-coin,.is-on .cin-dot,.is-on .cin-pin,
+.cr-gift-ring i,.cr-hg i,.cr-hg svg,.cr-orbit,.cr-ring::before,.cr-solde-ic i,.cr-sp,.vt-bolt,.vt-glow,.vt-rays,.vt-shine,
+.fl-orbit i,.ix-arrow,.ix-confirm::after,.ix-globe,.ix-orbit,.ix-ring,.res-art,.rwd-ring,
+.ob-slide.on .sc-adv .sc-t2 image,.ob-slide.on .sc-card .sc-sheen,.ob-slide.on .sc-dash .sc-sheen,.ob-slide.on .sc-sec .sc-code,.ob-slide.on .sc-sec .sc-scan,
+.ob-float,.ob-halo,.ob-pulse,.ob-scan,.sa .hz-halo circle,.proc-view[data-phase="send"] .sa-plate,.fid-orb::after,.recog-scan::after,
+.yas-wrap[data-state="think"] .yas-hero .sanad-amal{animation:none!important}
+.ob-slide.on .sc-card .sc-c1,.ob-slide.on .sc-dash .sc-card{animation:scRise 560ms var(--mo-out) 220ms backwards!important}
+.cin-p,.cin-coin,.rwd-conf,.fx-pulse,.fx-canvas{display:none!important}
+
+/* — entrées : un fondu avec un léger glissement, jamais de rebond ni d'échelle — */
+@keyframes moPop{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes scPop{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes v18Pop{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes sxPop{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes rwdCoin{from{opacity:0;transform:translate3d(0,6px,0)}to{opacity:1;transform:none}}
+@keyframes rwdSpin{0%,100%{transform:none}}
+/* secousse d'une saisie refusée : courte et discrète */
+@keyframes crShake{0%,100%{transform:none}25%{transform:translate3d(-4px,0,0)}75%{transform:translate3d(4px,0,0)}}
+@keyframes moShake{0%,100%{transform:none}25%{transform:translate3d(-4px,0,0)}75%{transform:translate3d(4px,0,0)}}
+
+/* — avis de crédit (ex-célébration) : feuille sobre, logo, montant — */
+.rwd-medal{width:88px;height:88px;border-radius:22px;display:grid;place-items:center;margin:0 auto 18px;background:#fff;box-shadow:0 0 0 1px rgba(16,44,76,.08),0 10px 24px -14px rgba(16,44,76,.35)}
+.rwd-coin{display:grid;place-items:center;background:none!important;box-shadow:none!important;width:auto!important;height:auto!important}
+.rwd-k{letter-spacing:0!important;text-transform:none!important}

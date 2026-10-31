@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   SFX (18.0.0 : banque « verre doux », façon iPhone — notes pures, attaque lente, volume bas) — sons de l'application, synthétisés (WebAudio) : aucun fichier audio, aucune requête.
+   SFX (21.3.0 : sobriété bancaire — interface silencieuse, une seule note douce pour les événements importants ; 18.0.0 : notes pures, attaque lente, volume bas) — sons de l'application, synthétisés (WebAudio) : aucun fichier audio, aucune requête.
    - Cloche « FM » (porteuse + modulatrice qui s'éteint) pour les notifications, l'argent reçu et la récompense ; petite réverbération générée.
    - Sons : tap, nav, success, error, warning, notify, money, reward, newUser, send, swipe, pop.
    - Réglage « Sons » (Réglages → Notifications) : Runtime.settings.sounds (défaut : activé), recopié dans localStorage pour l'avant-connexion.
@@ -23,7 +23,7 @@ const Sfx = (() => {
   function set(on){
     try { localStorage.setItem(LS, on ? '1' : '0'); } catch(e){ /* rien */ }
     try { if (typeof Runtime !== 'undefined' && Runtime.settings) Runtime.settings.sounds = !!on; } catch(e){ /* rien */ }
-    if (on) play('pop');
+    if (on) play('success');
   }
   function build(){
     if (ctx) return ctx;
@@ -83,32 +83,25 @@ const Sfx = (() => {
     const g = ctx.createGain(); env(g, t, o.a || 0.01, o.v || 0.1, d);
     src.connect(f); f.connect(g); out(g, o.verb); src.start(t); src.stop(t + d + 0.05);
   }
-  /* ---------- sons ---------- */
+  /* ---------- sons ----------
+     21.3.0 — sobriété bancaire. Une banque ne joue pas de jingles : l'interface est SILENCIEUSE (toucher, navigation, glissement, ouverture),
+     et seuls les événements qui comptent émettent UNE note douce et courte (jamais d'arpège, de fanfare, de pièce ou de « pop »).
+     Les noms historiques restent valides (les modules les appellent) ; les anciennes fanfares (reward, collect, credit, newUser) sont ramenées à une seule note. */
+  const note = (f, t, d, v) => bell(f, t, d, v, 0.35);
+  const SILENT = () => {};
   const SOUNDS = {
-    tap:     t => { tone(1750, t, 0.028, { v: 0.018, a: 0.003, lp: 3200 }); },
-    tick:    t => { tone(2300, t, 0.014, { v: 0.009, a: 0.002, lp: 3600 }); },
-    nav:     t => { bell(784, t, 0.2, 0.045, 0.3); },
-    pop:     t => { tone(620, t, 0.1, { v: 0.05, a: 0.006, to: 840, lp: 3000, verb: 0.2 }); },
-    open:    t => { noise(t, 0.2, { f0: 400, f1: 1500, q: 0.7, v: 0.02, a: 0.06, verb: 0.3 }); bell(988, t + 0.1, 0.35, 0.04, 0.5); },
-    swipe:   t => { noise(t, 0.18, { f0: 500, f1: 1800, q: 0.7, v: 0.02, a: 0.05, verb: 0.2 }); },
-    success: t => { bell(880, t, 0.55, 0.075); bell(1318.5, t + 0.12, 0.85, 0.08); },
-    warning: t => { bell(523, t, 0.3, 0.06, 0.3); bell(523, t + 0.2, 0.4, 0.06, 0.3); },
-    error:   t => { tone(233, t, 0.2, { v: 0.07, a: 0.01, to: 196, lp: 700, verb: 0.2 }); tone(196, t + 0.15, 0.28, { v: 0.06, a: 0.01, to: 165, lp: 600, verb: 0.2 }); },
-    notify:  t => { bell(1175, t, 0.5, 0.07); bell(1480, t + 0.16, 0.5, 0.07); bell(1760, t + 0.32, 0.95, 0.075); },
-    money:   t => { bell(1568, t, 0.6, 0.075); bell(2093, t + 0.1, 1.0, 0.07, 0.7); },
-    newUser: t => { bell(659, t, 0.5, 0.07); bell(880, t + 0.16, 0.5, 0.07); bell(1175, t + 0.32, 1.0, 0.075, 0.7); },
-    send:    t => { noise(t, 0.34, { f0: 380, f1: 2600, q: 0.8, v: 0.03, a: 0.07, verb: 0.3 }); bell(1318, t + 0.26, 0.7, 0.055); },
-    msgSend: t => { tone(880, t, 0.09, { v: 0.045, a: 0.006, to: 1320, lp: 3600, verb: 0.2 }); bell(1760, t + 0.07, 0.25, 0.03, 0.3); },
-    msgRecv: t => { bell(1318, t, 0.4, 0.06); bell(1760, t + 0.12, 0.7, 0.06, 0.6); },
-    recStart:t => { tone(660, t, 0.09, { v: 0.04, a: 0.008, lp: 2800 }); tone(990, t + 0.09, 0.14, { v: 0.045, a: 0.008, lp: 2800, verb: 0.3 }); },
-    recStop: t => { tone(990, t, 0.08, { v: 0.04, a: 0.008, lp: 2800 }); tone(660, t + 0.08, 0.16, { v: 0.045, a: 0.008, lp: 2800, verb: 0.3 }); },
-    yaser:   t => { tone(520, t, 0.14, { v: 0.05, a: 0.01, to: 780, lp: 3000, verb: 0.3 }); bell(1040, t + 0.1, 0.5, 0.05, 0.6); },
-    collect: t => { [1047, 1319, 1568, 2093, 2637].forEach((f, i) => bell(f, t + i * 0.07, 0.7 + i * 0.06, 0.055 + i * 0.004, 0.6)); },
-    credit:  t => { [523, 659, 784].forEach((f, i) => tone(f, t + i * 0.01, 1.4, { v: 0.03, a: 0.08, lp: 1800, verb: 0.6 })); bell(1046, t + 0.25, 1.1, 0.07, 0.7); bell(1568, t + 0.42, 1.4, 0.075, 0.8); },
-    reward:  t => {
-      [523, 659, 784, 1046, 1318, 1568].forEach((f, i) => bell(f, t + i * 0.09, 1.2 - i * 0.07, 0.06 + i * 0.004, 0.65));
-      [262, 330, 392].forEach(f => tone(f, t + 0.4, 1.7, { v: 0.022, a: 0.14, lp: 1000, verb: 0.6 }));
-    },
+    tap: SILENT, tick: SILENT, nav: SILENT, pop: SILENT, open: SILENT, swipe: SILENT, send: SILENT, recStart: SILENT, recStop: SILENT, yaser: SILENT,
+    success: t => { note(880, t, 0.5, 0.05); },
+    money:   t => { note(988, t, 0.6, 0.05); },
+    notify:  t => { note(1047, t, 0.55, 0.045); },
+    warning: t => { note(523, t, 0.4, 0.045); },
+    error:   t => { tone(233, t, 0.28, { v: 0.045, a: 0.012, to: 208, lp: 700, verb: 0.1 }); },
+    msgSend: SILENT,
+    msgRecv: t => { note(1175, t, 0.45, 0.04); },
+    collect: t => { note(988, t, 0.6, 0.05); },
+    credit:  t => { note(988, t, 0.7, 0.05); },
+    newUser: t => { note(880, t, 0.6, 0.045); },
+    reward:  t => { note(988, t, 0.7, 0.05); },
   };
   function play(name){
     try {
