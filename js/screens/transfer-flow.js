@@ -40,28 +40,28 @@ function txRow(tx, mask){
    Numbers: +968 then 8 digits; mobile numbers start with 7 or 9. The id "country-select" is kept for links, shortcuts and the dock.
    ============================================================ */
 Object.assign(TR.en, {
-  'sx.uncertain':'Status to be checked','sx.wait':'Waiting for the server’s answer…','sx.st1':'Checked','sx.st2':'Sent','sx.st3':'Server answer','sx.st4':'Confirmed',
+  'sx.uncertain':'Status to be checked','sx.wait':'We are waiting for the operation to be confirmed.','sx.st1':'Preparation','sx.st2':'Processing','sx.st3':'Finalisation','sx.st4':'Confirmation',
   'sp.title':'Send money','sp.heading':'Who are you sending to?','sp.sub':'Enter the recipient’s mobile number.','sp.label':'Mobile number',
   'sp.hint':'Oman · 8 digits, starting with 7 or 9','sp.err_prefix':'An Omani mobile number starts with 7 or 9.','sp.err_short':'The number must have 8 digits.',
   'sp.err_self':'You cannot send money to your own number.','sp.known':'Saved contact','sp.step_number':'Number','sp.to':'To',
   'sp.err_min':'Minimum amount: {n}','sp.err_max':'Maximum per transfer: {n}','sp.type':'Mobile number transfer',
-  'sx.secure':'Securing your transfer','sx.send':'Sending your money','sx.success':'Transfer confirmed','sx.fail':'The transfer was not completed'
+  'sx.secure':'We are preparing your operation.','sx.send':'Your transfer is being processed.','sx.success':'Your transfer has been confirmed.','sx.fail':'The transfer was not completed'
 });
 Object.assign(TR.fr, {
-  'sx.uncertain':'Statut à vérifier','sx.wait':'En attente de la réponse du serveur…','sx.st1':'Vérifié','sx.st2':'Envoyé','sx.st3':'Réponse du serveur','sx.st4':'Confirmé',
+  'sx.uncertain':'Statut à vérifier','sx.wait':'Nous attendons la confirmation de l’opération.','sx.st1':'Préparation','sx.st2':'Traitement','sx.st3':'Finalisation','sx.st4':'Confirmation',
   'sp.title':'Envoyer de l’argent','sp.heading':'À qui envoyez-vous ?','sp.sub':'Saisissez le numéro de mobile du destinataire.','sp.label':'Numéro de mobile',
   'sp.hint':'Oman · 8 chiffres, commence par 7 ou 9','sp.err_prefix':'Un numéro de mobile omanais commence par 7 ou 9.','sp.err_short':'Le numéro doit avoir 8 chiffres.',
   'sp.err_self':'Vous ne pouvez pas envoyer de l’argent à votre propre numéro.','sp.known':'Contact enregistré','sp.step_number':'Numéro','sp.to':'À',
   'sp.err_min':'Montant minimum : {n}','sp.err_max':'Maximum par transfert : {n}','sp.type':'Transfert par numéro de mobile',
-  'sx.secure':'Sécurisation de votre transfert','sx.send':'Envoi de votre argent','sx.success':'Transfert confirmé','sx.fail':'Le transfert n’a pas abouti'
+  'sx.secure':'Nous préparons votre opération.','sx.send':'Votre transfert est en cours de traitement.','sx.success':'Votre transfert a été confirmé.','sx.fail':'Le transfert n’a pas abouti'
 });
 Object.assign(TR.ar, {
-  'sx.uncertain':'الحالة بحاجة إلى تحقق','sx.wait':'بانتظار رد الخادم…','sx.st1':'تم التحقق','sx.st2':'تم الإرسال','sx.st3':'رد الخادم','sx.st4':'تم التأكيد',
+  'sx.uncertain':'الحالة بحاجة إلى تحقق','sx.wait':'ننتظر تأكيد العملية.','sx.st1':'التحضير','sx.st2':'المعالجة','sx.st3':'الإنهاء','sx.st4':'التأكيد',
   'sp.title':'إرسال الأموال','sp.heading':'لمن تريد الإرسال؟','sp.sub':'أدخل رقم هاتف المستلم.','sp.label':'رقم الهاتف',
   'sp.hint':'عُمان · 8 أرقام تبدأ بـ 7 أو 9','sp.err_prefix':'يبدأ رقم الهاتف العُماني بالرقم 7 أو 9.','sp.err_short':'يجب أن يتكون الرقم من 8 أرقام.',
   'sp.err_self':'لا يمكنك إرسال الأموال إلى رقمك.','sp.known':'جهة اتصال محفوظة','sp.step_number':'الرقم','sp.to':'إلى',
   'sp.err_min':'الحد الأدنى: {n}','sp.err_max':'الحد الأقصى للتحويل: {n}','sp.type':'تحويل عبر رقم الهاتف',
-  'sx.secure':'جارٍ تأمين التحويل','sx.send':'جارٍ إرسال المبلغ','sx.success':'تم تأكيد التحويل','sx.fail':'لم يكتمل التحويل'
+  'sx.secure':'نقوم بتحضير عمليتك.','sx.send':'تتم معالجة تحويلك.','sx.success':'تم تأكيد تحويلك.','sx.fail':'لم يكتمل التحويل'
 });
 
 /* ---- Oman mobile numbers ---- */

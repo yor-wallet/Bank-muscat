@@ -42,7 +42,7 @@ function signupDialSelect(){
 function renderSignup(){
   return '<div class="sx-auth">' + authSky(V12.vt('createAccount'), V12.vt('signupSub'), true) +
     '<div class="sx-auth-sheet">' +
-      '<div class="su-gift" role="note"><span class="su-gift-i">' + icon('gift', 22) + '</span><span class="su-gift-t"><b>' + t('lx.su.gift').replace('{a}', '10 OMR') + '</b><small>' + t('lx.su.gift2') + '</small></span></div>' +
+      '<div class="su-gift" role="note"><span class="su-gift-i">' + icon('wallet', 22) + '</span><span class="su-gift-t"><b>' + t('lx.su.gift').replace('{a}', '10 OMR') + '</b><small>' + t('lx.su.gift2') + '</small></span></div>' +
       '<div class="field"><label class="field-label" for="su-first">' + t('auth.firstName') + '</label><div class="field-box"><input type="text" id="su-first" autocomplete="given-name"></div></div>' +
       '<div class="field"><label class="field-label" for="su-last">' + t('auth.lastName') + '</label><div class="field-box"><input type="text" id="su-last" autocomplete="family-name"></div></div>' +
       '<div class="field"><label class="field-label" for="su-email">' + t('auth.username') + '</label><div class="field-box"><input type="email" id="su-email" autocomplete="email" autocapitalize="off" spellcheck="false" class="ltr"></div></div>' +

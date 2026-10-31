@@ -155,7 +155,7 @@ const RC_BADGE_PATH = {
 /* Sanad Pay 21.0.0 — glyphe de statut : le carré arrondi du logo ; la coche (réussi) se TRACE, l'horloge (en cours) bat, la croix (échoué) se dessine */
 function rcBadge(state){
   return '<div class="rc-badge sx-glyph st-' + state + '" role="img" aria-label="' + escapeHtml(t('tx.st.' + state)) + '">' +
-    '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="rc-c" x="3" y="3" width="58" height="58" rx="17"/>' + RC_BADGE_PATH[state] + '</svg></div>';
+    '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="rc-c" x="3" y="3" width="58" height="58" rx="29"/>' + RC_BADGE_PATH[state] + '</svg></div>';
 }
 function rcRow(label, valueHtml, opts){
   opts = opts || {};

@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   SEND ANIMATION — scène « Courbe » (Sanad Pay 21.2.0, précédemment « Horizon » 21.0.0), affichée pendant un transfert.
+   SEND ANIMATION — scène « Anneau » (Sanad Pay 21.3.0 ; « Courbe » en 21.2.0, « Horizon » en 21.0.0), affichée pendant un transfert.
    Remplace la scène « deux téléphones + pièce » de Freindi Pay. Même interface : svg(), setPhase(p) -> Promise, stop().
    Chaque état est le VRAI état (ProcessingEngine.run) — rien ici n'est décoratif ni chronométré à part :
    - « secure »    : le transfert est protégé (cadenas sur le logo, la courbe se trace une fois) ;
@@ -19,26 +19,24 @@ const SendAnim = (() => {
      Une lumière parcourt la courbe TANT QUE le serveur n'a pas répondu (mouvement indéterminé : aucun pourcentage, aucune étape inventée) ;
      le badge sur le logo ne devient « coche » qu'après la réponse confirmée. */
   function svg(){
-    return '<svg class="hz-svg sa" viewBox="0 0 320 210" focusable="false" aria-hidden="true">' +
-      '<defs><clipPath id="sa-clip"><rect x="112" y="22" width="96" height="96" rx="27"/></clipPath></defs>' +
-      '<g class="hz-halo"><circle cx="160" cy="70" r="74"/></g>' +
-      '<g class="sa-curve">' +
-        '<path class="sa-base" d="M44 176C104 176 112 140 160 140S216 104 276 104"/>' +
-        '<path class="sa-lit" d="M44 176C104 176 112 140 160 140S216 104 276 104" pathLength="100"/>' +
-        '<path class="sa-glow" d="M44 176C104 176 112 140 160 140S216 104 276 104" pathLength="100"/>' +
-        '<path class="sa-light" d="M44 176C104 176 112 140 160 140S216 104 276 104" pathLength="100"/>' +
-        '<circle class="sa-n sa-n1" cx="44" cy="176" r="9"/><circle class="sa-n sa-n2" cx="276" cy="104" r="9"/>' +
-        '<path class="sa-n2-ck" d="M271 104l3.6 3.6 6.4-7.4" pathLength="100"/>' +
-        '<g class="sa-dots"><circle cx="146" cy="140" r="4"/><circle cx="160" cy="140" r="4"/><circle cx="174" cy="140" r="4"/></g>' +
-        '<g class="sa-x"><circle cx="160" cy="140" r="14"/><path d="M154 134l12 12M166 134l-12 12" pathLength="100"/></g>' +
+    /* 21.3.0 — anneau de progression autour du logo. Il avance par ÉTAPES RÉELLES (préparation, traitement, finalisation, confirmation) :
+       aucun pourcentage de durée, aucune progression simulée ; en attente prolongée, une lumière tourne pour montrer que l'opération est vivante. */
+    const ring = 'M160 22a78 78 0 1 1 0 156a78 78 0 1 1 0-156';
+    return '<svg class="hz-svg sa" viewBox="0 0 320 200" focusable="false" aria-hidden="true">' +
+      '<defs><clipPath id="sa-clip"><rect x="110" y="50" width="100" height="100" rx="24"/></clipPath></defs>' +
+      '<g class="sa-ring">' +
+        '<path class="sa-track" d="' + ring + '"/>' +
+        '<path class="sa-lit-soft" d="' + ring + '" pathLength="100"/>' +
+        '<path class="sa-lit" d="' + ring + '" pathLength="100"/>' +
+        '<g class="sa-spin"><path class="sa-light" d="' + ring + '" pathLength="100"/></g>' +
       '</g>' +
-      '<g class="sa-plate"><rect class="sa-shadow" x="114" y="34" width="92" height="92" rx="27"/><rect x="112" y="22" width="96" height="96" rx="27" fill="#fff"/>' +
-        '<image href="assets/brand/sanad-s-192.png" x="112" y="22" width="96" height="96" clip-path="url(#sa-clip)" preserveAspectRatio="xMidYMid slice"/></g>' +
-      '<g class="sa-badge"><circle class="sa-b-bg" cx="204" cy="112" r="17"/>' +
-        '<g class="sa-b-lock"><rect x="197" y="112" width="14" height="11" rx="3"/><path d="M200 112v-3a4 4 0 0 1 8 0v3"/></g>' +
-        '<path class="sa-b-ck" d="M196 112l5.5 5.5L212 106" pathLength="100"/>' +
-        '<g class="sa-b-x"><path d="M197 105l14 14M211 105l-14 14" pathLength="100"/></g>' +
-        '<g class="sa-b-dots"><circle cx="197" cy="112" r="2.4"/><circle cx="204" cy="112" r="2.4"/><circle cx="211" cy="112" r="2.4"/></g></g>' +
+      '<g class="sa-plate"><rect x="110" y="50" width="100" height="100" rx="24" fill="#fff"/><rect x="110" y="50" width="100" height="100" rx="24" fill="none" stroke="rgba(16,44,76,.1)"/>' +
+        '<image href="assets/brand/sanad-s-192.png" x="110" y="50" width="100" height="100" clip-path="url(#sa-clip)" preserveAspectRatio="xMidYMid slice"/></g>' +
+      '<g class="sa-badge"><circle class="sa-b-bg" cx="204" cy="144" r="17"/>' +
+        '<g class="sa-b-lock"><rect x="197" y="144" width="14" height="11" rx="3"/><path d="M200 144v-3a4 4 0 0 1 8 0v3"/></g>' +
+        '<path class="sa-b-ck" d="M196 144l5.5 5.5L212 138" pathLength="100"/>' +
+        '<g class="sa-b-x"><path d="M197 137l14 14M211 137l-14 14" pathLength="100"/></g>' +
+        '<g class="sa-b-dots"><circle cx="197" cy="144" r="2.4"/><circle cx="204" cy="144" r="2.4"/><circle cx="211" cy="144" r="2.4"/></g></g>' +
     '</svg>';
   }
   function stop(){ /* rien à arrêter : l'animation est déclarative (CSS) */ }
