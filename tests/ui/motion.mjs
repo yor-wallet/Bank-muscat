@@ -50,7 +50,7 @@ async function boot(lang = 'en', o = {}) {
 {
   const { ctx, page } = await boot();
   await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(800);
-  const box = await page.evaluate(() => { const e = document.querySelector('.sx-act') || document.querySelector('.sx-ibtn'); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  const box = await page.evaluate(() => { const e = document.querySelector('.mh-q') || document.querySelector('.mh-ib'); const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
   await page.mouse.move(box.x, box.y); await page.mouse.down(); await page.mouse.up();
   await page.evaluate(() => { R.overlay.open('<div style="padding:20px"><button id="mo-btn" class="btn btn-primary">ok</button></div>', { kind: 'modal' }); }); await page.waitForTimeout(60);
   const o1 = await page.evaluate(() => { const p = document.querySelector('.ov-panel'); return { ox: p.style.getPropertyValue('--mo-ox'), oy: p.style.getPropertyValue('--mo-oy'), d: getComputedStyle(p).transitionDuration }; });
@@ -92,7 +92,7 @@ async function boot(lang = 'en', o = {}) {
   ok('connexion : chargement pendant la requête, retiré à la réponse, erreur affichée', during.loading && during.busy === 'true' && !after.loading && !!after.err, JSON.stringify({ during, after }));
   await ctx.close();
 }
-/* 7. tableau de bord : le solde est toujours la valeur exacte (aucun compteur), l'inclinaison de la carte se nettoie */
+/* 7. tableau de bord : le solde est toujours la valeur exacte (aucun compteur) ; la carte de solde reste immobile */
 {
   const { ctx, page } = await boot();
   await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(900);
@@ -102,26 +102,22 @@ async function boot(lang = 'en', o = {}) {
   await page.waitForTimeout(1150);
   const seen = await page.evaluate(() => [...window.__seen]);
   ok('solde : une seule valeur affichée après un changement réel (aucune valeur intermédiaire)', seen.length === 1 && seen[0] !== first, JSON.stringify({ first, seen }));
-  const hero = await page.evaluate(() => { const h = document.querySelector('.sx-hero'); return { cls: h.className, bg: getComputedStyle(h).backgroundImage.slice(0, 20) }; });
-  ok('carte de solde : verre bleu profond avec inclinaison douce', /mo-tilt/.test(hero.cls) && /gradient/.test(hero.bg), JSON.stringify(hero));
+  const hero = await page.evaluate(() => { const h = document.querySelector('.mh-card'); return { cls: h.className, bg: getComputedStyle(h).backgroundImage.slice(0, 20), tilt: document.querySelectorAll('.mo-tilt').length }; });
+  ok('carte de solde : aplat bleu marine, aucune inclinaison ni reflet qui suit le doigt (sobriété)', /gradient/.test(hero.bg) && !/mo-tilt/.test(hero.cls) && hero.tilt === 0, JSON.stringify(hero));
   await page.evaluate(() => document.querySelectorAll('.ov-root').forEach(e => e.remove()));
-  const at = await page.evaluate(() => { const e = document.elementFromPoint(200, 220); return e && (e.className || e.tagName); });
-  await page.mouse.move(200, 220); await page.mouse.move(260, 250, { steps: 4 }); await page.waitForTimeout(160);
-  const vars = await page.evaluate(() => { const h = document.querySelector('.sx-hero'); return [h.style.getPropertyValue('--tx'), h.style.getPropertyValue('--gx')]; });
-  ok('carte de solde : le reflet suit le pointeur', vars[0] !== '' && vars[1] !== '', JSON.stringify({ vars, at }));
   await page.evaluate(() => R.go('history', { force: true })); await page.waitForTimeout(500);
   const gone = await page.evaluate(() => document.querySelectorAll('.mo-tilt').length);
   ok('carte de solde : inclinaison retirée en quittant l\'écran (écouteurs nettoyés)', gone === 0, 'restants=' + gone);
   await ctx.close();
 }
-/* 8. navigation : l'indicateur rejoint précisément l'onglet actif (LTR et RTL) */
+/* 8. navigation : un seul onglet actif, marqué par la ligne d'horizon (LTR et RTL) ; plus de pastille glissante */
 for (const lang of ['en', 'ar']) {
   const { ctx, page } = await boot(lang);
   await page.evaluate(() => R.go('home', { force: true })); await page.waitForTimeout(700);
   for (const nav of ['history', 'cards', 'services', 'home']) {
     await page.evaluate(n => R.go(n, { force: true }), nav); await page.waitForTimeout(650);
-    const m = await page.evaluate(() => { const tab = document.querySelector('.sx-tab[aria-current="page"]'), ind = document.querySelector('.nav-ind'); if (!tab || !ind) return null; const a = tab.getBoundingClientRect(), r = document.querySelector('.nav-dock').getBoundingClientRect(); const i = ind.getBoundingClientRect(); return { dx: Math.abs((i.left + i.width / 2) - (a.left + a.width / 2)), dw: Math.abs(i.width - a.width), op: getComputedStyle(ind).opacity, dir: document.documentElement.dir }; });
-    ok('[' + lang + '] indicateur sur l\'onglet « ' + nav + ' »', m && m.dx <= 1.5 && m.dw <= 1.5 && +m.op === 1, JSON.stringify(m));
+    const m = await page.evaluate(() => { const cur = [...document.querySelectorAll('#bottom-nav .nav-item[aria-current="page"]')]; const tab = cur[0]; if (!tab) return null; const on = (t) => getComputedStyle(t, '::after').transform; const all = [...document.querySelectorAll('#bottom-nav .nav-item')]; const lit = all.filter(t => getComputedStyle(t, '::after').display !== 'none' && !/^matrix\(0,/.test(on(t))).length; const a = tab.getBoundingClientRect(), d = document.querySelector('.nav-dock').getBoundingClientRect(); return { actifs: cur.length, allumes: lit, dansBarre: a.left >= d.left - 1 && a.right <= d.right + 1, ind: getComputedStyle(document.querySelector('.nav-ind')).display }; });
+    ok('[' + lang + '] onglet « ' + nav + ' » : un seul actif, une seule ligne allumée, aucune pastille glissante', m && m.actifs === 1 && m.allumes === 1 && m.dansBarre && m.ind === 'none', JSON.stringify(m));
   }
   await ctx.close();
 }

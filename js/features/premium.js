@@ -602,7 +602,6 @@ const Premium = (() => {
     if (!root || root === document) return;
     if (id === 'home'){
       root.querySelectorAll('[data-px="search"]').forEach(b => { b.onclick = () => PxSearch.open(); });
-      try { const hero = root.querySelector('.mh-card'); if (hero && typeof Motion !== 'undefined') Motion.tilt(hero, { max: 5 }); } catch(e){ /* effet décoratif */ }
       const el = document.getElementById('px-bal-amt');
       if (balFrom != null && el){ const from = balFrom; balFrom = null; BalanceFx.run(el, from, mainAccount()); }
     }
