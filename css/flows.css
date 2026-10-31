@@ -125,7 +125,7 @@
 .fl-slot-v{position:relative;height:150px;border-radius:18px;background:var(--surf-2);border:1px dashed var(--border-2);display:grid;place-items:center;overflow:hidden;color:var(--text-3)}
 .fl-slot.has .fl-slot-v{border-style:solid;border-color:rgba(170,220,240,.5)}
 .fl-slot-v img{width:100%;height:100%;object-fit:cover;animation:flIn .4s ease both}
-.fl-tick{position:absolute;inset-block-start:8px;inset-inline-end:8px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--btn-grad);color:var(--on-accent);animation:flPop .4s var(--px-spring,cubic-bezier(.34,1.4,.64,1))}
+.fl-tick{position:absolute;inset-block-start:8px;inset-inline-end:8px;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--btn-grad);color:var(--on-accent);animation:flPop .4s var(--px-spring,cubic-bezier(.16,1,.3,1))}
 @keyframes flPop{from{transform:scale(0)}to{transform:scale(1)}}
 .fl-slot-t b{display:block;font-size:14.5px;font-weight:800}.fl-slot-t small{color:var(--text-3);font-size:12px}
 .fl-state{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;padding:28px 20px}
@@ -134,7 +134,7 @@
 .fl-orbit i{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(170,220,240,.5);animation:flOrbit 2.4s ease-out infinite}
 .fl-orbit i+i{animation-delay:1.2s}
 @keyframes flOrbit{from{transform:scale(.55);opacity:.9}to{transform:scale(1.25);opacity:0}}
-.fl-seal{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--btn-grad);color:var(--on-accent);box-shadow:0 16px 34px -14px var(--btn-glow);animation:flPop .6s var(--px-spring,cubic-bezier(.34,1.4,.64,1)) both}
+.fl-seal{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:var(--btn-grad);color:var(--on-accent);box-shadow:0 16px 34px -14px var(--btn-glow);animation:flPop .6s var(--px-spring,cubic-bezier(.16,1,.3,1)) both}
 .fl-state.bad h2{color:var(--danger,#ff6b6f)}
 
 /* retraits */

@@ -1,3 +1,45 @@
+# STATUT — Sanad Pay 21.3.0 (mise à jour du 31/10/2026)
+
+> Les sections numérotées plus bas décrivent 21.2.0 ; ce bloc les met à jour pour 21.3.0 (« une banque, pas un jeu »).
+
+## Production et publication
+- **Production : 21.2.0** (fusionnée dans `main` le 28/10, déploiement Vercel prêt). **21.3.0 n'est PAS en production** : elle est sur la branche `claude/zealous-darwin-ojhlbt` (aperçu Vercel de branche). Publication seulement sur demande explicite.
+- **Supabase** : la migration `sanad_agent_log` n'a **pas** été appliquée (la demande de confirmation côté Supabase est restée sans réponse) ; la fonction `sanad-agents` n'est **pas** déployée. Inchangé depuis la 21.2.0.
+
+## Résultats exécutés sur le build 21.3.0 (31/10/2026)
+| Contrôle | Résultat |
+|---|---|
+| `npm run build` | OK — cache `fp-shell-v21.3.0-…` |
+| `npm run test:agents` | 24/24 |
+| Interface EN/FR/AR (`checks`) | 19/19 |
+| SanadEngine / Face ID ou code | 7/7 · 8/8 |
+| Mouvement (`motion`, mis à jour : accueil, ligne de navigation, carte immobile) | 28/28 |
+| Amal / agents / nettoyage / site | 16/16 · 8/8 · 4/4 · 10/10 |
+| `@keyframes` appelés mais absents | 0 (172 vérifiés) |
+| Non-régression métier vs 20.3.0 (`compare.mjs`) | **0 échec** |
+| Android : `./gradlew assembleDebug` | **BUILD SUCCESSFUL** (APK de débogage, `deliverables/sanad-pay-21.3.0-debug.apk`) — **non lancé sur appareil** |
+
+## Tableau d'état 21.3.0
+| Domaine | Programmé | Testé | Connecté | Déployé |
+|---|---|---|---|---|
+| Sobriété (sons discrets, plus de confettis / pièces / compteurs / rebonds) | oui | oui (contrôles + captures) | n/a | non |
+| Surfaces pleines, nouveaux boutons, navigation à ligne d'horizon | oui | oui | n/a | non |
+| Accueil, réglages par catégories, services + section internationale, notifications filtrées, progression du transfert (anneau), présentation | oui | oui (captures, `motion`, `proc-frames`) | données simulées | non |
+| Écrans « restylés » (voir `docs/METAMORPHOSE.md` §2) | oui | captures | données simulées | non |
+| Android (Capacitor 8) | oui | compilé ; **non lancé** | non | non |
+| Figma | jetons seulement | — | — | — |
+
+## À décider / non fait (nouveautés 21.3.0)
+1. **Groupe « Croissance » du menu Services** (Boost, vérification d'identité, retrait, crédit, chat, Amal, cinéma) : masqué par le code d'origine (décalage d'index). Non affiché sans votre accord (`GROW_IN_MENU` dans `js/screens/crypto-market.js`).
+2. « Échanger » absent (section crypto désactivée) ; quatrième action = « Plus ».
+3. Écrans seulement restylés, pas recomposés : voir `docs/METAMORPHOSE.md` §2.
+4. Figma : composants et écrans non construits (quota d'appels du plan Starter atteint).
+5. Android : essai sur appareil, signature, push (FCM), biométrie et stockage chiffré de session : voir `docs/ANDROID.md`.
+6. Identifiant d'application Android `com.sanadpay.app` : provisoire, à confirmer.
+7. Optimisation technique (audit mémoire / réseau) : non menée au-delà des allègements visuels (flous retirés, boucles décoratives retirées).
+
+---
+
 # STATUT — Sanad Pay 21.2.0
 
 Quatre mots, quatre sens. Rien n'est écrit « fait » sans l'exécution qui le prouve.

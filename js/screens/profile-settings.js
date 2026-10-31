@@ -100,11 +100,11 @@ function setCat(ic, title, desc){
 }
 /* 17.0.0 — Paramètres refaits : en haut UN panneau de raccourcis (thème, langue, alertes, sons, vibration, Face ID) ; tout le reste (les mêmes vrais réglages)
    est rangé dans une section spéciale « Avancé » repliée, elle-même découpée en 5 blocs repliés. */
-Object.assign(TR.en, { 'set17.quick':'Quick controls', 'set17.t.notif':'Alerts', 'set17.adv':'Advanced settings', 'set17.advD':'Notifications, security, money, account and help',
+Object.assign(TR.en, { 'set21.acc':'Account and identity','set21.accD':'Personal information, verification and linked numbers.','set21.sec':'Security','set21.secD':'Code, biometrics, devices and privacy.','set21.pay':'Cards and payments','set21.payD':'Cards, display currency and payment preferences.','set21.notif':'Notifications','set21.notifD':'Alerts, sounds and the number that confirms your transfers.','set21.app':'Application','set21.appD':'Appearance, language and display.','set21.help':'Assistance','set21.helpD':'Help, diagnostics and information about the app.', 'set17.quick':'Quick controls', 'set17.t.notif':'Alerts', 'set17.adv':'Advanced settings', 'set17.advD':'Notifications, security, money, account and help',
   'set17.g.notif':'Alerts and SMS', 'set17.g.sec':'Security and devices', 'set17.g.money':'Money and contacts', 'set17.g.view':'Display', 'set17.g.acc':'Account and help', 'set17.fidNoCode':'Face ID replaces the 6-digit code' });
-Object.assign(TR.fr, { 'set17.quick':'Raccourcis', 'set17.t.notif':'Alertes', 'set17.adv':'Paramètres avancés', 'set17.advD':'Notifications, sécurité, argent, compte et aide',
+Object.assign(TR.fr, { 'set21.acc':'Compte et identité','set21.accD':'Informations personnelles, vérification et numéros liés.','set21.sec':'Sécurité','set21.secD':'Code, biométrie, appareils et confidentialité.','set21.pay':'Cartes et paiements','set21.payD':'Cartes, devise d’affichage et préférences de paiement.','set21.notif':'Notifications','set21.notifD':'Alertes, sons et numéro qui confirme vos transferts.','set21.app':'Application','set21.appD':'Apparence, langue et affichage.','set21.help':'Assistance','set21.helpD':'Aide, diagnostic et informations sur l’application.', 'set17.quick':'Raccourcis', 'set17.t.notif':'Alertes', 'set17.adv':'Paramètres avancés', 'set17.advD':'Notifications, sécurité, argent, compte et aide',
   'set17.g.notif':'Alertes et SMS', 'set17.g.sec':'Sécurité et appareils', 'set17.g.money':'Argent et contacts', 'set17.g.view':'Affichage', 'set17.g.acc':'Compte et aide', 'set17.fidNoCode':'Face ID remplace le code à 6 chiffres' });
-Object.assign(TR.ar, { 'set17.quick':'اختصارات', 'set17.t.notif':'تنبيهات', 'set17.adv':'الإعدادات المتقدمة', 'set17.advD':'الإشعارات والأمان والأموال والحساب والمساعدة',
+Object.assign(TR.ar, { 'set21.acc':'الحساب والهوية','set21.accD':'المعلومات الشخصية والتحقق والأرقام المرتبطة.','set21.sec':'الأمان','set21.secD':'الرمز والبصمة والأجهزة والخصوصية.','set21.pay':'البطاقات والدفع','set21.payD':'البطاقات وعملة العرض وتفضيلات الدفع.','set21.notif':'الإشعارات','set21.notifD':'التنبيهات والأصوات والرقم الذي يؤكد تحويلاتك.','set21.app':'التطبيق','set21.appD':'المظهر واللغة والعرض.','set21.help':'المساعدة','set21.helpD':'المساعدة والتشخيص ومعلومات عن التطبيق.', 'set17.quick':'اختصارات', 'set17.t.notif':'تنبيهات', 'set17.adv':'الإعدادات المتقدمة', 'set17.advD':'الإشعارات والأمان والأموال والحساب والمساعدة',
   'set17.g.notif':'التنبيهات والرسائل النصية', 'set17.g.sec':'الأمان والأجهزة', 'set17.g.money':'الأموال وجهات الاتصال', 'set17.g.view':'العرض', 'set17.g.acc':'الحساب والمساعدة', 'set17.fidNoCode':'بصمة الوجه تغني عن الرمز المكوّن من 6 أرقام' });
 function qsTile(ic, title, on, attrs, stateText){
   return '<button class="qs-tile' + (on ? ' is-on' : '') + '" type="button" ' + attrs + '><i>' + icon(ic, 22) + '</i><b>' + escapeHtml(title) + '</b>' +
@@ -144,21 +144,6 @@ function renderSettings(){
     (isAdmin ? '<span class="badge badge-admin">ADMIN</span>' : '') + '<span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
   if (isAdmin) html += '<button class="set-admin" type="button" data-nav="admin-hub"><i>' + icon('admin', 22) + '</i><span><b>' + escapeHtml(t('lx.set.admin')) + '</b><small>' + escapeHtml(t('lx.set.adminD')) + '</small></span><span class="settings-row-chev">' + icon('chev', 18) + '</span></button>';
 
-  /* ---- panneau de raccourcis : tous les boutons principaux au même endroit ---- */
-  html += '<section class="qs"><h2 class="qs-h">' + escapeHtml(t('set17.quick')) + '</h2>' +
-    '<div class="qs-seg" role="group" aria-label="' + escapeHtml(t('settings.theme')) + '"><span class="qs-seg-l">' + icon('sparkle', 16) + '<em>' + escapeHtml(t('settings.theme')) + '</em></span><div class="chips">' +
-      ['light','dark','system'].map(th => '<button class="chip" data-theme="' + th + '" aria-pressed="' + (savedThemeMode() === th ? 'true' : 'false') + '">' + t('theme.' + th) + '</button>').join('') + '</div></div>' +
-    '<div class="qs-seg" role="group" aria-label="' + escapeHtml(t('settings.language')) + '"><span class="qs-seg-l">' + icon('globe', 16) + '<em>' + escapeHtml(t('settings.language')) + '</em></span><div class="chips">' +
-      ['en','fr','ar'].map(l => '<button class="chip" data-lang="' + l + '" aria-pressed="' + (LANG === l ? 'true' : 'false') + '">' + (l === 'fr' ? 'Français' : l === 'en' ? 'English' : 'العربية') + '</button>').join('') + '</div></div>' +
-    '<div class="qs-grid">' +
-      qsTile('bell', t('set17.t.notif'), notifsOn, 'data-action="settings-toggle-notifs" role="switch" aria-checked="' + notifsOn + '"') +
-      qsTile('volume', t('lx.set.sounds'), soundOn, 'data-action="settings-toggle-sounds" role="switch" aria-checked="' + soundOn + '"') +
-      qsTile('vibrate', t('settings.vibration'), vibOn, 'data-action="settings-toggle-vibration" role="switch" aria-checked="' + vibOn + '"') +
-      qsTile('faceid', fi.name || 'Face ID', fiOn, 'data-action="settings-faceid"', faceIdText(fiNa ? 'na' : fiOn ? 'on' : 'off')) +
-    '</div>' +
-    (fiOn ? '<p class="qs-note">' + icon('check', 14) + '<span>' + escapeHtml(t('set17.fidNoCode')) + '</span></p>' : '') +
-  '</section>';
-
   /* ---- section spéciale : tout le reste y est caché ---- */
   let open = ''; try { if (sessionStorage.getItem('lx_set_all') === '1') open = ' open'; } catch(e){ /* rien */ }
   const gNotif = '<p class="set-note">' + icon('info', 15) + '<span>' + escapeHtml(t('set.chan')) + '</span></p><div class="settings-group">' +
@@ -183,7 +168,8 @@ function renderSettings(){
       '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('banknote', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.primaryCurrency') + '</div><div class="settings-row-sub">' + t('settings.primaryCurrencyDesc') + '</div></div><span class="settings-value" id="set-cur-value">' + escapeHtml(primaryCur) + '</span></div>' +
       chipRow('<div class="chips" style="padding-top:2px;flex-wrap:wrap">' + ['OMR','USD','EUR','GBP','AED','SAR','XOF','XAF','QAR','EGP'].map(c => '<button class="chip" data-currency="' + c + '" ' + (primaryCur === c ? 'aria-pressed="true"' : 'aria-pressed="false"') + '>' + c + '</button>').join('') + '</div>' +
         '<p class="set-mini">' + escapeHtml(t('set.curNote')) + '</p>') +
-    '</div>' + settingsSection(t('settings.sectionContacts')) + '<div class="settings-group">' +
+    '</div>';
+  const gContacts = '<div class="settings-group">' +
       '<div class="settings-row" style="cursor:default"><div class="tile">' + icon('contact', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + t('settings.contacts') + '</div><div class="settings-row-sub">' + (contactCount === 1 ? t('settings.numbers_count_one') : tf('settings.numbers_count', { n: contactCount })) + '</div></div></div>' +
       '<div style="padding:calc(8px*var(--ui)) calc(12px*var(--ui));display:flex;flex-direction:column;gap:calc(10px*var(--ui));border-top:1px solid var(--border)">' +
         (contactCount ? Runtime.contacts.map(c => contactCardHTML(c)).join('') : '<div class="empty" style="padding:20px 0"><div class="empty-sub">' + t('contact.empty') + '</div></div>') +
@@ -197,18 +183,34 @@ function renderSettings(){
       '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(yid) + '"><div class="tile">' + icon('copy', 20) + '</div>' +
         '<div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('transfer.yor_id_label')) + '</div><div class="settings-row-sub">' + escapeHtml(faceIdText('tapCopy')) + '</div></div><span class="settings-value ltr">' + escapeHtml(yid) + '</span></div>' +
       settingsLinkRow({ icon:'user', title:t('px.edit'), sub:'', nav:'profile-edit' }) +
+      settingsLinkRow({ icon:'shield', title:t('v19.kyc'), sub:'', nav:'kyc' }) +
+    '</div>';
+  const gHelp = '<div class="settings-group">' +
       settingsLinkRow({ icon:'help', title:t('settings.help'), sub:t('settings.helpDesc'), nav:'help' }) +
       '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(typeof Guardian !== 'undefined' ? Guardian.report() : '') + '"><div class="tile">' + icon('info', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('g.diag')) + '</div><div class="settings-row-sub">' + escapeHtml(t('g.diagD')) + '</div></div></div>' +
       settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
     '</div>';
-  html += '<details class="adv" id="set-adv"' + open + '><summary><i>' + icon('settings', 22) + '</i><span><b>' + escapeHtml(t('set17.adv')) + '</b><small>' + escapeHtml(t('set17.advD')) + '</small></span><em>' + icon('chev', 18) + '</em></summary>' +
-    '<div class="adv-body">' +
-      advGroup('notif', 'bell', t('set17.g.notif'), gNotif) +
-      advGroup('sec', 'shield', t('set17.g.sec'), gSec) +
-      advGroup('money', 'banknote', t('set17.g.money'), gMoney) +
-      advGroup('view', 'device', t('set17.g.view'), gView) +
-      advGroup('acc', 'user', t('set17.g.acc'), gAcc) +
-    '</div></details>';
+  /* Sanad Pay 21.3.0 — réglages organisés par catégories, TOUT visible (plus de panneau replié) : icône, intitulé, état, flèche ou interrupteur.
+     Mêmes commandes qu'avant (data-action, data-theme, data-lang, data-currency) : seule l'organisation change. */
+  const choice = (ic, title, attr, items, cur) => '<div class="settings-row set-choice" role="group" aria-label="' + escapeHtml(title) + '"><div class="tile">' + icon(ic, 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(title) + '</div>' +
+    '<div class="chips set-seg">' + items.map(it => '<button class="chip" ' + attr + '="' + it[0] + '" aria-pressed="' + (cur === it[0] ? 'true' : 'false') + '">' + escapeHtml(it[1]) + '</button>').join('') + '</div></div></div>';
+  const secBlock = (title, desc, inner) => '<section class="set-sec"><div class="set-sh"><h2>' + escapeHtml(title) + '</h2>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '</div>' + inner + '</section>';
+  const gToggles = '<div class="settings-group">' +
+      settingsToggleRow({ icon:'bell', title:t('set17.t.notif'), sub:'', checked:notifsOn, action:'settings-toggle-notifs' }) +
+      settingsToggleRow({ icon:'volume', title:t('lx.set.sounds'), sub:'', checked:soundOn, action:'settings-toggle-sounds' }) +
+      settingsToggleRow({ icon:'vibrate', title:t('settings.vibration'), sub:'', checked:vibOn, action:'settings-toggle-vibration' }) +
+    '</div>';
+  const gApp = '<div class="settings-group">' +
+      choice('sparkle', t('settings.theme'), 'data-theme', [['light', t('theme.light')], ['dark', t('theme.dark')], ['system', t('theme.system')]], savedThemeMode()) +
+      choice('globe', t('settings.language'), 'data-lang', [['en', 'English'], ['fr', 'Français'], ['ar', 'العربية']], LANG) +
+    '</div>' + gView;
+  const gCards = '<div class="settings-group">' + settingsLinkRow({ icon:'cards', title:V12.vt('cards'), sub:'', nav:'cards' }) + '</div>';
+  html += secBlock(t('set21.acc'), t('set21.accD'), gAcc + gContacts);
+  html += secBlock(t('set21.sec'), t('set21.secD'), gSec);
+  html += secBlock(t('set21.pay'), t('set21.payD'), gCards + gMoney);
+  html += secBlock(t('set21.notif'), t('set21.notifD'), gToggles + gNotif);
+  html += secBlock(t('set21.app'), t('set21.appD'), gApp);
+  html += secBlock(t('set21.help'), t('set21.helpD'), gHelp);
 
   html += '<button class="set-out" type="button" data-action="sign-out">' + icon('logout', 20) + '<span>' + t('profile.logout') + '</span></button>';
   html += '<div style="height:var(--sp-6)"></div></div>';

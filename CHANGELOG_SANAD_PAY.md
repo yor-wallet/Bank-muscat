@@ -1,4 +1,19 @@
-# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.2.0
+# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.3.0
+
+## 21.3.0 — « une banque, pas un jeu » : sobriété, recomposition, Android
+Demande du propriétaire : l'application doit se voir comme une banque ; plus rien de « jeu d'enfants » (sons, effets) ; tout autour du logo ; des animations familières. **Présentation uniquement : aucune règle métier, aucun calcul, aucun frais, aucune route modifiés** (`node tests/characterization/compare.mjs` : 0 échec).
+- **Sons et effets** : interface silencieuse + une note douce pour les événements importants ; plus de confettis, pièces, ondes, compteurs depuis 0 ni célébration plein écran ; rebonds supprimés ; mouvements décoratifs coupés (`css/s-sober.css`). Détail : `SANAD_ANIMATIONS.md` §0.
+- **Nouvelle couche `css/s-meta.css`** : surfaces pleines, angles de 10–16 px, bleu d'action unique, barre de navigation à cinq entrées égales (ligne d'horizon du logo), boutons rectangulaires.
+- **Accueil** recomposé (en-tête, carte de compte, 4 actions dont « Ajouter des fonds », portefeuille, activité) ; **réglages** par catégories toutes visibles (compte et identité, sécurité, cartes et paiements, notifications, application, assistance) ; **services** avec recherche et **section « Transferts internationaux » dédiée** (Orange Money, Wave… lus dans le catalogue existant, visible seulement si le serveur annonce le service) ; **notifications** filtrées par catégorie ; **présentation** en aplats ; **reçu** sobre ; **cartes** aplat marine.
+- **Écran de progression du transfert** : anneau par étapes réelles, textes bancaires (EN/FR/AR), aucun terme technique (« serveur » retiré des libellés).
+- **Services** : le groupe « Crypto » n'est plus affiché quand la section crypto est désactivée (ses lignes menaient à l'accueil). Le groupe « Croissance » (Boost, vérification d'identité, retrait, crédit, chat, Amal, cinéma) reste masqué comme avant — **décalage d'index du code d'origine, décision du propriétaire en attente** (voir `STATUT_SANAD_PAY.md`).
+- **Android** (Capacitor 8) : projet `android/`, manifeste (sauvegarde système désactivée), icônes adaptatives, écran de lancement, bouton Retour, barre d'état ; voir `docs/ANDROID.md`.
+- Banc : `tests/ui/all-screens.mjs` (capture de chaque écran enregistré), motion mis à jour (28/28), le banc répond « service international disponible » (60 lignes fictives) pour pouvoir le montrer.
+- Version **21.3.0** (`package.json`, `package-lock.json`, `CONFIG.APP.version`, `sw.js`).
+
+---
+
+## 21.2.0 (voir ci-dessous)
 
 ## 21.2.0 — logo officiel, mouvement centralisé, assistance Amal, cinq rôles d'agents
 Reprise à partir de l'archive `sanad-pay-version-travail` et de la mission « transformation visuelle et animations complètes ». **Aucune fonction métier retirée** (`node tests/characterization/compare.mjs`, exceptions documentées en tête du fichier). Détail des animations : `SANAD_ANIMATIONS.md` ; état programmé / testé / connecté / déployé : `STATUT_SANAD_PAY.md`.

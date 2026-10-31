@@ -1,76 +1,57 @@
 /* ============================================================
-   SANAD PAY — TRANSFERT (21.2.0)
-   Scène de traitement « Courbe » : le logo officiel, et la courbe du « S » entre l'envoi et l'arrivée.
-   Piloté UNIQUEMENT par data-phase (posé par SendAnim.setPhase, donc par ProcessingEngine.run) et data-wait.
-   Ni pourcentage, ni durée propre : la lumière tourne tant que la réponse n'est pas arrivée.
+   SANAD PAY — TRANSFERT (21.3.0) · scène « Anneau » : le logo officiel au centre, un anneau qui avance par ÉTAPES RÉELLES.
+   Piloté UNIQUEMENT par data-phase (SendAnim.setPhase ← ProcessingEngine.run) et data-wait (posé quand la réponse tarde).
+   1/4 préparation · 2/4 traitement · 3/4 finalisation (réponse qui tarde) · 4/4 confirmation (SEULEMENT après la réponse confirmée).
+   Aucun pourcentage de durée, aucune durée propre : si rien ne change, l'anneau ne bouge pas (seule une lumière tourne pour dire « en cours »).
    ============================================================ */
-.sa{--sa-ink:var(--sx-deep);--sa-ok:#14A879;--sa-bad:#E84D65;--sa-wait:#F4A43B}
-.sa .hz-halo circle{fill:rgba(126,216,246,.38);transform-origin:160px 70px;animation:saBreathe 2.8s ease-in-out infinite}
-@keyframes saBreathe{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.07);opacity:1}}
-.sa-base{fill:none;stroke:var(--fill-2);stroke-width:7;stroke-linecap:round}
-.sa-lit{fill:none;stroke:var(--sx-primary);stroke-width:7;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:saDraw 900ms var(--mo-out) 120ms forwards}
-.sa-glow{fill:none;stroke:#7ED8F6;stroke-width:15;stroke-linecap:round;stroke-opacity:.5;stroke-dasharray:22 140;stroke-dashoffset:22;opacity:0}
-.sa-light{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-dasharray:9 140;stroke-dashoffset:9;opacity:0}
-@keyframes saDraw{to{stroke-dashoffset:0}}
-@keyframes saRun{0%{stroke-dashoffset:var(--h0);opacity:0}12%{opacity:1}88%{opacity:1}100%{stroke-dashoffset:calc(var(--h0) - 112px);opacity:0}}
-.sa-glow{--h0:22px}.sa-light{--h0:9px}
-.sa-n{fill:var(--sheet);stroke:var(--sx-primary);stroke-width:3.5;transition:fill var(--mo-panel-out) ease,stroke var(--mo-panel-out) ease}
-.sa-n2-ck{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
-.sa-dots,.sa-x{opacity:0}.sa-dots circle{fill:var(--sa-wait)}
-.sa-x circle{fill:var(--sa-bad)}.sa-x path{fill:none;stroke:#fff;stroke-width:3.4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100}
-html[dir="rtl"] .sa-curve{transform:scaleX(-1);transform-origin:160px 105px}
-html[dir="rtl"] .sa-curve .sa-dots,html[dir="rtl"] .sa-curve .sa-x,html[dir="rtl"] .sa-curve .sa-n2-ck{}
-
-.sa-plate .sa-shadow{fill:#134F91;opacity:.2;filter:none}
-.sa-plate{transform-origin:160px 70px}
-.sa-b-bg{fill:var(--sx-deep);stroke:#fff;stroke-width:3;transition:fill var(--mo-panel-out) ease}
+.sa{--sa-ink:var(--m-primary,var(--sx-deep));--sa-ok:#14A879;--sa-bad:#E84D65;--sa-wait:#E08A12;--sa-p:25}
+.sa-track{fill:none;stroke:var(--fill-2);stroke-width:7}
+.sa-lit,.sa-lit-soft{fill:none;stroke-linecap:round;stroke-dasharray:calc(var(--sa-p)*1) 100;transition:stroke-dasharray 700ms var(--mo-out),stroke 300ms ease;transform:rotate(-90deg);transform-origin:160px 100px}
+.sa-lit{stroke:var(--sa-ink);stroke-width:7}
+.sa-lit-soft{stroke:var(--sa-ink);stroke-width:15;stroke-opacity:.14}
+.sa-spin{transform-origin:160px 100px;opacity:0}
+.sa-light{fill:none;stroke:#7ED8F6;stroke-width:7;stroke-linecap:round;stroke-dasharray:5 100;transform:rotate(-90deg);transform-origin:160px 100px}
+html[dir="rtl"] .sa-ring{transform:scaleX(-1);transform-origin:160px 100px}
+.sa-plate{transform-origin:160px 100px}
+.sa-b-bg{fill:var(--sa-ink);stroke:var(--bg);stroke-width:3;transition:fill 300ms ease}
 .sa-b-lock rect{fill:#fff}.sa-b-lock path{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round}
 .sa-b-ck,.sa-b-x path{fill:none;stroke:#fff;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100}
 .sa-b-ck{opacity:0}.sa-b-x{opacity:0}.sa-b-dots{opacity:0}.sa-b-dots circle{fill:#fff}
-.sa-badge{transform-box:fill-box;transform-origin:center}
+@keyframes saDraw{to{stroke-dashoffset:0}}
+@keyframes saSpin{to{transform:rotate(360deg)}}
+@keyframes saDot{0%,100%{opacity:.45}50%{opacity:1}}
 
-/* ---- send : la lumière parcourt la courbe tant que le serveur n'a pas répondu ---- */
-.proc-view[data-phase="send"] .sa-glow,.proc-view[data-phase="send"] .sa-light{animation:saRun 1.7s var(--mo-ease) infinite}
-.proc-view[data-phase="send"] .sa-light{animation-delay:.04s}
-.proc-view.hz-landing .sa-glow,.proc-view.hz-landing .sa-light{animation-duration:.42s}
-.proc-view[data-phase="send"] .sa-plate{animation:saFloat 3.2s ease-in-out infinite}
-@keyframes saFloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-3px,0)}}
-
-/* ---- success : seulement après la réponse confirmée ---- */
-.proc-view[data-phase="success"] .sa-lit{stroke-dashoffset:0;animation:none}
-.proc-view[data-phase="success"] .sa-n2{fill:var(--sa-ok);stroke:var(--sa-ok)}
-.proc-view[data-phase="success"] .sa-n2-ck{animation:saDraw .45s var(--mo-out) .1s forwards}
+/* 1/4 · préparation */
+.proc-view[data-phase="secure"] .sa{--sa-p:25}
+/* 2/4 · traitement : la requête est partie ; une lumière tourne tant que la réponse n'est pas arrivée */
+.proc-view[data-phase="send"] .sa{--sa-p:50}
+.proc-view[data-phase="send"] .sa-spin{opacity:1;animation:saSpin 1.9s linear infinite}
+/* 3/4 · finalisation : la réponse tarde (data-wait posé après 1,6 s sans réponse) */
+.proc-view[data-wait="1"][data-phase="send"] .sa{--sa-p:75}
+/* 4/4 · confirmation : seulement après la réponse confirmée */
+.proc-view[data-phase="success"] .sa{--sa-p:100;--sa-ink:var(--sa-ok)}
 .proc-view[data-phase="success"] .sa-b-bg{fill:var(--sa-ok)}
 .proc-view[data-phase="success"] .sa-b-lock{opacity:0}
-.proc-view[data-phase="success"] .sa-b-ck{opacity:1;animation:saDraw .45s var(--mo-out) .15s forwards}
-.proc-view[data-phase="success"] .sa-badge{animation:moPop var(--mo-reveal) var(--mo-spring)}
-.proc-view[data-phase="success"] .sa-plate{animation:moPop 520ms var(--mo-spring)}
-
-/* ---- fail : la courbe se brise, rien n'indique « envoyé » ---- */
-.proc-view[data-phase="fail"] .sa-lit{stroke:var(--sa-bad);stroke-dasharray:46 100;stroke-dashoffset:0;animation:none}
-.proc-view[data-phase="fail"] .sa-n2{stroke:var(--fill-2)}
+.proc-view[data-phase="success"] .sa-b-ck{opacity:1;animation:saDraw 420ms var(--mo-out) 120ms forwards}
+/* échec : l'anneau reste où il était, en rouge ; rien n'indique « envoyé » */
+.proc-view[data-phase="fail"] .sa{--sa-ink:var(--sa-bad)}
 .proc-view[data-phase="fail"] .sa-b-bg{fill:var(--sa-bad)}
 .proc-view[data-phase="fail"] .sa-b-lock{opacity:0}
-.proc-view[data-phase="fail"] .sa-b-x{opacity:1}.proc-view[data-phase="fail"] .sa-b-x path{animation:saDraw .4s var(--mo-out) .1s forwards}
-.proc-view[data-phase="fail"] .sa-x{opacity:1;animation:moPop var(--mo-reveal) var(--mo-spring)}.proc-view[data-phase="fail"] .sa-x path{animation:saDraw .4s var(--mo-out) .2s forwards}
-.proc-view[data-phase="fail"] .hz-halo circle,.proc-view[data-phase="uncertain"] .hz-halo circle{animation:none;opacity:.5}
-
-/* ---- uncertain : aucune réponse lue ; la lumière s'arrête, trois points, jamais de coche ---- */
-.proc-view[data-phase="uncertain"] .sa-lit{stroke:var(--sa-wait);stroke-dasharray:50 100;stroke-dashoffset:0;animation:none}
-.proc-view[data-phase="uncertain"] .sa-dots{opacity:1}
-.proc-view[data-phase="uncertain"] .sa-dots circle{animation:saDot 1.4s ease-in-out infinite}.proc-view[data-phase="uncertain"] .sa-dots circle:nth-child(2){animation-delay:.18s}.proc-view[data-phase="uncertain"] .sa-dots circle:nth-child(3){animation-delay:.36s}
-@keyframes saDot{0%,100%{transform:translate3d(0,0,0);opacity:.5}50%{transform:translate3d(0,-4px,0);opacity:1}}
+.proc-view[data-phase="fail"] .sa-b-x{opacity:1}.proc-view[data-phase="fail"] .sa-b-x path{animation:saDraw 380ms var(--mo-out) 100ms forwards}
+/* statut à vérifier : aucune réponse lue ; l'anneau s'arrête en ambre, trois points, jamais de coche */
+.proc-view[data-phase="uncertain"] .sa{--sa-ink:var(--sa-wait);--sa-p:75}
 .proc-view[data-phase="uncertain"] .sa-b-bg{fill:var(--sa-wait)}
 .proc-view[data-phase="uncertain"] .sa-b-lock{opacity:0}.proc-view[data-phase="uncertain"] .sa-b-dots{opacity:1}
+.proc-view[data-phase="uncertain"] .sa-b-dots circle{animation:saDot 1.4s ease-in-out infinite}
+.proc-view[data-phase="uncertain"] .sa-b-dots circle:nth-child(2){animation-delay:.18s}.proc-view[data-phase="uncertain"] .sa-b-dots circle:nth-child(3){animation-delay:.36s}
 
 @media (prefers-reduced-motion:reduce){
-  .sa *{animation:none!important}
-  .sa-lit{stroke-dashoffset:0}
-  .proc-view[data-phase="send"] .sa-light{opacity:1;stroke-dashoffset:-45px}
-  .proc-view[data-phase="success"] .sa-n2-ck,.proc-view[data-phase="success"] .sa-b-ck,.proc-view[data-phase="fail"] .sa-b-x path,.proc-view[data-phase="fail"] .sa-x path{stroke-dashoffset:0}
+  .sa *{animation:none!important;transition:none!important}
+  .proc-view[data-phase="send"] .sa-spin{opacity:0}
+  .proc-view[data-phase="success"] .sa-b-ck,.proc-view[data-phase="fail"] .sa-b-x path{stroke-dashoffset:0}
 }
 
 /* hiérarchie du traitement : le montant d'abord, puis le destinataire, puis l'état réel annoncé */
-.proc-view .proc-amount{font-size:calc(38px*var(--ui));font-weight:750;letter-spacing:-.045em;line-height:1.05;margin-top:var(--sp-2);color:var(--text)}
+.proc-view .proc-amount{font-size:calc(36px*var(--ui));font-weight:650;letter-spacing:-.035em;line-height:1.05;margin-top:var(--sp-2);color:var(--text)}
 .proc-view .hz-to{margin-top:-2px}
-.proc-view .proc-label{font-size:calc(16px*var(--ui));font-weight:650;margin-top:var(--sp-2)}
+.proc-view .proc-label{font-size:calc(16px*var(--ui));font-weight:650;margin-top:var(--sp-2);text-align:center}

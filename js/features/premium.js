@@ -8,6 +8,7 @@
    and before js/wire.js. Styles: css/premium.css (last stylesheet).
    ============================================================ */
 Object.assign(TR.en, {
+  'mh.addFunds':'Add funds','mh.quick':'Quick actions','mh.wallet':'Wallet','mh.frozen':'Frozen','mh.settings':'Settings',
   'px.morning':'Good morning','px.afternoon':'Good afternoon','px.evening':'Good evening','px.available':'Available balance',
   'px.acctActive':'Account active','px.acctOther':'Account: {s}','px.send':'Send','px.receive':'Receive','px.history':'History','px.more':'More',
   'px.recent':'Recent activity','px.seeAll':'See all','px.search':'Search','px.searchPh':'Transactions, references, settings…',
@@ -33,6 +34,7 @@ Object.assign(TR.en, {
   'px.balUp':'Balance updated','px.legal':'Terms and privacy','px.showBal':'Show balance','px.hideBal':'Hide balance'
 });
 Object.assign(TR.fr, {
+  'mh.addFunds':'Ajouter des fonds','mh.quick':'Actions rapides','mh.wallet':'Portefeuille','mh.frozen':'Gelée','mh.settings':'Paramètres',
   'px.morning':'Bonjour','px.afternoon':'Bon après-midi','px.evening':'Bonsoir','px.available':'Solde disponible',
   'px.acctActive':'Compte actif','px.acctOther':'Compte : {s}','px.send':'Envoyer','px.receive':'Recevoir','px.history':'Historique','px.more':'Plus',
   'px.recent':'Activité récente','px.seeAll':'Voir tout','px.search':'Rechercher','px.searchPh':'Opérations, références, réglages…',
@@ -58,6 +60,7 @@ Object.assign(TR.fr, {
   'px.balUp':'Solde mis à jour','px.legal':'Conditions et confidentialité','px.showBal':'Afficher le solde','px.hideBal':'Masquer le solde'
 });
 Object.assign(TR.ar, {
+  'mh.addFunds':'إضافة أموال','mh.quick':'إجراءات سريعة','mh.wallet':'المحفظة','mh.frozen':'مجمّدة','mh.settings':'الإعدادات',
   'px.morning':'صباح الخير','px.afternoon':'مساء الخير','px.evening':'مساء الخير','px.available':'الرصيد المتاح',
   'px.acctActive':'الحساب نشط','px.acctOther':'الحساب: {s}','px.send':'إرسال','px.receive':'استلام','px.history':'السجل','px.more':'المزيد',
   'px.recent':'آخر العمليات','px.seeAll':'عرض الكل','px.search':'بحث','px.searchPh':'العمليات، المراجع، الإعدادات…',
@@ -165,7 +168,7 @@ const BalanceFx = (() => {
      la carte réagit seulement par une impulsion de lumière (classe px-bump) pour signaler « ceci vient de changer ». */
   function run(el, from, main){
     if (!el || Runtime.hideBalance) return;
-    const card = el.closest('.sx-hero') || el.closest('.ds-balance');
+    const card = el.closest('.mh-card') || el.closest('.ds-balance');
     if (card){ card.classList.remove('px-bump'); void card.offsetWidth; card.classList.add('px-bump'); setTimeout(() => card.classList.remove('px-bump'), 900); }
   }
   return { check, run };
@@ -411,46 +414,55 @@ const Premium = (() => {
       : st ? '<span class="px-chip warn"><i></i>' + escapeHtml(tf('px.acctOther', { s: st.toLowerCase() })) + '</span>' : '';
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     balFrom = BalanceFx.check(main);
-    /* Sanad Pay 21.0.0 — composition « ciel + feuille » : le solde est posé sur le ciel (pas de carte), la feuille blanche remonte par-dessus. */
-    const tile = (nav, ic, lbl, pr) => '<button class="sx-act' + (pr ? ' is-main' : '') + '" data-nav="' + nav + '"><i>' + icon(ic, 22) + '</i><span>' + escapeHtml(lbl) + '</span></button>';
+    /* Sanad Pay 21.3.0 — accueil recomposé : en-tête (profil, salutation, outils), carte de compte, quatre actions, portefeuille (cartes et comptes), activité.
+       Mêmes cibles (data-nav / data-action), mêmes données (Runtime) : seules la composition et la présentation changent. */
+    const acts = [['country-select', 'send', t('px.send'), true], ['receive', 'receive', t('px.receive')], ['chat', 'plus', t('mh.addFunds')]]
+      .concat(FEATURES.crypto ? [['crypto-swap', 'swap', V12.vt('exchange')]] : [['services', 'apps', t('px.more')]]);
+    const quick = '<nav class="mh-quick" aria-label="' + escapeHtml(t('mh.quick')) + '">' + acts.map(a => '<button class="mh-q' + (a[3] ? ' is-main' : '') + '" data-nav="' + a[0] + '"><i>' + icon(a[1], 24) + '</i><span>' + escapeHtml(a[2]) + '</span></button>').join('') + '</nav>';
     const pend = txs.filter(x => txState(x.status) === 'pending');
-    const pendHtml = pend.length ? '<section class="sx-pend" aria-label="' + escapeHtml(t('filter.pending')) + '"><div class="sx-h"><h2>' + escapeHtml(t('filter.pending')) + '</h2></div>' +
-      '<div class="sx-list">' + pend.slice(0, 3).map(x => txRow(x, hide)).join('') + '</div></section>' : '';
-    const cardsHtml = (Runtime.cards || []).length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('cards')) + '</h2><button class="sx-more" data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="sx-strip">' +
-      Runtime.cards.map(c => '<button class="sx-minicard th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><b>' + escapeHtml(c.label || V12.vt('defName')) + '</b><span class="ltr">•••• ' + escapeHtml(String(c.number || '').slice(-4)) + '</span></button>').join('') +
-      '<button class="sx-minicard sx-minicard-add" data-nav="cards-add">' + icon('plus', 20) + '<span>' + escapeHtml(V12.vt('addCard')) + '</span></button></div></section>' : '';
-    /* other money accounts (e.g. XOF): shown in the display currency, original amount always visible (same rules as 12.6.0) */
+    const pendHtml = pend.length ? '<section class="mh-sec mh-pend" aria-label="' + escapeHtml(t('filter.pending')) + '"><div class="mh-h"><h2>' + escapeHtml(t('filter.pending')) + '</h2></div>' +
+      '<div class="mh-list">' + pend.slice(0, 3).map(x => txRow(x, hide)).join('') + '</div></section>' : '';
+    /* portefeuille : cartes réelles + autres comptes réels, dans une seule bande qui défile ; rien n'est inventé */
     const others = (Runtime.accounts || []).filter(a => a.type !== 'CRYPTO' && a.type !== 'MAIN' && a.type !== 'WEST_AFRICA').slice(0, 4);   /* 16.0.0 : le compte « West Africa » n'apparaît plus sur l'accueil */
-    const othersHtml = others.length ? '<section class="sx-sec"><div class="sx-h"><h2>' + escapeHtml(V12.vt('accounts')) + '</h2></div><div class="sx-tiles">' +
-      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="sx-acct"><small>' + escapeHtml(a.name || a.currency) + '</small><b class="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) + '</b>' +
-        (!hide && v.converted ? '<span class="ltr">' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</span>' : '') + '</div>'; }).join('') + '</div></section>' : '';
+    const walletItems =
+      (Runtime.cards || []).map(c => '<button class="mh-mini th-' + escapeHtml(c.theme || 'midnight') + (c.frozen ? ' fz' : '') + '" data-nav="cards" aria-label="' + escapeHtml((c.label || V12.vt('defName')) + ' •••• ' + String(c.number || '').slice(-4)) + '"><span class="mh-mini-top">' + icon('cards', 18) + (c.frozen ? '<em>' + escapeHtml(t('mh.frozen')) + '</em>' : '') + '</span><b>' + escapeHtml(c.label || V12.vt('defName')) + '</b><span class="ltr" dir="ltr">•••• ' + escapeHtml(String(c.number || '').slice(-4)) + '</span></button>').join('') +
+      others.map(a => { const v = balanceView(a.balance, a.currency); return '<div class="mh-mini mh-acct"><span class="mh-mini-top">' + icon('wallet', 18) + '<em>' + escapeHtml(a.currency || '') + '</em></span><b>' + escapeHtml(a.name || a.currency) + '</b><span class="ltr" dir="ltr">' + (hide ? escapeHtml(MASK) : money(v.amount, v.currency)) +
+        (!hide && v.converted ? '<small>' + escapeHtml(CurrencyEngine.format(v.orig.amount, v.orig.currency)) + '</small>' : '') + '</span></div>'; }).join('');
+    const walletHtml = '<section class="mh-sec"><div class="mh-h"><h2>' + escapeHtml(t('mh.wallet')) + '</h2><button class="mh-more" data-nav="cards">' + escapeHtml(t('px.seeAll')) + '</button></div><div class="mh-strip">' + walletItems +
+      '<button class="mh-mini mh-add" data-nav="cards-add"><span class="mh-mini-top">' + icon('plus', 20) + '</span><b>' + escapeHtml(V12.vt('addCard')) + '</b></button></div></section>';
     const ms = (typeof V13 !== 'undefined' && V13.monthStats) ? V13.monthStats() : null;
-    const monthLine = ms ? '<div class="sx-month ltr" dir="ltr" aria-label="' + escapeHtml(t('v13.month')) + '"><span><i class="o"></i>' + escapeHtml(t('v13.sent')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.sent, ms.cur))) + '</b></span><span><i class="i"></i>' + escapeHtml(t('v13.received')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.recv, ms.cur))) + '</b></span></div>' : '';
-    return '<div class="sx-home">' +
-      '<header class="sx-bar">' +
-        '<button class="sx-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<button class="sx-search-pill" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 18) + '<span>' + escapeHtml(t('px.search')) + '</span></button>' +
-        '<button class="sx-ibtn" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 21) + (unread ? '<span class="sx-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
+    const monthLine = ms ? '<div class="mh-month ltr" dir="ltr" aria-label="' + escapeHtml(t('v13.month')) + '"><span><i class="o"></i>' + escapeHtml(t('v13.sent')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.sent, ms.cur))) + '</b></span><span><i class="i"></i>' + escapeHtml(t('v13.received')) + ' <b>' + (hide ? '••••' : escapeHtml(CurrencyEngine.format(ms.recv, ms.cur))) + '</b></span></div>' : '';
+    const nm = p.firstName || p.displayName || '';
+    return '<div class="mh-home">' +
+      '<header class="mh-top">' +
+        '<button class="mh-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
+        '<div class="mh-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(nm || 'Sanad Pay') + '</b></div>' +
+        '<div class="mh-tools">' +
+          '<button class="mh-ib" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 20) + '</button>' +
+          '<button class="mh-ib" data-nav="settings" aria-label="' + escapeHtml(t('mh.settings')) + '">' + icon('settings', 20) + '</button>' +
+          '<button class="mh-ib" data-action="notifications" aria-label="' + escapeHtml(t('px.notifs') + (unread ? ' (' + unread + ')' : '')) + '">' + icon('bell', 20) + (unread ? '<span class="mh-bdg">' + (unread > 9 ? '9+' : unread) + '</span>' : '') + '</button>' +
+        '</div>' +
       '</header>' +
-      '<p class="sx-greet">' + escapeHtml(V12.vt('hello')) + (p.firstName || p.displayName ? (LANG === 'ar' ? '\u060C ' : ', ') + '<b>' + escapeHtml(p.firstName || p.displayName) + '</b>' : '') + '</p>' +
-      '<section class="sx-hero" aria-label="' + escapeHtml(t('px.available')) + '">' +
-        '<i class="sx-rib" aria-hidden="true"></i><i class="sx-glare" aria-hidden="true"></i>' +
-        '<div class="sx-hero-top"><span class="sx-lbl">' + escapeHtml(t('px.available')) + '</span>' +
-          '<button class="sx-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 18) + '</button></div>' +
-        '<div class="sx-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
-        (dv.converted && !hide ? '<div class="sx-sub ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
-        (showAvail && !hide ? '<div class="sx-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
-        '<div class="sx-chips">' + acct.replace(/px-chip/g, 'sx-chip') + (yid ? '<span class="sx-chip sx-chip-id ltr" dir="ltr">' + escapeHtml(yid) + '</span>' : '') + '</div>' + monthLine +
+      '<section class="mh-card" aria-label="' + escapeHtml(t('px.available')) + '">' +
+        '<i class="mh-rib" aria-hidden="true"></i><i class="mh-glare" aria-hidden="true"></i>' +
+        '<div class="mh-card-top"><span class="mh-brand">' + logoMark(26) + '<b>Sanad Pay</b></span>' +
+          '<button class="mh-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 20) + '</button></div>' +
+        '<div class="mh-card-mid"><span class="mh-lbl">' + escapeHtml(t('px.available')) + (main.name ? ' · ' + escapeHtml(main.name) : '') + '</span>' +
+          '<div class="mh-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
+          (dv.converted && !hide ? '<div class="mh-sub ltr" dir="ltr">' + escapeHtml(CurrencyEngine.format(main.balance, main.currency)) + ' · 1 ' + escapeHtml(main.currency) + ' = ' + dv.rate.toFixed(4) + ' ' + escapeHtml(dv.currency) + '</div>' : '') +
+          (showAvail && !hide ? '<div class="mh-sub">' + escapeHtml(t('ds.available')) + ' <b class="ltr" dir="ltr">' + money(balanceView(main.availableBalance, main.currency).amount, balanceView(main.availableBalance, main.currency).currency) + '</b></div>' : '') +
+        '</div>' +
+        '<div class="mh-card-bot">' + acct.replace(/px-chip/g, 'mh-chip') + (yid ? '<span class="mh-chip mh-chip-id ltr" dir="ltr">' + escapeHtml(yid) + '</span>' : '') + '</div>' +
       '</section>' +
-      '<nav class="sx-acts" aria-label="' + escapeHtml(t('px.more')) + '">' + tile('country-select', 'send', t('px.send'), true) + tile('receive', 'receive', t('px.receive')) + tile('history', 'history', t('px.history')) + tile('services', 'apps', t('px.more')) + '</nav>' +
-      '<div class="sx-feed">' +
+      quick + monthLine +
+      '<div class="mh-feed">' +
         PxInstall.card() + pendHtml +
-        '<section class="sx-sec sx-card"><div class="sx-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="sx-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
-          (txs.length ? txGroupedHtml(txs, hide) : '<div class="sx-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
+        '<section class="mh-sec mh-recent"><div class="mh-h"><h2>' + escapeHtml(t('px.recent')) + '</h2><button class="mh-more" data-nav="history">' + escapeHtml(t('px.seeAll')) + '</button></div>' +
+          (txs.length ? txGroupedHtml(txs, hide) : '<div class="mh-list">' + emptyState('history', V12.vt('noTx'), t('ds.nohist_body')) + '</div>') + '</section>' +
+        walletHtml +
         (typeof V13 !== 'undefined' ? V13.insightsHtml() : '') +
-        cardsHtml + othersHtml +
         (typeof V18 !== 'undefined' ? V18.homeHtml() : (typeof Promos !== 'undefined' ? Promos.html() : '')) +
-        '<div class="sx-end"></div>' +
+        '<div class="mh-end"></div>' +
       '</div></div>';
   }
 
@@ -590,7 +602,6 @@ const Premium = (() => {
     if (!root || root === document) return;
     if (id === 'home'){
       root.querySelectorAll('[data-px="search"]').forEach(b => { b.onclick = () => PxSearch.open(); });
-      try { const hero = root.querySelector('.sx-hero'); if (hero && typeof Motion !== 'undefined') Motion.tilt(hero, { max: 5 }); } catch(e){ /* effet décoratif */ }
       const el = document.getElementById('px-bal-amt');
       if (balFrom != null && el){ const from = balFrom; balFrom = null; BalanceFx.run(el, from, mainAccount()); }
     }

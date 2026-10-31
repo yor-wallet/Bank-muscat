@@ -166,7 +166,7 @@ function boot(){
 
   document.addEventListener('click', function once(){ requestFullscreen(); document.removeEventListener('click', once); }, { once: true });
 
-  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){ window.addEventListener('load', () => { const go = () => navigator.serviceWorker.register('sw.js').catch(() => {}); (window.requestIdleCallback ? requestIdleCallback(go, { timeout: 4000 }) : setTimeout(go, 1500)); }); }
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform())){   /* 21.3.0 : dans l'application Android les fichiers sont dans l'APK — pas de service worker */ window.addEventListener('load', () => { const go = () => navigator.serviceWorker.register('sw.js').catch(() => {}); (window.requestIdleCallback ? requestIdleCallback(go, { timeout: 4000 }) : setTimeout(go, 1500)); }); }
 
   window.YOR = {
     get context(){ return UserContext.get(); },

@@ -54,7 +54,7 @@ const Motion = (() => {
     if (!io) io = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('mo-off', !e.isIntersecting)), { rootMargin: '48px' });
     watched.add(el); io.observe(el);
   }
-  const WATCH = ['.sx-hero', '.yas-hero', '.cin', '.mo-watch'];
+  const WATCH = ['.mh-card', '.yas-hero', '.cin', '.mo-watch'];
   function watchAll(scope) { try { (scope || document).querySelectorAll(WATCH.join(',')).forEach(watch); } catch (e) { /* rien */ } }
 
   /* origine d'un panneau : le dernier toucher ; fixée à l'ouverture, en pixels relatifs au panneau (offset* ne dépend pas de la transformation en cours) */

@@ -164,14 +164,7 @@ const Vault = (() => {
       return '<div class="vt-row ' + (inn ? 'is-in' : 'is-out') + (x.kind === 'EARN_YIELD' ? ' is-yield' : '') + '" style="--i:' + i + '"><i>' + CrUI.svgI(ic, 20) + '</i><div><b>' + esc(opLabel(x) || x.kind) + '</b><small>' + esc(CrUI.ago(x.createdAt)) + '</small></div><span class="ltr" dir="ltr">' + (inn ? '+' : '−') + CrUI.dec(x.amount, 3) + ' OMR</span></div>';
     }).join('');
   }
-  function coinsFx(root){
-    const box = root.querySelector('#vt-coins'); if (!box || Fx.reduced()) return;
-    for (let i = 0; i < 9; i++){
-      const c = document.createElement('i'); c.className = 'vt-coin';
-      c.style.cssText = '--dx:' + Math.round((Math.random() - 0.5) * 220) + 'px;--dy:' + Math.round(-90 - Math.random() * 120) + 'px;--r:' + Math.round(Math.random() * 540 - 270) + 'deg;animation-delay:' + (i * 55) + 'ms';
-      box.appendChild(c); setTimeout(() => c.remove(), 1700);
-    }
-  }
+  function coinsFx(){ /* 21.3.0 : aucune pièce qui jaillit */ }
   function mergeStatus(d){
     if (!d || typeof d !== 'object') return;
     const n = normStatus(Object.assign({}, S.s, d)); S.s = n;
@@ -188,7 +181,7 @@ const Vault = (() => {
     const d = r.data || {};
     if (d.ok){
       const got = N.num(d.collected); mergeStatus(d);
-      CrUI.snd('collect'); Fx.haptic('success'); coinsFx(root); Fx.confetti(btn, { n: 60, power: 7 }); Fx.pulse(btn);
+      CrUI.snd('success'); Fx.haptic('success');
       const pd = root.querySelector('#vt-pd'); if (pd){ pd.classList.remove('vt-drop'); void pd.offsetWidth; pd.classList.add('vt-drop'); }
       toast(tf('vt.collected', { amt: CrUI.dec(got, 3) }), 'success');
       paintStatic(root, true);

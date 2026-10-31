@@ -138,12 +138,16 @@ const V13 = (() => {
       (unread ? '<button class="topbar-action" data-action="mark-notifs" aria-label="' + escapeHtml(t('v13.nc.markAll')) + '">' + icon('check', 18) + '</button>' : '<span style="width:calc(44px*var(--ui))"></span>') + '</div>' +
       '<div class="screen-body v13-nc" style="padding-top:0">';
     if (!list.length) return html + emptyState('bell', V12.vt('notifEmpty'), V12.vt('notifEmptyD')) + '</div>';
+    /* 21.3.0 — filtres par catégorie (affichage seulement) : toutes · argent · sécurité · informations */
+    const cat = n => { const ty = String(n.type || ''); return /TRANSFER|DEPOSIT|PAYMENT|CREDIT|WITHDRAW|INVEST|BOOST|REWARD|MONEY|BONUS/i.test(ty) ? 'money' : /SECURITY|LOGIN|DEVICE|PIN|KYC|SESSION|PASSWORD/i.test(ty) ? 'security' : 'info'; };
+    html += '<div class="nc-filters" role="group" aria-label="' + escapeHtml(t('nc21.filter')) + '">' + [['all', 'nc21.all'], ['money', 'nc21.money'], ['security', 'nc21.security'], ['info', 'nc21.info']].map((f, i) =>
+      '<button type="button" class="chip" data-ncf="' + f[0] + '" aria-pressed="' + (i === 0 ? 'true' : 'false') + '">' + escapeHtml(t(f[1])) + '</button>').join('') + '</div>';
     let last = null;
     list.forEach(n => {
       const day = txDayLabel(n.createdAt);
       if (day !== last){ html += (last !== null ? '</div>' : '') + '<div class="rv-day">' + escapeHtml(day) + '</div><div class="rv-list ds-list">'; last = day; }
       const v = ncText(n), tx = n.transactionId && (Runtime.transactions || []).some(x => x.id === n.transactionId);
-      html += '<div class="item v13-n' + (n.read ? '' : ' unread') + '"' + (tx ? ' role="button" tabindex="0" data-v13-n="' + escapeHtml(n.id) + '"' : '') + '>' +
+      html += '<div class="item v13-n' + (n.read ? '' : ' unread') + '" data-cat="' + cat(n) + '"' + (tx ? ' role="button" tabindex="0" data-v13-n="' + escapeHtml(n.id) + '"' : '') + '>' +
         '<div class="tile">' + icon(v.icon, 20) + '</div><div class="item-body"><div class="item-title">' + escapeHtml(v.title) + (n.read ? '' : '<i class="v13-unread" aria-label="' + escapeHtml(t('v13.nc.unread')) + '"></i>') + '</div>' +
         (v.line ? '<div class="item-sub ltr-auto">' + escapeHtml(v.line) + '</div>' : '') +
         '<div class="item-sub v13-meta">' + escapeHtml(fmtTime(n.createdAt)) + (v.ref ? ' · <span class="ltr" dir="ltr">' + escapeHtml(tf('v13.nc.ref', { r: v.ref })) + '</span>' : '') + '</div></div>' +
@@ -153,6 +157,14 @@ const V13 = (() => {
   }
   function wireNotifications(root){
     root.onclick = async e => {
+      const f = e.target.closest && e.target.closest('[data-ncf]');
+      if (f){
+        const k = f.getAttribute('data-ncf');
+        root.querySelectorAll('[data-ncf]').forEach(b => b.setAttribute('aria-pressed', b === f ? 'true' : 'false'));
+        root.querySelectorAll('.v13-n').forEach(r => { r.hidden = k !== 'all' && r.getAttribute('data-cat') !== k; });
+        root.querySelectorAll('.ds-list').forEach(l => { const any = l.querySelector('.v13-n:not([hidden])'); l.hidden = !any; if (l.previousElementSibling && l.previousElementSibling.classList.contains('rv-day')) l.previousElementSibling.hidden = !any; });
+        return;
+      }
       const el = e.target.closest && e.target.closest('[data-v13-n]'); if (!el) return;
       const n = (Runtime.notifications || []).find(x => String(x.id) === el.getAttribute('data-v13-n')); if (!n) return;
       if (!n.read){ n.read = true; try { await UserDataEngine.writeSub(UserContext.requireCtx().uid, 'notifications', n.id, { read:true }); } catch(err){} try { Push.syncBadge(); } catch(err){} }

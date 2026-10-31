@@ -72,6 +72,8 @@ export async function newPage(browser, base, { loggedIn = false, lang = 'en', th
       if (p === '/rest/v1/accounts') return json(FIXTURE.accounts);
       if (p === '/rest/v1/notifications') return json(FIXTURE.notifications);
       if (p === '/rest/v1/user_items' && /eq\.cards/.test(u.searchParams.get('collection') || '')) return json([{ item_id: 'CARD-0001', data: { label: 'Daily card', theme: 'midnight', number: '4532018800004821', holderName: 'AISHA AL BALUSHI', currency: 'OMR', createdAt: now - 864e5 * 9, issued: true, frozen: false } }]);
+      /* le service « Transfert international » n'apparaît que si le serveur annonce sa table de pays : le banc répond « 60 lignes » (aucune donnée réelle) */
+      if (p === '/rest/v1/intl_countries' && process.env.SANAD_TEST_INTL !== '0') return route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*', 'access-control-expose-headers': 'content-range', 'content-range': '0-0/60' }, body: '[{"iso":"SN"}]' });
       if (p === '/rest/v1/crypto_wallets' || p === '/rest/v1/user_items' || p === '/rest/v1/announcements' || p === '/rest/v1/intl_countries' || p === '/rest/v1/invest_plans') return json([]);
       if (p === '/rest/v1/user_docs') return one([]);
       return json([]);

@@ -80,15 +80,33 @@ function renderServices(){
     ['gAccount', [['profile','user','profile'],['notifications','bell','notifications'],['settings','settings','settings'],['help','globe','help'],['privacy','shield','privacy']]]
   ];
   /* 16.0.0 : Transfert international (seulement si le serveur le propose) ; groupe Administration pour les administrateurs */
-  if (typeof LiveX !== 'undefined' && LiveX.caps.intl === true) G[0][1].splice(1, 0, ['intl', 'globe', 'lx.svc.intl']);
+  const intlOn = (typeof LiveX !== 'undefined' && LiveX.caps.intl === true);   /* 21.3.0 : section dédiée « Transferts internationaux » (plus mêlée aux autres services) */
   G.splice(1, 0, ['v18.g.grow', [['invest','trend','v18.boost'],['kyc','shield','v19.kyc'],['withdraw','bank','v19.withdraw'],['credit','coins','v18.credit'],['chat','chat','v18.chat'],['yaser','bot','v18.yaser'],['cinema','film','v18.cinema']]]);   /* 18.0.0 */
   const adminTile = (typeof LiveX !== 'undefined' && Runtime.ctx && Runtime.ctx.role === 'admin');
   /* groupe Blockchain (YOR-USDT, réseau de test) : administrateurs uniquement */
   if (FEATURES.crypto && typeof canUseChain === 'function' && canUseChain()) G.splice(1, 0, ['gChain', [['chain','wallet','chainTile']]]);
-  if (!FEATURES.crypto) G.splice(1, 1);                  /* the Crypto group is hidden with the rest of the crypto section */
+  /* 21.3.0 — le groupe Crypto est masqué avec le reste de la section crypto (ses lignes mèneraient à une page vide).
+     Le code d'origine retirait « G.splice(1, 1) », qui retirait en réalité le groupe « Croissance » (Boost, vérification d'identité, retrait, crédit, chat, Amal, cinéma) et laissait le groupe Crypto affiché.
+     Comportement visible CONSERVÉ pour le groupe « Croissance » (toujours masqué, décision du propriétaire en attente : STATUT_SANAD_PAY.md) ; le groupe Crypto, lui, n'est plus affiché quand la section crypto est désactivée. */
+  const GROW_IN_MENU = false;
+  if (!FEATURES.crypto){ const i = G.findIndex(g => g[0] === 'gCrypto'); if (i >= 0) G.splice(i, 1); }
+  if (!GROW_IN_MENU){ const i = G.findIndex(g => g[0] === 'v18.g.grow'); if (i >= 0) G.splice(i, 1); }
   /* Sanad Pay 21.0.0 — liste groupée (tuile carrée arrondie + libellé + chevron) ; mêmes data-nav qu'avant */
   const lab = s => (/^(lx|v18)\./.test(s[2]) ? t(s[2]) : yt(s[2]));
+  /* section dédiée : régions, services de retrait disponibles (noms du catalogue), une seule action */
+  const intlBlock = !intlOn ? '' : (() => {
+    const cnt = {}; INTL_CATALOG.forEach(c => Object.keys(c.providers || {}).forEach(m => (c.providers[m] || []).forEach(n => { cnt[n] = (cnt[n] || 0) + 1; })));
+    const first = ['Orange Money', 'Wave'], rest = Object.keys(cnt).filter(n => first.indexOf(n) < 0).sort((a, b) => cnt[b] - cnt[a]).slice(0, 5);
+    const names = first.filter(n => cnt[n]).concat(rest);
+    const regions = INTL_GROUPS.map(g => '<span class="svc-tag">' + escapeHtml(IntlX.e('g.' + g.id)) + '</span>').join('');
+    return '<section class="sx-grp svc-intl" data-svc-keep="1"><h2 class="sx-grp-h">' + escapeHtml(t('set21.intl')) + '</h2>' +
+      '<div class="svc-intl-card"><div class="svc-intl-top"><span class="tile">' + icon('globe', 22) + '</span><span class="svc-intl-t"><b>' + escapeHtml(IntlX.e('title')) + '</b><small>' + escapeHtml(IntlX.e('sub').replace('{n}', String(INTL_CATALOG.length))) + '</small></span></div>' +
+      '<div class="svc-tags" aria-label="' + escapeHtml(t('set21.intlRegions')) + '">' + regions + '</div>' +
+      '<div class="svc-meth"><small>' + escapeHtml(t('set21.intlVia')) + '</small><div class="svc-tags">' + names.map(n => '<span class="svc-tag is-svc">' + escapeHtml(n) + '</span>').join('') + '</div></div>' +
+      '<button class="btn btn-primary" data-nav="intl">' + escapeHtml(IntlX.e('promoC')) + '</button></div></section>';
+  })();
   return '<div class="screen-body sx-svc"><h1 class="sx-title">' + yt('svcTitle') + '</h1>' +
+    '<div class="svc-search field-box"><span aria-hidden="true">' + icon('search', 18) + '</span><input type="search" id="svc-q" autocomplete="off" aria-label="' + escapeHtml(t('set21.svcSearch')) + '" placeholder="' + escapeHtml(t('set21.svcSearch')) + '"></div>' + intlBlock +
     G.map(g => '<section class="sx-grp"><h2 class="sx-grp-h">' + (g[0].indexOf('v18.') === 0 ? t(g[0]) : yt(g[0])) + '</h2><div class="sx-list">' +
       g[1].map(s => '<button class="settings-row sx-svc-row" data-nav="' + s[0] + '"><span class="tile">' + icon(s[1], 22) + '</span><span class="settings-row-body"><span class="settings-row-title">' + lab(s) + '</span></span><span class="settings-row-chev dir-flip">' + icon('chev', 18) + '</span></button>').join('') + '</div></section>').join('') +
     (adminTile ? '<section class="sx-grp"><h2 class="sx-grp-h">' + escapeHtml(t('lx.svc.gAdmin')) + '</h2><div class="sx-list"><button class="settings-row sx-svc-row" data-nav="admin-hub"><span class="tile">' + icon('admin', 22) + '</span><span class="settings-row-body"><span class="settings-row-title">' + escapeHtml(t('lx.svc.admin')) + '</span></span><span class="settings-row-chev dir-flip">' + icon('chev', 18) + '</span></button></div></section>' : '') +
