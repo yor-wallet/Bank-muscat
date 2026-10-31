@@ -1,0 +1,11 @@
+{
+  "appId": "com.sanadpay.app",
+  "appName": "Sanad Pay",
+  "webDir": "dist",
+  "server": { "androidScheme": "https" },
+  "android": { "allowMixedContent": false, "webContentsDebuggingEnabled": false, "backgroundColor": "#F3F6FA" },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 0, "launchAutoHide": true, "launchFadeOutDuration": 180, "backgroundColor": "#F3F6FA", "showSpinner": false, "androidScaleType": "CENTER_INSIDE" },
+    "StatusBar": { "style": "LIGHT", "backgroundColor": "#F3F6FA", "overlaysWebView": false }
+  }
+}

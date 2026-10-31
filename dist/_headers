@@ -16,7 +16,7 @@
 /
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.a1b2b34577.css>; rel=preload; as=style
+  Link: </css/app.fe42de710d.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
   Link: </js/app1.1ac7497754.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script
@@ -24,7 +24,7 @@
 /index.html
   Cache-Control: no-cache
   Link: </assets/fonts/inter-latin-var.woff2>; rel=preload; as=font; type=font/woff2; crossorigin
-  Link: </css/app.a1b2b34577.css>; rel=preload; as=style
+  Link: </css/app.fe42de710d.css>; rel=preload; as=style
   Link: </js/vendor/supabase-2.45.4.js>; rel=preload; as=script
   Link: </js/app1.1ac7497754.js>; rel=preload; as=script
   Link: </js/app2.388ce458a3.js>; rel=preload; as=script

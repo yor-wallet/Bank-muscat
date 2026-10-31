@@ -1,14 +1,23 @@
 {
   "name": "friendly-pay",
-  "version": "21.2.0",
+  "version": "21.3.0",
   "private": true,
-  "description": "Sanad Pay — site statique. `npm run build` produit dist/ (minifié, regroupé, fichiers à empreinte, en-têtes de cache).",
+  "description": "Sanad Pay \u2014 site statique. `npm run build` produit dist/ (minifi\u00e9, regroup\u00e9, fichiers \u00e0 empreinte, en-t\u00eates de cache).",
   "scripts": {
     "build": "node scripts/build.mjs",
     "test:agents": "node --test sanad-agents/agents.test.mjs sanad-agents/core.test.mjs sanad-agents/handler.test.mjs",
-    "sync:triage": "node scripts/dev/sync-triage.mjs"
+    "sync:triage": "node scripts/dev/sync-triage.mjs",
+    "android:sync": "npm run build && cap sync android",
+    "android:assets": "python3 scripts/dev/android-assets.py",
+    "android:debug": "npm run android:sync && cd android && ./gradlew assembleDebug"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
+    "@capacitor/cli": "^8.6.0",
+    "@capacitor/core": "^8.6.0",
+    "@capacitor/splash-screen": "^8.0.2",
+    "@capacitor/status-bar": "^8.0.4",
     "esbuild": "0.25.10",
     "playwright": "^1.49.1"
   }

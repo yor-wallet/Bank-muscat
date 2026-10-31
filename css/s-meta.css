@@ -284,3 +284,14 @@ html[dir="rtl"] .mh-rib{transform:scaleX(-1)}
 .rv-state{border-radius:8px}
 @keyframes sxCardIn{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:none}}
 .rv-chip{opacity:1}
+.rv-face,.rv-face::before,.rv-face::after{border-radius:18px}
+.rv-act{border-radius:14px;background:var(--bg-1);border:1px solid var(--line)}
+.rv-act.on{background:var(--m-primary);border-color:transparent}
+
+/* ---------- modules « Boost », crédit, retrait : même carte de compte que l'accueil (aplat marine, sans halo ni rayons) ---------- */
+.vt-hero{border-radius:20px;background:linear-gradient(155deg,#17609F 0%,#134F91 52%,#0F3F77 100%);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 14px 28px -18px rgba(15,63,119,.65);animation:none}
+.vt-glow,.vt-rays{display:none}
+.vt-tag,.vt-rate{border-radius:8px;border:0;background:rgba(255,255,255,.14);color:#fff;font-weight:650}
+.vt-lab{color:rgba(255,255,255,.78)}
+.cr-card{border-radius:var(--m-r-card);animation:none}
+.cr-gift h2{font-weight:650}
