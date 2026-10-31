@@ -2,6 +2,12 @@
 
 État au 31/10/2026. **Rien de ce qui suit n'est déclaré « fonctionnel » sans la preuve indiquée dans la colonne État.**
 
+## Résultat du build (réel)
+- **Compilé : oui.** `./gradlew assembleDebug` → `BUILD SUCCESSFUL` avec JDK 21, SDK Android 36, Gradle 8.14.3, Android Gradle Plugin 8.13. APK de **débogage** : `deliverables/sanad-pay-21.3.0-debug.apk` (≈ 10 Mo, SHA-256 `015d2c6c…a77c9d`).
+- Contenu vérifié avec `aapt2` : paquet `com.sanadpay.app`, version `21.3.0` (code 21030), `targetSdk` 36, **seule permission : `INTERNET`**, le site 21.3.0 est dans l'APK (`assets/public/`), le pont natif `js/features/native.js` aussi.
+- **Testé : non.** L'APK n'a été ni installé ni lancé (ni appareil, ni émulateur dans cet environnement). **Ne pas le déclarer fonctionnel avant un essai sur appareil.** Il n'est pas signé pour publication.
+- Incident rencontré : Maven Central a répondu 429 (trop de requêtes) lors des premiers essais ; une relance a suffi.
+
 ## Ce qui est en place (programmé)
 | Élément | Fichier | État |
 |---|---|---|
