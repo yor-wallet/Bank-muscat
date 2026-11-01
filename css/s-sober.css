@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SANAD PAY 21.3.0 — SOBRIÉTÉ BANCAIRE (dernière feuille)
+   BARQ 21.3.0 — SOBRIÉTÉ BANCAIRE (dernière feuille)
    Une banque ne joue pas : pas de rebond, pas de flottement, pas d'orbite, pas d'étincelle, pas de pièce, pas de confetti.
    Cette couche retire les mouvements DÉCORATIFS hérités des versions précédentes et garde ceux qui informent :
    chargement (cercle, squelette), saisie (points d'écriture d'une vraie requête), enregistrement en cours, envoi en cours, statut en attente.
@@ -30,6 +30,6 @@
 @keyframes moShake{0%,100%{transform:none}25%{transform:translate3d(-4px,0,0)}75%{transform:translate3d(4px,0,0)}}
 
 /* — avis de crédit (ex-célébration) : feuille sobre, logo, montant — */
-.rwd-medal{width:88px;height:88px;border-radius:22px;display:grid;place-items:center;margin:0 auto 18px;background:#fff;box-shadow:0 0 0 1px rgba(16,44,76,.08),0 10px 24px -14px rgba(16,44,76,.35)}
+.rwd-medal{width:88px;height:88px;border-radius:22px;display:grid;place-items:center;margin:0 auto 18px;background:#fff;box-shadow:0 0 0 1px rgba(11,27,58,.08),0 10px 24px -14px rgba(11,27,58,.35)}
 .rwd-coin{display:grid;place-items:center;background:none!important;box-shadow:none!important;width:auto!important;height:auto!important}
 .rwd-k{letter-spacing:0!important;text-transform:none!important}

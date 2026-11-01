@@ -1,6 +1,6 @@
 "use strict";
 /* ============================================================
-   MOTION — chorégraphie commune (Sanad Pay 21.2.0).
+   MOTION — chorégraphie commune (Barq 21.2.0).
    - lit les durées VISUELLES déclarées dans css/s-tokens.css (--mo-*) : une seule source, pas de chiffre recopié ici ;
    - choisit le niveau d'effets : « full » ou « lite » (appareil modeste, économie de données, ou choix de la personne) ;
    - note d'où vient un panneau (le dernier toucher) pour qu'il naisse de cet endroit ;

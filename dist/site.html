@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#2596DE">
-<title>سند باي | Sanad Pay</title>
-<meta name="description" content="سند باي — واجهة واحدة لمتابعة حسابك وخدماتك الرقمية. Sanad Pay — one clear interface for your account and digital services.">
-<meta property="og:title" content="سند باي | Sanad Pay"><meta property="og:image" content="assets/share/og-ar.png"><meta property="og:type" content="website">
+<meta name="theme-color" content="#2F6BFF">
+<title>برق | Barq</title>
+<meta name="description" content="برق — واجهة واحدة لمتابعة حسابك وخدماتك الرقمية. Barq — one clear interface for your account and digital services.">
+<meta property="og:title" content="برق | Barq"><meta property="og:image" content="assets/share/og-ar.png"><meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico" sizes="48x48"><link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg"><link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-<link rel="preload" as="image" href="assets/brand/sanad-s-320.png">
+<link rel="preload" as="image" href="assets/brand/barq-mark-320.png">
 <style>
 @font-face{font-family:Tajawal;src:url('assets/fonts/tajawal-arabic-400.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Tajawal;src:url('assets/fonts/tajawal-arabic-500.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Tajawal;src:url('assets/fonts/tajawal-arabic-700.woff2') format('woff2');font-weight:700;font-display:swap}
 @font-face{font-family:Tajawal;src:url('assets/fonts/tajawal-arabic-800.woff2') format('woff2');font-weight:800;font-display:swap}
 @font-face{font-family:Inter;src:url('assets/fonts/inter-latin-var.woff2') format('woff2');font-weight:100 900;font-display:swap}
-:root{--ink:#102C4C;--deep:#134F91;--primary:#2596DE;--sky:#7ED8F6;--ice:#EAF8FF;--white:#fff;--text:#0A1D33;--muted:#4A6076;--line:#CFE6F5;--ok:#14A879;--warn:#F4A43B;--bad:#E84D65;
+:root{--ink:#0B1B3A;--deep:#1B44BB;--primary:#2F6BFF;--sky:#38D4FF;--ice:#EAF1FF;--white:#fff;--text:#0A1D33;--muted:#4A6076;--line:#D3DEF3;--ok:#14A879;--warn:#F4A43B;--bad:#E84D65;
   --ease:cubic-bezier(.2,.8,.2,1);--out:cubic-bezier(.16,1,.3,1);--spring:cubic-bezier(.34,1.32,.5,1);--press:90ms;--release:180ms;--reveal:520ms;
   --font:Tajawal,Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 html[lang="en"],html[lang="fr"]{--font:Inter,Tajawal,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -29,13 +29,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* ---- en-tête ---- */
 .header{position:sticky;top:0;z-index:20;background:rgba(244,251,255,.78);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border-bottom:1px solid transparent;transition:border-color var(--release),box-shadow var(--release)}
-.header.is-scrolled{border-color:var(--line);box-shadow:0 12px 30px -24px rgba(19,79,145,.6)}
+.header.is-scrolled{border-color:var(--line);box-shadow:0 12px 30px -24px rgba(27,68,187,.6)}
 .header-in{display:flex;align-items:center;gap:20px;min-height:68px}
 .logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:1.25rem;letter-spacing:-.01em}
-.logo img{width:44px;height:44px;border-radius:30%;box-shadow:0 8px 18px -8px rgba(19,79,145,.6),0 0 0 1px rgba(255,255,255,.8) inset}
+.logo img{width:44px;height:44px;border-radius:30%;box-shadow:0 8px 18px -8px rgba(27,68,187,.6),0 0 0 1px rgba(255,255,255,.8) inset}
 .links{display:flex;gap:6px;margin-inline-start:auto}
 .links a{padding:10px 14px;border-radius:999px;color:var(--muted);font-weight:500;transition:background var(--release),color var(--release)}
-.links a:hover{background:rgba(37,150,222,.1);color:var(--deep)}
+.links a:hover{background:rgba(47,107,255,.1);color:var(--deep)}
 .tools{display:flex;align-items:center;gap:10px;margin-inline-start:auto}
 .links+.tools{margin-inline-start:0}
 .lang{display:flex;gap:2px;padding:3px;border-radius:999px;background:#fff;border:1px solid var(--line)}
@@ -43,8 +43,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--deep);color:#fff}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:700;transition:transform var(--release) var(--out),box-shadow var(--release),background var(--release)}
 .btn:active{transform:scale(.97);transition-duration:var(--press)}
-.btn-primary{background:linear-gradient(180deg,#3DA6E8,#2596DE 55%,#1C80C4);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 16px 28px -14px rgba(37,150,222,.9)}
-.btn-primary:hover{box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 20px 34px -14px rgba(37,150,222,1)}
+.btn-primary{background:linear-gradient(180deg,#3DA6E8,#2F6BFF 55%,#1C80C4);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 16px 28px -14px rgba(47,107,255,.9)}
+.btn-primary:hover{box-shadow:0 1px 0 rgba(255,255,255,.4) inset,0 20px 34px -14px rgba(47,107,255,1)}
 .btn-ghost{background:#fff;color:var(--deep);border:1px solid var(--line)}
 .btn-ghost:hover{background:var(--ice)}
 .btn svg{width:18px;height:18px}
@@ -52,10 +52,10 @@ html[dir="rtl"] .btn .arrow{transform:scaleX(-1)}
 
 /* ---- héros ---- */
 .hero{position:relative;padding:56px 0 40px;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(126,216,246,.55),transparent);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(56,212,255,.55),transparent);pointer-events:none}
 html[dir="rtl"] .hero::before{inset:-20% auto auto -10%}
 .hero-in{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--deep);font-weight:700;font-size:.9rem;box-shadow:0 10px 24px -18px rgba(19,79,145,.7)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--deep);font-weight:700;font-size:.9rem;box-shadow:0 10px 24px -18px rgba(27,68,187,.7)}
 .eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--primary)}
 h1{margin:18px 0 0;font-size:clamp(2.3rem,6.2vw,4rem);line-height:1.1;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
 html[dir="rtl"] h1{letter-spacing:0;line-height:1.25}
@@ -68,30 +68,30 @@ html[dir="rtl"] .tagline::before{background:linear-gradient(270deg,var(--primary
 
 /* téléphone : aperçu illustratif (aucun chiffre) */
 .stage{position:relative;display:grid;place-items:center;min-height:560px}
-.badge-logo{position:absolute;z-index:3;inset-block-start:6%;inset-inline-start:2%;width:116px;height:116px;border-radius:30%;background:#fff;box-shadow:0 30px 50px -22px rgba(19,79,145,.7),0 0 0 1px rgba(255,255,255,.9) inset;overflow:hidden;animation:float 6s ease-in-out infinite}
+.badge-logo{position:absolute;z-index:3;inset-block-start:6%;inset-inline-start:2%;width:116px;height:116px;border-radius:30%;background:#fff;box-shadow:0 30px 50px -22px rgba(27,68,187,.7),0 0 0 1px rgba(255,255,255,.9) inset;overflow:hidden;animation:float 6s ease-in-out infinite}
 .badge-logo img{width:100%;height:100%}
-.phone{position:relative;z-index:2;width:min(300px,78vw);aspect-ratio:300/610;border-radius:44px;padding:11px;background:linear-gradient(160deg,#1c3556,#0b1b30);box-shadow:0 50px 70px -34px rgba(16,44,76,.8),0 0 0 2px rgba(255,255,255,.08) inset;transform:rotate(3deg)}
+.phone{position:relative;z-index:2;width:min(300px,78vw);aspect-ratio:300/610;border-radius:44px;padding:11px;background:linear-gradient(160deg,#1c3556,#0b1b30);box-shadow:0 50px 70px -34px rgba(11,27,58,.8),0 0 0 2px rgba(255,255,255,.08) inset;transform:rotate(3deg)}
 html[dir="rtl"] .phone{transform:rotate(-3deg)}
 .screen{height:100%;border-radius:34px;overflow:hidden;background:linear-gradient(180deg,#DDF2FF,#F4FBFF);padding:44px 14px 14px;display:flex;flex-direction:column;gap:12px;position:relative}
 .screen::before{content:"";position:absolute;inset-block-start:10px;inset-inline:0;margin-inline:auto;width:84px;height:22px;border-radius:12px;background:#0b1b30}
 .s-bar{display:flex;align-items:center;gap:8px}
-.s-ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7ED8F6,#2596DE)}
+.s-ava{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#38D4FF,#2F6BFF)}
 .s-pill{flex:1;height:30px;border-radius:999px;background:#fff;border:1px solid var(--line)}
-.s-card{position:relative;overflow:hidden;border-radius:24px;padding:16px;background:linear-gradient(150deg,#2F8FDA,#1B63B0 46%,#134F91 74%,#102C4C);color:#fff;box-shadow:0 22px 34px -22px rgba(19,79,145,.9)}
+.s-card{position:relative;overflow:hidden;border-radius:24px;padding:16px;background:linear-gradient(150deg,#2F8FDA,#1B63B0 46%,#1B44BB 74%,#0B1B3A);color:#fff;box-shadow:0 22px 34px -22px rgba(27,68,187,.9)}
 .s-card::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 200' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M-10 150C74 160 122 62 202 84c64 18 96 82 150 46' fill='none' stroke='%23fff' stroke-opacity='.1' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M-10 150C74 160 122 62 202 84c64 18 96 82 150 46' fill='none' stroke='%237ED8F6' stroke-opacity='.45' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/cover}
 .s-card .l{position:relative;height:8px;width:42%;border-radius:4px;background:rgba(255,255,255,.55)}
 .s-card .a{position:relative;margin-top:14px;height:20px;width:68%;border-radius:10px;background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));overflow:hidden}
-.s-card .a::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(126,216,246,.9),transparent);transform:translateX(-100%);animation:sweep 3.6s ease-in-out 1s infinite}
+.s-card .a::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(56,212,255,.9),transparent);transform:translateX(-100%);animation:sweep 3.6s ease-in-out 1s infinite}
 .s-card .c{position:relative;display:flex;gap:8px;margin-top:14px}.s-card .c i{height:18px;border-radius:9px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3)}.s-card .c i:nth-child(1){width:34%}.s-card .c i:nth-child(2){width:30%}
 .s-acts{display:flex;justify-content:space-around}
-.s-acts i{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 8px 14px -10px rgba(19,79,145,.6)}
-.s-acts i:first-child{background:linear-gradient(135deg,#7ED8F6,#2596DE);border-color:transparent}
+.s-acts i{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--line);box-shadow:0 8px 14px -10px rgba(27,68,187,.6)}
+.s-acts i:first-child{background:linear-gradient(135deg,#38D4FF,#2F6BFF);border-color:transparent}
 .s-acts svg{width:20px;height:20px;stroke:var(--primary);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.s-acts i:first-child svg{stroke:#fff}
 .s-row{display:flex;align-items:center;gap:10px;padding:10px;border-radius:16px;background:#fff;border:1px solid #E3F1FA}
-.s-row b{width:30px;height:30px;border-radius:50%;background:#DDF0FB}.s-row span{flex:1;display:grid;gap:6px}.s-row span i{height:7px;border-radius:4px;background:#CFE6F5}.s-row span i:last-child{width:55%;background:#E3F1FA}
-.s-row em{width:38px;height:9px;border-radius:5px;background:#B5D9EE}
+.s-row b{width:30px;height:30px;border-radius:50%;background:#DDF0FB}.s-row span{flex:1;display:grid;gap:6px}.s-row span i{height:7px;border-radius:4px;background:#D3DEF3}.s-row span i:last-child{width:55%;background:#E3F1FA}
+.s-row em{width:38px;height:9px;border-radius:5px;background:#C3D2EE}
 .s-nav{margin-top:auto;display:flex;justify-content:space-around;padding:8px;border-radius:22px;background:rgba(255,255,255,.9);border:1px solid var(--line)}
-.s-nav i{width:26px;height:26px;border-radius:9px;background:#DDF0FB}.s-nav i:nth-child(1){background:linear-gradient(135deg,#7ED8F6,#2596DE)}
+.s-nav i{width:26px;height:26px;border-radius:9px;background:#DDF0FB}.s-nav i:nth-child(1){background:linear-gradient(135deg,#38D4FF,#2F6BFF)}
 .cap{position:absolute;z-index:3;inset-block-end:2%;inset-inline:0;text-align:center;font-size:.82rem;color:var(--muted)}
 @keyframes float{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-8px,0)}}
 @keyframes sweep{0%,35%{transform:translateX(-100%)}70%,100%{transform:translateX(100%)}}
@@ -101,22 +101,22 @@ section{padding:64px 0}
 .h2{margin:0;font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.2;font-weight:800;letter-spacing:-.02em;color:var(--ink)}html[dir="rtl"] .h2{letter-spacing:0}
 .sub{margin:10px 0 0;color:var(--muted);font-size:1.08rem;max-width:40em}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
-.card{padding:26px;border-radius:28px;background:rgba(255,255,255,.82);border:1px solid #fff;box-shadow:0 24px 40px -28px rgba(19,79,145,.55),0 1px 0 #fff inset;transition:transform var(--release) var(--out),box-shadow var(--release)}
-.card:hover{transform:translate3d(0,-4px,0);box-shadow:0 30px 46px -26px rgba(19,79,145,.65),0 1px 0 #fff inset}
-.card .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#7ED8F6,#2596DE);margin-bottom:16px;box-shadow:0 14px 22px -14px rgba(37,150,222,.9)}
+.card{padding:26px;border-radius:28px;background:rgba(255,255,255,.82);border:1px solid #fff;box-shadow:0 24px 40px -28px rgba(27,68,187,.55),0 1px 0 #fff inset;transition:transform var(--release) var(--out),box-shadow var(--release)}
+.card:hover{transform:translate3d(0,-4px,0);box-shadow:0 30px 46px -26px rgba(27,68,187,.65),0 1px 0 #fff inset}
+.card .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:18px;background:linear-gradient(135deg,#38D4FF,#2F6BFF);margin-bottom:16px;box-shadow:0 14px 22px -14px rgba(47,107,255,.9)}
 .card .ic svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .card h3{margin:0 0 6px;font-size:1.2rem;color:var(--ink)}.card p{margin:0;color:var(--muted)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:34px 0}
 .row.rev .copy{order:2}
 .copy h3{margin:0;font-size:1.7rem;color:var(--ink);line-height:1.25}.copy p{margin:12px 0 0;color:var(--muted);font-size:1.06rem;max-width:30em}
-.art{display:grid;place-items:center;padding:26px;border-radius:36px;background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(221,242,255,.75));border:1px solid #fff;box-shadow:0 30px 50px -34px rgba(19,79,145,.6);min-height:300px;overflow:hidden;position:relative}
+.art{display:grid;place-items:center;padding:26px;border-radius:36px;background:linear-gradient(160deg,rgba(255,255,255,.9),rgba(221,242,255,.75));border:1px solid #fff;box-shadow:0 30px 50px -34px rgba(27,68,187,.6);min-height:300px;overflow:hidden;position:relative}
 .art svg{width:min(100%,360px);height:auto;overflow:visible}
-.curve-base{fill:none;stroke:#CFE6F5;stroke-width:7;stroke-linecap:round}.curve-lit{fill:none;stroke:var(--primary);stroke-width:7;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0}
+.curve-base{fill:none;stroke:#D3DEF3;stroke-width:7;stroke-linecap:round}.curve-lit{fill:none;stroke:var(--primary);stroke-width:7;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:0}
 .curve-light{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-dasharray:9 140;stroke-dashoffset:9;opacity:0}
 .is-in .curve-light{animation:run 2.2s var(--ease) .4s infinite}
 @keyframes run{0%{stroke-dashoffset:9;opacity:0}12%{opacity:1}88%{opacity:1}100%{stroke-dashoffset:-112;opacity:0}}
 html[dir="rtl"] .curve-g{transform:scaleX(-1);transform-origin:160px 105px}
-.mini-card{width:min(86%,340px);aspect-ratio:1.586;border-radius:26px;padding:20px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(135deg,#2596DE,#134F91);box-shadow:0 34px 44px -26px rgba(19,79,145,.9),0 1px 0 rgba(255,255,255,.5) inset;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-4deg)}
+.mini-card{width:min(86%,340px);aspect-ratio:1.586;border-radius:26px;padding:20px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(135deg,#2F6BFF,#1B44BB);box-shadow:0 34px 44px -26px rgba(27,68,187,.9),0 1px 0 rgba(255,255,255,.5) inset;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(-4deg)}
 html[dir="rtl"] .mini-card{transform:rotate(4deg)}
 .mini-card::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 214' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M-10 150C74 160 124 40 206 62c64 18 98 90 150 54' fill='none' stroke='%23fff' stroke-opacity='.12' stroke-width='16' stroke-linecap='round'/%3E%3Cpath d='M-10 150C74 160 124 40 206 62c64 18 98 90 150 54' fill='none' stroke='%237ED8F6' stroke-opacity='.5' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/cover}
 .mini-card>*{position:relative}
@@ -125,11 +125,11 @@ html[dir="rtl"] .mini-card{transform:rotate(4deg)}
 .mc-dots{display:flex;gap:6px;letter-spacing:.2em;font-weight:700;font-variant-numeric:tabular-nums;direction:ltr;font-family:Inter,sans-serif}
 .mc-st{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:999px;background:rgba(20,168,121,.3);font-size:.78rem;font-weight:700}.mc-st::before{content:"";width:7px;height:7px;border-radius:50%;background:#3de2b0}
 .amal-wrap{display:flex;align-items:flex-end;gap:14px}
-.amal-img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 12%;background:radial-gradient(circle at 50% 30%,#EAF8FF,#BFE3FA);box-shadow:0 20px 30px -18px rgba(19,79,145,.7),0 0 0 3px #fff inset}
-.bubble{max-width:200px;padding:14px 16px;border-radius:20px 20px 20px 6px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 24px -18px rgba(19,79,145,.6);display:grid;gap:7px}
+.amal-img{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:50% 12%;background:radial-gradient(circle at 50% 30%,#EAF1FF,#BFE3FA);box-shadow:0 20px 30px -18px rgba(27,68,187,.7),0 0 0 3px #fff inset}
+.bubble{max-width:200px;padding:14px 16px;border-radius:20px 20px 20px 6px;background:#fff;border:1px solid var(--line);box-shadow:0 14px 24px -18px rgba(27,68,187,.6);display:grid;gap:7px}
 html[dir="rtl"] .bubble{border-radius:20px 20px 6px 20px}
-.bubble i{height:8px;border-radius:4px;background:#CFE6F5}.bubble i:nth-child(2){width:70%;background:#E3F1FA}
-.trust{padding:56px 40px;border-radius:40px;color:#fff;background:linear-gradient(150deg,#2F8FDA,#1B63B0 40%,#134F91 72%,#102C4C);box-shadow:0 36px 56px -34px rgba(19,79,145,.9);position:relative;overflow:hidden;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.bubble i{height:8px;border-radius:4px;background:#D3DEF3}.bubble i:nth-child(2){width:70%;background:#E3F1FA}
+.trust{padding:56px 40px;border-radius:40px;color:#fff;background:linear-gradient(150deg,#2F8FDA,#1B63B0 40%,#1B44BB 72%,#0B1B3A);box-shadow:0 36px 56px -34px rgba(27,68,187,.9);position:relative;overflow:hidden;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
 .trust::before{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 240' preserveAspectRatio='xMidYMid slice'%3E%3Cpath d='M-20 190C140 200 230 60 360 90c110 26 170 110 280 60' fill='none' stroke='%23fff' stroke-opacity='.1' stroke-width='24' stroke-linecap='round'/%3E%3Cpath d='M-20 190C140 200 230 60 360 90c110 26 170 110 280 60' fill='none' stroke='%237ED8F6' stroke-opacity='.45' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center/cover}
 html[dir="rtl"] .trust::before{transform:scaleX(-1)}
 .trust>*{position:relative}.trust h2{margin:0;font-size:clamp(1.5rem,3.4vw,2.2rem);line-height:1.25}.trust p{margin:10px 0 0;opacity:.9;max-width:34em}
@@ -149,7 +149,7 @@ html[dir="rtl"] .trust::before{transform:scaleX(-1)}
 <body>
 <a class="skip" href="#main" data-i="skip">تجاوز إلى المحتوى</a>
 <header class="header" id="hd"><div class="wrap header-in">
-  <a href="site.html" class="logo" aria-label="Sanad Pay"><img src="assets/brand/sanad-s-192.png" alt="" width="44" height="44"><span data-i="brand">سند باي</span></a>
+  <a href="site.html" class="logo" aria-label="Barq"><img src="assets/brand/barq-mark-192.png" alt="" width="44" height="44"><span data-i="brand">برق</span></a>
   <nav class="links" aria-label="Main"><a href="#services" data-i="nav1">الخدمات</a><a href="#security" data-i="nav2">الأمان</a><a href="#support" data-i="nav3">الدعم</a></nav>
   <div class="tools">
     <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="ar" aria-pressed="true">عربي</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="fr" aria-pressed="false">FR</button></div>
@@ -167,7 +167,7 @@ html[dir="rtl"] .trust::before{transform:scaleX(-1)}
     <div class="tagline reveal" style="--i:4">أقرب لك ... أبعد لك</div>
   </div>
   <div class="stage reveal" style="--i:2">
-    <div class="badge-logo" aria-hidden="true"><img src="assets/brand/sanad-s-320.png" alt="" width="116" height="116"></div>
+    <div class="badge-logo" aria-hidden="true"><img src="assets/brand/barq-mark-320.png" alt="" width="116" height="116"></div>
     <div class="phone" role="img" aria-label="Application preview" data-aria="phone">
       <div class="screen" aria-hidden="true">
         <div class="s-bar"><span class="s-ava"></span><span class="s-pill"></span></div>
@@ -203,16 +203,16 @@ html[dir="rtl"] .trust::before{transform:scaleX(-1)}
     <div class="art" role="img" aria-label="Transfer curve" data-aria="curve">
       <svg viewBox="0 0 320 210" aria-hidden="true"><defs><clipPath id="cl"><rect x="112" y="22" width="96" height="96" rx="27"/></clipPath></defs>
         <g class="curve-g"><path class="curve-base" d="M44 176C104 176 112 140 160 140S216 104 276 104"/><path class="curve-lit" d="M44 176C104 176 112 140 160 140S216 104 276 104" pathLength="100"/><path class="curve-light" d="M44 176C104 176 112 140 160 140S216 104 276 104" pathLength="100"/>
-        <circle cx="44" cy="176" r="9" fill="#fff" stroke="#2596DE" stroke-width="3.5"/><circle cx="276" cy="104" r="9" fill="#fff" stroke="#2596DE" stroke-width="3.5"/></g>
-        <rect x="114" y="34" width="92" height="92" rx="27" fill="#134F91" opacity=".18"/><rect x="112" y="22" width="96" height="96" rx="27" fill="#fff"/><image href="assets/brand/sanad-s-192.png" x="112" y="22" width="96" height="96" clip-path="url(#cl)" preserveAspectRatio="xMidYMid slice"/></svg>
+        <circle cx="44" cy="176" r="9" fill="#fff" stroke="#2F6BFF" stroke-width="3.5"/><circle cx="276" cy="104" r="9" fill="#fff" stroke="#2F6BFF" stroke-width="3.5"/></g>
+        <rect x="114" y="34" width="92" height="92" rx="27" fill="#1B44BB" opacity=".18"/><rect x="112" y="22" width="96" height="96" rx="27" fill="#fff"/><image href="assets/brand/barq-mark-192.png" x="112" y="22" width="96" height="96" clip-path="url(#cl)" preserveAspectRatio="xMidYMid slice"/></svg>
     </div>
   </div>
   <div class="row rev reveal">
     <div class="copy"><h3 data-i="r2t">بطاقتك، بحالتها الفعلية</h3><p data-i="r2p">إدارة إعدادات بطاقتك من مكان واحد: نشطة أو مجمّدة، وكل شيء ظاهر بوضوح.</p></div>
-    <div class="art"><div class="mini-card" role="img" aria-label="Virtual card" data-aria="card"><div class="mc-top"><img src="assets/brand/sanad-s-192.png" alt="" width="34" height="34"><span class="mc-st" data-i="active">نشطة</span></div><div class="mc-chip" aria-hidden="true"></div><div class="mc-dots" aria-hidden="true"><span>••••</span><span>••••</span><span>••••</span><span>••••</span></div></div></div>
+    <div class="art"><div class="mini-card" role="img" aria-label="Virtual card" data-aria="card"><div class="mc-top"><img src="assets/brand/barq-mark-192.png" alt="" width="34" height="34"><span class="mc-st" data-i="active">نشطة</span></div><div class="mc-chip" aria-hidden="true"></div><div class="mc-dots" aria-hidden="true"><span>••••</span><span>••••</span><span>••••</span><span>••••</span></div></div></div>
   </div>
   <div class="row reveal" id="support">
-    <div class="copy"><h3 data-i="r3t">أمل، مساعدتك في سند باي</h3><p data-i="r3p">تواصل مع المساعدة أو خدمة العملاء عبر التطبيق. وفي الأمور العاجلة أو المتعلقة بحسابك، يمكنك دائماً التحدث مع شخص.</p></div>
+    <div class="copy"><h3 data-i="r3t">أمل، مساعدتك في برق</h3><p data-i="r3p">تواصل مع المساعدة أو خدمة العملاء عبر التطبيق. وفي الأمور العاجلة أو المتعلقة بحسابك، يمكنك دائماً التحدث مع شخص.</p></div>
     <div class="art"><div class="amal-wrap"><img class="amal-img" src="assets/sanad/amal-240.png" alt="" width="150" height="150" loading="lazy"><div class="bubble" aria-hidden="true"><i></i><i></i></div></div></div>
   </div>
 </div></section>
@@ -222,14 +222,14 @@ html[dir="rtl"] .trust::before{transform:scaleX(-1)}
 </div></section>
 </main>
 
-<footer class="footer"><div class="wrap footer-in"><div class="brand"><img src="assets/brand/sanad-s-192.png" alt="" width="30" height="30">SANAD PAY</div><div><a href="#services" data-i="nav1">الخدمات</a> &nbsp;·&nbsp; <a href="#security" data-i="nav2">الأمان</a> &nbsp;·&nbsp; <a href="#support" data-i="nav3">الدعم</a></div></div></footer>
+<footer class="footer"><div class="wrap footer-in"><div class="brand"><img src="assets/brand/barq-mark-192.png" alt="" width="30" height="30">BARQ</div><div><a href="#services" data-i="nav1">الخدمات</a> &nbsp;·&nbsp; <a href="#security" data-i="nav2">الأمان</a> &nbsp;·&nbsp; <a href="#support" data-i="nav3">الدعم</a></div></div></footer>
 
 <script>
 (function(){
   var root=document.documentElement; root.classList.add('js');
   var D={
-    en:{skip:'Skip to content',brand:'Sanad Pay',nav1:'Services',nav2:'Security',nav3:'Support',open:'Open the app',eyebrow:'A comfortable digital wallet',h1a:'Your support for every',h1b:'step of your money',lead:'Send money, follow your operations and manage your cards from a clear interface designed to be with you every day.',cta1:'Start with Sanad',cta2:'Discover the services',cap:'Illustration of the interface, no real figures',s_h:'Your services, made simple',s_p:'Everything you need to organise your operations in one place',c1t:'Send money',c1p:'Follow the steps of a transfer and its details clearly.',c2t:'Your virtual cards',c2p:'Manage your card settings from one place.',c3t:'Help when you need it',c3p:'Talk to the assistant or to customer service in the app.',r1t:'Transfers in clear steps',r1p:'Follow the steps of a transfer and its details. The status shown is the real status: nothing appears confirmed before it is.',r2t:'Your card, with its real state',r2p:'Manage your card settings from one place: active or frozen, everything is clearly visible.',active:'Active',r3t:'Amal, your Sanad Pay assistant',r3p:'Talk to the assistant or to customer service in the app. For urgent matters or anything about your account, you can always talk to a person.',t_h:'A comfortable experience, and privacy at every step',t_p:'Clear settings and help when you need it, while keeping your information private.',t_c:'Contact support',phone:'Application preview',curve:'Transfer curve between two accounts',card:'Virtual card'},
-    fr:{skip:'Aller au contenu',brand:'Sanad Pay',nav1:'Services',nav2:'Sécurité',nav3:'Assistance',open:'Ouvrir l’application',eyebrow:'Un portefeuille numérique confortable',h1a:'Votre appui à chaque',h1b:'étape de votre argent',lead:'Envoyez de l’argent, suivez vos opérations et gérez vos cartes depuis une interface claire, pensée pour vous accompagner chaque jour.',cta1:'Commencer avec Sanad',cta2:'Découvrir les services',cap:'Illustration de l’interface, sans chiffres réels',s_h:'Vos services, en toute simplicité',s_p:'Tout ce qu’il faut pour organiser vos opérations au même endroit',c1t:'Envoyer de l’argent',c1p:'Suivez clairement les étapes d’un transfert et ses détails.',c2t:'Vos cartes virtuelles',c2p:'Gérez les réglages de votre carte au même endroit.',c3t:'De l’aide au besoin',c3p:'Parlez à l’assistante ou au service client dans l’application.',r1t:'Des transferts en étapes claires',r1p:'Suivez les étapes d’un transfert et ses détails. Le statut affiché est le statut réel : rien n’apparaît confirmé avant de l’être.',r2t:'Votre carte, avec son état réel',r2p:'Gérez les réglages de votre carte au même endroit : active ou gelée, tout est clairement visible.',active:'Active',r3t:'Amal, votre assistante Sanad Pay',r3p:'Parlez à l’assistante ou au service client dans l’application. Pour une urgence ou tout ce qui touche à votre compte, vous pouvez toujours parler à une personne.',t_h:'Une expérience confortable, et la confidentialité à chaque étape',t_p:'Des réglages clairs et de l’aide au besoin, en préservant la confidentialité de vos informations.',t_c:'Contacter l’assistance',phone:'Aperçu de l’application',curve:'Courbe de transfert entre deux comptes',card:'Carte virtuelle'}
+    en:{skip:'Skip to content',brand:'Barq',nav1:'Services',nav2:'Security',nav3:'Support',open:'Open the app',eyebrow:'A comfortable digital wallet',h1a:'Your support for every',h1b:'step of your money',lead:'Send money, follow your operations and manage your cards from a clear interface designed to be with you every day.',cta1:'Start with Sanad',cta2:'Discover the services',cap:'Illustration of the interface, no real figures',s_h:'Your services, made simple',s_p:'Everything you need to organise your operations in one place',c1t:'Send money',c1p:'Follow the steps of a transfer and its details clearly.',c2t:'Your virtual cards',c2p:'Manage your card settings from one place.',c3t:'Help when you need it',c3p:'Talk to the assistant or to customer service in the app.',r1t:'Transfers in clear steps',r1p:'Follow the steps of a transfer and its details. The status shown is the real status: nothing appears confirmed before it is.',r2t:'Your card, with its real state',r2p:'Manage your card settings from one place: active or frozen, everything is clearly visible.',active:'Active',r3t:'Amal, your Barq assistant',r3p:'Talk to the assistant or to customer service in the app. For urgent matters or anything about your account, you can always talk to a person.',t_h:'A comfortable experience, and privacy at every step',t_p:'Clear settings and help when you need it, while keeping your information private.',t_c:'Contact support',phone:'Application preview',curve:'Transfer curve between two accounts',card:'Virtual card'},
+    fr:{skip:'Aller au contenu',brand:'Barq',nav1:'Services',nav2:'Sécurité',nav3:'Assistance',open:'Ouvrir l’application',eyebrow:'Un portefeuille numérique confortable',h1a:'Votre appui à chaque',h1b:'étape de votre argent',lead:'Envoyez de l’argent, suivez vos opérations et gérez vos cartes depuis une interface claire, pensée pour vous accompagner chaque jour.',cta1:'Commencer avec Sanad',cta2:'Découvrir les services',cap:'Illustration de l’interface, sans chiffres réels',s_h:'Vos services, en toute simplicité',s_p:'Tout ce qu’il faut pour organiser vos opérations au même endroit',c1t:'Envoyer de l’argent',c1p:'Suivez clairement les étapes d’un transfert et ses détails.',c2t:'Vos cartes virtuelles',c2p:'Gérez les réglages de votre carte au même endroit.',c3t:'De l’aide au besoin',c3p:'Parlez à l’assistante ou au service client dans l’application.',r1t:'Des transferts en étapes claires',r1p:'Suivez les étapes d’un transfert et ses détails. Le statut affiché est le statut réel : rien n’apparaît confirmé avant de l’être.',r2t:'Votre carte, avec son état réel',r2p:'Gérez les réglages de votre carte au même endroit : active ou gelée, tout est clairement visible.',active:'Active',r3t:'Amal, votre assistante Barq',r3p:'Parlez à l’assistante ou au service client dans l’application. Pour une urgence ou tout ce qui touche à votre compte, vous pouvez toujours parler à une personne.',t_h:'Une expérience confortable, et la confidentialité à chaque étape',t_p:'Des réglages clairs et de l’aide au besoin, en préservant la confidentialité de vos informations.',t_c:'Contacter l’assistance',phone:'Aperçu de l’application',curve:'Courbe de transfert entre deux comptes',card:'Carte virtuelle'}
   };
   var AR={};document.querySelectorAll('[data-i]').forEach(function(n){AR[n.getAttribute('data-i')]=n.textContent});
   var ARA={};document.querySelectorAll('[data-aria]').forEach(function(n){ARA[n.getAttribute('data-aria')]=n.getAttribute('aria-label')});

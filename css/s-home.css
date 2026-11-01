@@ -1,5 +1,5 @@
 /* ============================================================
-   SANAD PAY — TABLEAU DE BORD (21.2.0)
+   BARQ — TABLEAU DE BORD (21.2.0)
    Mise en scène : salutation -> carte de solde -> actions -> activité. Un seul élément principal : la carte.
    La carte est en verre bleu profond ; deux rubans de lumière rappellent ceux du logo ; un reflet suit le doigt ou le pointeur (Motion.tilt).
    Le solde affiché est TOUJOURS la valeur exacte : aucune animation de comptage, jamais de montant intermédiaire.
@@ -8,10 +8,10 @@
 .sx-greet b{color:var(--text);font-weight:750}
 
 .sx-hero{flex:none;position:relative;overflow:hidden;isolation:isolate;margin:8px 0 2px;padding:20px 20px 18px;gap:4px;align-items:flex-start;text-align:start;border-radius:32px;
-  background:linear-gradient(150deg,#2F8FDA 0%,#1B63B0 46%,#134F91 74%,#102C4C 100%);color:#fff;
-  box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 0 0 1px rgba(255,255,255,.18) inset,0 28px 46px -26px rgba(19,79,145,.8),0 10px 20px -14px rgba(16,44,76,.55);
+  background:linear-gradient(150deg,#2F8FDA 0%,#1B63B0 46%,#1B44BB 74%,#0B1B3A 100%);color:#fff;
+  box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 0 0 1px rgba(255,255,255,.18) inset,0 28px 46px -26px rgba(27,68,187,.8),0 10px 20px -14px rgba(11,27,58,.55);
   animation:moRise var(--mo-reveal) var(--mo-out) 90ms backwards}
-:root[data-theme="dark"] .sx-hero{background:linear-gradient(150deg,#1F6EB4 0%,#154A86 46%,#0F3262 74%,#0A1D3A 100%);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 0 0 1px rgba(126,216,246,.16) inset,0 28px 46px -26px rgba(0,0,0,.8)}
+:root[data-theme="dark"] .sx-hero{background:linear-gradient(150deg,#1F6EB4 0%,#154A86 46%,#0F3262 74%,#0A1D3A 100%);box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 0 0 1px rgba(56,212,255,.16) inset,0 28px 46px -26px rgba(0,0,0,.8)}
 .sx-hero::before{content:none}
 /* rubans : deux courbes translucides, l'une plus large (matière), l'autre plus fine (arête lumineuse) */
 .sx-rib{position:absolute;inset:0;z-index:-1;pointer-events:none;background:
@@ -25,7 +25,7 @@ html[dir="rtl"] .sx-rib{transform:scaleX(-1)}
 .sx-hero .sx-lbl{color:rgba(255,255,255,.82)}
 .sx-hero-top{width:100%;justify-content:space-between}
 .sx-hero .sx-eye{color:#fff;background:rgba(255,255,255,.14);width:36px;height:36px}
-.sx-hero .sx-amt{color:#fff;text-align:start;font-size:clamp(calc(40px*var(--ui)),12.5vw,calc(56px*var(--ui)));text-shadow:0 2px 16px rgba(16,44,76,.28)}
+.sx-hero .sx-amt{color:#fff;text-align:start;font-size:clamp(calc(40px*var(--ui)),12.5vw,calc(56px*var(--ui)));text-shadow:0 2px 16px rgba(11,27,58,.28)}
 html[dir="rtl"] .sx-hero .sx-amt{text-align:start}
 .sx-hero .sx-amt .rv-cur{color:rgba(255,255,255,.78)}
 .sx-hero .sx-amt .rv-dec{color:rgba(255,255,255,.7)}
@@ -37,7 +37,7 @@ html[dir="rtl"] .sx-hero .sx-amt{text-align:start}
 .sx-hero .sx-month{justify-content:flex-start;margin-top:10px}
 .sx-hero .sx-month span{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.86);-webkit-backdrop-filter:none;backdrop-filter:none}
 .sx-hero .sx-month b{color:#fff}
-.sx-hero .sx-month i{background:#7ED8F6}.sx-hero .sx-month i.i{background:#fff}
+.sx-hero .sx-month i{background:#38D4FF}.sx-hero .sx-month i.i{background:#fff}
 
 /* actions rapides : arrivent juste après la carte, en cascade courte */
 .sx-act{animation:moPop var(--mo-reveal) var(--mo-spring) backwards;animation-delay:calc(220ms + var(--i,0)*var(--mo-stagger))}

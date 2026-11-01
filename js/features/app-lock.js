@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   APP LOCK — Sanad Pay 12.9.0
+   APP LOCK — Barq 12.9.0
    Ouverture de l'application (démarrage à froid, rechargement, ou retour après plus de GRACE_MS) :
      - appareil compatible, Face ID déjà activé  -> confirmation Face ID (obligatoire), sans saisie du code ;
      - appareil compatible, Face ID pas encore activé -> code à 6 chiffres puis activation de Face ID (obligatoire) ;
@@ -14,14 +14,14 @@
 const AppLock = (() => {
   const GRACE_MS = 5000;
   const L = {
-    en:{ unlockTitle:'Enter your PIN', unlockSub:'Enter your 6-digit code to open Sanad Pay', createTitle:'Create your PIN', createSub:'Choose a 6-digit code. It is needed to confirm your transfers.', confirmTitle:'Confirm your PIN', confirmSub:'Enter the same code again', mismatch:'Codes do not match. Try again.', weak:'This code is too easy to guess. Choose another one.', logout:'Log out', error:'Something went wrong. Try again.', del:'Delete' },
-    fr:{ unlockTitle:'Entrez votre code', unlockSub:'Saisissez votre code à 6 chiffres pour ouvrir Sanad Pay', createTitle:'Créez votre code', createSub:'Choisissez un code à 6 chiffres. Il sert à confirmer vos transferts.', confirmTitle:'Confirmez votre code', confirmSub:'Saisissez de nouveau le même code', mismatch:'Les codes ne correspondent pas. Réessayez.', weak:'Ce code est trop facile à deviner. Choisissez-en un autre.', logout:'Se déconnecter', error:'Une erreur est survenue. Réessayez.', del:'Effacer' },
-    ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح سند باي', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
+    en:{ unlockTitle:'Enter your PIN', unlockSub:'Enter your 6-digit code to open Barq', createTitle:'Create your PIN', createSub:'Choose a 6-digit code. It is needed to confirm your transfers.', confirmTitle:'Confirm your PIN', confirmSub:'Enter the same code again', mismatch:'Codes do not match. Try again.', weak:'This code is too easy to guess. Choose another one.', logout:'Log out', error:'Something went wrong. Try again.', del:'Delete' },
+    fr:{ unlockTitle:'Entrez votre code', unlockSub:'Saisissez votre code à 6 chiffres pour ouvrir Barq', createTitle:'Créez votre code', createSub:'Choisissez un code à 6 chiffres. Il sert à confirmer vos transferts.', confirmTitle:'Confirmez votre code', confirmSub:'Saisissez de nouveau le même code', mismatch:'Les codes ne correspondent pas. Réessayez.', weak:'Ce code est trop facile à deviner. Choisissez-en un autre.', logout:'Se déconnecter', error:'Une erreur est survenue. Réessayez.', del:'Effacer' },
+    ar:{ unlockTitle:'أدخل رمز PIN', unlockSub:'أدخل رمزك المكوّن من 6 أرقام لفتح برق', createTitle:'أنشئ رمز PIN', createSub:'اختر رمزاً من 6 أرقام. يُستخدم لتأكيد تحويلاتك.', confirmTitle:'أكّد رمز PIN', confirmSub:'أدخل الرمز نفسه مرة أخرى', mismatch:'الرمزان غير متطابقين. حاول مرة أخرى.', weak:'هذا الرمز سهل التخمين. اختر رمزاً آخر.', logout:'تسجيل الخروج', error:'حدث خطأ. حاول مرة أخرى.', del:'حذف' }
   };
   const tx = (k) => (L[LANG] || L.en)[k] || L.en[k];
   let signedIn = false, pinKnown = false, hiddenAt = 0, ov = null, cover = null, keyHandler = null, faceBusy = false, held = 0, heldAt = 0, lastPin = null;
 
-  /* Sanad Pay 21.0.0 : les styles du verrouillage vivent dans css/s-screens.css (feuille unique) */
+  /* Barq 21.0.0 : les styles du verrouillage vivent dans css/s-screens.css (feuille unique) */
   function css(){ /* rien */ }
   function setInert(on){
     const r = document.getElementById('app'); if (!r) return;

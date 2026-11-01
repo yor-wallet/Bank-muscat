@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   PHONE ART → scènes de la présentation (Sanad Pay 21.2.0).
+   PHONE ART → scènes de la présentation (Barq 21.2.0).
    Cinq scènes originales, une par page, dans l'ordre : compte et tableau de bord · avantages déjà présents · transferts · cartes · sécurité.
    Règles : aucune valeur chiffrée, aucun montant, aucun délai, aucun nom de service qui n'existe pas ; les états montrés (en cours, confirmé, échoué,
    actif, gelé) sont ceux de l'application. Le logo est le fichier officiel, jamais redessiné. Pas de texte dans les dessins (la langue vient de la page).
@@ -9,10 +9,10 @@
    Profondeur : trois plans (fond, objet, reflet) décalés de quelques pixels, jamais d'effet 3D lourd.
    ============================================================ */
 const PhoneArt = (() => {
-  const LOGO = 'assets/brand/sanad-s-192.png';
+  const LOGO = 'assets/brand/barq-mark-192.png';
   /* 21.3.0 — style « interface de banque » : aplats, angles de 10 à 16, filets fins, aucun halo, aucun reflet, aucune bulle.
      Les noms de classes (.sc-*) sont conservés : ils pilotent seulement l'ENTRÉE des éléments (fondu + glissement), css/s-scenes.css. */
-  const NAVY = '#134F91', NAVY2 = '#0F3F77', LINE = '#D5E3F0', INK = '#C3D5E6', SOFT = '#EAF2FA', BLUE = '#2596DE';
+  const NAVY = '#1B44BB', NAVY2 = '#14308C', LINE = '#D9E3F4', INK = '#C3D5E6', SOFT = '#EAF2FA', BLUE = '#2F6BFF';
   const DEFS = '';
   const scene = (cls, inner) => '<svg class="ob-art sc ' + cls + '" viewBox="0 0 320 280" focusable="false" aria-hidden="true">' + inner + '</svg>';
   /* icônes sur grille 24 : tracé blanc ou bleu, bouts ronds */
@@ -32,7 +32,7 @@ const PhoneArt = (() => {
   const plate = (x, y, w, id, cls) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .22) + '"/></clipPath><g class="' + (cls || '') + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" rx="' + (w * .22) + '" fill="#fff"/><image href="' + LOGO + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + w + '" clip-path="url(#' + id + ')" preserveAspectRatio="xMidYMid slice"/></g>';
   const bar = (x, y, w, h, fill, cls) => '<rect class="' + (cls || '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + Math.min(4, h / 2) + '" fill="' + fill + '"/>';
   const box = (x, y, w, h, r, fill, stroke, cls) => '<rect class="' + (cls || '') + '" x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '" fill="' + fill + '"' + (stroke ? ' stroke="' + stroke + '" stroke-width="1.2"' : '') + '/>';
-  const ribbon = (id, x, y, w, h, r) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '"/></clipPath><g clip-path="url(#' + id + ')" opacity=".9"><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="16" stroke-linecap="round"/><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#7ED8F6" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/></g>';
+  const ribbon = (id, x, y, w, h, r) => '<clipPath id="' + id + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="' + r + '"/></clipPath><g clip-path="url(#' + id + ')" opacity=".9"><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="16" stroke-linecap="round"/><path d="M' + (x - 10) + ' ' + (y + h * .9) + 'C' + (x + w * .3) + ' ' + (y + h * .9) + ' ' + (x + w * .5) + ' ' + (y + h * .4) + ' ' + (x + w * .75) + ' ' + (y + h * .5) + 'S' + (x + w + 20) + ' ' + (y + h * .8) + ' ' + (x + w + 20) + ' ' + (y + h * .7) + '" fill="none" stroke="#38D4FF" stroke-opacity=".6" stroke-width="1.6" stroke-linecap="round"/></g>';
 
   const S = [
     /* 1 — compte et tableau de bord : carte de compte (sans chiffre), quatre actions, activité récente */
@@ -71,7 +71,7 @@ const PhoneArt = (() => {
 
     /* 4 — cartes : une carte virtuelle, une seconde derrière, états actif et gelé */
     () => scene('sc-card',
-      '<g class="sc-c2">' + box(64, 40, 200, 124, 16, '#2F6FB5', null) + '</g>' +
+      '<g class="sc-c2">' + box(64, 40, 200, 124, 16, '#3A66C8', null) + '</g>' +
       '<g class="sc-c1">' + box(48, 52, 216, 128, 16, NAVY, null) + ribbon('scr4', 48, 52, 216, 128, 16) +
         box(68, 80, 34, 26, 6, '#D9BE78') + '<path d="M68 93h34M85 80v26" stroke="#A98A3E" stroke-width="1.1"/>' +
         '<path d="M118 84a13 13 0 0 1 0 18M125 80a19 19 0 0 1 0 26" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2.2" stroke-linecap="round"/>' +

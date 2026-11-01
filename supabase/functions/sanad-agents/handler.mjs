@@ -1,4 +1,4 @@
-/** Sanad Pay — logique de la fonction Edge `sanad-agents`, sans dépendance à Deno ni à Supabase (tout est injecté : testable sous Node).
+/** Barq — logique de la fonction Edge `sanad-agents`, sans dépendance à Deno ni à Supabase (tout est injecté : testable sous Node).
  *
  *  mode "support" : un membre connecté pose une question ; réponse = TEXTE (urgence et données sensibles traitées sans appel IA).
  *  mode "review"  : administrateur actif ; les cinq rôles analysent des COMPTEURS agrégés lus côté serveur ; réponse = TEXTE à relire.

@@ -8,7 +8,7 @@ test('urgent matters are detected in French, English and Arabic', () => {
     assert.equal(detectUrgent(s), true, s);
 });
 test('ordinary questions are not treated as urgent', () => {
-  for (const s of ['how do I send money?', 'what is Sanad Pay?', 'comment envoyer de l’argent ?', 'où voir mon historique ?', 'كيف أحوّل؟', 'كيف أرى إيصالي؟', 'can I change the language?'])
+  for (const s of ['how do I send money?', 'what is Barq?', 'comment envoyer de l’argent ?', 'où voir mon historique ?', 'كيف أحوّل؟', 'كيف أرى إيصالي؟', 'can I change the language?'])
     assert.equal(detectUrgent(s), false, s);
 });
 test('sensitive data is caught, including Arabic-Indic digits and spoken PINs', () => {

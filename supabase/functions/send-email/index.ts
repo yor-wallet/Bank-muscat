@@ -4,11 +4,11 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 // 16.0.0 : marque Live X Digitale (noir & or). Les e-mails de transaction n'affichent AUCUN solde (ni avant, ni après).
 // UN SEUL e-mail « OK » par transfert (TX_SENDER) : l'ancien e-mail « le versement n'est pas encore effectué » n'est plus créé côté base.
 // 19.0.0 : e-mails de validation (identité vérifiée, paiement confirmé, retrait payé) : TOUJOURS entièrement en arabe.
-// 21.0.0 : rebranding Sanad Pay (bleu ciel), SP- au lieu de FP-. FROM_EMAIL inchangé (adresse vérifiée chez Brevo).
+// 21.0.0 : rebranding Barq (bleu ciel), SP- au lieu de FP-. FROM_EMAIL inchangé (adresse vérifiée chez Brevo).
 // 20.3.1 : rebranding Freindi Pay (émeraude), FP- au lieu de LXD-. FROM_EMAIL inchangé : c'est l'adresse vérifiée chez Brevo,
 // la changer casserait l'envoi tant qu'une nouvelle adresse n'est pas vérifiée côté Brevo.
 const FROM_EMAIL = "yordigitalefinance@gmail.com";   // adresse d'expédition vérifiée chez Brevo (inchangée)
-const FROM_NAME = "Sanad Pay";
+const FROM_NAME = "Barq";
 const REPLY_TO = FROM_EMAIL;
 const APP_URL = (Deno.env.get("APP_URL") || "https://freindi-pay.vercel.app").trim();
 const BREVO_KEY = Deno.env.get("BREVO_API_KEY") ?? "";
@@ -21,101 +21,101 @@ type Lang = "fr" | "en" | "ar";
 // deno-lint-ignore no-explicit-any
 type Row = Record<string, any>;
 
-// Palette de marque Sanad Pay (identique à l'application : css/s-tokens.css) ; les noms de constantes sont conservés
-const EMERALD = "#2596DE", EMERALD_DEEP = "#134F91", INK = "#102C4C";
+// Palette de marque Barq (identique à l'application : css/s-tokens.css) ; les noms de constantes sont conservés
+const EMERALD = "#2F6BFF", EMERALD_DEEP = "#1B44BB", INK = "#0B1B3A";
 
 const T: Record<Lang, Row> = {
   fr: {
     dir: "ltr", locale: "fr-FR",
-    welcomeSubject: "Bienvenue sur Sanad Pay",
-    welcomeSubjectReward: (a: string) => `Bienvenue sur Sanad Pay — ${a} offerts`,
-    welcomeTitle: (n: string) => `Bienvenue sur Sanad Pay, ${n} !`,
-    welcomeBody: "Votre compte est confirmé. Vous pouvez dès maintenant envoyer, recevoir et gérer votre argent en toute sécurité avec Sanad Pay.",
+    welcomeSubject: "Bienvenue sur Barq",
+    welcomeSubjectReward: (a: string) => `Bienvenue sur Barq — ${a} offerts`,
+    welcomeTitle: (n: string) => `Bienvenue sur Barq, ${n} !`,
+    welcomeBody: "Votre compte est confirmé. Vous pouvez dès maintenant envoyer, recevoir et gérer votre argent en toute sécurité avec Barq.",
     rewardLine: (a: string) => `Cadeau de bienvenue : ${a} ont été ajoutés à votre portefeuille.`,
-    open: "Ouvrir Sanad Pay",
+    open: "Ouvrir Barq",
     supportLine: "Besoin d'aide ? Écrivez-nous :",
-    company: "Sanad Pay — la finance digitale.",
+    company: "Barq — la finance digitale.",
     privacy: "Confidentialité", terms: "Conditions",
     sentSubject: (a: string) => `Transaction réussie : ${a}`,
     recvSubject: (a: string) => `Vous avez reçu ${a}`,
     sentTitle: "Votre transaction a réussi", recvTitle: "Vous avez reçu de l'argent",
-    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "Sanad Pay ID", phone: "Téléphone", service: "Service", country: "Pays",
+    f: { type: "Type", amount: "Montant", to: "Bénéficiaire", from: "Expéditeur", yor: "Barq ID", phone: "Téléphone", service: "Service", country: "Pays",
       address: "Adresse de destination", network: "Réseau", memo: "Mémo",
       rate: "Taux de change", dest: "Montant à recevoir", debited: "Montant débité", received: "Montant reçu",
       fee: "Frais", date: "Date", time: "Heure", ref: "Référence", status: "Statut", email: "E-mail", name: "Nom" },
     ok: "Réussie",
-    kinds: { FIAT_TRANSFER: "Transfert Sanad Pay ID", FIAT_EXTERNAL: "Transfert international", CRYPTO_TRANSFER: "Transfert crypto", ADMIN_DEPOSIT: "Dépôt", SIGNUP_BONUS: "Récompense de bienvenue",
+    kinds: { FIAT_TRANSFER: "Transfert Barq ID", FIAT_EXTERNAL: "Transfert international", CRYPTO_TRANSFER: "Transfert crypto", ADMIN_DEPOSIT: "Dépôt", SIGNUP_BONUS: "Récompense de bienvenue",
       CRYPTO_BUY: "Achat crypto", CRYPTO_SELL: "Vente crypto", CRYPTO_SWAP: "Échange crypto", CRYPTO_SEND: "Envoi crypto externe", CRYPTO_TO_BANK: "Crypto vers banque" },
     admin: { subject: (n: string) => `Nouveau membre : ${n}`, title: "Un nouveau membre vient de s'inscrire", intro: "Voici ses informations d'inscription." },
     sec: {
-      SEC_PASSWORD_CHANGED: ["Votre mot de passe a été modifié", "Le mot de passe de votre compte Sanad Pay vient d'être modifié."],
-      SEC_EMAIL_CHANGED: ["L'adresse e-mail de votre compte a changé", "L'adresse e-mail de votre compte Sanad Pay vient d'être modifiée"],
-      SEC_PIN_CHANGED: ["Votre code PIN a été modifié", "Le code PIN de votre compte Sanad Pay vient d'être modifié."],
-      SEC_NEW_DEVICE: ["Nouvelle connexion à votre compte", "Une connexion à votre compte Sanad Pay a été détectée depuis un nouvel appareil."],
+      SEC_PASSWORD_CHANGED: ["Votre mot de passe a été modifié", "Le mot de passe de votre compte Barq vient d'être modifié."],
+      SEC_EMAIL_CHANGED: ["L'adresse e-mail de votre compte a changé", "L'adresse e-mail de votre compte Barq vient d'être modifiée"],
+      SEC_PIN_CHANGED: ["Votre code PIN a été modifié", "Le code PIN de votre compte Barq vient d'être modifié."],
+      SEC_NEW_DEVICE: ["Nouvelle connexion à votre compte", "Une connexion à votre compte Barq a été détectée depuis un nouvel appareil."],
       warn: "Si ce n'est pas vous, contactez immédiatement notre support :",
     },
   },
   en: {
     dir: "ltr", locale: "en-GB",
-    welcomeSubject: "Welcome to Sanad Pay",
-    welcomeSubjectReward: (a: string) => `Welcome to Sanad Pay — ${a} on us`,
-    welcomeTitle: (n: string) => `Welcome to Sanad Pay, ${n}!`,
-    welcomeBody: "Your account is confirmed. You can now send, receive and manage your money securely with Sanad Pay.",
+    welcomeSubject: "Welcome to Barq",
+    welcomeSubjectReward: (a: string) => `Welcome to Barq — ${a} on us`,
+    welcomeTitle: (n: string) => `Welcome to Barq, ${n}!`,
+    welcomeBody: "Your account is confirmed. You can now send, receive and manage your money securely with Barq.",
     rewardLine: (a: string) => `Welcome gift: ${a} has been added to your wallet.`,
-    open: "Open Sanad Pay",
+    open: "Open Barq",
     supportLine: "Need help? Write to us:",
-    company: "Sanad Pay — digital finance.",
+    company: "Barq — digital finance.",
     privacy: "Privacy", terms: "Terms",
     sentSubject: (a: string) => `Transaction successful: ${a}`,
     recvSubject: (a: string) => `You received ${a}`,
     sentTitle: "Your transaction was successful", recvTitle: "You received money",
-    f: { type: "Type", amount: "Amount", to: "Recipient", from: "Sender", yor: "Sanad Pay ID", phone: "Phone", service: "Service", country: "Country",
+    f: { type: "Type", amount: "Amount", to: "Recipient", from: "Sender", yor: "Barq ID", phone: "Phone", service: "Service", country: "Country",
       address: "Destination address", network: "Network", memo: "Memo",
       rate: "Exchange rate", dest: "Amount to receive", debited: "Amount debited", received: "Amount received",
       fee: "Fees", date: "Date", time: "Time", ref: "Reference", status: "Status", email: "E-mail", name: "Name" },
     ok: "Successful",
-    kinds: { FIAT_TRANSFER: "Sanad Pay ID transfer", FIAT_EXTERNAL: "International transfer", CRYPTO_TRANSFER: "Crypto transfer", ADMIN_DEPOSIT: "Deposit", SIGNUP_BONUS: "Welcome reward",
+    kinds: { FIAT_TRANSFER: "Barq ID transfer", FIAT_EXTERNAL: "International transfer", CRYPTO_TRANSFER: "Crypto transfer", ADMIN_DEPOSIT: "Deposit", SIGNUP_BONUS: "Welcome reward",
       CRYPTO_BUY: "Crypto purchase", CRYPTO_SELL: "Crypto sale", CRYPTO_SWAP: "Crypto swap", CRYPTO_SEND: "External crypto send", CRYPTO_TO_BANK: "Crypto to bank" },
     admin: { subject: (n: string) => `New member: ${n}`, title: "A new member just signed up", intro: "Here are their sign-up details." },
     sec: {
-      SEC_PASSWORD_CHANGED: ["Your password was changed", "The password of your Sanad Pay account was just changed."],
-      SEC_EMAIL_CHANGED: ["Your account e-mail address changed", "The e-mail address of your Sanad Pay account was just changed"],
-      SEC_PIN_CHANGED: ["Your PIN was changed", "The PIN of your Sanad Pay account was just changed."],
-      SEC_NEW_DEVICE: ["New sign-in to your account", "A sign-in to your Sanad Pay account was detected from a new device."],
+      SEC_PASSWORD_CHANGED: ["Your password was changed", "The password of your Barq account was just changed."],
+      SEC_EMAIL_CHANGED: ["Your account e-mail address changed", "The e-mail address of your Barq account was just changed"],
+      SEC_PIN_CHANGED: ["Your PIN was changed", "The PIN of your Barq account was just changed."],
+      SEC_NEW_DEVICE: ["New sign-in to your account", "A sign-in to your Barq account was detected from a new device."],
       warn: "If this wasn't you, contact our support immediately:",
     },
   },
   ar: {
     dir: "rtl", locale: "ar-OM-u-nu-latn",
-    welcomeSubject: "مرحباً بك في سند باي",
-    welcomeSubjectReward: (a: string) => `مرحباً بك في سند باي — ${a} هدية منّا`,
-    welcomeTitle: (n: string) => `مرحباً بك في سند باي يا ${n}!`,
-    welcomeBody: "تم تأكيد حسابك. يمكنك الآن إرسال الأموال واستلامها وإدارتها بأمان مع سند باي.",
+    welcomeSubject: "مرحباً بك في برق",
+    welcomeSubjectReward: (a: string) => `مرحباً بك في برق — ${a} هدية منّا`,
+    welcomeTitle: (n: string) => `مرحباً بك في برق يا ${n}!`,
+    welcomeBody: "تم تأكيد حسابك. يمكنك الآن إرسال الأموال واستلامها وإدارتها بأمان مع برق.",
     rewardLine: (a: string) => `هدية الترحيب: تمت إضافة ${a} إلى محفظتك.`,
-    open: "فتح سند باي",
+    open: "فتح برق",
     supportLine: "هل تحتاج إلى مساعدة؟ راسلنا:",
-    company: "سند باي — التمويل الرقمي.",
+    company: "برق — التمويل الرقمي.",
     privacy: "الخصوصية", terms: "الشروط",
     sentSubject: (a: string) => `تمت العملية بنجاح: ${a}`,
     recvSubject: (a: string) => `لقد استلمت ${a}`,
     sentTitle: "تمت عمليتك بنجاح", recvTitle: "لقد استلمت أموالاً",
-    f: { type: "النوع", amount: "المبلغ", to: "المستفيد", from: "المرسل", yor: "Sanad Pay ID", phone: "الهاتف", service: "الخدمة", country: "الدولة",
+    f: { type: "النوع", amount: "المبلغ", to: "المستفيد", from: "المرسل", yor: "Barq ID", phone: "الهاتف", service: "الخدمة", country: "الدولة",
       address: "عنوان الوجهة", network: "الشبكة", memo: "المذكرة",
       rate: "سعر الصرف", dest: "المبلغ المستلم", debited: "المبلغ المخصوم", received: "المبلغ المستلم",
       fee: "الرسوم", date: "التاريخ", time: "الوقت", ref: "المرجع", status: "الحالة", email: "البريد الإلكتروني", name: "الاسم" },
     ok: "ناجحة",
-    kinds: { FIAT_TRANSFER: "تحويل عبر Sanad Pay ID", FIAT_EXTERNAL: "تحويل دولي", CRYPTO_TRANSFER: "تحويل عملات رقمية", ADMIN_DEPOSIT: "إيداع", SIGNUP_BONUS: "مكافأة الترحيب",
+    kinds: { FIAT_TRANSFER: "تحويل عبر Barq ID", FIAT_EXTERNAL: "تحويل دولي", CRYPTO_TRANSFER: "تحويل عملات رقمية", ADMIN_DEPOSIT: "إيداع", SIGNUP_BONUS: "مكافأة الترحيب",
       CRYPTO_BUY: "شراء عملات رقمية", CRYPTO_SELL: "بيع عملات رقمية", CRYPTO_SWAP: "مبادلة عملات رقمية", CRYPTO_SEND: "إرسال عملات رقمية خارجي", CRYPTO_TO_BANK: "من العملات الرقمية إلى البنك" },
     admin: { subject: (n: string) => `عضو جديد: ${n}`, title: "انضم عضو جديد للتو", intro: "هذه بيانات التسجيل الخاصة به." },
     sec: {
-      SEC_PASSWORD_CHANGED: ["تم تغيير كلمة المرور", "تم تغيير كلمة مرور حسابك في سند باي للتو."],
-      SEC_EMAIL_CHANGED: ["تم تغيير البريد الإلكتروني لحسابك", "تم تغيير البريد الإلكتروني لحسابك في سند باي للتو"],
-      SEC_PIN_CHANGED: ["تم تغيير رمز PIN", "تم تغيير رمز PIN لحسابك في سند باي للتو."],
-      SEC_NEW_DEVICE: ["تسجيل دخول جديد إلى حسابك", "تم رصد تسجيل دخول إلى حسابك في سند باي من جهاز جديد."],
+      SEC_PASSWORD_CHANGED: ["تم تغيير كلمة المرور", "تم تغيير كلمة مرور حسابك في برق للتو."],
+      SEC_EMAIL_CHANGED: ["تم تغيير البريد الإلكتروني لحسابك", "تم تغيير البريد الإلكتروني لحسابك في برق للتو"],
+      SEC_PIN_CHANGED: ["تم تغيير رمز PIN", "تم تغيير رمز PIN لحسابك في برق للتو."],
+      SEC_NEW_DEVICE: ["تسجيل دخول جديد إلى حسابك", "تم رصد تسجيل دخول إلى حسابك في برق من جهاز جديد."],
       warn: "إذا لم تكن أنت، تواصل مع الدعم فوراً:",
     },
     val: {
-      kycSubject: "تم التحقق من هويتك في سند باي", kycTitle: "تم قبول التحقق من الهوية",
+      kycSubject: "تم التحقق من هويتك في برق", kycTitle: "تم قبول التحقق من الهوية",
       kycBody: "راجع فريقنا وثائقك وصورتك الشخصية وتم قبولها. حسابك موثّق الآن ويمكنك طلب السحب والاشتراك في الخطط.",
       invSubject: (r: string) => `تم تأكيد دفعتك — ${r}`, invTitle: "تم استلام دفعتك وتأكيدها",
       invBody: "تحقق المسؤول فعلياً من وصول المبلغ إلى حسابنا، وأصبحت خطتك فعّالة.",
@@ -133,7 +133,7 @@ const NETWORK_NAMES: Record<string, string> = {
   bitcoin: "Bitcoin", ethereum: "Ethereum", bsc: "BNB Smart Chain", polygon: "Polygon", tron: "TRON", solana: "Solana", xrp: "XRP Ledger", litecoin: "Litecoin",
 };
 // La base garde YOR-XXXXXX et YOR-TX-… ; l'application affiche SP-… : les e-mails aussi (même convention que les SMS Infobip).
-const dispId = (v: unknown) => String(v ?? "").replace(/^YOR-/i, "SP-");
+const dispId = (v: unknown) => String(v ?? "").replace(/^YOR-/i, "BQ-");
 const esc = (s: unknown) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]!));
 const countryName = (iso: string, lang: Lang) => { try { return new Intl.DisplayNames([lang], { type: "region" }).of(iso) ?? iso; } catch { return iso; } };
 
@@ -177,7 +177,7 @@ function button(label: string): string {
 }
 
 function rewardBox(text: string): string {
-  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#EAF8FF;border:1px solid ${EMERALD};color:#102C4C;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
+  return `<div style="margin:0 0 18px;padding:14px 16px;border-radius:12px;background:#EAF1FF;border:1px solid ${EMERALD};color:#0B1B3A;font-size:15px;font-weight:700;line-height:1.5">${esc(text)}</div>`;
 }
 
 async function langOf(userId: string | null): Promise<Lang> {

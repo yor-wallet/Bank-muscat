@@ -1,5 +1,5 @@
 /* ============================================================
-   SANAD PAY — CHORÉGRAPHIE COMMUNE (21.2.0)
+   BARQ — CHORÉGRAPHIE COMMUNE (21.2.0)
    Dernière feuille : elle fixe le TEMPS de tout ce qui bouge. Les durées viennent de s-tokens.css (--mo-*) et ne servent qu'à l'œil :
    aucune n'allonge, ne retarde ni ne remplace une durée métier. Seuls transform et opacity s'animent (jamais width/height/top/left).
    Un seul élément important attire l'œil à la fois : la cascade s'arrête à 8 éléments, décalage de 40 ms.
@@ -95,8 +95,8 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 
 /* ---------- 10. navigation : l'indicateur rejoint l'onglet actif (position mesurée par V12.placeInd : juste en RTL, à toute largeur) ---------- */
 .nav-ind{display:block;position:absolute;left:0;top:6px;height:56px;border-radius:20px;pointer-events:none;opacity:0;z-index:0;
-  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(126,216,246,.3));box-shadow:0 0 0 1px rgba(255,255,255,.75) inset,0 10px 20px -12px rgba(37,150,222,.75)}
-:root[data-theme="dark"] .nav-ind{background:linear-gradient(180deg,rgba(126,216,246,.22),rgba(37,150,222,.2));box-shadow:0 0 0 1px rgba(126,216,246,.28) inset,0 10px 20px -12px rgba(0,0,0,.6)}
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(56,212,255,.3));box-shadow:0 0 0 1px rgba(255,255,255,.75) inset,0 10px 20px -12px rgba(47,107,255,.75)}
+:root[data-theme="dark"] .nav-ind{background:linear-gradient(180deg,rgba(56,212,255,.22),rgba(47,107,255,.2));box-shadow:0 0 0 1px rgba(56,212,255,.28) inset,0 10px 20px -12px rgba(0,0,0,.6)}
 .nav-ind.ready{transition:transform var(--mo-tab) var(--mo-out),width var(--mo-tab) var(--mo-out),opacity var(--mo-release) var(--mo-ease)}
 .sx-tab{z-index:1}
 .sx-tab[aria-current="page"] .nav-ic svg{transition-duration:var(--mo-tab)}
@@ -120,7 +120,7 @@ html[data-fx="lite"] .mo-tilt{transform:none!important}
 @keyframes scanMove{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
 @keyframes dsRise{from{opacity:0;transform:translate3d(0,8px,0)}to{opacity:1;transform:none}}
 @keyframes pxRise{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
-@keyframes pxBump{0%,100%{box-shadow:var(--px-sh-card,none)}35%{box-shadow:var(--px-sh-card,none),0 0 0 4px rgba(126,216,246,.45)}}
+@keyframes pxBump{0%,100%{box-shadow:var(--px-sh-card,none)}35%{box-shadow:var(--px-sh-card,none),0 0 0 4px rgba(56,212,255,.45)}}
 @keyframes obRise{from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:none}}
 @keyframes v13Grow{from{transform:scaleX(0)}to{transform:none}}
 @keyframes v13Spin{to{transform:rotate(360deg)}}
@@ -147,13 +147,13 @@ html[data-mo-row] .screen.active{transform-origin:var(--mo-px,50%) var(--mo-py,5
 @media (prefers-reduced-motion:reduce){#history-list.mo-refilter *,html[data-mo-row] .screen.active{animation:none!important}}
 
 /* ---------- 15. notifications dans l'application : identité Sanad, arrivée courte, fermeture inverse (les déclencheurs restent ceux du code) ---------- */
-.notif-logo{display:inline-block;border-radius:30%;vertical-align:-3px;margin-inline-end:6px;box-shadow:0 1px 3px rgba(16,44,76,.3)}
-.notif-ios{background:var(--glass-bg-2);border:1px solid var(--glass-bd);box-shadow:0 20px 44px -22px rgba(19,79,145,.65),0 2px 0 rgba(255,255,255,.7) inset;animation:notifIn var(--mo-panel) var(--mo-out) both}
+.notif-logo{display:inline-block;border-radius:30%;vertical-align:-3px;margin-inline-end:6px;box-shadow:0 1px 3px rgba(11,27,58,.3)}
+.notif-ios{background:var(--glass-bg-2);border:1px solid var(--glass-bd);box-shadow:0 20px 44px -22px rgba(27,68,187,.65),0 2px 0 rgba(255,255,255,.7) inset;animation:notifIn var(--mo-panel) var(--mo-out) both}
 .notif-ios.dismiss{animation:notifOut var(--mo-panel-out) var(--mo-in) both}
 .notif-ios:active{transform:scale(.985);transition:transform var(--mo-press) var(--mo-ease)}
 .notif-ios-icon{border-radius:12px;background:var(--accent-soft);color:var(--accent)}
 .notif-ios-app{text-transform:none;letter-spacing:.02em;font-size:calc(11.5px*var(--ui));font-weight:700;color:var(--text-2);display:inline-flex;align-items:center}
-.notif-call{animation:callIn var(--mo-panel) var(--mo-out) both;box-shadow:0 26px 50px -24px rgba(19,79,145,.75),0 1px 0 rgba(255,255,255,.22) inset}
+.notif-call{animation:callIn var(--mo-panel) var(--mo-out) both;box-shadow:0 26px 50px -24px rgba(27,68,187,.75),0 1px 0 rgba(255,255,255,.22) inset}
 .notif-call-app{text-transform:none;letter-spacing:.02em;display:inline-flex;align-items:center}
 @media (prefers-reduced-motion:reduce){.notif-ios,.notif-call,.notif-ios.dismiss{animation:none!important}}
 .notif-call,.notif-call-title,.notif-call-msg,.notif-call-app,.notif-call-time{color:#fff}

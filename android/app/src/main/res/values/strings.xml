@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Sanad Pay</string>
-    <string name="title_activity_main">Sanad Pay</string>
-    <string name="package_name">com.sanadpay.app</string>
-    <string name="custom_url_scheme">com.sanadpay.app</string>
+    <string name="app_name">Barq</string>
+    <string name="title_activity_main">Barq</string>
+    <string name="package_name">com.barq.app</string>
+    <string name="custom_url_scheme">com.barq.app</string>
 </resources>

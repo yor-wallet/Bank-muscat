@@ -1,4 +1,4 @@
-/* Sanad Pay — build de production (15.1.0).  `npm run build`  →  dist/
+/* Barq — build de production (15.1.0).  `npm run build`  →  dist/
    Ne change aucune logique : mêmes fichiers, même ordre d'exécution, mais
    - CSS : les 16 feuilles regroupées dans l'ordre d'origine et minifiées (1 requête au lieu de 16)
    - JS  : les ~50 scripts regroupés dans l'ordre d'origine et minifiés (3 requêtes au lieu de ~50 ; yor-chain.js, fichier généré

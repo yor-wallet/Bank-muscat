@@ -42,7 +42,7 @@ for (const f of Object.keys(base.i18nKeys || {})) {
   say(lost.length === 0, `supabase : aucun fichier retiré (migrations ${bm.size} → ${nm.size}, fonctions ${bf.size} → ${nf.size})${lost.length ? ' → ' + lost.join(',') : ''}`); }
 for (const k of ['config']) {
   /* seul le numéro de version de l'application change (20.3.0 → 21.0.0) */
-  const strip = o => JSON.stringify(o || {}).replace(/version:\s*'\d+\.\d+\.\d+'/g, "version:'*'");
+  const strip = o => JSON.stringify(o || {}).replace(/version:\s*'\d+\.\d+\.\d+'/g, "version:'*'").replace(/name:\s*'(Freindi Pay|Barq|Barq)'/g, "name:'*'").replace(/"name":"(Freindi Pay|Barq|Barq)"/g, '"name":"*"');
   const same = strip(base[k]) === strip(now[k]);
   say(same, `${k} identique${same ? '' : ' (différences : ' + JSON.stringify(now[k]).slice(0, 200) + ')'}`);
 }

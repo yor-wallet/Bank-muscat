@@ -42,7 +42,7 @@ Object.assign(TR.fr, { 'hist.q':'Nom, numéro, référence ou montant', 'hist.pe
 Object.assign(TR.ar, { 'hist.q':'الاسم أو الرقم أو المرجع أو المبلغ', 'hist.period':'الفترة', 'hist.dir':'الاتجاه', 'hist.p.all':'كل التواريخ', 'hist.p.today':'اليوم', 'hist.p.7d':'7 أيام', 'hist.p.30d':'30 يوماً', 'hist.p.month':'هذا الشهر', 'hist.d.all':'الوارد والصادر', 'hist.d.in':'المستلمة', 'hist.d.out':'المرسلة' });
 function renderHistory(){
   const chip = (f, key, on) => '<button class="chip" data-filter="' + f + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + t(key) + '</button>';
-  /* Sanad Pay 21.0.0 — grand titre, recherche collée, contrôle segmenté (statuts), puis UNE rangée de pastilles (période, sens). Mêmes data-filter / data-hp / data-hd / #hist-q. */
+  /* Barq 21.0.0 — grand titre, recherche collée, contrôle segmenté (statuts), puis UNE rangée de pastilles (période, sens). Mêmes data-filter / data-hp / data-hd / #hist-q. */
   return '<div class="screen-body sx-hist">' +
       '<h1 class="sx-title">' + t('nav.history') + '</h1>' +
       '<div class="sx-search"><span class="sx-search-ic" aria-hidden="true">' + icon('search', 20) + '</span><input id="hist-q" type="search" enterkeyhint="search" autocomplete="off" spellcheck="false" placeholder="' + escapeHtml(t('hist.q')) + '" aria-label="' + escapeHtml(t('hist.q')) + '"></div>' +

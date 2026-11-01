@@ -34,7 +34,7 @@ function txRow(tx, mask){
 }
 /* ============================================================
    12.12.0 — SEND MONEY: one screen asks for ONE thing, the recipient's mobile number.
-   The country, the service and the Sanad Pay ID steps are gone: the app sends to Omani mobile numbers.
+   The country, the service and the Barq ID steps are gone: the app sends to Omani mobile numbers.
    How Oman does it (Central Bank of Oman, mobile-number payments): the sender types the recipient's mobile number, the app shows who the
    number belongs to when it knows, then the amount in rials with three decimals (baisa), then a confirmation protected by the personal code.
    Numbers: +968 then 8 digits; mobile numbers start with 7 or 9. The id "country-select" is kept for links, shortcuts and the dock.
@@ -96,7 +96,7 @@ function tfTopbar(title){
   return '<div class="topbar"><button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip" style="display:inline-flex">' + icon('back', 20) + '</span></button><span class="topbar-title">' + escapeHtml(title) + '</span><span style="width:calc(44px*var(--ui))"></span></div>';
 }
 function progressSteps(current){
-  /* Sanad Pay 21.0.0 — « fil d'horizon » : trois segments qui se remplissent, libellé de l'étape en dessous */
+  /* Barq 21.0.0 — « fil d'horizon » : trois segments qui se remplissent, libellé de l'étape en dessous */
   const labels = [ {id:'NUMBER',key:'sp.step_number'}, {id:'AMOUNT',key:'transfer.step_amount'}, {id:'CONFIRMATION',key:'transfer.step_review'} ];
   const curIdx = labels.findIndex(l => l.id === current);
   return '<div class="sx-thread" role="list">' + labels.map((l, i) => '<span class="sx-seg-bar ' + (i < curIdx ? 'done' : i === curIdx ? 'current' : '') + '" role="listitem"' + (i === curIdx ? ' aria-current="step"' : '') + ' aria-label="' + escapeHtml(t(l.key)) + '"><i></i></span>').join('') + '</div>' +

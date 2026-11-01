@@ -1,5 +1,5 @@
 /* ============================================================
-   SANAD PAY — SCÈNES DE PRÉSENTATION (21.2.0) · cinq illustrations, une page chacune
+   BARQ — SCÈNES DE PRÉSENTATION (21.2.0) · cinq illustrations, une page chacune
    Mouvement déclenché par .ob-slide.on ; un seul mouvement continu par scène ; état final = état normal (lisible sans animation).
    Seuls transform et opacity s'animent (plus stroke-dashoffset pour le flux, élément SVG minuscule).
    ============================================================ */

@@ -18,13 +18,13 @@
 const FaceId = (() => {
   const KEY = 'friendly_faceid_v1';
   const L = {
-    en: { verifyTitle:'Confirm with {N}', verifySub:'Look at your phone to confirm it is you.', unlock:'Unlock Sanad Pay', login:'Confirm your sign-in', transfer:'Confirm this transfer', generic:'Confirm to continue',
+    en: { verifyTitle:'Confirm with {N}', verifySub:'Look at your phone to confirm it is you.', unlock:'Unlock Barq', login:'Confirm your sign-in', transfer:'Confirm this transfer', generic:'Confirm to continue',
       enrollTitle:'Turn on {N}', enrollSub:'{N} is required to sign in and to confirm transfers on this device.', go:'Use {N}', retry:'Try again', cancel:'Cancel', logout:'Log out',
       recover:'{N} not working? Use your PIN', skip:'Continue with PIN only', errCancelled:'{N} was cancelled.', errInvalid:'{N} could not be verified. Try again.', errGeneric:'{N} is not available right now. Try again.', ok:'Confirmed', generic_n:'Biometrics' },
-    fr: { verifyTitle:'Confirmez avec {N}', verifySub:'Regardez votre téléphone pour confirmer que c\'est bien vous.', unlock:'Déverrouiller Sanad Pay', login:'Confirmez votre connexion', transfer:'Confirmez ce transfert', generic:'Confirmez pour continuer',
+    fr: { verifyTitle:'Confirmez avec {N}', verifySub:'Regardez votre téléphone pour confirmer que c\'est bien vous.', unlock:'Déverrouiller Barq', login:'Confirmez votre connexion', transfer:'Confirmez ce transfert', generic:'Confirmez pour continuer',
       enrollTitle:'Activez {N}', enrollSub:'{N} est obligatoire pour vous connecter et confirmer les transferts sur cet appareil.', go:'Utiliser {N}', retry:'Réessayer', cancel:'Annuler', logout:'Se déconnecter',
       recover:'{N} ne marche pas ? Utilisez votre code', skip:'Continuer avec le code seulement', errCancelled:'{N} a été annulé.', errInvalid:'{N} n\'a pas pu être vérifié. Réessayez.', errGeneric:'{N} n\'est pas disponible pour le moment. Réessayez.', ok:'Confirmé', generic_n:'Biométrie' },
-    ar: { verifyTitle:'أكّد باستخدام {N}', verifySub:'انظر إلى هاتفك لتأكيد أنك أنت.', unlock:'فتح سند باي', login:'أكّد تسجيل دخولك', transfer:'أكّد هذا التحويل', generic:'أكّد للمتابعة',
+    ar: { verifyTitle:'أكّد باستخدام {N}', verifySub:'انظر إلى هاتفك لتأكيد أنك أنت.', unlock:'فتح برق', login:'أكّد تسجيل دخولك', transfer:'أكّد هذا التحويل', generic:'أكّد للمتابعة',
       enrollTitle:'فعّل {N}', enrollSub:'{N} مطلوب لتسجيل الدخول وتأكيد التحويلات على هذا الجهاز.', go:'استخدم {N}', retry:'أعد المحاولة', cancel:'إلغاء', logout:'تسجيل الخروج',
       recover:'{N} لا يعمل؟ استخدم رمزك', skip:'المتابعة بالرمز فقط', errCancelled:'تم إلغاء {N}.', errInvalid:'تعذّر التحقق عبر {N}. حاول مجدداً.', errGeneric:'{N} غير متاح الآن. حاول مجدداً.', ok:'تم التأكيد', generic_n:'البصمة' }
   };
@@ -64,11 +64,11 @@ const FaceId = (() => {
   /* --- création de la clé (une fois par appareil et par compte) --- */
   async function enroll(){
     const u = await uid(); if (!u) return { ok: false, reason: 'error' };
-    let label = u, display = 'Sanad Pay';
+    let label = u, display = 'Barq';
     try { const c = UserContext.get(); if (c && c.email) label = c.email; const p = Runtime.profile || {}; display = ((p.firstName || '') + ' ' + (p.lastName || '')).trim() || display; } catch (e) {}
     try {
       const cred = await navigator.credentials.create({ publicKey: {
-        challenge: rand(32), rp: { name: 'Sanad Pay', id: location.hostname },
+        challenge: rand(32), rp: { name: 'Barq', id: location.hostname },
         user: { id: new TextEncoder().encode(String(u)).slice(0, 64), name: label, displayName: display },
         pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
         authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'discouraged', requireResidentKey: false },
@@ -143,7 +143,7 @@ const FaceId = (() => {
     '<g class="fc"><path d="M10 22v-6a6 6 0 0 1 6-6h6"/><path d="M42 10h6a6 6 0 0 1 6 6v6"/><path d="M54 42v6a6 6 0 0 1-6 6h-6"/><path d="M22 54h-6a6 6 0 0 1-6-6v-6"/></g>' +
     '<g class="ff"><path d="M23 25v4"/><path d="M41 25v4"/><path d="M32 25v9a2 2 0 0 1-2 2h-1"/><path d="M23 42c2.5 3 5.5 4.5 9 4.5s6.5-1.5 9-4.5"/></g>' +
     '<path class="fk" d="M19 33.5l9.5 9.5L46 22"/></svg>';
-  /* Sanad Pay 21.0.0 : les styles de la feuille Face ID vivent dans css/s-screens.css */
+  /* Barq 21.0.0 : les styles de la feuille Face ID vivent dans css/s-screens.css */
   function css(){ /* rien */ }
   function close(){ if (el){ try { el.remove(); } catch (e) {} el = null; } }
 
@@ -167,7 +167,7 @@ const FaceId = (() => {
       document.body.appendChild(root);
       const $ = (id) => root.querySelector('#' + id);
       let busy = false, done = false, fails = 0;
-      /* Sanad Pay 21.0.0 — comme dans les autres applications : quand la confirmation vient d'un toucher (envoi d'un transfert), l'invite Face ID du système
+      /* Barq 21.0.0 — comme dans les autres applications : quand la confirmation vient d'un toucher (envoi d'un transfert), l'invite Face ID du système
          s'ouvre directement ; la feuille reste invisible tant que tout va bien, et ne se montre que s'il faut réessayer */
       let quiet = false; try { quiet = mode === 'verify' && !!(navigator.userActivation && navigator.userActivation.isActive); } catch (e) {}
       if (quiet) root.classList.add('fid-quiet');

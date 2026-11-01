@@ -1,4 +1,4 @@
-/* Mesure de FLUIDITÉ des animations Sanad Pay (Chromium, serveur et données simulés, écritures refusées).
+/* Mesure de FLUIDITÉ des animations Barq (Chromium, serveur et données simulés, écritures refusées).
    Usage : node tests/perf/motion.mjs <dossier-site> <sortie.json> [passes=3]
    Méthode : un échantillonneur requestAnimationFrame enregistre l'intervalle entre images pendant chaque scénario ;
    on rapporte le nombre d'images, la médiane, le 95e centile, la pire image et la part d'images > 20 ms / > 34 ms.

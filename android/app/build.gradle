@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace = "com.sanadpay.app"
+    namespace = "com.barq.app"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.sanadpay.app"
+        applicationId "com.barq.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 21030
+        versionCode 210300
         versionName "21.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

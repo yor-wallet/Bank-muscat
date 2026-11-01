@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SANAD PAY 21.0.0 — S1 · JETONS, POLICES, BASE
+   BARQ 21.0.0 — S1 · JETONS, POLICES, BASE
    Première feuille du nouveau système (remplace base.css, freindi.css, sanad.css et les couches v12 → v19 de Freindi Pay).
    Valeurs de marque : pack SANAD_PAY_BRAND_PACK (brand/design-tokens.css, palette.json). Grille 4/8 px.
    Les anciens noms de variables (--bg, --accent, --text-2, --glass-1…) sont conservés comme ALIAS : les modules secondaires (chat, crédit,
@@ -15,10 +15,10 @@
 
 :root{
   /* — marque (pack) — */
-  --sx-primary:#2596DE;--sx-sky:#7ED8F6;--sx-ice:#EAF8FF;--sx-white:#FFFFFF;--sx-deep:#134F91;--sx-ink:#102C4C;--sx-aqua:#38B9BE;
+  --sx-primary:#2F6BFF;--sx-sky:#38D4FF;--sx-ice:#EAF1FF;--sx-white:#FFFFFF;--sx-deep:#1B44BB;--sx-ink:#0B1B3A;--sx-aqua:#22C3E6;
   --sx-ok:#14A879;--sx-warn:#F4A43B;--sx-bad:#E84D65;
-  --sx-grad-mark:linear-gradient(135deg,#79DEFF 0%,#238CDF 100%);
-  --sx-grad-sky:linear-gradient(180deg,#DFF3FF 0%,#EAF8FF 46%,#F7FCFF 100%);
+  --sx-grad-mark:linear-gradient(135deg,#5B8CFF 0%,#2F6BFF 100%);
+  --sx-grad-sky:linear-gradient(180deg,#E3ECFF 0%,#EAF1FF 46%,#F7FCFF 100%);
   /* — formes : un seul contenant, le carré arrondi du logo — */
   --sx-r-tile:28%;--sx-r-card:24px;--sx-r-sheet:28px;--sx-r-btn:16px;--sx-r-field:14px;--sx-r-pill:999px;
   /* — mouvement « Horizon » — */
@@ -49,20 +49,20 @@
   color-scheme:light;
   --bg:#EDF8FF;--bg-1:#FFFFFF;--bg-2:#F3FAFF;--bg-3:#E1F1FC;
   --sheet:#FFFFFF;--sheet-2:#F5FAFE;--fill:#EFF7FD;--fill-2:#E3F1FB;
-  --line:rgba(16,44,76,.08);--line-2:rgba(16,44,76,.14);
-  --border:rgba(16,44,76,.08);--border-2:rgba(16,44,76,.14);
-  --text:#102C4C;--text-2:#4F6682;--text-3:#8197AF;
-  --accent:#2596DE;--accent-600:#1E7FC4;--accent-soft:rgba(37,150,222,.1);--accent-subtle:rgba(37,150,222,.06);--accent-glow:rgba(37,150,222,.22);--on-accent:#fff;
+  --line:rgba(11,27,58,.08);--line-2:rgba(11,27,58,.14);
+  --border:rgba(11,27,58,.08);--border-2:rgba(11,27,58,.14);
+  --text:#0B1B3A;--text-2:#4F6682;--text-3:#8197AF;
+  --accent:#2F6BFF;--accent-600:#2559E0;--accent-soft:rgba(47,107,255,.1);--accent-subtle:rgba(47,107,255,.06);--accent-glow:rgba(47,107,255,.22);--on-accent:#fff;
   --success:#14A879;--success-bg:rgba(20,168,121,.12);--danger:#E84D65;--danger-bg:rgba(232,77,101,.1);
-  --warning:#E08A12;--warning-bg:rgba(244,164,59,.16);--info:#2596DE;--info-bg:rgba(37,150,222,.1);
+  --warning:#E08A12;--warning-bg:rgba(244,164,59,.16);--info:#2F6BFF;--info-bg:rgba(47,107,255,.1);
   --st-ok:#0E8F66;--st-ok-bg:rgba(20,168,121,.12);--st-wait:#B26A0B;--st-wait-bg:rgba(244,164,59,.16);--st-bad:#D43A54;--st-bad-bg:rgba(232,77,101,.1);
   --glass-1:rgba(255,255,255,.7);--glass-2:rgba(255,255,255,.86);--glass-3:#fff;--glass-hl:rgba(255,255,255,.9);
   --surf:#fff;--surf-2:#F5FAFE;--surf-3:#EAF4FB;
-  --btn-grad:var(--sx-primary);--btn-glow:rgba(37,150,222,.3);--brand-grad:var(--sx-grad-mark);
-  --el-1:0 1px 2px rgba(19,79,145,.06);--el-2:0 10px 28px -14px rgba(19,79,145,.26);--el-3:0 24px 56px -26px rgba(19,79,145,.34);
-  --shadow-sheet:0 -12px 40px -24px rgba(19,79,145,.28);
-  --ch-1:#2596DE;--ch-2:#134F91;--ch-3:#8197AF;--ch-4:#7ED8F6;--ch-5:#CFE6F5;
-  --yor-violet:#2596DE;--yor-deep:#134F91;--yor-glow:#7ED8F6;--yor-mist:#EAF8FF;--ink:#102C4C;--gold:#134F91;--gold-2:#134F91;--champagne:#7ED8F6;--champagne-soft:rgba(126,216,246,.28);--v17-edge:rgba(16,44,76,.1);
+  --btn-grad:var(--sx-primary);--btn-glow:rgba(47,107,255,.3);--brand-grad:var(--sx-grad-mark);
+  --el-1:0 1px 2px rgba(27,68,187,.06);--el-2:0 10px 28px -14px rgba(27,68,187,.26);--el-3:0 24px 56px -26px rgba(27,68,187,.34);
+  --shadow-sheet:0 -12px 40px -24px rgba(27,68,187,.28);
+  --ch-1:#2F6BFF;--ch-2:#1B44BB;--ch-3:#8197AF;--ch-4:#38D4FF;--ch-5:#D3DEF3;
+  --yor-violet:#2F6BFF;--yor-deep:#1B44BB;--yor-glow:#38D4FF;--yor-mist:#EAF1FF;--ink:#0B1B3A;--gold:#1B44BB;--gold-2:#1B44BB;--champagne:#38D4FF;--champagne-soft:rgba(56,212,255,.28);--v17-edge:rgba(11,27,58,.1);
   --hero-from:#DDF2FF;--hero-to:#EDF8FF;
 }
 /* ---------- thème sombre : bleu nuit, jamais noir ---------- */
@@ -70,20 +70,20 @@
   color-scheme:dark;
   --bg:#0A1B30;--bg-1:#0F2542;--bg-2:#132D50;--bg-3:#183A66;
   --sheet:#0F2542;--sheet-2:#132D50;--fill:#16335A;--fill-2:#1B3D6B;
-  --line:rgba(126,216,246,.12);--line-2:rgba(126,216,246,.22);
-  --border:rgba(126,216,246,.12);--border-2:rgba(126,216,246,.22);
+  --line:rgba(56,212,255,.12);--line-2:rgba(56,212,255,.22);
+  --border:rgba(56,212,255,.12);--border-2:rgba(56,212,255,.22);
   --text:#EAF6FF;--text-2:rgba(234,246,255,.72);--text-3:rgba(234,246,255,.46);
-  --accent:#7ED8F6;--accent-600:#2596DE;--accent-soft:rgba(126,216,246,.15);--accent-subtle:rgba(126,216,246,.08);--accent-glow:rgba(37,150,222,.4);--on-accent:#06223F;
+  --accent:#38D4FF;--accent-600:#2F6BFF;--accent-soft:rgba(56,212,255,.15);--accent-subtle:rgba(56,212,255,.08);--accent-glow:rgba(47,107,255,.4);--on-accent:#06223F;
   --success:#2FD3A0;--success-bg:rgba(47,211,160,.14);--danger:#FF7A90;--danger-bg:rgba(255,122,144,.14);
-  --warning:#F9BE6B;--warning-bg:rgba(249,190,107,.15);--info:#7ED8F6;--info-bg:rgba(126,216,246,.14);
+  --warning:#F9BE6B;--warning-bg:rgba(249,190,107,.15);--info:#38D4FF;--info-bg:rgba(56,212,255,.14);
   --st-ok:#2FD3A0;--st-ok-bg:rgba(47,211,160,.15);--st-wait:#F9BE6B;--st-wait-bg:rgba(249,190,107,.15);--st-bad:#FF7A90;--st-bad-bg:rgba(255,122,144,.15);
-  --glass-1:rgba(16,44,76,.6);--glass-2:rgba(16,44,76,.8);--glass-3:rgba(11,33,64,.94);--glass-hl:rgba(126,216,246,.1);
+  --glass-1:rgba(11,27,58,.6);--glass-2:rgba(11,27,58,.8);--glass-3:rgba(11,33,64,.94);--glass-hl:rgba(56,212,255,.1);
   --surf:rgba(19,45,80,.8);--surf-2:rgba(24,58,102,.7);--surf-3:rgba(30,70,120,.6);
-  --btn-grad:#2596DE;--btn-glow:rgba(37,150,222,.45);--brand-grad:linear-gradient(135deg,#0F2542,#134F91 60%,#2596DE);
-  --el-1:inset 0 1px 0 rgba(126,216,246,.07);--el-2:0 14px 34px -16px rgba(0,0,0,.6);--el-3:0 30px 64px -24px rgba(0,0,0,.7);
+  --btn-grad:#2F6BFF;--btn-glow:rgba(47,107,255,.45);--brand-grad:linear-gradient(135deg,#0F2542,#1B44BB 60%,#2F6BFF);
+  --el-1:inset 0 1px 0 rgba(56,212,255,.07);--el-2:0 14px 34px -16px rgba(0,0,0,.6);--el-3:0 30px 64px -24px rgba(0,0,0,.7);
   --shadow-sheet:0 -12px 40px -24px rgba(0,0,0,.6);
-  --ch-1:#7ED8F6;--ch-2:#2596DE;--ch-3:rgba(234,246,255,.46);--ch-4:#38B9BE;--ch-5:rgba(126,216,246,.2);
-  --ink:#EAF6FF;--gold:#7ED8F6;--gold-2:#7ED8F6;--v17-edge:rgba(126,216,246,.18);
+  --ch-1:#38D4FF;--ch-2:#2F6BFF;--ch-3:rgba(234,246,255,.46);--ch-4:#22C3E6;--ch-5:rgba(56,212,255,.2);
+  --ink:#EAF6FF;--gold:#38D4FF;--gold-2:#38D4FF;--v17-edge:rgba(56,212,255,.18);
   --hero-from:#0F2A4A;--hero-to:#0A1B30;
 }
 

@@ -1,6 +1,6 @@
 'use strict';
 
-/* ===== SANAD PAY 12.11.0 — robustesse =====
+/* ===== BARQ 12.11.0 — robustesse =====
    - un écran dont l'affichage échoue montre un message clair (réessayer / accueil) au lieu de rester muet ;
    - les erreurs JavaScript et les promesses rejetées sont journalisées ; l'utilisateur voit au plus une petite notification
      toutes les 10 s, jamais le détail technique ;

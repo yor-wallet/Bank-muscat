@@ -72,16 +72,16 @@ const Cinema = (() => {
   function artBoost(){
     const bars = [0.30, 0.46, 0.40, 0.66, 0.9].map((h, i) => '<rect class="cin-bar" style="--i:' + i + '" x="' + (34 + i * 38) + '" y="' + (150 - h * 110) + '" width="24" height="' + (h * 110) + '" rx="7" fill="url(#cbg)"/>').join('');
     const coins = [0, 1, 2].map(i => '<g class="cin-coin" style="--i:' + i + ';--tx:' + (60 + i * 62) + 'px"><circle r="15" cy="20" fill="url(#ccg)"/><circle r="9.5" cy="20" fill="none" stroke="#1771b2" stroke-opacity=".5" stroke-width="2"/></g>').join('');
-    return '<svg class="cin-svg" viewBox="0 0 260 200" aria-hidden="true"><defs><linearGradient id="cbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C7E3FF"/><stop offset="1" stop-color="#aadcf0"/></linearGradient><radialGradient id="ccg" cx=".35" cy=".3"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".6" stop-color="#aadcf0"/><stop offset="1" stop-color="#73c3e2"/></radialGradient></defs>' +
-      '<ellipse cx="130" cy="168" rx="104" ry="12" fill="#aadcf0" opacity=".16"/>' + bars + coins +
+    return '<svg class="cin-svg" viewBox="0 0 260 200" aria-hidden="true"><defs><linearGradient id="cbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C7E3FF"/><stop offset="1" stop-color="#9EE6FF"/></linearGradient><radialGradient id="ccg" cx=".35" cy=".3"><stop offset="0" stop-color="#EAF5FF"/><stop offset=".6" stop-color="#9EE6FF"/><stop offset="1" stop-color="#4FC3FF"/></radialGradient></defs>' +
+      '<ellipse cx="130" cy="168" rx="104" ry="12" fill="#9EE6FF" opacity=".16"/>' + bars + coins +
       '<path class="cin-line" d="M30 128 L72 112 L112 120 L152 84 L196 66 L232 34" fill="none" stroke="#EAF5FF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>' +
       '<circle class="cin-dot" cx="232" cy="34" r="7" fill="#EAF5FF"/></svg>';
   }
   function artCredit(){
     const c = Cfg.get();
     return '<div class="cin-cardwrap" aria-hidden="true"><div class="cin-card3d"><i class="cin-card-sheen"></i>' +
-      '<svg class="cin-chip" viewBox="0 0 40 30"><rect x="1" y="1" width="38" height="28" rx="6" fill="#CFE7FF" stroke="#2081c7" stroke-width="1.5"/><path d="M1 10h38M1 20h38M14 1v28M26 1v28" stroke="#2081c7" stroke-width="1" fill="none" opacity=".7"/></svg>' +
-      '<b class="cin-card-brand">SANAD PAY</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
+      '<svg class="cin-chip" viewBox="0 0 40 30"><rect x="1" y="1" width="38" height="28" rx="6" fill="#CFE7FF" stroke="#2F6BFF" stroke-width="1.5"/><path d="M1 10h38M1 20h38M14 1v28M26 1v28" stroke="#2F6BFF" stroke-width="1" fill="none" opacity=".7"/></svg>' +
+      '<b class="cin-card-brand">BARQ</b><span class="cin-card-line"></span><span class="cin-card-line s"></span></div>' +
       '<span class="cin-tag a">' + esc(Money.int(c.credit_min)) + '</span><span class="cin-tag b">' + esc(Money.int(c.credit_max)) + '</span></div>';
   }
   function artChat(){
@@ -92,21 +92,21 @@ const Cinema = (() => {
       '<div class="cin-bub me ok" style="--d:3.8s">' + esc(t('cin.chat.b3')) + tick + '</div></div>';
   }
   function artYaser(){
-    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="104" r="76" fill="#7ED8F6" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="76" fill="none" stroke="#7ED8F6" stroke-width="2"/>' +
-      '<circle class="cin-orbit" cx="100" cy="104" r="92" fill="none" stroke="#7ED8F6" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
-      '<clipPath id="cin-amal"><circle cx="100" cy="104" r="66"/></clipPath><circle cx="100" cy="104" r="66" fill="#EAF8FF"/><image href="assets/sanad/amal-240.png" x="34" y="32" width="132" height="158" clip-path="url(#cin-amal)" preserveAspectRatio="xMidYMin slice"/></svg>' +
+    return '<div class="cin-yas" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="104" r="76" fill="#38D4FF" opacity=".22"/><circle class="cin-halo h2" cx="100" cy="104" r="76" fill="none" stroke="#38D4FF" stroke-width="2"/>' +
+      '<circle class="cin-orbit" cx="100" cy="104" r="92" fill="none" stroke="#38D4FF" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>' +
+      '<clipPath id="cin-amal"><circle cx="100" cy="104" r="66"/></clipPath><circle cx="100" cy="104" r="66" fill="#EAF1FF"/><image href="assets/sanad/amal-240.png" x="34" y="32" width="132" height="158" clip-path="url(#cin-amal)" preserveAspectRatio="xMidYMin slice"/></svg>' +
       '<div class="cin-say"><span>' + esc(t('cin.yaser.hi')) + '</span></div></div>';
   }
   function artGlobe(){
     const mer = [0, 1, 2].map(i => '<ellipse class="cin-mer" style="--i:' + i + '" cx="100" cy="100" rx="78" ry="78" fill="none" stroke="#bfe3ff" stroke-opacity=".5" stroke-width="1.4"/>').join('');
-    const mot = rm() ? '' : '<circle r="5" fill="#fff"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 120 Q100 10 168 70"/></circle><circle r="4" fill="#73c3e2"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" path="M62 150 Q130 60 176 126"/></circle>';
+    const mot = rm() ? '' : '<circle r="5" fill="#fff"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 120 Q100 10 168 70"/></circle><circle r="4" fill="#4FC3FF"><animateMotion dur="4.2s" begin="1s" repeatCount="indefinite" path="M62 150 Q130 60 176 126"/></circle>';
     return '<svg class="cin-svg" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="glg" cx=".35" cy=".3"><stop offset="0" stop-color="#2b92dc"/><stop offset=".6" stop-color="#0b5990"/><stop offset="1" stop-color="#0b1d46"/></radialGradient></defs>' +
       '<circle cx="100" cy="100" r="82" fill="url(#glg)"/>' + mer + '<ellipse cx="100" cy="100" rx="78" ry="26" fill="none" stroke="#bfe3ff" stroke-opacity=".35"/><line x1="22" y1="100" x2="178" y2="100" stroke="#bfe3ff" stroke-opacity=".35"/>' +
-      '<path class="cin-arc" d="M40 120 Q100 10 168 70" fill="none" stroke="#73c3e2" stroke-width="3" stroke-linecap="round"/><path class="cin-arc a2" d="M62 150 Q130 60 176 126" fill="none" stroke="#EAF5FF" stroke-width="2.5" stroke-linecap="round"/>' +
-      '<circle class="cin-pin" cx="40" cy="120" r="5" fill="#73c3e2"/><circle class="cin-pin p2" cx="168" cy="70" r="5" fill="#73c3e2"/><circle class="cin-pin p3" cx="176" cy="126" r="4" fill="#EAF5FF"/>' + mot + '</svg>';
+      '<path class="cin-arc" d="M40 120 Q100 10 168 70" fill="none" stroke="#4FC3FF" stroke-width="3" stroke-linecap="round"/><path class="cin-arc a2" d="M62 150 Q130 60 176 126" fill="none" stroke="#EAF5FF" stroke-width="2.5" stroke-linecap="round"/>' +
+      '<circle class="cin-pin" cx="40" cy="120" r="5" fill="#4FC3FF"/><circle class="cin-pin p2" cx="168" cy="70" r="5" fill="#4FC3FF"/><circle class="cin-pin p3" cx="176" cy="126" r="4" fill="#EAF5FF"/>' + mot + '</svg>';
   }
   function artFace(){
-    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7ED8F6"/><stop offset="1" stop-color="#2596DE"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
+    return '<svg class="cin-svg" viewBox="0 0 200 220" aria-hidden="true"><defs><linearGradient id="fsg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38D4FF"/><stop offset="1" stop-color="#2F6BFF"/></linearGradient><clipPath id="fcl"><path d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z"/></clipPath></defs>' +
       '<path class="cin-shield" d="M100 14 L176 42 V110 C176 156 142 192 100 206 C58 192 24 156 24 110 V42 Z" fill="rgba(26,105,162,.14)" stroke="url(#fsg)" stroke-width="5" stroke-linejoin="round"/>' +
       '<g class="cin-face" fill="none" stroke="#eaf8fe" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M62 78V66a4 4 0 0 1 4-4h12M138 78V66a4 4 0 0 0-4-4h-12M62 128v12a4 4 0 0 0 4 4h12M138 128v12a4 4 0 0 1-4 4h-12"/><path d="M84 92v8M116 92v8M100 96v14h-5M86 122q14 10 28 0"/></g>' +
       '<g clip-path="url(#fcl)"><rect class="cin-scan" x="20" y="40" width="160" height="14" fill="url(#fsg)" opacity=".55"/></g>' +
@@ -148,7 +148,7 @@ const Cinema = (() => {
   function sceneHtml(sc, o){
     o = o || {};
     const c = copy(sc), th = THEMES[sc.type || sc.id] || 't-gold';
-    const art = sc.art ? sc.art() : '<div class="cin-annart" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="100" r="64" fill="#aadcf0" opacity=".18"/><g transform="translate(-14 0)"><path d="M60 96v28h18l34 20V76L78 96z" fill="#73c3e2"/><path class="cin-wave" d="M128 84q14 16 0 32M142 72q24 28 0 56" fill="none" stroke="#EAF5FF" stroke-width="5" stroke-linecap="round"/></g></svg></div>';
+    const art = sc.art ? sc.art() : '<div class="cin-annart" aria-hidden="true"><svg class="cin-svg" viewBox="0 0 200 200"><circle class="cin-halo" cx="100" cy="100" r="64" fill="#9EE6FF" opacity=".18"/><g transform="translate(-14 0)"><path d="M60 96v28h18l34 20V76L78 96z" fill="#4FC3FF"/><path class="cin-wave" d="M128 84q14 16 0 32M142 72q24 28 0 56" fill="none" stroke="#EAF5FF" stroke-width="5" stroke-linecap="round"/></g></svg></div>';
     const secondary = (sc.id === 'send' && typeof LiveX !== 'undefined' && LiveX.caps && LiveX.caps.intl) ? '<button type="button" class="cin-cta2" data-cin-go="intl">' + esc(t('cin.intl')) + '</button>' : '';
     return '<div class="cin-scene ' + th + ' sc-' + esc(sc.type || sc.id) + '" data-id="' + esc(sc.id) + '">' +
       '<div class="cin-bg"><i class="cin-glow g1"></i><i class="cin-glow g2"></i><i class="cin-rings"></i><i class="cin-beams"></i>' + particles() + '</div>' +

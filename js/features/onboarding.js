@@ -13,19 +13,19 @@ const Onboarding = (() => {
   const S = {
     en:{ skip:'Skip', next:'Next', create:'Create my account', have:'I already have an account', lang:'Language', page:(a, b) => 'Page ' + a + ' of ' + b, slides:[
       { l1:'Your account,', l2:'at a glance', k:'Your balance, your recent activity and your quick actions, together on one screen.' },
-      { l1:'Instant between', l2:'Sanad Pay accounts', k:'When the number belongs to a Sanad Pay account, the money arrives at once and the person is notified.', k2:'In progress, confirmed or failed: nothing is shown as done before the server confirms it.' },
+      { l1:'Instant between', l2:'Barq accounts', k:'When the number belongs to a Barq account, the money arrives at once and the person is notified.', k2:'In progress, confirmed or failed: nothing is shown as done before the server confirms it.' },
       { l1:'Send money to', l2:'a mobile number', k:'Type a number in Oman, check the name, confirm. That is all.' },
       { l1:'Your cards,', l2:'in one place', k:'Create a virtual card, choose its look and see its state.' },
       { l1:'Protected by', l2:'Face ID and your code', k:'Your phone confirms it is you. Your money stays yours.' } ] },
     fr:{ skip:'Passer', next:'Suivant', create:'Créer mon compte', have:'J\'ai déjà un compte', lang:'Langue', page:(a, b) => 'Page ' + a + ' sur ' + b, slides:[
       { l1:'Votre compte,', l2:'d’un coup d’œil', k:'Votre solde, votre activité récente et vos actions rapides, réunis sur un seul écran.' },
-      { l1:'Instantané entre', l2:'comptes Sanad Pay', k:'Quand le numéro est celui d’un compte Sanad Pay, l’argent arrive aussitôt et la personne est prévenue.', k2:'En cours, confirmé ou échoué : rien n’est affiché comme terminé avant la confirmation du serveur.' },
+      { l1:'Instantané entre', l2:'comptes Barq', k:'Quand le numéro est celui d’un compte Barq, l’argent arrive aussitôt et la personne est prévenue.', k2:'En cours, confirmé ou échoué : rien n’est affiché comme terminé avant la confirmation du serveur.' },
       { l1:'Envoyez de l’argent', l2:'à un numéro mobile', k:'Saisissez un numéro d’Oman, vérifiez le nom, confirmez. C’est tout.' },
       { l1:'Vos cartes,', l2:'au même endroit', k:'Créez une carte virtuelle, choisissez son apparence et voyez son état.' },
       { l1:'Protégé par', l2:'Face ID et votre code', k:'Votre téléphone confirme que c’est vous. Votre argent reste le vôtre.' } ] },
     ar:{ skip:'تخطّي', next:'التالي', create:'إنشاء حسابي', have:'لدي حساب بالفعل', lang:'اللغة', page:(a, b) => 'الصفحة ' + a + ' من ' + b, slides:[
       { l1:'حسابك', l2:'في لمحة', k:'رصيدك ونشاطك الأخير وإجراءاتك السريعة معاً في شاشة واحدة.' },
-      { l1:'فوري بين', l2:'حسابات سند باي', k:'عندما يكون الرقم لحساب في سند باي يصل المبلغ فوراً ويُشعَر صاحبه.', k2:'قيد التنفيذ أو مؤكد أو فاشل: لا يظهر شيء كمكتمل قبل تأكيد الخادم.' },
+      { l1:'فوري بين', l2:'حسابات برق', k:'عندما يكون الرقم لحساب في برق يصل المبلغ فوراً ويُشعَر صاحبه.', k2:'قيد التنفيذ أو مؤكد أو فاشل: لا يظهر شيء كمكتمل قبل تأكيد الخادم.' },
       { l1:'أرسل الأموال إلى', l2:'رقم هاتف', k:'اكتب رقماً في عُمان وتحقق من الاسم ثم أكّد. هذا كل شيء.' },
       { l1:'بطاقاتك', l2:'في مكان واحد', k:'أنشئ بطاقة افتراضية، اختر مظهرها وتابع حالتها.' },
       { l1:'محمي بواسطة', l2:'Face ID ورمزك', k:'هاتفك يؤكد أنك أنت. وأموالك تبقى ملكك.' } ] }
@@ -51,7 +51,7 @@ const Onboarding = (() => {
     function build(){
       const T = S[lang], rtl = lang === 'ar';
       el.setAttribute('dir', rtl ? 'rtl' : 'ltr'); el.setAttribute('lang', lang);
-      el.setAttribute('aria-label', rtl ? 'سند باي' : 'Sanad Pay');
+      el.setAttribute('aria-label', rtl ? 'برق' : 'Barq');
       el.innerHTML =
         '<div class="ob-top">' +
           '<div class="ob-lang" role="group" aria-label="' + escapeHtml(T.lang) + '">' +

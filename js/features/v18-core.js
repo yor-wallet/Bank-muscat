@@ -28,7 +28,7 @@ const Money = {
 
 const Fx = (() => {
   const reduced = () => { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){ return false; } };
-  const COLORS = ['#73c3e2', '#aadcf0', '#EAF5FF', '#aadcf0', '#ffffff', '#73c3e2'];
+  const COLORS = ['#4FC3FF', '#9EE6FF', '#EAF5FF', '#9EE6FF', '#ffffff', '#4FC3FF'];
   let cv = null, cx = null, parts = [], raf = 0;
   function ensure(){
     if (cv) return;

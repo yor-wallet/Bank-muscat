@@ -1,5 +1,5 @@
 "use strict";
-/* Sanad Pay 21.0.0 — profondeur : l'interface réagit à l'inclinaison de l'appareil (si déjà autorisée) ou au pointeur.
+/* Barq 21.0.0 — profondeur : l'interface réagit à l'inclinaison de l'appareil (si déjà autorisée) ou au pointeur.
    Fournit --dx / --dy (-1..1) sur <html> ; le CSS ne déplace que transform. Aucun effet si l'utilisateur réduit les animations,
    si l'onglet est masqué ou si l'appareil est en économie d'énergie. N'ouvre jamais de demande d'autorisation. */
 const Depth = (() => {

@@ -8,7 +8,7 @@
    ============================================================ */
 Object.assign(TR.en, {
   'chain.tile':'YOR-USDT (experimental)','chain.group':'Blockchain (experimental network)','chain.title':'YOR-USDT',
-  'chain.notice.t':'Experimental network','chain.notice.p':'YOR Experimental USDT is an EXPERIMENTAL token on the Nile experimental network. It has no monetary value and is not Tether (USDT). You sign every transfer in your own TronLink wallet — Sanad Pay never sees your private key.',
+  'chain.notice.t':'Experimental network','chain.notice.p':'YOR Experimental USDT is an EXPERIMENTAL token on the Nile experimental network. It has no monetary value and is not Tether (USDT). You sign every transfer in your own TronLink wallet — Barq never sees your private key.',
   'chain.expBalance':'EXPERIMENTAL BALANCE','chain.wallet':'Wallet','chain.connect.btn':'Connect TronLink','chain.connect.ready':'Connect your TronLink wallet to see your balance and send YOR-USDT.',
   'chain.connect.none':'TronLink was not detected in this browser.','chain.connect.help':'On your phone: open the TronLink app, go to its DApp browser and open this page there. On a computer: install the TronLink extension. Then tap Connect.',
   'chain.connect.copyLink':'Copy page link','chain.connect.connecting':'Connecting…','chain.connect.retry':'Check again','chain.disconnect':'Disconnect',
@@ -39,7 +39,7 @@ Object.assign(TR.en, {
 });
 Object.assign(TR.fr, {
   'chain.tile':'YOR-USDT (experimental)','chain.group':'Blockchain (réseau expérimental)','chain.title':'YOR-USDT',
-  'chain.notice.t':'Réseau expérimental','chain.notice.p':'YOR Experimental USDT est un jeton EXPÉRIMENTAL sur le réseau expérimental Nile. Il n\'a aucune valeur monétaire et n\'est pas du Tether (USDT). Vous signez chaque transfert dans votre propre portefeuille TronLink : Sanad Pay ne voit jamais votre clé privée.',
+  'chain.notice.t':'Réseau expérimental','chain.notice.p':'YOR Experimental USDT est un jeton EXPÉRIMENTAL sur le réseau expérimental Nile. Il n\'a aucune valeur monétaire et n\'est pas du Tether (USDT). Vous signez chaque transfert dans votre propre portefeuille TronLink : Barq ne voit jamais votre clé privée.',
   'chain.expBalance':'SOLDE EXPÉRIMENTAL','chain.wallet':'Portefeuille','chain.connect.btn':'Connecter TronLink','chain.connect.ready':'Connectez votre portefeuille TronLink pour voir votre solde et envoyer des YOR-USDT.',
   'chain.connect.none':'TronLink n\'a pas été détecté dans ce navigateur.','chain.connect.help':'Sur téléphone : ouvrez l\'application TronLink, allez dans son navigateur DApp et ouvrez cette page. Sur ordinateur : installez l\'extension TronLink. Puis touchez Connecter.',
   'chain.connect.copyLink':'Copier le lien de la page','chain.connect.connecting':'Connexion…','chain.connect.retry':'Vérifier à nouveau','chain.disconnect':'Déconnecter',
@@ -70,7 +70,7 @@ Object.assign(TR.fr, {
 });
 Object.assign(TR.ar, {
   'chain.tile':'YOR-USDT (تجريبي)','chain.group':'البلوكشين (شبكة تجريبية)','chain.title':'YOR-USDT',
-  'chain.notice.t':'شبكة تجريبية','chain.notice.p':'YOR Experimental USDT عملة اختبار على شبكة Nile التجريبية. لا قيمة مالية لها وليست Tether (USDT). توقّع كل تحويل داخل محفظتك TronLink الخاصة بك، ولا يرى Sanad Pay مفتاحك الخاص أبداً.',
+  'chain.notice.t':'شبكة تجريبية','chain.notice.p':'YOR Experimental USDT عملة اختبار على شبكة Nile التجريبية. لا قيمة مالية لها وليست Tether (USDT). توقّع كل تحويل داخل محفظتك TronLink الخاصة بك، ولا يرى Barq مفتاحك الخاص أبداً.',
   'chain.expBalance':'رصيد تجريبي','chain.wallet':'المحفظة','chain.connect.btn':'ربط TronLink','chain.connect.ready':'اربط محفظة TronLink لعرض رصيدك وإرسال YOR-USDT.',
   'chain.connect.none':'لم يتم اكتشاف TronLink في هذا المتصفح.','chain.connect.help':'على الهاتف: افتح تطبيق TronLink ثم متصفح DApp فيه وافتح هذه الصفحة. على الحاسوب: ثبّت إضافة TronLink. ثم اضغط ربط.',
   'chain.connect.copyLink':'نسخ رابط الصفحة','chain.connect.connecting':'جارٍ الاتصال…','chain.connect.retry':'إعادة الفحص','chain.disconnect':'قطع الاتصال',
