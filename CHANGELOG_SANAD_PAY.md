@@ -1,4 +1,9 @@
-# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.3.0
+# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.3.0 → Barq 22.0.0
+
+## 22.0.0 — Barq
+Nouveau nom (**Barq / برق**), nouveau logo (éclair), palette bleu électrique, préfixe d'identifiant affiché `BQ-`, ouverture qui trace le contour de l'éclair, textes ludiques retirés (« Génial ! », « Vous avez gagné »). Couche « banque » de la 21.3.0 conservée. **Aucune règle métier modifiée** (`compare.mjs` : 0 échec). iPhone : PWA durcie (champs 16 px, zones sûres, écrans de lancement unis, icône pleine) + projet Xcode préparé (`ios/`, non compilé : pas de Mac) ; Android renommé (`com.barq.app`). Détail : `docs/BARQ.md`, `docs/IOS.md`, `docs/ANDROID.md`.
+
+---
 
 ## 21.3.0 — « une banque, pas un jeu » : sobriété, recomposition, Android
 Demande du propriétaire : l'application doit se voir comme une banque ; plus rien de « jeu d'enfants » (sons, effets) ; tout autour du logo ; des animations familières. **Présentation uniquement : aucune règle métier, aucun calcul, aucun frais, aucune route modifiés** (`node tests/characterization/compare.mjs` : 0 échec).
