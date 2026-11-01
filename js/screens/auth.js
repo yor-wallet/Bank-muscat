@@ -7,19 +7,19 @@ function mainAccount(){
   return (Runtime.accounts || []).find(a => a.type === 'MAIN') || { balance:0, availableBalance:0, currency:'OMR', name:'Main OMR', id:null };
 }
 
-/* Sanad Pay 21.0.0 — connexion / inscription / réinitialisation : demi-écran de ciel (marque + titre) et feuille de formulaire qui remonte.
+/* Barq 21.0.0 — connexion / inscription / réinitialisation : demi-écran de ciel (marque + titre) et feuille de formulaire qui remonte.
    Mêmes id, mêmes champs, mêmes data-* qu'avant (wireLogin / wireSignup / wireReset). */
 function authSky(titleKey, subKey, back){
-  const name = (typeof LANG !== 'undefined' && LANG === 'ar') ? 'سند باي' : 'Sanad Pay';
+  const name = (typeof LANG !== 'undefined' && LANG === 'ar') ? 'برق' : 'Barq';
   const langs = '<div class="sx-lang" role="group" aria-label="' + escapeHtml(V12.vt('language')) + '">' + ['en', 'fr', 'ar'].map(l => '<button type="button" data-v12-lang="' + l + '" aria-pressed="' + (LANG === l) + '">' + (l === 'fr' ? 'FR' : l === 'en' ? 'EN' : 'عربي') + '</button>').join('') + '</div>';
   return '<header class="sx-auth-sky">' +
     '<div class="sx-auth-bar">' + (back ? '<button class="topbar-back" data-action="back" aria-label="' + t('ui.back') + '"><span class="dir-flip">' + icon('back', 20) + '</span></button>' : '<span></span>') + langs + '</div>' +
-    '<img class="sx-auth-mark" src="assets/brand/sanad-s-192.png" alt="' + name + '" width="72" height="72">' +
+    '<img class="sx-auth-mark" src="assets/brand/barq-mark-192.png" alt="' + name + '" width="72" height="72">' +
     '<h1>' + escapeHtml(titleKey) + '</h1><p>' + escapeHtml(subKey) + '</p>' +
     '<div class="sx-auth-line" aria-hidden="true"><i></i></div></header>';
 }
 function renderLogin(){
-  return '<div class="sx-auth">' + authSky(LANG === 'ar' ? 'سند باي' : 'Sanad Pay', V12.vt('tagline')) +
+  return '<div class="sx-auth">' + authSky(LANG === 'ar' ? 'برق' : 'Barq', V12.vt('tagline')) +
     '<div class="sx-auth-sheet">' +
       '<div class="field"><label class="field-label" for="au-email">' + t('auth.username') + '</label><div class="field-box"><input type="email" id="au-email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" class="ltr"></div></div>' +
       '<div class="field"><label class="field-label" for="au-pass">' + t('auth.code') + '</label><div class="field-box"><input type="password" id="au-pass" autocomplete="current-password" class="ltr"><button type="button" class="field-icon" data-auth-toggle="au-pass" aria-label="' + t('auth.show') + '">' + icon('eye', 22) + '</button></div></div>' +

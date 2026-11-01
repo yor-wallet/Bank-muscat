@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   SANAD PAY (16.0.0) — liaison des nouveautés : capacités serveur, téléphone obligatoire, console admin, transfert international.
+   BARQ (16.0.0) — liaison des nouveautés : capacités serveur, téléphone obligatoire, console admin, transfert international.
    - caps.intl : le service « Transfert international » n'apparaît que si le serveur a sa table de pays (intl_countries) ; tant que la migration
      n'est pas en place, l'application fonctionne exactement comme avant.
    - PhoneGate : un compte ne peut pas être utilisé sans numéro de téléphone. Les comptes créés avant l'obligation (sans numéro) le saisissent UNE fois

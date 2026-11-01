@@ -1,4 +1,9 @@
-# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.3.0
+# CHANGELOG — Freindi Pay 20.3.0 → Sanad Pay 21.3.0 → Barq 22.0.0
+
+## 22.0.0 — Barq
+Nouveau nom (**Barq / برق**), nouveau logo (éclair), palette bleu électrique, préfixe d'identifiant affiché `BQ-`, ouverture qui trace le contour de l'éclair, textes ludiques retirés (« Génial ! », « Vous avez gagné »). Couche « banque » de la 21.3.0 conservée. **Aucune règle métier modifiée** (`compare.mjs` : 0 échec). iPhone : PWA durcie (champs 16 px, zones sûres, écrans de lancement unis, icône pleine) + projet Xcode préparé (`ios/`, non compilé : pas de Mac) ; Android renommé (`com.barq.app`). Détail : `docs/BARQ.md`, `docs/IOS.md`, `docs/ANDROID.md`.
+
+---
 
 ## 21.3.0 — « une banque, pas un jeu » : sobriété, recomposition, Android
 Demande du propriétaire : l'application doit se voir comme une banque ; plus rien de « jeu d'enfants » (sons, effets) ; tout autour du logo ; des animations familières. **Présentation uniquement : aucune règle métier, aucun calcul, aucun frais, aucune route modifiés** (`node tests/characterization/compare.mjs` : 0 échec).
@@ -6,7 +11,7 @@ Demande du propriétaire : l'application doit se voir comme une banque ; plus ri
 - **Nouvelle couche `css/s-meta.css`** : surfaces pleines, angles de 10–16 px, bleu d'action unique, barre de navigation à cinq entrées égales (ligne d'horizon du logo), boutons rectangulaires.
 - **Accueil** recomposé (en-tête, carte de compte, 4 actions dont « Ajouter des fonds », portefeuille, activité) ; **réglages** par catégories toutes visibles (compte et identité, sécurité, cartes et paiements, notifications, application, assistance) ; **services** avec recherche et **section « Transferts internationaux » dédiée** (Orange Money, Wave… lus dans le catalogue existant, visible seulement si le serveur annonce le service) ; **notifications** filtrées par catégorie ; **présentation** en aplats ; **reçu** sobre ; **cartes** aplat marine.
 - **Écran de progression du transfert** : anneau par étapes réelles, textes bancaires (EN/FR/AR), aucun terme technique (« serveur » retiré des libellés).
-- **Services** : le groupe « Crypto » n'est plus affiché quand la section crypto est désactivée (ses lignes menaient à l'accueil). Le groupe « Croissance » (Boost, vérification d'identité, retrait, crédit, chat, Amal, cinéma) reste masqué comme avant — **décalage d'index du code d'origine, décision du propriétaire en attente** (voir `STATUT_SANAD_PAY.md`).
+- **Services** : le groupe « Crypto » n'est plus affiché quand la section crypto est désactivée (ses lignes menaient à l'accueil). Le groupe « Croissance » (Boost, vérification d'identité, retrait, crédit, chat, Amal, cinéma) reste masqué comme avant — **décalage d'index du code d'origine, décision du propriétaire en attente** (voir `STATUT_BARQ.md`).
 - **Android** (Capacitor 8) : projet `android/`, manifeste (sauvegarde système désactivée), icônes adaptatives, écran de lancement, bouton Retour, barre d'état ; voir `docs/ANDROID.md`.
 - Banc : `tests/ui/all-screens.mjs` (capture de chaque écran enregistré), motion mis à jour (28/28), le banc répond « service international disponible » (60 lignes fictives) pour pouvoir le montrer.
 - Version **21.3.0** (`package.json`, `package-lock.json`, `CONFIG.APP.version`, `sw.js`).
@@ -16,7 +21,7 @@ Demande du propriétaire : l'application doit se voir comme une banque ; plus ri
 ## 21.2.0 (voir ci-dessous)
 
 ## 21.2.0 — logo officiel, mouvement centralisé, assistance Amal, cinq rôles d'agents
-Reprise à partir de l'archive `sanad-pay-version-travail` et de la mission « transformation visuelle et animations complètes ». **Aucune fonction métier retirée** (`node tests/characterization/compare.mjs`, exceptions documentées en tête du fichier). Détail des animations : `SANAD_ANIMATIONS.md` ; état programmé / testé / connecté / déployé : `STATUT_SANAD_PAY.md`.
+Reprise à partir de l'archive `sanad-pay-version-travail` et de la mission « transformation visuelle et animations complètes ». **Aucune fonction métier retirée** (`node tests/characterization/compare.mjs`, exceptions documentées en tête du fichier). Détail des animations : `SANAD_ANIMATIONS.md` ; état programmé / testé / connecté / déployé : `STATUT_BARQ.md`.
 - **Logo officiel** (ruban en S) partout : application, ouverture, icônes, favicons, manifeste, images de partage, reçus exportés, notifications, pages hors ligne / 404 / installation, `site.html` (nouveau).
 - **Système de mouvement** : jetons `--mo-*` (`css/s-tokens.css`), `css/s-motion.css` (couche finale), `js/ui/motion.js` (niveau `full`/`lite`, pause hors écran, origine des panneaux, inclinaison avec nettoyage). 20 `@keyframes` perdus depuis 21.0.0 restaurés ; contrôle statique ajouté.
 - **Ouverture** autour du vrai logo (lumière sur les courbes, 3 variantes), **présentation en 5 scènes**, tableau de bord sans compteur depuis 0, indicateur de navigation glissant (LTR + RTL), panneaux depuis leur origine, scène de traitement « courbe » indéterminée, cartes (inclinaison, états), historique / reçus (états vide, erreur ; coche seulement pour un succès réel ; **la pastille « Confirmé et approuvé » n'apparaît plus sur un reçu en attente**), notifications, publicités / cinéma aux couleurs de marque.

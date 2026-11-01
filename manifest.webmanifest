@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "Sanad Pay",
-  "short_name": "Sanad Pay",
-  "description": "Sanad Pay — send money, manage your accounts and cards. Simple and secure.",
+  "name": "Barq",
+  "short_name": "Barq",
+  "description": "Barq — send money, manage your accounts and cards. Simple and secure.",
   "lang": "en",
   "dir": "auto",
   "start_url": "./",
@@ -10,8 +10,8 @@
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "any",
-  "background_color": "#EAF8FF",
-  "theme_color": "#2596DE",
+  "background_color": "#F3F6FA",
+  "theme_color": "#F3F6FA",
   "categories": ["finance", "business"],
   "icons": [
     { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },

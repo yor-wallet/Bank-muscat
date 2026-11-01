@@ -58,7 +58,7 @@ const IC = {
   session:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>'
 };
 /* ============================================================
-   Sanad Pay 21.0.0 — jeu d'icônes « Horizon » : trait uniforme sur grille 48 (pack de marque : icons/svg, trait 2,6 -> 3,6 pour la lisibilité à 20-24 px),
+   Barq 21.0.0 — jeu d'icônes « Horizon » : trait uniforme sur grille 48 (pack de marque : icons/svg, trait 2,6 -> 3,6 pour la lisibilité à 20-24 px),
    bouts ronds, AUCUNE ombre décalée (l'ancien jeu duotone .d2 de Freindi Pay n'est plus dessiné). Les icônes absentes du pack sont redessinées sur la même
    grille ; les anciens tracés 24 px encore utilisés par des modules secondaires sont redimensionnés (x2) au même trait, sans leur ombre.
    ============================================================ */
@@ -157,26 +157,26 @@ function flag(iso){ return FLAGS[iso] || FLAGS.US; }
 const isArabicUi = () => typeof LANG === 'string' && LANG === 'ar';
 function logoMark(size){
   size = size || 48;
-  return '<img class="logo-mark" src="assets/brand/sanad-s-192.png" alt="' + (isArabicUi() ? 'سند باي' : 'Sanad Pay') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
+  return '<img class="logo-mark" src="assets/brand/barq-mark-192.png" alt="' + (isArabicUi() ? 'برق' : 'Barq') + '" width="' + size + '" height="' + size + '" style="width:calc(' + size + 'px*var(--ui));height:calc(' + size + 'px*var(--ui));border-radius:22%" decoding="async">';
 }
 function logoLockup(size){
   size = size || 48;
-  /* arabe : mot-symbole « سند باي » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
+  /* arabe : mot-symbole « برق » (jamais de lettres espacées : elles casseraient les liaisons de l'écriture arabe) */
   const word = isArabicUi()
-    ? '<span class="logo-name logo-name-ar">سند</span><span class="logo-sub logo-sub-ar">باي</span>'
-    : '<span class="logo-name">SANAD</span><span class="logo-sub">PAY</span>';
+    ? '<span class="logo-name logo-name-ar">برق</span>'
+    : '<span class="logo-name">Barq</span>';
   return '<div class="logo-lockup">' + logoMark(size) + '<div class="logo-word">' + word + '</div></div>';
 }
 const ASSET_INITIALS = { BTC:'₿', ETH:'Ξ', USDT:'₮', USDC:'$', BNB:'BNB', SOL:'SOL', XRP:'XRP', LTC:'Ł' };
 function assetLogo(symbol, size, tint){
   size = size || 40;
-  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#2081c7' }).tint;
+  const bg = tint || (CRYPTO_ASSETS.find(a => a.symbol === symbol) || { tint:'#2F6BFF' }).tint;
   const init = ASSET_INITIALS[symbol] || symbol.slice(0, 2);
   return '<div class="asset-coin" style="width:' + size + 'px;height:' + size + 'px;background:' + bg + '">' + init + '</div>';
 }
 function networkLogo(net, size){
   size = size || 40;
-  const tint = net.tint || '#2081c7';
+  const tint = net.tint || '#2F6BFF';
   const init = (net.symbol || 'N').slice(0, 3);
   return '<div class="net-logo" style="width:' + size + 'px;height:' + size + 'px;background:linear-gradient(135deg,' + tint + ',' + tint + 'cc)">' + init + '</div>';
 }

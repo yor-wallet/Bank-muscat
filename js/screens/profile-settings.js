@@ -85,15 +85,15 @@ function faceIdRow(){
    nothing here is decorative: a row either changes a stored preference, opens a screen, or states a fact read from the device. */
 Object.assign(TR.en, { 'set.c.look':'Appearance', 'set.c.lookD':'Theme, language and display on this device', 'set.c.notif':'Notifications', 'set.c.notifD':'Three different channels — choose each one',
   'set.c.sec':'Security and privacy', 'set.c.secD':'Personal code, biometrics, devices and sessions', 'set.c.fin':'Money preferences', 'set.c.finD':'Display only: your operations keep their own currency',
-  'set.c.acc':'Account', 'set.c.info':'Information and help', 'set.chan':'In-app notifications appear in Sanad Pay. Phone alerts (push) reach this phone even when the app is closed. SMS are text messages sent by the server to your number.',
+  'set.c.acc':'Account', 'set.c.info':'Information and help', 'set.chan':'In-app notifications appear in Barq. Phone alerts (push) reach this phone even when the app is closed. SMS are text messages sent by the server to your number.',
   'set.inapp':'In-app notifications', 'set.inappD':'Money and security alerts in the app (also controls phone alerts)', 'set.sms':'SMS confirmations', 'set.curNote':'Balances are converted with the indicated rate; transfers, receipts and history are never converted.' });
 Object.assign(TR.fr, { 'set.c.look':'Apparence', 'set.c.lookD':'Thème, langue et affichage sur cet appareil', 'set.c.notif':'Notifications', 'set.c.notifD':'Trois canaux différents — à choisir un par un',
   'set.c.sec':'Sécurité et confidentialité', 'set.c.secD':'Code personnel, biométrie, appareils et sessions', 'set.c.fin':'Préférences financières', 'set.c.finD':'Affichage seulement : vos opérations gardent leur devise',
-  'set.c.acc':'Compte', 'set.c.info':'Informations et assistance', 'set.chan':'Les notifications dans l’application s’affichent dans Sanad Pay. Les alertes sur le téléphone (push) arrivent même application fermée. Les SMS sont des messages texte envoyés par le serveur à votre numéro.',
+  'set.c.acc':'Compte', 'set.c.info':'Informations et assistance', 'set.chan':'Les notifications dans l’application s’affichent dans Barq. Les alertes sur le téléphone (push) arrivent même application fermée. Les SMS sont des messages texte envoyés par le serveur à votre numéro.',
   'set.inapp':'Notifications dans l’application', 'set.inappD':'Alertes d’argent et de sécurité dans l’application (commande aussi les alertes du téléphone)', 'set.sms':'Confirmations par SMS', 'set.curNote':'Les soldes sont convertis au taux indiqué ; les transferts, reçus et l’historique ne sont jamais convertis.' });
 Object.assign(TR.ar, { 'set.c.look':'المظهر', 'set.c.lookD':'المظهر واللغة والعرض على هذا الجهاز', 'set.c.notif':'الإشعارات', 'set.c.notifD':'ثلاث قنوات مختلفة — اختر كل واحدة',
   'set.c.sec':'الأمان والخصوصية', 'set.c.secD':'الرمز الشخصي والقياسات الحيوية والأجهزة والجلسات', 'set.c.fin':'التفضيلات المالية', 'set.c.finD':'للعرض فقط: تحتفظ عملياتك بعملتها',
-  'set.c.acc':'الحساب', 'set.c.info':'المعلومات والمساعدة', 'set.chan':'إشعارات التطبيق تظهر داخل سند باي. تنبيهات الهاتف (Push) تصل حتى والتطبيق مغلق. الرسائل النصية يرسلها الخادم إلى رقمك.',
+  'set.c.acc':'الحساب', 'set.c.info':'المعلومات والمساعدة', 'set.chan':'إشعارات التطبيق تظهر داخل برق. تنبيهات الهاتف (Push) تصل حتى والتطبيق مغلق. الرسائل النصية يرسلها الخادم إلى رقمك.',
   'set.inapp':'الإشعارات داخل التطبيق', 'set.inappD':'تنبيهات الأموال والأمان داخل التطبيق (تتحكم أيضاً في تنبيهات الهاتف)', 'set.sms':'التأكيد برسالة نصية', 'set.curNote':'تُحوَّل الأرصدة بالسعر المذكور؛ ولا تُحوَّل التحويلات والإيصالات والسجل أبداً.' });
 function setCat(ic, title, desc){
   return '<div class="set-cat"><span class="set-cat-ic">' + icon(ic, 18) + '</span><div><h2>' + escapeHtml(title) + '</h2>' + (desc ? '<p>' + escapeHtml(desc) + '</p>' : '') + '</div></div>';
@@ -190,7 +190,7 @@ function renderSettings(){
       '<div class="settings-row" style="cursor:pointer" data-action="copy" data-copy="' + escapeHtml(typeof Guardian !== 'undefined' ? Guardian.report() : '') + '"><div class="tile">' + icon('info', 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(t('g.diag')) + '</div><div class="settings-row-sub">' + escapeHtml(t('g.diagD')) + '</div></div></div>' +
       settingsLinkRow({ icon:'info', title:t('settings.about'), sub:t('settings.aboutDesc'), nav:'about', value:'v' + CONFIG.APP.version }) +
     '</div>';
-  /* Sanad Pay 21.3.0 — réglages organisés par catégories, TOUT visible (plus de panneau replié) : icône, intitulé, état, flèche ou interrupteur.
+  /* Barq 21.3.0 — réglages organisés par catégories, TOUT visible (plus de panneau replié) : icône, intitulé, état, flèche ou interrupteur.
      Mêmes commandes qu'avant (data-action, data-theme, data-lang, data-currency) : seule l'organisation change. */
   const choice = (ic, title, attr, items, cur) => '<div class="settings-row set-choice" role="group" aria-label="' + escapeHtml(title) + '"><div class="tile">' + icon(ic, 20) + '</div><div class="settings-row-body"><div class="settings-row-title">' + escapeHtml(title) + '</div>' +
     '<div class="chips set-seg">' + items.map(it => '<button class="chip" ' + attr + '="' + it[0] + '" aria-pressed="' + (cur === it[0] ? 'true' : 'false') + '">' + escapeHtml(it[1]) + '</button>').join('') + '</div></div></div>';

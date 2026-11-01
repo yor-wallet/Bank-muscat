@@ -110,10 +110,10 @@ const IntlX = (() => {
     return l.length ? l.map(rowHtml).join('') : '<div class="ix-none">' + icon('globe', 28) + '<span>' + escapeHtml(e('none')) + '</span></div>';
   }
   function globe(){
-    return '<svg class="ix-globe" viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="ixg" cx="35%" cy="30%"><stop offset="0" stop-color="#C7E3FF"/><stop offset=".55" stop-color="#2081c7"/><stop offset="1" stop-color="#73c3e2"/></radialGradient></defs>' +
-      '<circle cx="60" cy="60" r="38" fill="url(#ixg)"/><g fill="none" stroke="#122439" stroke-opacity=".55" stroke-width="1.6"><ellipse cx="60" cy="60" rx="38" ry="14"/><ellipse cx="60" cy="60" rx="14" ry="38"/><path d="M22 60h76M60 22v76"/></g>' +
-      '<g class="ix-orbit"><circle cx="60" cy="14" r="5" fill="#fff"/><circle cx="104" cy="70" r="4" fill="#aadcf0"/><circle cx="20" cy="84" r="3.5" fill="#fff"/></g>' +
-      '<circle class="ix-ring" cx="60" cy="60" r="52" fill="none" stroke="#2081c7" stroke-opacity=".5" stroke-dasharray="2 5"/></svg>';
+    return '<svg class="ix-globe" viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="ixg" cx="35%" cy="30%"><stop offset="0" stop-color="#C7E3FF"/><stop offset=".55" stop-color="#2F6BFF"/><stop offset="1" stop-color="#4FC3FF"/></radialGradient></defs>' +
+      '<circle cx="60" cy="60" r="38" fill="url(#ixg)"/><g fill="none" stroke="#0B1B3A" stroke-opacity=".55" stroke-width="1.6"><ellipse cx="60" cy="60" rx="38" ry="14"/><ellipse cx="60" cy="60" rx="14" ry="38"/><path d="M22 60h76M60 22v76"/></g>' +
+      '<g class="ix-orbit"><circle cx="60" cy="14" r="5" fill="#fff"/><circle cx="104" cy="70" r="4" fill="#9EE6FF"/><circle cx="20" cy="84" r="3.5" fill="#fff"/></g>' +
+      '<circle class="ix-ring" cx="60" cy="60" r="52" fill="none" stroke="#2F6BFF" stroke-opacity=".5" stroke-dasharray="2 5"/></svg>';
   }
 
   /* ---------- écrans ---------- */

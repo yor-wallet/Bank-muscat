@@ -10,7 +10,7 @@
    ============================================================ */
 Strings.add({
   en: {
-    'chat.title': 'Support', 'chat.brand': 'Sanad Pay', 'chat.online': 'Online', 'chat.connecting': 'Connecting…', 'chat.offline': 'Offline — messages will wait',
+    'chat.title': 'Support', 'chat.brand': 'Barq', 'chat.online': 'Online', 'chat.connecting': 'Connecting…', 'chat.offline': 'Offline — messages will wait',
     'chat.ph': 'Message', 'chat.today': 'Today', 'chat.yesterday': 'Yesterday',
     'chat.helpT': 'To add money, write here', 'chat.helpB': 'The administrator confirms your deposit in this conversation.', 'chat.askDep': 'Request a deposit',
     'chat.depTpl': 'Hello, I would like to add money to my account. Amount: ___ OMR. Please tell me how to proceed.',
@@ -29,14 +29,14 @@ Strings.add({
     'chat.dep.review': 'Review', 'chat.dep.ask': 'Credit {a} to {n}?', 'chat.dep.go': 'Credit now', 'chat.dep.done': 'Deposit credited', 'chat.dep.bad': 'Enter a valid amount.', 'chat.dep.err': 'The deposit could not be recorded.',
     'chat.q.title': 'Quick replies', 'chat.q.edit': 'Edit', 'chat.q.add': 'Add a reply', 'chat.q.save': 'Save', 'chat.q.ph': 'Write a reply',
     'chat.q1': 'Hello, how can I help you?', 'chat.q2': 'Your deposit is being processed. I will confirm it here shortly.', 'chat.q3': 'Please send a photo of the transfer receipt.', 'chat.q4': 'Thank you for your trust.',
-    'yas.title': 'Amal', 'yas.sub': 'Your Sanad Pay assistant', 'yas.ph': 'Ask Amal', 'yas.typing': 'Amal is typing', 'yas.new': 'New conversation',
+    'yas.title': 'Amal', 'yas.sub': 'Your Barq assistant', 'yas.ph': 'Ask Amal', 'yas.typing': 'Amal is typing', 'yas.new': 'New conversation',
     'yas.openChat': 'Open the chat', 'yas.openCredit': 'Request a credit', 'yas.openBoost': 'Open Boost', 'yas.openSend': 'Send money', 'yas.openIntl': 'International transfer',
     'yas.c.deposit': 'How do I add money?', 'yas.c.credit': 'I need a credit', 'yas.c.boost': 'Earn on my money', 'yas.c.balance': 'My balance', 'yas.c.human': 'Talk to a person',
-    'yas.r.hello': 'Welcome to Sanad Pay, {n}! I am your financial assistant. How can I help you today?',
-    'yas.r.who': 'I am Amal, the assistant of Sanad Pay. I answer your questions and take you to the right screen.',
+    'yas.r.hello': 'Welcome to Barq, {n}! I am your financial assistant. How can I help you today?',
+    'yas.r.who': 'I am Amal, the assistant of Barq. I answer your questions and take you to the right screen.',
     'yas.r.deposit': 'To add money to your account, write to the administrator in the chat. The administrator confirms your deposit there, and the money appears in your balance right away.',
     'yas.r.credit': 'You can request a credit from {min} to {max} OMR. The administrator reviews your request and decides. If it is approved, the amount is added to your balance immediately.',
-    'yas.r.boost': 'Sanad Pay does not announce any return that has not been validated. See the plans: gains are shown only when the model is defined and validated.',
+    'yas.r.boost': 'Barq does not announce any return that has not been validated. See the plans: gains are shown only when the model is defined and validated.',
     'yas.r.send': 'To send money, choose Send, enter the recipient’s mobile number, then the amount. Your personal code or Face ID confirms the transfer.',
     'yas.r.intl': 'You can send money to more than 60 countries with the international transfer. The usual time is 48 to 72 hours.',
     'yas.r.balance': 'Your available balance is {bal}.', 'yas.r.balanceNo': 'I cannot read your balance right now. Please try again in a moment.',
@@ -48,7 +48,7 @@ Strings.add({
     'yas.r.fallback': 'I did not fully understand. Try one of the suggestions, or talk to a person.'
   },
   fr: {
-    'chat.title': 'Assistance', 'chat.brand': 'Sanad Pay', 'chat.online': 'En ligne', 'chat.connecting': 'Connexion…', 'chat.offline': 'Hors ligne — les messages attendront',
+    'chat.title': 'Assistance', 'chat.brand': 'Barq', 'chat.online': 'En ligne', 'chat.connecting': 'Connexion…', 'chat.offline': 'Hors ligne — les messages attendront',
     'chat.ph': 'Message', 'chat.today': 'Aujourd’hui', 'chat.yesterday': 'Hier',
     'chat.helpT': 'Pour déposer de l’argent, écrivez ici', 'chat.helpB': 'L’administrateur confirme votre dépôt dans cette conversation.', 'chat.askDep': 'Demander un dépôt',
     'chat.depTpl': 'Bonjour, je souhaite déposer de l’argent sur mon compte. Montant : ___ OMR. Merci de m’indiquer comment procéder.',
@@ -67,14 +67,14 @@ Strings.add({
     'chat.dep.review': 'Vérifier', 'chat.dep.ask': 'Créditer {a} à {n} ?', 'chat.dep.go': 'Créditer maintenant', 'chat.dep.done': 'Dépôt crédité', 'chat.dep.bad': 'Saisissez un montant valide.', 'chat.dep.err': 'Le dépôt n’a pas pu être enregistré.',
     'chat.q.title': 'Réponses rapides', 'chat.q.edit': 'Modifier', 'chat.q.add': 'Ajouter une réponse', 'chat.q.save': 'Enregistrer', 'chat.q.ph': 'Écrivez une réponse',
     'chat.q1': 'Bonjour, comment puis-je vous aider ?', 'chat.q2': 'Votre dépôt est en cours de traitement. Je le confirme ici dans un instant.', 'chat.q3': 'Merci d’envoyer une photo du reçu du virement.', 'chat.q4': 'Merci pour votre confiance.',
-    'yas.title': 'Amal', 'yas.sub': 'Votre assistante Sanad Pay', 'yas.ph': 'Demandez à Amal', 'yas.typing': 'Amal écrit', 'yas.new': 'Nouvelle conversation',
+    'yas.title': 'Amal', 'yas.sub': 'Votre assistante Barq', 'yas.ph': 'Demandez à Amal', 'yas.typing': 'Amal écrit', 'yas.new': 'Nouvelle conversation',
     'yas.openChat': 'Ouvrir le chat', 'yas.openCredit': 'Demander un crédit', 'yas.openBoost': 'Ouvrir Boost', 'yas.openSend': 'Envoyer de l’argent', 'yas.openIntl': 'Transfert international',
     'yas.c.deposit': 'Comment déposer de l’argent ?', 'yas.c.credit': 'J’ai besoin d’un crédit', 'yas.c.boost': 'Gagner sur mon argent', 'yas.c.balance': 'Mon solde', 'yas.c.human': 'Parler à une personne',
-    'yas.r.hello': 'Bienvenue sur Sanad Pay, {n} ! Je suis votre assistante financière. Comment puis-je vous aider aujourd’hui ?',
-    'yas.r.who': 'Je suis Amal, l’assistante de Sanad Pay. Je réponds à vos questions et je vous conduis au bon écran.',
+    'yas.r.hello': 'Bienvenue sur Barq, {n} ! Je suis votre assistante financière. Comment puis-je vous aider aujourd’hui ?',
+    'yas.r.who': 'Je suis Amal, l’assistante de Barq. Je réponds à vos questions et je vous conduis au bon écran.',
     'yas.r.deposit': 'Pour ajouter de l’argent à votre compte, écrivez à l’administrateur dans le chat. Il confirme votre dépôt dans la conversation et l’argent apparaît aussitôt dans votre solde.',
     'yas.r.credit': 'Vous pouvez demander un crédit de {min} à {max} OMR. L’administrateur étudie votre demande et décide. En cas d’accord, le montant est ajouté tout de suite à votre solde.',
-    'yas.r.boost': 'Sanad Pay n’annonce aucun rendement non validé. Consultez les plans : un gain n’est affiché que si le modèle est défini et validé.',
+    'yas.r.boost': 'Barq n’annonce aucun rendement non validé. Consultez les plans : un gain n’est affiché que si le modèle est défini et validé.',
     'yas.r.send': 'Pour envoyer de l’argent, choisissez Envoyer, saisissez le numéro de mobile du destinataire puis le montant. Votre code personnel ou Face ID confirme le transfert.',
     'yas.r.intl': 'Vous pouvez envoyer de l’argent vers plus de 60 pays avec le transfert international. Le délai habituel est de 48 à 72 heures.',
     'yas.r.balance': 'Votre solde disponible est de {bal}.', 'yas.r.balanceNo': 'Je ne peux pas lire votre solde pour le moment. Réessayez dans un instant.',
@@ -86,7 +86,7 @@ Strings.add({
     'yas.r.fallback': 'Je n’ai pas tout à fait compris. Essayez une des suggestions, ou parlez à une personne.'
   },
   ar: {
-    'chat.title': 'الدعم', 'chat.brand': 'سند باي', 'chat.online': 'متصل', 'chat.connecting': 'جارٍ الاتصال…', 'chat.offline': 'غير متصل — ستنتظر الرسائل',
+    'chat.title': 'الدعم', 'chat.brand': 'برق', 'chat.online': 'متصل', 'chat.connecting': 'جارٍ الاتصال…', 'chat.offline': 'غير متصل — ستنتظر الرسائل',
     'chat.ph': 'اكتب رسالة', 'chat.today': 'اليوم', 'chat.yesterday': 'أمس',
     'chat.helpT': 'لإيداع الأموال اكتب هنا', 'chat.helpB': 'يؤكد المسؤول إيداعك داخل هذه المحادثة.', 'chat.askDep': 'طلب إيداع',
     'chat.depTpl': 'مرحباً، أرغب في إيداع مبلغ في حسابي. المبلغ: ___ ر.ع. يرجى إرشادي إلى الخطوات.',
@@ -105,14 +105,14 @@ Strings.add({
     'chat.dep.review': 'مراجعة', 'chat.dep.ask': 'إضافة {a} إلى {n}؟', 'chat.dep.go': 'أضف الآن', 'chat.dep.done': 'تمت إضافة الإيداع', 'chat.dep.bad': 'أدخل مبلغاً صحيحاً.', 'chat.dep.err': 'تعذّر تسجيل الإيداع.',
     'chat.q.title': 'ردود سريعة', 'chat.q.edit': 'تعديل', 'chat.q.add': 'أضف رداً', 'chat.q.save': 'حفظ', 'chat.q.ph': 'اكتب رداً',
     'chat.q1': 'مرحباً، كيف أستطيع مساعدتك؟', 'chat.q2': 'إيداعك قيد المعالجة. سأؤكده هنا بعد قليل.', 'chat.q3': 'يرجى إرسال صورة إيصال التحويل.', 'chat.q4': 'شكراً لثقتك بنا.',
-    'yas.title': 'أمل', 'yas.sub': 'مساعدتك في سند باي', 'yas.ph': 'اسأل أمل', 'yas.typing': 'أمل يكتب', 'yas.new': 'محادثة جديدة',
+    'yas.title': 'أمل', 'yas.sub': 'مساعدتك في برق', 'yas.ph': 'اسأل أمل', 'yas.typing': 'أمل يكتب', 'yas.new': 'محادثة جديدة',
     'yas.openChat': 'فتح المحادثة', 'yas.openCredit': 'طلب ائتمان', 'yas.openBoost': 'فتح بوست', 'yas.openSend': 'إرسال أموال', 'yas.openIntl': 'التحويل الدولي',
     'yas.c.deposit': 'كيف أودع أموالاً؟', 'yas.c.credit': 'أحتاج إلى ائتمان', 'yas.c.boost': 'اربح من أموالي', 'yas.c.balance': 'رصيدي', 'yas.c.human': 'التحدث مع شخص',
-    'yas.r.hello': 'مرحباً بك في سند باي يا {n}! أنا مساعدتك المالية. كيف يمكنني مساعدتك اليوم؟',
-    'yas.r.who': 'أنا أمل، مساعدة سند باي. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
+    'yas.r.hello': 'مرحباً بك في برق يا {n}! أنا مساعدتك المالية. كيف يمكنني مساعدتك اليوم؟',
+    'yas.r.who': 'أنا أمل، مساعدة برق. أجيب عن أسئلتك وأوجّهك إلى الشاشة المناسبة.',
     'yas.r.deposit': 'لإضافة أموال إلى حسابك اكتب للمسؤول في المحادثة. يؤكد المسؤول الإيداع هناك وتظهر الأموال في رصيدك فوراً.',
     'yas.r.credit': 'يمكنك طلب ائتمان من {min} إلى {max} ر.ع. يراجع المسؤول طلبك ويقرر. عند الموافقة يُضاف المبلغ إلى رصيدك مباشرة.',
-    'yas.r.boost': 'لا تعلن سند باي عن أي عائد غير معتمد. راجع الخطط: لا يظهر أي ربح إلا إذا كان النموذج محدداً ومعتمداً.',
+    'yas.r.boost': 'لا تعلن برق عن أي عائد غير معتمد. راجع الخطط: لا يظهر أي ربح إلا إذا كان النموذج محدداً ومعتمداً.',
     'yas.r.send': 'لإرسال أموال اختر إرسال، وأدخل رقم هاتف المستفيد ثم المبلغ. يؤكد رمزك الشخصي أو بصمة الوجه عملية التحويل.',
     'yas.r.intl': 'يمكنك إرسال أموال إلى أكثر من 60 دولة عبر التحويل الدولي. المدة المعتادة من 48 إلى 72 ساعة.',
     'yas.r.balance': 'رصيدك المتاح الآن هو {bal}.', 'yas.r.balanceNo': 'لا أستطيع قراءة رصيدك الآن. حاول مرة أخرى بعد قليل.',
@@ -155,7 +155,7 @@ function chIc(name, size, cls){
   return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" class="ic' + (cls ? ' ' + cls : '') + '" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + d + '</svg>';
 }
 function chLogo(size){
-  return '<img class="chat-logo" src="assets/brand/sanad-s-192.png" width="' + size + '" height="' + size + '" alt="" aria-hidden="true" decoding="async">';
+  return '<img class="chat-logo" src="assets/brand/barq-mark-192.png" width="' + size + '" height="' + size + '" alt="" aria-hidden="true" decoding="async">';
 }
 function chInitials(name){
   const w = String(name || '?').trim().split(/\s+/).slice(0, 2).map(x => x.charAt(0)).join('').toUpperCase();

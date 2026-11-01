@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#EAF8FF">
-<meta name="apple-mobile-web-app-title" content="Sanad Pay">
+<meta name="theme-color" content="#F3F6FA">
+<meta name="apple-mobile-web-app-title" content="Barq">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://gebjmguoauvutiqvoswl.supabase.co" crossorigin>
-<meta name="description" content="Sanad Pay — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
+<meta name="description" content="Barq — send money to a mobile number in Oman and manage your cards. Simple, secure, in English, Français and العربية.">
 <link rel="icon" href="favicon.ico" sizes="48x48">
-<link rel="preload" as="image" href="assets/brand/sanad-s-320.png" fetchpriority="high">
+<link rel="preload" as="image" href="assets/brand/barq-mark-320.png" fetchpriority="high">
 <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16.png">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
-<meta name="application-name" content="Sanad Pay">
+<meta name="application-name" content="Barq">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Sanad Pay">
-<meta property="og:title" content="Sanad Pay">
+<meta property="og:site_name" content="Barq">
+<meta property="og:title" content="Barq">
 <meta property="og:description" content="Send money to a mobile number in Oman and manage your cards. Simple and secure.">
 <meta property="og:url" content="https://live-x-digitale-app.vercel.app/">
 <meta property="og:image" content="https://live-x-digitale-app.vercel.app/assets/share/og-en.png">
@@ -28,7 +28,7 @@
 <meta property="og:locale:alternate" content="fr_FR">
 <meta property="og:locale:alternate" content="ar_AR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sanad Pay">
+<meta name="twitter:title" content="Barq">
 <meta name="twitter:description" content="Send money to a mobile number in Oman and manage your cards. Simple and secure.">
 <meta name="twitter:image" content="https://live-x-digitale-app.vercel.app/assets/share/og-en.png">
 <link rel="alternate" hreflang="fr" href="https://live-x-digitale-app.vercel.app/?lang=fr">
@@ -71,13 +71,13 @@
 <script>
 /* last theme used on this phone, applied before the first paint (the app confirms it once the account is known) */
 (function(){try{var t=localStorage.getItem('fp_theme'),d=document.documentElement;
-  if(t==='light'||(t==='system'&&window.matchMedia&&!window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content','#EAF8FF');}
+  if(t==='light'||(t==='system'&&window.matchMedia&&!window.matchMedia('(prefers-color-scheme: dark)').matches)){d.setAttribute('data-theme','light');var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#F3F6FA");}
 }catch(e){}})();
 </script>
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>Sanad Pay</title>
+<title>Barq</title>
 <script>
 /* YOR responsive engine: computes --ui (global scale) + breakpoint/orientation/aspect flags */
 (function(){
@@ -108,17 +108,17 @@
 })();
 </script>
 <link rel="preload" href="assets/fonts/inter-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/app.6cc51594ac.css">
+<link rel="stylesheet" href="css/app.8f4af84ed0.css">
 <script src="js/vendor/supabase-2.45.4.js" defer></script>
-<script src="js/app1.adf75f7838.js" defer></script>
+<script src="js/app1.9480f6b3f7.js" defer></script>
 <script src="js/app2.388ce458a3.js" defer></script>
-<script src="js/app3.6dd9fe23d2.js" defer></script>
+<script src="js/app3.a9220b140e.js" defer></script>
 </head>
 <body>
 
 <div id="splash" aria-live="polite"></div>
 <script>
-/* Sanad Pay 21.0.0 — première image de l'ouverture dessinée tout de suite (avant les scripts différés) : la séquence démarre dès que la feuille de style est là,
+/* Barq 21.0.0 — première image de l'ouverture dessinée tout de suite (avant les scripts différés) : la séquence démarre dès que la feuille de style est là,
    js/ui/opening-art.js la reprend ensuite (même balisage) et ne fait que mesurer / terminer. N'attend rien du réseau et ne touche à aucun flux métier. */
 (function(){try{
   var h=document.getElementById('splash'); if(!h) return;
@@ -127,11 +127,11 @@
   try{seen=localStorage.getItem('sanad_opened')==='1'}catch(e){}
   try{var v=localStorage.getItem('yor_device_lang'); if(ok.indexOf(v)<0){var L=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||'en']; v='en'; for(var i=0;i<L.length;i++){var c=String(L[i]||'').toLowerCase().slice(0,2); if(ok.indexOf(c)>=0){v=c;break}}} lang=v}catch(e){}
   var m=r?'fade':(seen?'short':'full'), ar=lang==='ar';
-  window.__sxoSplash=function(l,mm){var a=(l||lang)==='ar';return '<div class="sxo sxo-'+(mm||m)+'" aria-hidden="true"><div class="sxo-stage"><div class="sxo-logo"><img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t2" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t3" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/></svg></div><div class="sxo-word'+(a?' sxo-word-ar':'')+'">'+(a?'\u0633\u0646\u062f \u0628\u0627\u064a':'Sanad Pay')+'</div></div></div>'};
+  window.__sxoSplash=function(l,mm){var a=(l||lang)==='ar';return '<div class="sxo sxo-'+(mm||m)+'" aria-hidden="true"><div class="sxo-stage"><div class="sxo-logo"><img class="sxo-mark" src="assets/brand/barq-mark-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/><path class="t2" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/><path class="t3" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/></svg></div><div class="sxo-word'+(a?' sxo-word-ar':'')+'">'+(a?'\u0633\u0646\u062f \u0628\u0627\u064a':'Barq')+'</div></div></div>'};
   h.innerHTML=window.__sxoSplash(lang,m); h.setAttribute('data-sxo',m); window.__sxoEarly={t0:performance.now(),mode:m,lang:lang};
 }catch(e){}})();
 </script>
-<noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#13263c">Sanad Pay needs JavaScript. Please enable it and reload. · Sanad Pay nécessite JavaScript. · يتطلب سند باي تفعيل JavaScript.</div></noscript>
+<noscript><div style="position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;font:16px/1.5 system-ui,sans-serif;background:#fff;color:#13263c">Barq needs JavaScript. Please enable it and reload. · Barq nécessite JavaScript. · يتطلب برق تفعيل JavaScript.</div></noscript>
 
 <div id="app">
   <aside id="sidebar">

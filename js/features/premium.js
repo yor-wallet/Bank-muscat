@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   Sanad Pay 12.14.0 — premium layer
+   Barq 12.14.0 — premium layer
    Home, Receive, global search, Profile (+ edit), transfer outcome screen (refused / uncertain), balance change animation.
    Rules kept from earlier versions: every number shown is read from the server data in Runtime; nothing is invented, no balance,
    reference, status or verification state is ever simulated. Loaded after js/screens/register.js (it registers the screens it owns)
@@ -14,14 +14,14 @@ Object.assign(TR.en, {
   'px.recent':'Recent activity','px.seeAll':'See all','px.search':'Search','px.searchPh':'Transactions, references, settings…',
   'px.sTx':'Transactions','px.sPeople':'Recipients','px.sScreens':'Screens and settings','px.sNone':'No result for “{q}”','px.sHint':'Search your real transactions by name, number, reference or amount.',
   'px.profile':'Profile','px.openProfile':'Open my profile','px.notifs':'Notifications',
-  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Sanad Pay balance appears here and in your history, with its real status.',
-  'px.rcvId':'Your Sanad Pay ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
-  'px.rcvNote':'Sending to a number registered on Sanad Pay credits that person instantly and notifies them. Other numbers are told by SMS.',
+  'px.rcvTitle':'Receive money','px.rcvLead':'Share your account details. Every amount credited to your Barq balance appears here and in your history, with its real status.',
+  'px.rcvId':'Your Barq ID','px.rcvPhone':'Your mobile number','px.rcvShare':'Share my details','px.rcvCopy':'Copy',
+  'px.rcvNote':'Sending to a number registered on Barq credits that person instantly and notifies them. Other numbers are told by SMS.',
   'px.rcvRecent':'Money received','px.rcvNone':'Nothing received yet','px.rcvNoneD':'Confirmed credits will be listed here.',
-  'px.shareText':'My Sanad Pay details — Sanad Pay ID: {id}',
+  'px.shareText':'My Barq details — Barq ID: {id}',
   'px.edit':'Edit profile','px.personal':'Personal information','px.first':'First name','px.last':'Last name','px.phone':'Mobile number','px.email':'E-mail','px.country':'Country','px.accountId':'Account ID',
   'px.verif':'Account verification','px.kyc.VERIFIED':'Verified','px.kyc.PENDING':'Verification in progress','px.kyc.REJECTED':'Verification refused','px.kyc.UNVERIFIED':'Not verified',
-  'px.kycD.VERIFIED':'Your identity has been confirmed by Sanad Pay.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
+  'px.kycD.VERIFIED':'Your identity has been confirmed by Barq.','px.kycD.PENDING':'Your documents are being reviewed. Nothing to do for now.',
   'px.kycD.REJECTED':'Your verification was not accepted. Contact support to know what is needed.','px.kycD.UNVERIFIED':'Identity verification is not offered in the app yet. No document is requested for now.',
   'px.security':'Security','px.pinChange':'Change personal code','px.pinChangeD':'6 digits, asked to confirm every transfer','px.pinOldT':'Current code','px.pinOldS':'Enter your current 6-digit code.','px.pinNewT':'New code','px.pinSame':'Choose a code different from the current one.','px.pinDone':'Personal code changed',
   'px.prefs':'Preferences','px.language':'Language','px.theme':'Theme','px.dispCur':'Display currency','px.support':'Help and information','px.version':'Version {v}',
@@ -40,14 +40,14 @@ Object.assign(TR.fr, {
   'px.recent':'Activité récente','px.seeAll':'Voir tout','px.search':'Rechercher','px.searchPh':'Opérations, références, réglages…',
   'px.sTx':'Opérations','px.sPeople':'Bénéficiaires','px.sScreens':'Écrans et réglages','px.sNone':'Aucun résultat pour « {q} »','px.sHint':'Retrouvez vos vraies opérations par nom, numéro, référence ou montant.',
   'px.profile':'Profil','px.openProfile':'Ouvrir mon profil','px.notifs':'Notifications',
-  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Sanad Pay apparaît ici et dans l’historique, avec son statut réel.',
-  'px.rcvId':'Votre Sanad Pay ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
-  'px.rcvNote':'Un transfert vers un numéro inscrit sur Sanad Pay crédite aussitôt son solde et le prévient. Les autres numéros sont prévenus par SMS.',
+  'px.rcvTitle':'Recevoir de l’argent','px.rcvLead':'Partagez les informations de votre compte. Chaque montant crédité sur votre solde Barq apparaît ici et dans l’historique, avec son statut réel.',
+  'px.rcvId':'Votre Barq ID','px.rcvPhone':'Votre numéro de mobile','px.rcvShare':'Partager mes informations','px.rcvCopy':'Copier',
+  'px.rcvNote':'Un transfert vers un numéro inscrit sur Barq crédite aussitôt son solde et le prévient. Les autres numéros sont prévenus par SMS.',
   'px.rcvRecent':'Argent reçu','px.rcvNone':'Rien reçu pour l’instant','px.rcvNoneD':'Les crédits confirmés seront listés ici.',
-  'px.shareText':'Mes informations Sanad Pay — Sanad Pay ID : {id}',
+  'px.shareText':'Mes informations Barq — Barq ID : {id}',
   'px.edit':'Modifier le profil','px.personal':'Informations personnelles','px.first':'Prénom','px.last':'Nom','px.phone':'Numéro de mobile','px.email':'E-mail','px.country':'Pays','px.accountId':'Identifiant du compte',
   'px.verif':'Vérification du compte','px.kyc.VERIFIED':'Vérifié','px.kyc.PENDING':'Vérification en cours','px.kyc.REJECTED':'Vérification refusée','px.kyc.UNVERIFIED':'Non vérifié',
-  'px.kycD.VERIFIED':'Votre identité a été confirmée par Sanad Pay.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
+  'px.kycD.VERIFIED':'Votre identité a été confirmée par Barq.','px.kycD.PENDING':'Vos documents sont en cours d’examen. Rien à faire pour le moment.',
   'px.kycD.REJECTED':'Votre vérification n’a pas été acceptée. Contactez l’assistance pour savoir quoi fournir.','px.kycD.UNVERIFIED':'La vérification d’identité n’est pas encore proposée dans l’application. Aucun document n’est demandé pour le moment.',
   'px.security':'Sécurité','px.pinChange':'Modifier le code personnel','px.pinChangeD':'6 chiffres, demandé pour confirmer chaque transfert','px.pinOldT':'Code actuel','px.pinOldS':'Saisissez votre code actuel à 6 chiffres.','px.pinNewT':'Nouveau code','px.pinSame':'Choisissez un code différent du code actuel.','px.pinDone':'Code personnel modifié',
   'px.prefs':'Préférences','px.language':'Langue','px.theme':'Thème','px.dispCur':'Devise d’affichage','px.support':'Aide et informations','px.version':'Version {v}',
@@ -66,14 +66,14 @@ Object.assign(TR.ar, {
   'px.recent':'آخر العمليات','px.seeAll':'عرض الكل','px.search':'بحث','px.searchPh':'العمليات، المراجع، الإعدادات…',
   'px.sTx':'العمليات','px.sPeople':'المستفيدون','px.sScreens':'الشاشات والإعدادات','px.sNone':'لا نتائج لـ «{q}»','px.sHint':'ابحث في عملياتك الحقيقية بالاسم أو الرقم أو المرجع أو المبلغ.',
   'px.profile':'الملف الشخصي','px.openProfile':'فتح ملفي الشخصي','px.notifs':'الإشعارات',
-  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في سند باي يظهر هنا وفي السجل بحالته الحقيقية.',
-  'px.rcvId':'معرّف سند باي الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
-  'px.rcvNote':'عند التحويل إلى رقم هاتف مسجّل في سند باي يصل المبلغ فوراً إلى رصيد صاحبه ويُشعَر به. أما الأرقام غير المسجّلة فيُبلَّغ أصحابها برسالة نصية.',
+  'px.rcvTitle':'استلام الأموال','px.rcvLead':'شارك بيانات حسابك. كل مبلغ يُضاف إلى رصيدك في برق يظهر هنا وفي السجل بحالته الحقيقية.',
+  'px.rcvId':'معرّف برق الخاص بك','px.rcvPhone':'رقم هاتفك','px.rcvShare':'مشاركة بياناتي','px.rcvCopy':'نسخ',
+  'px.rcvNote':'عند التحويل إلى رقم هاتف مسجّل في برق يصل المبلغ فوراً إلى رصيد صاحبه ويُشعَر به. أما الأرقام غير المسجّلة فيُبلَّغ أصحابها برسالة نصية.',
   'px.rcvRecent':'الأموال المستلمة','px.rcvNone':'لم يصلك شيء بعد','px.rcvNoneD':'ستظهر هنا المبالغ المؤكدة.',
-  'px.shareText':'بياناتي في سند باي — المعرّف: {id}',
+  'px.shareText':'بياناتي في برق — المعرّف: {id}',
   'px.edit':'تعديل الملف','px.personal':'المعلومات الشخصية','px.first':'الاسم الأول','px.last':'اسم العائلة','px.phone':'رقم الهاتف','px.email':'البريد الإلكتروني','px.country':'الدولة','px.accountId':'معرّف الحساب',
   'px.verif':'التحقق من الحساب','px.kyc.VERIFIED':'تم التحقق','px.kyc.PENDING':'التحقق جارٍ','px.kyc.REJECTED':'رُفض التحقق','px.kyc.UNVERIFIED':'لم يتم التحقق',
-  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل سند باي.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
+  'px.kycD.VERIFIED':'تم تأكيد هويتك من قِبل برق.','px.kycD.PENDING':'وثائقك قيد المراجعة. لا شيء مطلوب منك الآن.',
   'px.kycD.REJECTED':'لم يُقبل التحقق. تواصل مع الدعم لمعرفة المطلوب.','px.kycD.UNVERIFIED':'التحقق من الهوية غير متاح في التطبيق بعد. لا تُطلب أي وثيقة حالياً.',
   'px.security':'الأمان','px.pinChange':'تغيير الرمز الشخصي','px.pinChangeD':'6 أرقام، يُطلب لتأكيد كل تحويل','px.pinOldT':'الرمز الحالي','px.pinOldS':'أدخل رمزك الحالي المكوّن من 6 أرقام.','px.pinNewT':'الرمز الجديد','px.pinSame':'اختر رمزاً مختلفاً عن الرمز الحالي.','px.pinDone':'تم تغيير الرمز الشخصي',
   'px.prefs':'التفضيلات','px.language':'اللغة','px.theme':'المظهر','px.dispCur':'عملة العرض','px.support':'المساعدة والمعلومات','px.version':'الإصدار {v}',
@@ -164,7 +164,7 @@ const BalanceFx = (() => {
     last = { key, value: v };
     return (prev != null && isFinite(prev) && isFinite(v) && Math.abs(prev - v) > 0.0005) ? prev : null;
   }
-  /* Sanad Pay 21.2.0 : AUCUN solde intermédiaire. Quand le solde change réellement, la valeur exacte est déjà à l'écran ;
+  /* Barq 21.2.0 : AUCUN solde intermédiaire. Quand le solde change réellement, la valeur exacte est déjà à l'écran ;
      la carte réagit seulement par une impulsion de lumière (classe px-bump) pour signaler « ceci vient de changer ». */
   function run(el, from, main){
     if (!el || Runtime.hideBalance) return;
@@ -325,14 +325,14 @@ const PxSearch = (() => {
 
 
 /* ============================================================
-   INSTALL WITHOUT AN APP STORE (12.14.0) — Sanad Pay is a web app (PWA): it is added to the home screen from its HTTPS address.
+   INSTALL WITHOUT AN APP STORE (12.14.0) — Barq is a web app (PWA): it is added to the home screen from its HTTPS address.
    iPhone / iPad (Safari): Apple offers no install button to web pages; the card shows the two real steps (Share → Add to Home Screen).
    Android / desktop Chrome / Edge: the browser's own install prompt (beforeinstallprompt) is used when it is offered.
    Nothing is shown once the app runs from its icon (standalone). "Later" hides the card for 14 days on this device.
    ============================================================ */
-Object.assign(TR.en, { 'pi.title':'Install Sanad Pay on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Sanad Pay from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Sanad Pay to your home screen', 'pi.note':'Sanad Pay is a web app: it is not an App Store app and it uses only what Safari allows.' });
-Object.assign(TR.fr, { 'pi.title':'Installer Sanad Pay sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Sanad Pay depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Sanad Pay à l’écran d’accueil', 'pi.note':'Sanad Pay est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
-Object.assign(TR.ar, { 'pi.title':'ثبّت سند باي على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح سند باي من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف سند باي إلى الشاشة الرئيسية', 'pi.note':'سند باي تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
+Object.assign(TR.en, { 'pi.title':'Install Barq on this phone', 'pi.sub':'Opens full screen from its own icon, like an app. No App Store needed.', 'pi.ios1':'Tap the Share button', 'pi.ios2':'Choose “Add to Home Screen”', 'pi.ios3':'Open Barq from the new icon', 'pi.iosOther':'On iPhone, open this page in Safari to install it.', 'pi.go':'Install', 'pi.later':'Later', 'pi.row':'Install the app', 'pi.rowD':'Add Barq to your home screen', 'pi.note':'Barq is a web app: it is not an App Store app and it uses only what Safari allows.' });
+Object.assign(TR.fr, { 'pi.title':'Installer Barq sur ce téléphone', 'pi.sub':'S’ouvre en plein écran depuis sa propre icône, comme une application. Sans App Store.', 'pi.ios1':'Touchez le bouton Partager', 'pi.ios2':'Choisissez « Sur l’écran d’accueil »', 'pi.ios3':'Ouvrez Barq depuis la nouvelle icône', 'pi.iosOther':'Sur iPhone, ouvrez cette page dans Safari pour l’installer.', 'pi.go':'Installer', 'pi.later':'Plus tard', 'pi.row':'Installer l’application', 'pi.rowD':'Ajouter Barq à l’écran d’accueil', 'pi.note':'Barq est une application web : ce n’est pas une application de l’App Store et elle n’utilise que ce que Safari autorise.' });
+Object.assign(TR.ar, { 'pi.title':'ثبّت برق على هذا الهاتف', 'pi.sub':'يفتح بملء الشاشة من أيقونته مثل التطبيقات. دون متجر App Store.', 'pi.ios1':'المس زر المشاركة', 'pi.ios2':'اختر «إضافة إلى الشاشة الرئيسية»', 'pi.ios3':'افتح برق من الأيقونة الجديدة', 'pi.iosOther':'على iPhone افتح هذه الصفحة في Safari لتثبيتها.', 'pi.go':'تثبيت', 'pi.later':'لاحقاً', 'pi.row':'تثبيت التطبيق', 'pi.rowD':'أضف برق إلى الشاشة الرئيسية', 'pi.note':'برق تطبيق ويب: ليس من متجر App Store ويستخدم فقط ما يسمح به Safari.' });
 const PxInstall = (() => {
   let deferred = null;
   const KEY = 'fp_install_later';
@@ -414,7 +414,7 @@ const Premium = (() => {
       : st ? '<span class="px-chip warn"><i></i>' + escapeHtml(tf('px.acctOther', { s: st.toLowerCase() })) + '</span>' : '';
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : '';
     balFrom = BalanceFx.check(main);
-    /* Sanad Pay 21.3.0 — accueil recomposé : en-tête (profil, salutation, outils), carte de compte, quatre actions, portefeuille (cartes et comptes), activité.
+    /* Barq 21.3.0 — accueil recomposé : en-tête (profil, salutation, outils), carte de compte, quatre actions, portefeuille (cartes et comptes), activité.
        Mêmes cibles (data-nav / data-action), mêmes données (Runtime) : seules la composition et la présentation changent. */
     const acts = [['country-select', 'send', t('px.send'), true], ['receive', 'receive', t('px.receive')], ['chat', 'plus', t('mh.addFunds')]]
       .concat(FEATURES.crypto ? [['crypto-swap', 'swap', V12.vt('exchange')]] : [['services', 'apps', t('px.more')]]);
@@ -436,7 +436,7 @@ const Premium = (() => {
     return '<div class="mh-home">' +
       '<header class="mh-top">' +
         '<button class="mh-me" data-nav="profile" aria-label="' + escapeHtml(t('px.openProfile')) + '">' + pxAvatar(p) + '</button>' +
-        '<div class="mh-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(nm || 'Sanad Pay') + '</b></div>' +
+        '<div class="mh-hi"><small>' + escapeHtml(pxGreeting()) + '</small><b>' + escapeHtml(nm || 'Barq') + '</b></div>' +
         '<div class="mh-tools">' +
           '<button class="mh-ib" data-px="search" aria-label="' + escapeHtml(t('px.search')) + '">' + icon('search', 20) + '</button>' +
           '<button class="mh-ib" data-nav="settings" aria-label="' + escapeHtml(t('mh.settings')) + '">' + icon('settings', 20) + '</button>' +
@@ -445,7 +445,7 @@ const Premium = (() => {
       '</header>' +
       '<section class="mh-card" aria-label="' + escapeHtml(t('px.available')) + '">' +
         '<i class="mh-rib" aria-hidden="true"></i><i class="mh-glare" aria-hidden="true"></i>' +
-        '<div class="mh-card-top"><span class="mh-brand">' + logoMark(26) + '<b>Sanad Pay</b></span>' +
+        '<div class="mh-card-top"><span class="mh-brand">' + logoMark(26) + '<b>Barq</b></span>' +
           '<button class="mh-eye" data-action="toggle-balance" aria-pressed="' + (hide ? 'true' : 'false') + '" aria-label="' + escapeHtml(t(hide ? 'px.showBal' : 'px.hideBal')) + '">' + icon(hide ? 'eyeOff' : 'eye', 20) + '</button></div>' +
         '<div class="mh-card-mid"><span class="mh-lbl">' + escapeHtml(t('px.available')) + (main.name ? ' · ' + escapeHtml(main.name) : '') + '</span>' +
           '<div class="mh-amt ltr' + (hide ? ' is-hidden' : '') + '" id="px-bal-amt">' + (hide ? escapeHtml(MASK) : money(dv.amount, dv.currency)) + '</div>' +
@@ -536,7 +536,7 @@ const Premium = (() => {
           row('info', t('settings.about'), tf('px.version', { v: CONFIG.APP.version }), 'data-nav="about"') +
         '</div>' +
         '<div class="settings-group" style="margin-top:var(--sp-5)">' + row('logout', t('profile.logout'), '', 'data-action="sign-out"', '', true) + '</div>' +
-        '<p class="sx-ver ltr">Sanad Pay ' + escapeHtml(CONFIG.APP.version) + '</p><div class="sx-end"></div>' +
+        '<p class="sx-ver ltr">Barq ' + escapeHtml(CONFIG.APP.version) + '</p><div class="sx-end"></div>' +
       '</div>';
   }
   /* first / last name: the only profile fields the server lets the person change here (column grants on public.profiles) */
@@ -593,7 +593,7 @@ const Premium = (() => {
   async function share(){
     const yid = Runtime.ctx && Runtime.ctx.yorId ? dispId(Runtime.ctx.yorId) : ''; if (!yid) return;
     const text = tf('px.shareText', { id: yid });
-    if (navigator.share){ try { await navigator.share({ title: 'Sanad Pay', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
+    if (navigator.share){ try { await navigator.share({ title: 'Barq', text }); return; } catch(e){ if (e && e.name === 'AbortError') return; } }
     copyText(text);
   }
 

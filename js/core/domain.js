@@ -316,7 +316,7 @@ const IdentifierEngine = Object.freeze({
       case 'ROUTING_ACCOUNT': return '021000021 / 1234567890';
       case 'MOBILE_MONEY': return '07 00 00 00 00';
       case 'EMAIL': return 'user@example.com';
-      case 'YOR_ID': return 'SP-XXXXXX';
+      case 'YOR_ID': return 'BQ-XXXXXX';
       case 'SERVICE_ID': return '@username';
       default: return '';
     }
@@ -333,7 +333,7 @@ const IdentifierEngine = Object.freeze({
         return parts.length === 2 && /^\d{9}$/.test(parts[0]) && /^\d{6,17}$/.test(parts[1]) ? {ok:true} : {ok:false, reason:'Invalid format'};
       }
       case 'EMAIL': return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? {ok:true} : {ok:false, reason:'Invalid email'};
-      case 'YOR_ID': return /^YOR-[A-Z0-9]{6,}$/i.test(normId(v)) ? {ok:true} : {ok:false, reason:'Invalid Sanad Pay ID'};
+      case 'YOR_ID': return /^YOR-[A-Z0-9]{6,}$/i.test(normId(v)) ? {ok:true} : {ok:false, reason:'Invalid Barq ID'};
       case 'SERVICE_ID': return v.length >= 4 ? {ok:true} : {ok:false, reason:'Invalid identifier'};
       default: return v.length >= 3 ? {ok:true} : {ok:false, reason:'Invalid value'};
     }
@@ -343,7 +343,7 @@ const IdentifierEngine = Object.freeze({
 const INTERNAL_SERVICE_DEF = Object.freeze({
   id: 'yor_internal',
   key: 'INTERNAL',
-  name: { fr: 'Sanad Pay (Envoi interne)', en: 'Sanad Pay (Internal)', ar: 'سند باي (داخلي)' },
+  name: { fr: 'Barq (Envoi interne)', en: 'Barq (Internal)', ar: 'برق (داخلي)' },
   identifierType: 'YOR_ID',
   icon: 'send',
   primary: false,

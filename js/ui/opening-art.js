@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   OPENING ART — séquence d'ouverture « Trait & Horizon » (Sanad Pay 21.0.0).
+   OPENING ART — séquence d'ouverture « Trait & Horizon » (Barq 21.0.0).
    Reprend le logo du pack tel quel : la COCHE se trace trait par trait, la LIGNE D'HORIZON s'étire d'un bord à l'autre, puis le carré arrondi
    se remplit derrière la coche et le nom se révèle par un masque horizontal.
    Sa première image est exactement l'écran de lancement iOS (ciel pâle, rien d'autre) : aucun saut visuel.
@@ -30,8 +30,8 @@ const OpeningArt = (() => {
     const ar = lang === 'ar';
     return '<div class="sxo sxo-' + m + '" aria-hidden="true">' +
       '<div class="sxo-stage">' +
-        '<div class="sxo-logo"><img class="sxo-mark" src="assets/brand/sanad-s-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t2" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/><path class="t3" d="M66 10C46 12 30 24 27 38C24 50 42 56 60 63C78 70 86 70 76 82C68 90 44 95 24 90" pathLength="100"/></svg></div>' +
-        '<div class="sxo-word' + (ar ? ' sxo-word-ar' : '') + '">' + (ar ? 'سند باي' : 'Sanad Pay') + '</div>' +
+        '<div class="sxo-logo"><img class="sxo-mark" src="assets/brand/barq-mark-320.png" width="148" height="148" alt="" decoding="async"><svg class="sxo-trace" viewBox="0 0 100 100" focusable="false"><path class="t1" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/><path class="t2" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/><path class="t3" d="M58.6 15.2L30.9 53.9H46.1L40.2 85.2L69.5 44.1H53.9Z"/></svg></div>' +
+        '<div class="sxo-word' + (ar ? ' sxo-word-ar' : '') + '">' + (ar ? 'برق' : 'Barq') + '</div>' +
       '</div></div>';
   }
   /* Démarre la séquence. onDone() est appelé une fois : quand le dessin est joué (ou sauté) — le CALLER attend aussi que l'application soit prête. */

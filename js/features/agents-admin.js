@@ -14,7 +14,7 @@
 const AgentsAdmin = (() => {
   Strings.add({
     en: {
-      'ag.title': 'Assistants', 'ag.sub': 'The five roles that help run Sanad Pay. Their state below is the real state reported by the server.',
+      'ag.title': 'Assistants', 'ag.sub': 'The five roles that help run Barq. Their state below is the real state reported by the server.',
       'ag.r.support': 'Amal', 'ag.d.support': 'Member assistance and wording', 'ag.r.data': 'Data', 'ag.d.data': 'Reads the aggregate numbers',
       'ag.r.supervision': 'Supervision', 'ag.d.supervision': 'Watches the health signals', 'ag.r.diagnostics': 'Diagnostics', 'ag.d.diagnostics': 'Explains error categories', 'ag.r.maintenance': 'Maintenance', 'ag.d.maintenance': 'Suggests low-risk upkeep',
       'ag.s.unknown': 'Checking…', 'ag.s.off': 'Not configured', 'ag.s.ready': 'Available', 'ag.s.busy': 'Busy', 'ag.s.error': 'Error',
@@ -24,7 +24,7 @@ const AgentsAdmin = (() => {
       'ag.report': 'Report', 'ag.human': 'To be read by a person. Nothing has been applied.', 'ag.cache': 'Temporary cache cleaned: {n} entries', 'ag.at': 'Last review: {t}', 'ag.none': 'No review yet.'
     },
     fr: {
-      'ag.title': 'Assistants', 'ag.sub': 'Les cinq rôles qui aident à faire tourner Sanad Pay. L’état affiché est l’état réel annoncé par le serveur.',
+      'ag.title': 'Assistants', 'ag.sub': 'Les cinq rôles qui aident à faire tourner Barq. L’état affiché est l’état réel annoncé par le serveur.',
       'ag.r.support': 'Amal', 'ag.d.support': 'Assistance aux membres et rédaction', 'ag.r.data': 'Données', 'ag.d.data': 'Lit les chiffres agrégés',
       'ag.r.supervision': 'Supervision', 'ag.d.supervision': 'Surveille les signaux de santé', 'ag.r.diagnostics': 'Diagnostic', 'ag.d.diagnostics': 'Explique les catégories d’erreurs', 'ag.r.maintenance': 'Maintenance', 'ag.d.maintenance': 'Propose un entretien sans risque',
       'ag.s.unknown': 'Vérification…', 'ag.s.off': 'Non configuré', 'ag.s.ready': 'Disponible', 'ag.s.busy': 'Occupé', 'ag.s.error': 'Erreur',
@@ -34,7 +34,7 @@ const AgentsAdmin = (() => {
       'ag.report': 'Rapport', 'ag.human': 'À lire par une personne. Rien n’a été appliqué.', 'ag.cache': 'Cache temporaire nettoyé : {n} entrées', 'ag.at': 'Dernière revue : {t}', 'ag.none': 'Aucune revue pour le moment.'
     },
     ar: {
-      'ag.title': 'المساعدون', 'ag.sub': 'الأدوار الخمسة التي تساعد في تشغيل سند باي. الحالة المعروضة هي الحالة الفعلية التي يعلنها الخادم.',
+      'ag.title': 'المساعدون', 'ag.sub': 'الأدوار الخمسة التي تساعد في تشغيل برق. الحالة المعروضة هي الحالة الفعلية التي يعلنها الخادم.',
       'ag.r.support': 'أمل', 'ag.d.support': 'مساعدة الأعضاء وصياغة الردود', 'ag.r.data': 'البيانات', 'ag.d.data': 'تقرأ الأرقام المجمّعة',
       'ag.r.supervision': 'الإشراف', 'ag.d.supervision': 'تراقب مؤشرات السلامة', 'ag.r.diagnostics': 'التشخيص', 'ag.d.diagnostics': 'تشرح فئات الأخطاء', 'ag.r.maintenance': 'الصيانة', 'ag.d.maintenance': 'تقترح صيانة منخفضة المخاطر',
       'ag.s.unknown': 'جارٍ التحقق…', 'ag.s.off': 'غير مهيّأ', 'ag.s.ready': 'متاح', 'ag.s.busy': 'مشغول', 'ag.s.error': 'خطأ',

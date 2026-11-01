@@ -1,10 +1,10 @@
 'use strict';
 
-/* ===== SANAD PAY 12.10.0 — carrousel de publicités de l'accueil =====
-   Quatre cartes illustrées (personnages originaux dessinés pour Sanad Pay, assets/ads/ad-*.svg) placées sous les actions rapides.
+/* ===== BARQ 12.10.0 — carrousel de publicités de l'accueil =====
+   Quatre cartes illustrées (personnages originaux dessinés pour Barq, assets/ads/ad-*.svg) placées sous les actions rapides.
    Règles :
    - chaque carte porte l'étiquette « Publicité » ; elle ne promet rien que l'application ne fait pas aujourd'hui (aucun frais, délai ou taux annoncé) ;
-   - aucun logo ni nom de marque tiers ; (12.12.0 : la carte « Sanad Pay ID » est retirée, on ne reçoit plus par identifiant dans l'interface) ;
+   - aucun logo ni nom de marque tiers ; (12.12.0 : la carte « Barq ID » est retirée, on ne reçoit plus par identifiant dans l'interface) ;
    - défilement tactile natif (scroll-snap), compatible droite-gauche ; défilement automatique seulement si l'écran n'est pas touché et
      si l'appareil n'a pas demandé « réduire les animations » ;
    - « Masquer » cache le carrousel jusqu'à la fin de la session (sessionStorage) ; rien n'est stocké durablement. */
@@ -21,7 +21,7 @@ const Promos = (() => {
       body:  { fr: 'Golfe, Afrique, USA et Canada — banque, mobile money ou retrait en espèces.', en: 'Gulf, Africa, USA and Canada — bank, mobile money or cash pickup.', ar: 'الخليج وأفريقيا وأمريكا وكندا — بنك أو محفظة هاتف أو استلام نقدي.' },
       cta:   { fr: 'Envoyer à l’étranger', en: 'Send abroad', ar: 'إرسال إلى الخارج' } },
     { id: 'card', tone: 'card', nav: 'cards', art: 'assets/ads/ad-card.svg',
-      title: { fr: 'Vos cartes Sanad Pay', en: 'Your Sanad Pay cards', ar: 'بطاقاتك من سند باي' },
+      title: { fr: 'Vos cartes Barq', en: 'Your Barq cards', ar: 'بطاقاتك من برق' },
       body:  { fr: 'Gelez ou dégelez une carte en un geste.', en: 'Freeze or unfreeze a card with one tap.', ar: 'جمّد البطاقة أو ألغِ التجميد بلمسة واحدة.' },
       cta:   { fr: 'Mes cartes', en: 'My cards', ar: 'بطاقاتي' } },
     { id: 'secure', tone: 'secure', nav: 'settings', art: 'assets/ads/ad-secure.svg',
@@ -29,16 +29,16 @@ const Promos = (() => {
       body:  { fr: 'Code PIN et Face ID gardent l’accès à votre argent.', en: 'PIN and Face ID guard access to your money.', ar: 'رمز PIN وFace ID يحميان الوصول إلى أموالك.' },
       cta:   { fr: 'Réglages', en: 'Settings', ar: 'الإعدادات' } },
     { id: 'lang', tone: 'lang', nav: 'settings', art: 'assets/ads/ad-lang.svg',
-      title: { fr: 'Sanad Pay parle votre langue', en: 'Sanad Pay speaks your language', ar: 'سند باي بلغتك' },
+      title: { fr: 'Barq parle votre langue', en: 'Barq speaks your language', ar: 'برق بلغتك' },
       body:  { fr: 'Français, English et العربية, à votre choix.', en: 'Français, English and العربية, your choice.', ar: 'العربية وEnglish وFrançais، كما تفضّل.' },
       cta:   { fr: 'Langue', en: 'Language', ar: 'اللغة' } },
   ];
   /* 16.0.0 : une carte peut dépendre d'une capacité serveur (cap) : elle n'est montrée que si le serveur la propose */
   const items = () => ITEMS_ALL.filter(it => !it.cap || (typeof LiveX !== 'undefined' && LiveX.caps[it.cap] === true));
   const UI = {
-    fr: { tag: 'Publicité', region: 'Publicités Sanad Pay', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
-    en: { tag: 'Ad', region: 'Sanad Pay ads', hide: 'Hide', hideLbl: 'Hide ads', go: (i, n) => 'Go to card ' + i + ' of ' + n, slide: (i, n) => i + ' of ' + n },
-    ar: { tag: 'إعلان', region: 'إعلانات سند باي', hide: 'إخفاء', hideLbl: 'إخفاء الإعلانات', go: (i, n) => 'الانتقال إلى البطاقة ' + i + ' من ' + n, slide: (i, n) => i + ' من ' + n },
+    fr: { tag: 'Publicité', region: 'Publicités Barq', hide: 'Masquer', hideLbl: 'Masquer les publicités', go: (i, n) => 'Aller à la carte ' + i + ' sur ' + n, slide: (i, n) => i + ' sur ' + n },
+    en: { tag: 'Ad', region: 'Barq ads', hide: 'Hide', hideLbl: 'Hide ads', go: (i, n) => 'Go to card ' + i + ' of ' + n, slide: (i, n) => i + ' of ' + n },
+    ar: { tag: 'إعلان', region: 'إعلانات برق', hide: 'إخفاء', hideLbl: 'إخفاء الإعلانات', go: (i, n) => 'الانتقال إلى البطاقة ' + i + ' من ' + n, slide: (i, n) => i + ' من ' + n },
   };
   const lang = () => (typeof LANG === 'string' && UI[LANG]) ? LANG : 'en';
   const tx = (o) => o[lang()] || o.en;

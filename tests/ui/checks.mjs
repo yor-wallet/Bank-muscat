@@ -7,7 +7,7 @@ const site = path.resolve(process.argv[2] || 'dist'); const outFile = process.ar
 const { srv, url } = await serve(site);
 const browser = await launch();
 const results = []; const rec = (name, pass, detail = '') => { results.push({ name, pass: !!pass, detail }); console.log((pass ? 'PASS ' : 'FAIL ') + name + (detail ? ' — ' + detail : '')); };
-const FORBIDDEN = /freindi|friendly pay|freindly|live ?x|livex|\byor\b(?![- ]?(?:tx|id)\b)|\btest(s|e|ed|ing)?\b|testnet|bankmct|bank muscat|مسقط/i;
+const FORBIDDEN = /sanad|سند|freindi|friendly pay|freindly|live ?x|livex|\byor\b(?![- ]?(?:tx|id)\b)|\btest(s|e|ed|ing)?\b|testnet|bankmct|bank muscat|مسقط/i;
 const ROUTES = ['login', 'signup', 'home', 'history', 'cards', 'services', 'profile', 'settings', 'notifications', 'receive', 'help', 'about', 'privacy', 'devices', 'country-select', 'tx-amount', 'kyc', 'credit', 'vault', 'invest', 'cinema', 'withdraw', 'intl', 'chat'];
 const failedLocal = new Set();
 for (const lang of ['en', 'fr', 'ar']) {
@@ -32,7 +32,7 @@ for (const lang of ['en', 'fr', 'ar']) {
     });
     const m = r.txt.match(FORBIDDEN); if (m) bad.push(`${id}:"${m[0]}"`);
     if (r.ox) over.push(id); if (r.small.length) small.push(id + ' → ' + r.small.slice(0, 4).join(' | '));
-    if (id === 'home') rec(`[${lang}] titre et dir/lang`, /Sanad Pay|سند باي/.test(r.title) && r.dir === (lang === 'ar' ? 'rtl' : 'ltr') && r.lang === lang, `${r.title} / ${r.dir} / ${r.lang}`);
+    if (id === 'home') rec(`[${lang}] titre et dir/lang`, /Barq|برق/.test(r.title) && r.dir === (lang === 'ar' ? 'rtl' : 'ltr') && r.lang === lang, `${r.title} / ${r.dir} / ${r.lang}`);
   }
   rec(`[${lang}] aucun mot interdit visible (ancienne marque, « test », banque tierce)`, bad.length === 0, bad.join(', '));
   rec(`[${lang}] aucun défilement horizontal`, over.length === 0, over.join(', '));
@@ -42,7 +42,7 @@ for (const lang of ['en', 'fr', 'ar']) {
 }
 rec('aucune ressource locale en échec (4xx/5xx)', failedLocal.size === 0, [...failedLocal].slice(0, 8).join(', '));
 const man = JSON.parse(fs.readFileSync(path.join(site, 'manifest.webmanifest'), 'utf8'));
-rec('manifeste : nom, couleurs, icônes', /Sanad Pay/.test(man.name) && man.theme_color === '#2596DE' && man.background_color === '#EAF8FF' && (man.icons || []).length >= 3 && (man.icons || []).some(i => /maskable/.test(i.purpose || '')), `${man.name} ${man.theme_color} ${man.background_color} icônes=${(man.icons || []).length}`);
+rec('manifeste : nom, couleurs, icônes', /Barq/.test(man.name) && man.theme_color === '#F3F6FA' && man.background_color === '#F3F6FA' && (man.icons || []).length >= 3 && (man.icons || []).some(i => /maskable/.test(i.purpose || '')), `${man.name} ${man.theme_color} ${man.background_color} icônes=${(man.icons || []).length}`);
 const html = fs.readFileSync(path.join(site, 'index.html'), 'utf8');
 rec('index.html : aucune requête vers un autre site pour les polices', !/fonts\.(googleapis|gstatic)/.test(html));
 rec('index.html : image de démarrage iOS déclarée', /apple-touch-startup-image/.test(html));

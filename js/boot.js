@@ -55,7 +55,7 @@ function boot(){
   ViewportEngine.init();
   V12.init();
   LANG = DeviceLang.get(); applyI18n();   /* first paint already in the phone's language */
-  /* Sanad Pay 21.0.0 — séquence d'ouverture « Trait & Horizon » : habillage posé sur l'application qui démarre dessous (voir OpeningArt) */
+  /* Barq 21.0.0 — séquence d'ouverture « Trait & Horizon » : habillage posé sur l'application qui démarre dessous (voir OpeningArt) */
   const splashHost = document.getElementById('splash');
   let openingDone = false; const openingWaiters = [];
   const opening = splashHost ? OpeningArt.start(splashHost, () => { openingDone = true; openingWaiters.splice(0).forEach(fn => { try { fn(); } catch(e){ /* rien */ } }); }) : null;

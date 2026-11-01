@@ -16,7 +16,7 @@ const Admin = (() => {
       recent: 'New members', search: 'Search a member (name, phone, e-mail, ID)', noRes: 'No member found', confirmed: 'Confirmed', pending: 'Not confirmed yet', noPhone: 'No phone', ago: 'just now',
       reward: 'Welcome reward', rewardD: 'Credited once to every new confirmed account (same phone number: once).', save: 'Save', off: 'Turn off', saved: 'Saved', amount: 'Amount (OMR)',
       alerts: 'Sounds and previews', playNew: 'New-member sound', playReward: 'Reward screen', playMoney: 'Money sound', openN: 'Notifications',
-      member: 'Member', id: 'Sanad Pay ID', email: 'E-mail', phone: 'Phone', country: 'Country', since: 'Member since', status: 'Status', role: 'Role', accounts: 'Accounts', activity: 'Latest activity', none: 'Nothing yet',
+      member: 'Member', id: 'Barq ID', email: 'E-mail', phone: 'Phone', country: 'Country', since: 'Member since', status: 'Status', role: 'Role', accounts: 'Accounts', activity: 'Latest activity', none: 'Nothing yet',
       deposit: 'Add money', depositD: 'Credits the member’s wallet. Recorded in the audit log.', depAmt: 'Amount', depCur: 'Currency', depNote: 'Note (optional)', depGo: 'Credit', depDone: 'Credited', depConfirm: 'Credit {a} to {n}?',
       copy: 'Copy', copied: 'Copied', call: 'Call', err: 'Could not load. Try again.', retry: 'Retry', refresh: 'Refresh', forbidden: 'Administrators only.',
     },
@@ -26,7 +26,7 @@ const Admin = (() => {
       recent: 'Nouveaux membres', search: 'Chercher un membre (nom, téléphone, e-mail, ID)', noRes: 'Aucun membre trouvé', confirmed: 'Confirmé', pending: 'Pas encore confirmé', noPhone: 'Sans téléphone', ago: 'à l’instant',
       reward: 'Récompense de bienvenue', rewardD: 'Créditée une fois à chaque nouveau compte confirmé (même numéro de téléphone : une fois).', save: 'Enregistrer', off: 'Désactiver', saved: 'Enregistré', amount: 'Montant (OMR)',
       alerts: 'Sons et aperçus', playNew: 'Son « nouveau membre »', playReward: 'Écran de récompense', playMoney: 'Son « argent reçu »', openN: 'Notifications',
-      member: 'Membre', id: 'ID Sanad Pay', email: 'E-mail', phone: 'Téléphone', country: 'Pays', since: 'Membre depuis', status: 'Statut', role: 'Rôle', accounts: 'Comptes', activity: 'Dernière activité', none: 'Rien pour l’instant',
+      member: 'Membre', id: 'ID Barq', email: 'E-mail', phone: 'Téléphone', country: 'Pays', since: 'Membre depuis', status: 'Statut', role: 'Rôle', accounts: 'Comptes', activity: 'Dernière activité', none: 'Rien pour l’instant',
       deposit: 'Ajouter de l’argent', depositD: 'Crédite le portefeuille du membre. Enregistré dans le journal d’audit.', depAmt: 'Montant', depCur: 'Devise', depNote: 'Note (facultatif)', depGo: 'Créditer', depDone: 'Crédité', depConfirm: 'Créditer {a} à {n} ?',
       copy: 'Copier', copied: 'Copié', call: 'Appeler', err: 'Chargement impossible. Réessayez.', retry: 'Réessayer', refresh: 'Actualiser', forbidden: 'Réservé aux administrateurs.',
     },
@@ -36,7 +36,7 @@ const Admin = (() => {
       recent: 'الأعضاء الجدد', search: 'ابحث عن عضو (الاسم، الهاتف، البريد، المعرّف)', noRes: 'لا يوجد عضو مطابق', confirmed: 'مؤكد', pending: 'غير مؤكد بعد', noPhone: 'بدون هاتف', ago: 'الآن',
       reward: 'مكافأة الترحيب', rewardD: 'تُضاف مرة واحدة لكل حساب جديد مؤكد (الرقم نفسه: مرة واحدة).', save: 'حفظ', off: 'إيقاف', saved: 'تم الحفظ', amount: 'المبلغ (ر.ع)',
       alerts: 'الأصوات والمعاينات', playNew: 'صوت عضو جديد', playReward: 'شاشة المكافأة', playMoney: 'صوت استلام مبلغ', openN: 'الإشعارات',
-      member: 'العضو', id: 'معرّف سند باي', email: 'البريد الإلكتروني', phone: 'الهاتف', country: 'الدولة', since: 'عضو منذ', status: 'الحالة', role: 'الدور', accounts: 'الحسابات', activity: 'آخر نشاط', none: 'لا شيء بعد',
+      member: 'العضو', id: 'معرّف برق', email: 'البريد الإلكتروني', phone: 'الهاتف', country: 'الدولة', since: 'عضو منذ', status: 'الحالة', role: 'الدور', accounts: 'الحسابات', activity: 'آخر نشاط', none: 'لا شيء بعد',
       deposit: 'إضافة مبلغ', depositD: 'يُضاف إلى محفظة العضو. يُسجَّل في سجل التدقيق.', depAmt: 'المبلغ', depCur: 'العملة', depNote: 'ملاحظة (اختياري)', depGo: 'إضافة', depDone: 'تمت الإضافة', depConfirm: 'إضافة {a} إلى {n}؟',
       copy: 'نسخ', copied: 'تم النسخ', call: 'اتصال', err: 'تعذّر التحميل. حاول مجدداً.', retry: 'إعادة المحاولة', refresh: 'تحديث', forbidden: 'للمسؤولين فقط.',
     },
@@ -182,7 +182,7 @@ const Admin = (() => {
       else if (k === 'reload'){ S.detail = null; R.go('admin-user', { force: true, replace: true }); }
       else if (k === 'p-new'){ try { InAppNotif.showCall({ title: e('playNew'), message: '+221 •••• 4567 · SN', status: 'success' }); Sfx.play('newUser'); } catch(err){ /* rien */ } }
       else if (k === 'p-reward'){ try { Reward.celebrate({ amount: Number((root.querySelector('#adm-bonus') || {}).value) || 10, currency: 'OMR' }); } catch(err){ /* rien */ } }
-      else if (k === 'p-money'){ try { Sfx.play('money'); InAppNotif.showCall({ title: t('v13.nc.TRANSFER_RECEIVED'), message: 'Sanad Pay', amount: CurrencyEngine.format(25, 'OMR'), status: 'success' }); } catch(err){ /* rien */ } }
+      else if (k === 'p-money'){ try { Sfx.play('money'); InAppNotif.showCall({ title: t('v13.nc.TRANSFER_RECEIVED'), message: 'Barq', amount: CurrencyEngine.format(25, 'OMR'), status: 'success' }); } catch(err){ /* rien */ } }
       else if (k === 'bplus' || k === 'bminus'){ const i = root.querySelector('#adm-bonus'); const v = Math.max(0, Math.min(100, (parseFloat(i.value) || 0) + (k === 'bplus' ? 1 : -1))); i.value = String(v); }
       else if (k === 'bsave' || k === 'boff'){
         const i = root.querySelector('#adm-bonus'); if (k === 'boff') i.value = '0';

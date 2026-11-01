@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SANAD PAY 21.0.0 — S2 · COQUE : application, écrans, transitions, barre du haut, barre « rail », feuilles, toasts
+   BARQ 21.0.0 — S2 · COQUE : application, écrans, transitions, barre du haut, barre « rail », feuilles, toasts
    ========================================================================== */
 
 /* ---------- coque ---------- */
@@ -49,7 +49,7 @@ html[data-sx-tab="1"] .screen.active{animation:sxTabIn 200ms var(--sx-ease) both
 html[dir="rtl"] .sx-tab::after{transform-origin:right center}
 .sx-tab[aria-current="page"]::after{transform:scaleX(1)}
 .sx-tab:active{transform:scale(.97)}
-.sx-send{flex:none;width:52px;height:52px;min-width:52px;margin-inline-start:2px;display:grid;place-items:center;border-radius:var(--sx-r-tile);background:var(--sx-primary);color:#fff;box-shadow:0 8px 18px -10px rgba(37,150,222,.7);transition:transform var(--sx-t1) var(--sx-ease),box-shadow var(--sx-t2) ease}
+.sx-send{flex:none;width:52px;height:52px;min-width:52px;margin-inline-start:2px;display:grid;place-items:center;border-radius:var(--sx-r-tile);background:var(--sx-primary);color:#fff;box-shadow:0 8px 18px -10px rgba(47,107,255,.7);transition:transform var(--sx-t1) var(--sx-ease),box-shadow var(--sx-t2) ease}
 .sx-send .nav-cta-tile{display:grid;place-items:center;width:100%;height:100%}
 .sx-send .nav-lb{display:none}
 .sx-send:active{transform:scale(.96)}
@@ -60,7 +60,7 @@ html[dir="rtl"] .sx-tab::after{transform-origin:right center}
 /* ---------- feuilles et fenêtres : monte avec un ressort amorti, fond qui s'éclaircit ---------- */
 .ov-root{position:fixed;inset:0;z-index:var(--z-sheet);pointer-events:none}
 .ov{position:fixed;inset:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:auto}
-.ov-backdrop{position:absolute;inset:0;background:rgba(16,44,76,.42);opacity:0;transition:opacity var(--sx-t2) ease;overscroll-behavior:contain;touch-action:none}
+.ov-backdrop{position:absolute;inset:0;background:rgba(11,27,58,.42);opacity:0;transition:opacity var(--sx-t2) ease;overscroll-behavior:contain;touch-action:none}
 .ov-panel{position:relative;width:100%;max-width:560px;max-height:calc(100dvh - var(--safe-t) - 12px);overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:var(--sheet);border-radius:var(--sx-r-sheet) var(--sx-r-sheet) 0 0;padding:var(--sp-5) var(--sp-5) calc(var(--sp-5) + var(--safe-b));box-shadow:var(--shadow-sheet);transform:translate3d(0,100%,0);transition:transform var(--sx-t3) var(--sx-spring)}
 .ov:not(.is-modal) .ov-panel::before{content:"";display:block;width:36px;height:4px;border-radius:2px;background:var(--line-2);margin:-8px auto 14px}
 .ov.is-open .ov-backdrop{opacity:1}

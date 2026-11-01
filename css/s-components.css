@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SANAD PAY 21.0.0 — S3 · COMPOSANTS
+   BARQ 21.0.0 — S3 · COMPOSANTS
    Boutons (états : normal / pressé / focus / désactivé / chargement), champs remplis, pastilles, segments, tuiles carrées arrondies,
    lignes séparées par la ligne d'horizon, groupes, interrupteurs, états vides.
    Aucun halo coloré, aucune texture : aplats + une ombre bleutée très basse.
@@ -9,8 +9,8 @@
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:calc(8px*var(--ui));width:100%;min-height:max(52px,calc(52px*var(--ui)));padding:0 var(--sp-5);border-radius:var(--sx-r-btn);font-size:calc(15.5px*var(--ui));font-weight:650;letter-spacing:-.01em;user-select:none;-webkit-user-select:none;touch-action:manipulation;overflow:hidden;transition:transform var(--sx-t1) var(--sx-ease),background-color var(--sx-t2) ease,color var(--sx-t2) ease,box-shadow var(--sx-t2) ease,opacity var(--sx-t2) ease}
 .btn svg{width:calc(19px*var(--ui));height:calc(19px*var(--ui));flex:none}
 .btn:active:not(:disabled){transform:scale(.98)}
-.btn-primary{background:var(--sx-primary);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 8px 16px -12px rgba(19,79,145,.7)}
-.btn-primary:active:not(:disabled){background:#1E86CF}
+.btn-primary{background:var(--sx-primary);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.28) inset,0 8px 16px -12px rgba(27,68,187,.7)}
+.btn-primary:active:not(:disabled){background:#2559E0}
 :root[data-theme="dark"] .btn-primary{background:var(--sx-primary);color:#fff}
 .btn-secondary{background:var(--accent-soft);color:var(--sx-deep)}
 :root[data-theme="dark"] .btn-secondary{color:var(--accent)}
@@ -32,7 +32,7 @@
 .field-box input,.field-box select,.field-box textarea{flex:1;min-width:0;align-self:stretch;font-size:max(16px,calc(16px*var(--ui)));font-weight:500;color:var(--text);min-height:44px}
 .field-box input::placeholder,.field-box textarea::placeholder{color:var(--text-3);font-weight:400}
 .field-box select{cursor:pointer}
-.field-box:focus-within{background:var(--sheet);box-shadow:inset 0 0 0 1.5px var(--sx-primary),0 0 0 4px rgba(37,150,222,.12)}
+.field-box:focus-within{background:var(--sheet);box-shadow:inset 0 0 0 1.5px var(--sx-primary),0 0 0 4px rgba(47,107,255,.12)}
 .field-box.has-err,.field-box:has(.has-err){background:var(--danger-bg);box-shadow:inset 0 0 0 1.5px var(--danger)}
 .field-icon{display:inline-grid;place-items:center;color:var(--text-3);flex:none;min-width:44px;min-height:44px;margin-inline-end:calc(-8px*var(--ui))}
 .field-err{min-height:calc(16px*var(--ui));font-size:calc(12.5px*var(--ui));font-weight:550;color:var(--danger)}
@@ -90,7 +90,7 @@ textarea{resize:none}
 .settings-row.danger .tile,.settings-row.is-danger .tile{background:var(--danger-bg);color:var(--danger)}
 /* interrupteur */
 .switch,.rv-sw{position:relative;flex:none;width:calc(50px*var(--ui));height:calc(30px*var(--ui));border-radius:999px;background:var(--fill-2);transition:background-color var(--sx-t2) ease}
-.switch::after,.rv-sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:calc(24px*var(--ui));height:calc(24px*var(--ui));border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(16,44,76,.3);transition:transform var(--sx-t2) var(--sx-spring)}
+.switch::after,.rv-sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:calc(24px*var(--ui));height:calc(24px*var(--ui));border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(11,27,58,.3);transition:transform var(--sx-t2) var(--sx-spring)}
 [aria-checked="true"]>.switch,[aria-checked="true"] .rv-sw,.switch[aria-checked="true"]{background:var(--sx-primary)}
 [aria-checked="true"]>.switch::after,[aria-checked="true"] .rv-sw::after,.switch[aria-checked="true"]::after{transform:translateX(calc(20px*var(--ui)))}
 html[dir="rtl"] [aria-checked="true"]>.switch::after,html[dir="rtl"] [aria-checked="true"] .rv-sw::after,html[dir="rtl"] .switch[aria-checked="true"]::after{transform:translateX(calc(-20px*var(--ui)))}

@@ -41,9 +41,9 @@ Object.assign(TR.ar, {
 });
 
 /* 12.5.0 : "make another transfer" (12.6.0: the receipt no longer carries any balance) */
-Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Sanad Pay transaction receipt — not a bank-issued document.' });
-Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Sanad Pay — ce n\'est pas un document émis par une banque.' });
-Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من سند باي — وليس مستنداً صادراً عن بنك.' });
+Object.assign(TR.en, { 'receipt.another':'Make another transfer', 'rc.docTitle':'Transaction confirmation', 'rc.pdf':'PDF', 'rc.png':'PNG image', 'rc.copyRef':'Copy ref.', 'rc.pdfL':'Download the receipt as PDF', 'rc.pngL':'Save the receipt as an image (PNG)', 'rc.docType':'TRANSACTION RECEIPT', 'rc.note':'Barq transaction receipt — not a bank-issued document.' });
+Object.assign(TR.fr, { 'receipt.another':'Faire un autre transfert', 'rc.docTitle':'Confirmation de transaction', 'rc.pdf':'PDF', 'rc.png':'Image PNG', 'rc.copyRef':'Copier la réf.', 'rc.pdfL':'Télécharger le reçu en PDF', 'rc.pngL':'Enregistrer le reçu en image (PNG)', 'rc.docType':'REÇU DE TRANSACTION', 'rc.note':'Reçu de transaction Barq — ce n\'est pas un document émis par une banque.' });
+Object.assign(TR.ar, { 'receipt.another':'إجراء تحويل آخر', 'rc.docTitle':'تأكيد المعاملة', 'rc.pdf':'PDF', 'rc.png':'صورة PNG', 'rc.copyRef':'نسخ المرجع', 'rc.pdfL':'تنزيل الإيصال بصيغة PDF', 'rc.pngL':'حفظ الإيصال كصورة PNG', 'rc.docType':'إيصال معاملة', 'rc.note':'إيصال معاملة من برق — وليس مستنداً صادراً عن بنك.' });
 
 /* 12.3.4 : the receipt shows the SENDER'S number ("From"), the same number the recipient sees in the SMS. */
 Object.assign(TR.en, { 'receipt.from':'From', 'receipt.owner':'Account holder' });
@@ -152,7 +152,7 @@ const RC_BADGE_PATH = {
   pending: '<path class="rc-k" d="M32 18v15l9 6" pathLength="100"/>',
   failed:  '<path class="rc-k" d="M21 21l22 22M43 21L21 43" pathLength="100"/>'
 };
-/* Sanad Pay 21.0.0 — glyphe de statut : le carré arrondi du logo ; la coche (réussi) se TRACE, l'horloge (en cours) bat, la croix (échoué) se dessine */
+/* Barq 21.0.0 — glyphe de statut : le carré arrondi du logo ; la coche (réussi) se TRACE, l'horloge (en cours) bat, la croix (échoué) se dessine */
 function rcBadge(state){
   return '<div class="rc-badge sx-glyph st-' + state + '" role="img" aria-label="' + escapeHtml(t('tx.st.' + state)) + '">' +
     '<svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect class="rc-c" x="3" y="3" width="58" height="58" rx="29"/>' + RC_BADGE_PATH[state] + '</svg></div>';
@@ -254,7 +254,7 @@ function renderReceipt(){
     '</div>';
 
   return '<div class="receipt-view rc sx-rc rc-' + state + '">' +
-    '<div class="receipt-head sx-rc-bar">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Sanad Pay</small></div>' +
+    '<div class="receipt-head sx-rc-bar">' + logoMark(30) + '<div class="rc-doc"><b>' + escapeHtml(t('rc.docTitle')) + '</b><small>Barq</small></div>' +
       '<button class="topbar-action" data-action="done" aria-label="' + escapeHtml(t('receipt.back_home')) + '">' + icon('close', 20) + '</button>' +
     '</div>' +
     '<section class="receipt-hero sx-rc-hero">' + rcBadge(state) +

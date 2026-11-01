@@ -1,14 +1,14 @@
 /* ============================================================
-   SANAD PAY — ASSISTANTE AMAL (21.2.0)
+   BARQ — ASSISTANTE AMAL (21.2.0)
    Un seul PNG : le personnage ne « parle » pas. Ses états viennent de ce qui se passe réellement (data-state sur .yas-wrap) :
    welcome (arrivée) · idle (attente) · is-listening (le champ de saisie a le focus) · think (une VRAIE requête est en cours) ·
    answer (une réponse vient d'arriver) · away (l'assistance IA est indisponible) · handoff (la conversation passe à une personne).
    Aucune bouche synchronisée, aucun indicateur de rédaction sans demande en cours.
    ============================================================ */
 .yas-hero .sanad-amal{outline:3px solid transparent;outline-offset:5px;transition:outline-color var(--mo-release) var(--mo-out),filter var(--mo-panel) var(--mo-out)}
-.yas-wrap.is-listening .yas-hero .sanad-amal{outline-color:rgba(126,216,246,.85)}
+.yas-wrap.is-listening .yas-hero .sanad-amal{outline-color:rgba(56,212,255,.85)}
 .yas-wrap[data-state="think"] .yas-hero .sanad-amal{animation:amalRing 1.3s ease-in-out infinite}
-@keyframes amalRing{0%,100%{outline-color:rgba(37,150,222,.25);outline-offset:4px}50%{outline-color:rgba(37,150,222,.85);outline-offset:9px}}
+@keyframes amalRing{0%,100%{outline-color:rgba(47,107,255,.25);outline-offset:4px}50%{outline-color:rgba(47,107,255,.85);outline-offset:9px}}
 .yas-wrap[data-state="welcome"] .yas-hero .sanad-amal{animation:moPop 620ms var(--mo-spring) backwards}
 .yas-wrap[data-state="answer"] .yas-hero .sanad-amal{animation:amalNod 560ms var(--mo-ease) 1}
 @keyframes amalNod{0%,100%{rotate:0deg}35%{rotate:-4deg}70%{rotate:2deg}}
@@ -17,6 +17,6 @@
 /* bulle de réponse : arrive avec la cascade commune ; états « indisponible » et « personne » marqués sans texte ajouté */
 .yas-m.bot .yas-b{animation:moRise 320ms var(--mo-out) backwards}
 .yas-wrap[data-state="away"] .yas-m.bot:last-of-type .yas-b{box-shadow:0 0 0 1.5px rgba(244,164,59,.55) inset}
-.yas-wrap[data-state="handoff"] .yas-m.bot:last-of-type .yas-b{box-shadow:0 0 0 1.5px rgba(37,150,222,.45) inset}
+.yas-wrap[data-state="handoff"] .yas-m.bot:last-of-type .yas-b{box-shadow:0 0 0 1.5px rgba(47,107,255,.45) inset}
 .yas-typing .yas-b i{animation-duration:1s}
 @media (prefers-reduced-motion:reduce){.yas-wrap .sanad-amal,.yas-m.bot .yas-b{animation:none!important}}

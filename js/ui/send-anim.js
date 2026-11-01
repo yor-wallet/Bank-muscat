@@ -1,7 +1,7 @@
 'use strict';
 
 /* ============================================================
-   SEND ANIMATION — scène « Anneau » (Sanad Pay 21.3.0 ; « Courbe » en 21.2.0, « Horizon » en 21.0.0), affichée pendant un transfert.
+   SEND ANIMATION — scène « Anneau » (Barq 21.3.0 ; « Courbe » en 21.2.0, « Horizon » en 21.0.0), affichée pendant un transfert.
    Remplace la scène « deux téléphones + pièce » de Freindi Pay. Même interface : svg(), setPhase(p) -> Promise, stop().
    Chaque état est le VRAI état (ProcessingEngine.run) — rien ici n'est décoratif ni chronométré à part :
    - « secure »    : le transfert est protégé (cadenas sur le logo, la courbe se trace une fois) ;
@@ -15,7 +15,7 @@
 const SendAnim = (() => {
   const reduced = () => { try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch(e){ return false; } };
   const KEYS = { secure:'sx.secure', send:'sx.send', success:'sx.success', fail:'sx.fail', uncertain:'sx.uncertain' };
-  /* Scène « Courbe » (Sanad Pay 21.2.0) : le logo officiel, et la courbe du « S » tracée entre l'envoi et la réception.
+  /* Scène « Courbe » (Barq 21.2.0) : le logo officiel, et la courbe du « S » tracée entre l'envoi et la réception.
      Une lumière parcourt la courbe TANT QUE le serveur n'a pas répondu (mouvement indéterminé : aucun pourcentage, aucune étape inventée) ;
      le badge sur le logo ne devient « coche » qu'après la réponse confirmée. */
   function svg(){
@@ -30,8 +30,8 @@ const SendAnim = (() => {
         '<path class="sa-lit" d="' + ring + '" pathLength="100"/>' +
         '<g class="sa-spin"><path class="sa-light" d="' + ring + '" pathLength="100"/></g>' +
       '</g>' +
-      '<g class="sa-plate"><rect x="110" y="50" width="100" height="100" rx="24" fill="#fff"/><rect x="110" y="50" width="100" height="100" rx="24" fill="none" stroke="rgba(16,44,76,.1)"/>' +
-        '<image href="assets/brand/sanad-s-192.png" x="110" y="50" width="100" height="100" clip-path="url(#sa-clip)" preserveAspectRatio="xMidYMid slice"/></g>' +
+      '<g class="sa-plate"><rect x="110" y="50" width="100" height="100" rx="24" fill="#fff"/><rect x="110" y="50" width="100" height="100" rx="24" fill="none" stroke="rgba(11,27,58,.1)"/>' +
+        '<image href="assets/brand/barq-mark-192.png" x="110" y="50" width="100" height="100" clip-path="url(#sa-clip)" preserveAspectRatio="xMidYMid slice"/></g>' +
       '<g class="sa-badge"><circle class="sa-b-bg" cx="204" cy="144" r="17"/>' +
         '<g class="sa-b-lock"><rect x="197" y="144" width="14" height="11" rx="3"/><path d="M200 144v-3a4 4 0 0 1 8 0v3"/></g>' +
         '<path class="sa-b-ck" d="M196 144l5.5 5.5L212 138" pathLength="100"/>' +

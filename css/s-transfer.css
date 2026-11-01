@@ -1,5 +1,5 @@
 /* ============================================================
-   SANAD PAY — TRANSFERT (21.3.0) · scène « Anneau » : le logo officiel au centre, un anneau qui avance par ÉTAPES RÉELLES.
+   BARQ — TRANSFERT (21.3.0) · scène « Anneau » : le logo officiel au centre, un anneau qui avance par ÉTAPES RÉELLES.
    Piloté UNIQUEMENT par data-phase (SendAnim.setPhase ← ProcessingEngine.run) et data-wait (posé quand la réponse tarde).
    1/4 préparation · 2/4 traitement · 3/4 finalisation (réponse qui tarde) · 4/4 confirmation (SEULEMENT après la réponse confirmée).
    Aucun pourcentage de durée, aucune durée propre : si rien ne change, l'anneau ne bouge pas (seule une lumière tourne pour dire « en cours »).
@@ -10,7 +10,7 @@
 .sa-lit{stroke:var(--sa-ink);stroke-width:7}
 .sa-lit-soft{stroke:var(--sa-ink);stroke-width:15;stroke-opacity:.14}
 .sa-spin{transform-origin:160px 100px;opacity:0}
-.sa-light{fill:none;stroke:#7ED8F6;stroke-width:7;stroke-linecap:round;stroke-dasharray:5 100;transform:rotate(-90deg);transform-origin:160px 100px}
+.sa-light{fill:none;stroke:#38D4FF;stroke-width:7;stroke-linecap:round;stroke-dasharray:5 100;transform:rotate(-90deg);transform-origin:160px 100px}
 html[dir="rtl"] .sa-ring{transform:scaleX(-1);transform-origin:160px 100px}
 .sa-plate{transform-origin:160px 100px}
 .sa-b-bg{fill:var(--sa-ink);stroke:var(--bg);stroke-width:3;transition:fill 300ms ease}

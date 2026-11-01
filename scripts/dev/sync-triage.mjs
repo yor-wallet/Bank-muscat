@@ -1,4 +1,4 @@
-/* Sanad Pay — génère js/features/amal-triage.js (script classique du navigateur) à partir de la source unique
+/* Barq — génère js/features/amal-triage.js (script classique du navigateur) à partir de la source unique
    supabase/functions/sanad-agents/core.mjs : le TRI (urgence, donnée sensible, textes fixes, contrôle de sortie) est donc identique
    côté application et côté serveur. Usage : node scripts/dev/sync-triage.mjs [--check]  (--check échoue si le fichier est périmé) */
 import fs from 'node:fs';

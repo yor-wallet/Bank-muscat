@@ -161,7 +161,7 @@ const PinEngine = (() => {
     if (busy) return { ok:false, cancelled:true };
     busy = true;
     try {
-      /* Sanad Pay 21.0.0 — UNE seule confirmation, jamais les deux : Face ID OU le code.
+      /* Barq 21.0.0 — UNE seule confirmation, jamais les deux : Face ID OU le code.
          - Face ID activé ET le code rangé dans le coffre de cet appareil : Face ID suffit (le serveur vérifie le code lui-même via verify_pin) ;
          - Face ID activé mais coffre vide (première fois sur cet appareil, code changé…) : on demande le CODE SEUL, puis on le range pour que
            la prochaine confirmation soit Face ID seul — jamais « Face ID puis code » dans la même confirmation ;

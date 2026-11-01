@@ -1,4 +1,4 @@
-# PROJECT_RULES — Transformation Sanad Pay 2026
+# PROJECT_RULES — Transformation Barq 2026
 
 Document de règles, créé AVANT toute modification du code (état de départ : Freindi Pay 20.3.0, commit `6d181ad`).
 Il est tenu à jour à chaque étape ; l'historique détaillé est dans `CHANGELOG_SANAD_PAY.md`.
@@ -30,10 +30,10 @@ Le renommage de l'application ne déclenche **aucune migration de base de donné
 Uniquement : (a) correction de défaut reproductible, (b) amélioration non régressive, (c) fonction nouvelle n'altérant pas l'existant. Toute exception est inscrite dans `BEFORE_AFTER_FEATURE_MATRIX.md` (colonne « Écart ») et dans le changelog.
 
 ## 3. Règles de marque
-- Nom : **Sanad Pay** ; arabe : **سند باي**. Palette et jetons : `brand/design-tokens.css` du pack, repris dans `css/s-tokens.css`.
+- Nom : **Barq** ; arabe : **سند باي**. Palette et jetons : `brand/design-tokens.css` du pack, repris dans `css/s-tokens.css`.
 - Pas de remplacement global aveugle. Chaque occurrence est classée : *texte visible de marque* (remplacé), *identifiant technique* (conservé), *banque / bénéficiaire / donnée d'opération externe* (conservé — ex. « Bank Muscat » dans la liste des banques `reference-data.js`), *commentaire de code* (conservé ou neutralisé sans risque).
 - Le vert disparaît **de l'identité visuelle** ; le vert sémantique de succès (`#14A879`) reste réservé au succès. Rouge / ambre : erreur / avertissement uniquement.
-- Aucun symbole bancaire tiers, aucune marque, signature, reçu ou expéditeur de banque réelle. Un reçu Sanad Pay n'est pas un document bancaire (mention déjà présente, conservée). Aucun expéditeur « Bank Muscat » n'est jamais inventé.
+- Aucun symbole bancaire tiers, aucune marque, signature, reçu ou expéditeur de banque réelle. Un reçu Barq n'est pas un document bancaire (mention déjà présente, conservée). Aucun expéditeur « Bank Muscat » n'est jamais inventé.
 - L'identité du pack est « originale » et ne prétend à aucune licence réglementaire (README du pack) : aucun texte ne la prétend.
 
 ## 4. Règles d'intégrité financière / transactionnelle

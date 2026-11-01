@@ -1,27 +1,27 @@
 /* ============================================================
-   SANAD PAY — FILM DES SERVICES (21.2.0) : la bannière de l'accueil et son plein écran
+   BARQ — FILM DES SERVICES (21.2.0) : la bannière de l'accueil et son plein écran
    Mêmes scènes, mêmes textes, mêmes appels à l'action ; fond en bleus de marque (plus d'or, de braise ni d'émeraude), rubans de lumière,
    mots qui arrivent par transform/opacité (plus de flou animé), décor continu réduit et suspendu hors écran.
    ============================================================ */
-.cin{background:#0F2F57;--gold:#7ED8F6;--gold-2:#7ED8F6;--on:#102C4C}
+.cin{background:#0F2F57;--gold:#38D4FF;--gold-2:#38D4FF;--on:#0B1B3A}
 .cin-scene{background:radial-gradient(120% 80% at 85% 0%,var(--c1),transparent 60%),radial-gradient(100% 70% at 0% 100%,var(--c2),transparent 62%),linear-gradient(160deg,var(--base),#0A1D3A 85%)}
-.t-gold,.t-ember,.t-teal,.t-indigo,.t-sky,.t-emerald{--c1:rgba(126,216,246,.38);--c2:rgba(37,150,222,.34);--base:#134F91}
-.t-ember{--base:#12467F}.t-teal{--base:#0F3B6B}.t-indigo{--base:#15508F}.t-emerald{--base:#102C4C}
-.cin-compact{border:1px solid rgba(255,255,255,.2);box-shadow:0 26px 44px -26px rgba(19,79,145,.8),0 1px 0 rgba(255,255,255,.3) inset}
+.t-gold,.t-ember,.t-teal,.t-indigo,.t-sky,.t-emerald{--c1:rgba(56,212,255,.38);--c2:rgba(47,107,255,.34);--base:#1B44BB}
+.t-ember{--base:#12467F}.t-teal{--base:#0F3B6B}.t-indigo{--base:#15508F}.t-emerald{--base:#0B1B3A}
+.cin-compact{border:1px solid rgba(255,255,255,.2);box-shadow:0 26px 44px -26px rgba(27,68,187,.8),0 1px 0 rgba(255,255,255,.3) inset}
 /* ruban de lumière, comme sur la carte de solde */
 .cin-scene::after{content:"";position:absolute;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 340 200' preserveAspectRatio='xMidYMax slice'%3E%3Cpath d='M-10 168C74 176 128 60 206 82c66 18 96 82 152 48' fill='none' stroke='%23fff' stroke-opacity='.1' stroke-width='14' stroke-linecap='round'/%3E%3Cpath d='M-10 168C74 176 128 60 206 82c66 18 96 82 152 48' fill='none' stroke='%237ED8F6' stroke-opacity='.45' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center bottom/cover no-repeat}
 html[dir="rtl"] .cin-scene::after{transform:scaleX(-1)}
 .cin-beams,.cin-p{display:none}
 .cin-rings{opacity:.5}
-.cin-kicker{color:#7ED8F6}
+.cin-kicker{color:#38D4FF}
 .cin-title .w{filter:none;transform:translate3d(0,.45em,0)}
 @keyframes cinWord{to{opacity:1;transform:none}}
-.cin-title .hl{background:linear-gradient(180deg,#fff,#7ED8F6);-webkit-background-clip:text;background-clip:text}
-.cin-num b{background:linear-gradient(180deg,#fff,#7ED8F6);-webkit-background-clip:text;background-clip:text}
+.cin-title .hl{background:linear-gradient(180deg,#fff,#38D4FF);-webkit-background-clip:text;background-clip:text}
+.cin-num b{background:linear-gradient(180deg,#fff,#38D4FF);-webkit-background-clip:text;background-clip:text}
 .cin-cta{background:#fff;color:var(--sx-deep);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 16px 28px -14px rgba(0,0,0,.45);animation:none}
-.cin-cta-ic{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#7ED8F6,#2596DE);color:#fff}
+.cin-cta-ic{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#38D4FF,#2F6BFF);color:#fff}
 .cin-cta2{border-color:rgba(255,255,255,.4);color:#fff}
-.cin-bar-s i{background:#7ED8F6}
+.cin-bar-s i{background:#38D4FF}
 .cin-btn{background:rgba(255,255,255,.14);-webkit-backdrop-filter:none;backdrop-filter:none}
 .cin-yas .cin-say{background:#fff;color:var(--sx-ink)}
 /* hors écran / en pause : le décor s'arrête */
@@ -29,5 +29,5 @@ html[dir="rtl"] .cin-scene::after{transform:scaleX(-1)}
 @media (prefers-reduced-motion:reduce){.cin-glow,.cin-rings,.cin-title .w,.cin-kicker,.cin-sub,.cin-num,.cin-chips,.cin-acts{animation:none!important;opacity:1;transform:none}}
 html[data-fx="lite"] .cin-glow,html[data-fx="lite"] .cin-rings{animation:none}
 /* Amal dans la grille des services : son visage à la place de l'icône générique */
-.v18-q>i.is-amal{padding:0;overflow:hidden;background:radial-gradient(circle at 50% 30%,#EAF8FF,#BFE3FA)}
+.v18-q>i.is-amal{padding:0;overflow:hidden;background:radial-gradient(circle at 50% 30%,#EAF1FF,#BFE3FA)}
 .v18-q>i.is-amal img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}

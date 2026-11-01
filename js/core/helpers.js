@@ -71,7 +71,7 @@ function sparklineSvg(symbol, w, h){
 
 function receiptToText(r){
   const lines = [];
-  lines.push('Sanad Pay — Receipt');
+  lines.push('Barq — Receipt');
   lines.push('─────────────────────');
   lines.push('Reference: ' + (r.reference || r.transactionId || r.id));
   lines.push('Date: ' + fmtDate(r.createdAt) + ' ' + fmtTime(r.createdAt));
@@ -91,7 +91,7 @@ function receiptToText(r){
   if (r.vat) lines.push('VAT: ' + CurrencyEngine.format(r.vat, r.currency || 'OMR'));
   lines.push('Total debited: ' + fmtA(r.total, r.asset));
   lines.push('─────────────────────');
-  lines.push('Sanad Pay');
+  lines.push('Barq');
   return lines.join('\n');
 }
 
@@ -225,9 +225,9 @@ async function copyText(text, okMsg){
 
 
 /* ============================================================
-   Sanad Pay ID display (12.9.0)
+   Barq ID display (12.9.0)
    The database keeps its identifiers as YOR-XXXXXX (profiles_yor_id_check) and YOR-TX-… (new_tx_reference): they are NOT
-   changed. Users see SP-… everywhere (FP-… before 21.0.0, LXD-… before 20.0.0), and may type any of those prefixes, FRD-, FRIENDLY- or YOR- when searching for someone.
+   changed. Users see BQ-… everywhere (SP-… in 21.x, FP-… before 21.0.0, LXD-… before 20.0.0), and may type any of those prefixes, FRD-, FRIENDLY- or YOR- when searching for someone.
    ============================================================ */
-function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'SP-'); }
-function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(SP|SANAD PAY|SANAD|FP|FREINDI PAY|LXD|LIVEX|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }
+function dispId(v){ return String(v == null ? '' : v).replace(/^YOR-/i, 'BQ-'); }
+function normId(v){ return String(v || '').trim().toUpperCase().replace(/^(BQ|BARQ|SP|SANAD PAY|SANAD|FP|FREINDI PAY|LXD|LIVEX|FRD|FRIENDLY|YOR)[\s-]*/, 'YOR-'); }

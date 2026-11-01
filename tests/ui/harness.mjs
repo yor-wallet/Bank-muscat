@@ -1,4 +1,4 @@
-/* Banc de test Sanad Pay (local uniquement).
+/* Banc de test Barq (local uniquement).
    - sert un dossier statique (dist/ par défaut) sur un port local ;
    - intercepte TOUT trafic vers Supabase et répond avec des données de test FICTIVES (jamais de réseau réel, jamais de production) ;
    - toute écriture (POST/PATCH/PUT/DELETE hors lecture de session) est refusée et comptée : un test de transfert ne peut pas déplacer de l'argent.
