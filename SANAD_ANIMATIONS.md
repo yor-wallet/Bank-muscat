@@ -1,7 +1,7 @@
 # SANAD_ANIMATIONS — système visuel et animations de Sanad Pay 21.3.0
 
 Ce document décrit **ce qui existe dans le code**, où le trouver, ce qui le déclenche et comment c'est vérifié.
-Il ne promet rien qui n'ait été exécuté : l'état de chaque point est donné dans `STATUT_SANAD_PAY.md` (programmé / testé / connecté / déployé).
+Il ne promet rien qui n'ait été exécuté : l'état de chaque point est donné dans `STATUT_BARQ.md` (programmé / testé / connecté / déployé).
 
 Règle qui prime sur tout le reste : **le mouvement suit l'état réel, il ne le fabrique pas.** Aucune animation ne change une durée métier, ne retarde une action, ne simule un chargement, un pourcentage, un solde, une confirmation, une écoute ou un transfert à un agent humain.
 
@@ -77,7 +77,7 @@ Les bornes sont vérifiées par `tests/ui/motion.mjs` (lecture des valeurs calcu
 - Écouteurs : passifs, et nettoyés quand l'écran est quitté (inclinaison : fonction de nettoyage retournée).
 
 ## 5. Mesures (banc Chromium, serveur simulé)
-Voir `STATUT_SANAD_PAY.md` §Mesures et `tests/perf/motion.json`. Le banc mesure les intervalles entre images (`requestAnimationFrame`) pendant l'ouverture, 8 changements d'écran et 6 ouvertures / fermetures de panneau. **Ce sont des mesures du banc (Chromium sans carte graphique, processeur ralenti ×4 pour le profil mobile), pas des mesures d'appareils réels.** Aucune affirmation de fluidité sur iPhone ou Android n'est faite.
+Voir `STATUT_BARQ.md` §Mesures et `tests/perf/motion.json`. Le banc mesure les intervalles entre images (`requestAnimationFrame`) pendant l'ouverture, 8 changements d'écran et 6 ouvertures / fermetures de panneau. **Ce sont des mesures du banc (Chromium sans carte graphique, processeur ralenti ×4 pour le profil mobile), pas des mesures d'appareils réels.** Aucune affirmation de fluidité sur iPhone ou Android n'est faite.
 
 ## 6. Écarts assumés par rapport à 20.3.0 (voir aussi `CHANGELOG_SANAD_PAY.md`)
 - `friendly_pin_vault_v1` : la clé est toujours utilisée par le code de verrouillage ; seule la lecture faite par le nettoyage automatique a été retirée (ce coffre est un secret, pas un cache).

@@ -1,3 +1,39 @@
+# STATUT — Barq 22.0.0 (01/11/2026)
+
+> Les blocs plus bas décrivent les versions précédentes (Sanad Pay 21.2 et 21.3) ; celui-ci les met à jour pour **Barq 22.0.0**.
+
+## Résultats exécutés sur le build 22.0.0
+| Contrôle | Résultat |
+|---|---|
+| `npm run build` | OK — cache `fp-shell-v22.0.0-…` |
+| `npm run test:agents` | 24/24 |
+| Interface EN/FR/AR (`checks`, mot « Sanad / سند » désormais interdit à l'écran) | 19/19 |
+| SanadEngine · Face ID ou code | 7/7 · 8/8 |
+| Mouvement | 28/28 |
+| Amal · agents · nettoyage · site | 16/16 · 8/8 · 4/4 · 10/10 |
+| `@keyframes` sans définition | 0 (172) |
+| Non-régression métier vs 20.3.0 | **0 échec** |
+| Balayage des 83 écrans à 320, 375 et 430 px (430 en arabe) | aucun débordement horizontal, aucune erreur |
+| Android `assembleDebug` | BUILD SUCCESSFUL — APK `deliverables/barq-22.0.0-debug.apk`, **non lancé** |
+
+## État
+| Domaine | Programmé | Testé | Déployé |
+|---|---|---|---|
+| Nom Barq / برق, logo éclair, palette, préfixe `BQ-` | oui | oui (captures, contrôles) | voir « Publication » |
+| iPhone : PWA durcie, écrans de lancement, projet Xcode | oui | émulation Chromium seulement | PWA : avec le site ; **IPA : non produit (pas de Mac)** |
+| Android | oui | compilé, non lancé | non |
+| Figma | planche des jetons (version précédente) | — | — |
+
+## À savoir / non fait
+1. **Aucun test sur un vrai iPhone ni Safari.** Le projet Xcode est préparé (`docs/IOS.md`) mais non compilé.
+2. E-mails et notifications **déjà déployés** côté Supabase : ancien nom tant que `send-email` et `push-send` ne sont pas redéployés ; nom d'expéditeur des SMS : réglage chez le fournisseur.
+3. Adresse web, nom du projet Vercel / du dépôt : inchangés.
+4. La migration `sanad_agent_log` n'est toujours pas appliquée, `sanad-agents` toujours pas déployée.
+5. Groupe « Croissance » du menu Services toujours masqué (erreur d'index du code d'origine) : décision du propriétaire en attente.
+6. Identifiants d'application `com.barq.app` (Android et iOS) provisoires.
+
+---
+
 # STATUT — Sanad Pay 21.3.0 (mise à jour du 31/10/2026)
 
 > Les sections numérotées plus bas décrivent 21.2.0 ; ce bloc les met à jour pour 21.3.0 (« une banque, pas un jeu »).
